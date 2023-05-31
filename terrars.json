@@ -1,0 +1,6 @@
+{
+    "provider": "cloudflare/cloudflare",
+    "version": "4.7.1",
+    "dest": "src/cloudflare",
+	"feature_gate": "Cargo.toml"
+}
