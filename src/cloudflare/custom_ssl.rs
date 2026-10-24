@@ -1,50 +1,54 @@
 use serde::Serialize;
-use std::cell::RefCell;
-use std::rc::Rc;
-use terrars::*;
+use terrars::{
+    Referable as _,
+    Resource_ as _,
+    Ref as _,
+};
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
 struct CustomSslData {
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    depends_on: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    provider: Option<String>,
-    #[serde(skip_serializing_if = "SerdeSkipDefault::is_default")]
-    lifecycle: ResourceLifecycle,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    for_each: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    id: Option<PrimField<String>>,
-    zone_id: PrimField<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    custom_ssl_options: Option<Vec<CustomSslCustomSslOptionsEl>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    custom_ssl_priority: Option<Vec<CustomSslCustomSslPriorityEl>>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    depends_on: std::vec::Vec<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    provider: std::option::Option<std::string::String>,
+    #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
+    lifecycle: terrars::ResourceLifecycle,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    for_each: std::option::Option<std::string::String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    provisioner: std::vec::Vec<terrars::Provisioner>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    zone_id: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_ssl_options: std::option::Option<std::vec::Vec<CustomSslCustomSslOptionsEl>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_ssl_priority: std::option::Option<std::vec::Vec<CustomSslCustomSslPriorityEl>>,
     dynamic: CustomSslDynamic,
 }
 
 struct CustomSsl_ {
-    shared: StackShared,
-    tf_id: String,
-    data: RefCell<CustomSslData>,
+    shared: terrars::StackShared,
+    tf_id: std::string::String,
+    data: std::cell::RefCell<CustomSslData>,
 }
 
 #[derive(Clone)]
-pub struct CustomSsl(Rc<CustomSsl_>);
+pub struct CustomSsl(std::rc::Rc<CustomSsl_>);
 
 impl CustomSsl {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.0.shared
     }
 
-    pub fn depends_on(self, dep: &impl Referable) -> Self {
+    pub fn depends_on(self, dep: &impl terrars::Referable) -> Self {
         self.0.data.borrow_mut().depends_on.push(dep.extract_ref());
         self
     }
 
     pub fn set_provider(self, provider: &ProviderCloudflare) -> Self {
-        self.0.data.borrow_mut().provider = Some(provider.provider_ref());
+        self.0.data.borrow_mut().provider = std::option::Option::Some(provider.provider_ref());
         self
     }
 
@@ -59,157 +63,197 @@ impl CustomSsl {
     }
 
     pub fn ignore_changes_to_all(self) -> Self {
-        self.0.data.borrow_mut().lifecycle.ignore_changes = Some(IgnoreChanges::All(IgnoreChangesAll::All));
+        self.0.data.borrow_mut().lifecycle.ignore_changes =
+            std::option::Option::Some(terrars::IgnoreChanges::All(terrars::IgnoreChangesAll::All));
         self
     }
 
-    pub fn ignore_changes_to_attr(self, attr: impl ToString) -> Self {
+    pub fn ignore_changes_to_attr(self, attr: impl std::string::ToString) -> Self {
         {
             let mut d = self.0.data.borrow_mut();
             if match &mut d.lifecycle.ignore_changes {
-                Some(i) => match i {
-                    IgnoreChanges::All(_) => {
+                std::option::Option::Some(i) => match i {
+                    terrars::IgnoreChanges::All(_) => {
                         true
                     },
-                    IgnoreChanges::Refs(r) => {
+                    terrars::IgnoreChanges::Refs(r) => {
                         r.push(attr.to_string());
                         false
                     },
                 },
-                None => true,
+                std::option::Option::None => true,
             } {
-                d.lifecycle.ignore_changes = Some(IgnoreChanges::Refs(vec![attr.to_string()]));
+                d.lifecycle.ignore_changes =
+                    std::option::Option::Some(terrars::IgnoreChanges::Refs(vec![attr.to_string()]));
             }
         }
         self
     }
 
-    pub fn replace_triggered_by_resource(self, r: &impl Resource) -> Self {
+    pub fn replace_triggered_by_resource(self, r: &impl terrars::Resource) -> Self {
         self.0.data.borrow_mut().lifecycle.replace_triggered_by.push(r.extract_ref());
         self
     }
 
-    pub fn replace_triggered_by_attr(self, attr: impl ToString) -> Self {
+    pub fn replace_triggered_by_attr(self, attr: impl std::string::ToString) -> Self {
         self.0.data.borrow_mut().lifecycle.replace_triggered_by.push(attr.to_string());
         self
     }
 
-    #[doc= "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl Into<PrimField<String>>) -> Self {
-        self.0.data.borrow_mut().id = Some(v.into());
+    #[doc = r" Add a provisioner (ex: `local-exec`, `remote-exec`, `file`) to this resource."]
+    #[doc = r" Provisioners run in the order they're added."]
+    pub fn add_provisioner(self, v: impl std::convert::Into<terrars::Provisioner>) -> Self {
+        self.0.data.borrow_mut().provisioner.push(v.into());
         self
     }
 
-    #[doc= "Set the field `custom_ssl_options`.\n"]
-    pub fn set_custom_ssl_options(self, v: impl Into<BlockAssignable<CustomSslCustomSslOptionsEl>>) -> Self {
+    pub fn add_lifecycle_precondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.precondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
+        self
+    }
+
+    pub fn add_lifecycle_postcondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.postcondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
+        self
+    }
+
+    #[doc = "Set the field `id`.\n"]
+    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `custom_ssl_options`.\n"]
+    pub fn set_custom_ssl_options(
+        self,
+        v: impl std::convert::Into<terrars::BlockAssignable<CustomSslCustomSslOptionsEl>>,
+    ) -> Self {
         match v.into() {
-            BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().custom_ssl_options = Some(v);
+            terrars::BlockAssignable::Literal(v) => {
+                self.0.data.borrow_mut().custom_ssl_options = std::option::Option::Some(v);
             },
-            BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.custom_ssl_options = Some(d);
+            terrars::BlockAssignable::Dynamic(d) => {
+                self.0.data.borrow_mut().dynamic.custom_ssl_options = std::option::Option::Some(d);
             },
         }
         self
     }
 
-    #[doc= "Set the field `custom_ssl_priority`.\n"]
-    pub fn set_custom_ssl_priority(self, v: impl Into<BlockAssignable<CustomSslCustomSslPriorityEl>>) -> Self {
+    #[doc = "Set the field `custom_ssl_priority`.\n"]
+    pub fn set_custom_ssl_priority(
+        self,
+        v: impl std::convert::Into<terrars::BlockAssignable<CustomSslCustomSslPriorityEl>>,
+    ) -> Self {
         match v.into() {
-            BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().custom_ssl_priority = Some(v);
+            terrars::BlockAssignable::Literal(v) => {
+                self.0.data.borrow_mut().custom_ssl_priority = std::option::Option::Some(v);
             },
-            BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.custom_ssl_priority = Some(d);
+            terrars::BlockAssignable::Dynamic(d) => {
+                self.0.data.borrow_mut().dynamic.custom_ssl_priority = std::option::Option::Some(d);
             },
         }
         self
     }
 
-    #[doc= "Get a reference to the value of field `expires_on` after provisioning.\n"]
-    pub fn expires_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `expires_on` after provisioning.\n"]
+    pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `hosts` after provisioning.\n"]
-    pub fn hosts(&self) -> ListRef<PrimExpr<String>> {
-        ListRef::new(self.shared().clone(), format!("{}.hosts", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `hosts` after provisioning.\n"]
+    pub fn hosts(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.hosts", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `issuer` after provisioning.\n"]
-    pub fn issuer(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `issuer` after provisioning.\n"]
+    pub fn issuer(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `modified_on` after provisioning.\n"]
-    pub fn modified_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `priority` after provisioning.\n"]
-    pub fn priority(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `priority` after provisioning.\n"]
+    pub fn priority(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `signature` after provisioning.\n"]
-    pub fn signature(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `signature` after provisioning.\n"]
+    pub fn signature(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `status` after provisioning.\n"]
-    pub fn status(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `status` after provisioning.\n"]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `uploaded_on` after provisioning.\n"]
-    pub fn uploaded_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `uploaded_on` after provisioning.\n"]
+    pub fn uploaded_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
-    pub fn zone_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `custom_ssl_options` after provisioning.\n"]
-    pub fn custom_ssl_options(&self) -> ListRef<CustomSslCustomSslOptionsElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.custom_ssl_options", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `custom_ssl_options` after provisioning.\n"]
+    pub fn custom_ssl_options(&self) -> terrars::ListRef<CustomSslCustomSslOptionsElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.custom_ssl_options", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `custom_ssl_priority` after provisioning.\n"]
-    pub fn custom_ssl_priority(&self) -> ListRef<CustomSslCustomSslPriorityElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.custom_ssl_priority", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `custom_ssl_priority` after provisioning.\n"]
+    pub fn custom_ssl_priority(&self) -> terrars::ListRef<CustomSslCustomSslPriorityElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.custom_ssl_priority", self.extract_ref()))
     }
 }
 
-impl Referable for CustomSsl {
-    fn extract_ref(&self) -> String {
+impl terrars::Referable for CustomSsl {
+    fn extract_ref(&self) -> std::string::String {
         format!("{}.{}", self.0.extract_resource_type(), self.0.extract_tf_id())
     }
 }
 
-impl Resource for CustomSsl { }
+impl terrars::Resource for CustomSsl { }
 
-impl ToListMappable for CustomSsl {
-    type O = ListRef<CustomSslRef>;
+impl terrars::ToListMappable for CustomSsl {
+    type O = terrars::ListRef<CustomSslRef>;
 
-    fn do_map(self, base: String) -> Self::O {
-        self.0.data.borrow_mut().for_each = Some(format!("${{{}}}", base));
-        ListRef::new(self.0.shared.clone(), self.extract_ref())
+    fn do_map(self, base: std::string::String) -> Self::O {
+        self.0.data.borrow_mut().for_each = std::option::Option::Some(format!("${{{}}}", base));
+        terrars::ListRef::new(self.0.shared.clone(), self.extract_ref())
     }
 }
 
-impl Resource_ for CustomSsl_ {
-    fn extract_resource_type(&self) -> String {
+impl terrars::Resource_ for CustomSsl_ {
+    fn extract_resource_type(&self) -> std::string::String {
         "cloudflare_custom_ssl".into()
     }
 
-    fn extract_tf_id(&self) -> String {
+    fn extract_tf_id(&self) -> std::string::String {
         self.tf_id.clone()
     }
 
@@ -219,26 +263,27 @@ impl Resource_ for CustomSsl_ {
 }
 
 pub struct BuildCustomSsl {
-    pub tf_id: String,
-    #[doc= "The zone identifier to target for the resource."]
-    pub zone_id: PrimField<String>,
+    pub tf_id: std::string::String,
+    #[doc = "The zone identifier to target for the resource."]
+    pub zone_id: terrars::PrimField<std::string::String>,
 }
 
 impl BuildCustomSsl {
-    pub fn build(self, stack: &mut Stack) -> CustomSsl {
-        let out = CustomSsl(Rc::new(CustomSsl_ {
+    pub fn build(self, stack: &mut terrars::Stack) -> CustomSsl {
+        let out = CustomSsl(std::rc::Rc::new(CustomSsl_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: RefCell::new(CustomSslData {
+            data: std::cell::RefCell::new(CustomSslData {
                 depends_on: core::default::Default::default(),
-                provider: None,
+                provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
-                for_each: None,
+                for_each: std::option::Option::None,
+                provisioner: core::default::Default::default(),
                 id: core::default::Default::default(),
                 zone_id: self.zone_id,
                 custom_ssl_options: core::default::Default::default(),
                 custom_ssl_priority: core::default::Default::default(),
-                dynamic: Default::default(),
+                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -247,12 +292,12 @@ impl BuildCustomSsl {
 }
 
 pub struct CustomSslRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for CustomSslRef {
-    fn new(shared: StackShared, base: String) -> Self {
+impl terrars::Ref for CustomSslRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Self {
         Self {
             shared: shared,
             base: base,
@@ -261,126 +306,130 @@ impl Ref for CustomSslRef {
 }
 
 impl CustomSslRef {
-    fn extract_ref(&self) -> String {
+    fn extract_ref(&self) -> std::string::String {
         self.base.clone()
     }
 
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `expires_on` after provisioning.\n"]
-    pub fn expires_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `expires_on` after provisioning.\n"]
+    pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `hosts` after provisioning.\n"]
-    pub fn hosts(&self) -> ListRef<PrimExpr<String>> {
-        ListRef::new(self.shared().clone(), format!("{}.hosts", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `hosts` after provisioning.\n"]
+    pub fn hosts(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.hosts", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `issuer` after provisioning.\n"]
-    pub fn issuer(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `issuer` after provisioning.\n"]
+    pub fn issuer(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `modified_on` after provisioning.\n"]
-    pub fn modified_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `priority` after provisioning.\n"]
-    pub fn priority(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `priority` after provisioning.\n"]
+    pub fn priority(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `signature` after provisioning.\n"]
-    pub fn signature(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `signature` after provisioning.\n"]
+    pub fn signature(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `status` after provisioning.\n"]
-    pub fn status(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `status` after provisioning.\n"]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `uploaded_on` after provisioning.\n"]
-    pub fn uploaded_on(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `uploaded_on` after provisioning.\n"]
+    pub fn uploaded_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
-    pub fn zone_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `custom_ssl_options` after provisioning.\n"]
-    pub fn custom_ssl_options(&self) -> ListRef<CustomSslCustomSslOptionsElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.custom_ssl_options", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `custom_ssl_options` after provisioning.\n"]
+    pub fn custom_ssl_options(&self) -> terrars::ListRef<CustomSslCustomSslOptionsElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.custom_ssl_options", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `custom_ssl_priority` after provisioning.\n"]
-    pub fn custom_ssl_priority(&self) -> ListRef<CustomSslCustomSslPriorityElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.custom_ssl_priority", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `custom_ssl_priority` after provisioning.\n"]
+    pub fn custom_ssl_priority(&self) -> terrars::ListRef<CustomSslCustomSslPriorityElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.custom_ssl_priority", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
 pub struct CustomSslCustomSslOptionsEl {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    bundle_method: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    certificate: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    geo_restrictions: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    private_key: Option<PrimField<String>>,
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    type_: Option<PrimField<String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    bundle_method: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    certificate: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    geo_restrictions: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    private_key: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
+    type_: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 impl CustomSslCustomSslOptionsEl {
-    #[doc= "Set the field `bundle_method`.\nMethod of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`."]
-    pub fn set_bundle_method(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.bundle_method = Some(v.into());
+    #[doc =
+        "Set the field `bundle_method`.\nMethod of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`."]
+    pub fn set_bundle_method(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.bundle_method = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `certificate`.\nCertificate certificate and the intermediate(s)."]
-    pub fn set_certificate(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.certificate = Some(v.into());
+    #[doc = "Set the field `certificate`.\nCertificate certificate and the intermediate(s)."]
+    pub fn set_certificate(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.certificate = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `geo_restrictions`.\nSpecifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`."]
-    pub fn set_geo_restrictions(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.geo_restrictions = Some(v.into());
+    #[doc =
+        "Set the field `geo_restrictions`.\nSpecifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`."]
+    pub fn set_geo_restrictions(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.geo_restrictions = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `private_key`.\nCertificate's private key."]
-    pub fn set_private_key(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.private_key = Some(v.into());
+    #[doc = "Set the field `private_key`.\nCertificate's private key."]
+    pub fn set_private_key(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.private_key = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `type_`.\nWhether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`."]
-    pub fn set_type(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.type_ = Some(v.into());
+    #[doc =
+        "Set the field `type_`.\nWhether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`."]
+    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.type_ = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for CustomSslCustomSslOptionsEl {
-    type O = BlockAssignable<CustomSslCustomSslOptionsEl>;
+impl terrars::ToListMappable for CustomSslCustomSslOptionsEl {
+    type O = terrars::BlockAssignable<CustomSslCustomSslOptionsEl>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -403,12 +452,12 @@ impl BuildCustomSslCustomSslOptionsEl {
 }
 
 pub struct CustomSslCustomSslOptionsElRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for CustomSslCustomSslOptionsElRef {
-    fn new(shared: StackShared, base: String) -> CustomSslCustomSslOptionsElRef {
+impl terrars::Ref for CustomSslCustomSslOptionsElRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomSslCustomSslOptionsElRef {
         CustomSslCustomSslOptionsElRef {
             shared: shared,
             base: base.to_string(),
@@ -417,63 +466,67 @@ impl Ref for CustomSslCustomSslOptionsElRef {
 }
 
 impl CustomSslCustomSslOptionsElRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `bundle_method` after provisioning.\nMethod of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`."]
-    pub fn bundle_method(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.bundle_method", self.base))
+    #[doc =
+        "Get a reference to the value of field `bundle_method` after provisioning.\nMethod of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`."]
+    pub fn bundle_method(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.bundle_method", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `certificate` after provisioning.\nCertificate certificate and the intermediate(s)."]
-    pub fn certificate(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.base))
+    #[doc =
+        "Get a reference to the value of field `certificate` after provisioning.\nCertificate certificate and the intermediate(s)."]
+    pub fn certificate(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `geo_restrictions` after provisioning.\nSpecifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`."]
-    pub fn geo_restrictions(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.geo_restrictions", self.base))
+    #[doc =
+        "Get a reference to the value of field `geo_restrictions` after provisioning.\nSpecifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`."]
+    pub fn geo_restrictions(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.geo_restrictions", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `private_key` after provisioning.\nCertificate's private key."]
-    pub fn private_key(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.private_key", self.base))
+    #[doc = "Get a reference to the value of field `private_key` after provisioning.\nCertificate's private key."]
+    pub fn private_key(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.private_key", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `type_` after provisioning.\nWhether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`."]
-    pub fn type_(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nWhether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
 }
 
 #[derive(Serialize)]
 pub struct CustomSslCustomSslPriorityEl {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    id: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    priority: Option<PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    priority: std::option::Option<terrars::PrimField<f64>>,
 }
 
 impl CustomSslCustomSslPriorityEl {
-    #[doc= "Set the field `id`.\n"]
-    pub fn set_id(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.id = Some(v.into());
+    #[doc = "Set the field `id`.\n"]
+    pub fn set_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `priority`.\n"]
-    pub fn set_priority(mut self, v: impl Into<PrimField<f64>>) -> Self {
-        self.priority = Some(v.into());
+    #[doc = "Set the field `priority`.\n"]
+    pub fn set_priority(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.priority = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for CustomSslCustomSslPriorityEl {
-    type O = BlockAssignable<CustomSslCustomSslPriorityEl>;
+impl terrars::ToListMappable for CustomSslCustomSslPriorityEl {
+    type O = terrars::BlockAssignable<CustomSslCustomSslPriorityEl>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -493,12 +546,12 @@ impl BuildCustomSslCustomSslPriorityEl {
 }
 
 pub struct CustomSslCustomSslPriorityElRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for CustomSslCustomSslPriorityElRef {
-    fn new(shared: StackShared, base: String) -> CustomSslCustomSslPriorityElRef {
+impl terrars::Ref for CustomSslCustomSslPriorityElRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomSslCustomSslPriorityElRef {
         CustomSslCustomSslPriorityElRef {
             shared: shared,
             base: base.to_string(),
@@ -507,23 +560,23 @@ impl Ref for CustomSslCustomSslPriorityElRef {
 }
 
 impl CustomSslCustomSslPriorityElRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `priority` after provisioning.\n"]
-    pub fn priority(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.priority", self.base))
+    #[doc = "Get a reference to the value of field `priority` after provisioning.\n"]
+    pub fn priority(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.base))
     }
 }
 
 #[derive(Serialize, Default)]
 struct CustomSslDynamic {
-    custom_ssl_options: Option<DynamicBlock<CustomSslCustomSslOptionsEl>>,
-    custom_ssl_priority: Option<DynamicBlock<CustomSslCustomSslPriorityEl>>,
+    custom_ssl_options: std::option::Option<terrars::DynamicBlock<CustomSslCustomSslOptionsEl>>,
+    custom_ssl_priority: std::option::Option<terrars::DynamicBlock<CustomSslCustomSslPriorityEl>>,
 }
