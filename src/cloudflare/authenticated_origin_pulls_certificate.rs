@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct AuthenticatedOriginPullsCertificateData {
+struct AuthenticatedOriginPullsCertificateData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,20 +21,14 @@ struct AuthenticatedOriginPullsCertificateData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     certificate: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     private_key: terrars::PrimField<std::string::String>,
-    #[serde(rename = "type")]
-    type_: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    timeouts: std::option::Option<AuthenticatedOriginPullsCertificateTimeoutsEl>,
 }
 
 struct AuthenticatedOriginPullsCertificate_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<AuthenticatedOriginPullsCertificateData>,
+    data: std::cell::RefCell<AuthenticatedOriginPullsCertificateData_>,
 }
 
 #[derive(Clone)]
@@ -132,89 +128,71 @@ impl AuthenticatedOriginPullsCertificate {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `timeouts`.\n"]
-    pub fn set_timeouts(self, v: impl std::convert::Into<AuthenticatedOriginPullsCertificateTimeoutsEl>) -> Self {
-        self.0.data.borrow_mut().timeouts = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Get a reference to the value of field `certificate` after provisioning.\nThe public client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `certificate` after provisioning.\nThe zone's leaf certificate."]
     pub fn certificate(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `certificate_id` after provisioning.\nIdentifier."]
+    pub fn certificate_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_id", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `enabled` after provisioning.\nIndicates whether zone-level authenticated origin pulls is enabled."]
+    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expires_on` after provisioning.\nWhen the certificate from the authority expires."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `issuer` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `issuer` after provisioning.\nThe certificate authority that issued the certificate."]
     pub fn issuer(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `private_key` after provisioning.\nThe private key of the client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `private_key` after provisioning.\nThe zone's private key."]
     pub fn private_key(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.private_key", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `serial_number` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `serial_number` after provisioning.\nThe serial number on the uploaded certificate."]
     pub fn serial_number(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.serial_number", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `signature` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `signature` after provisioning.\nThe type of hash used for the certificate."]
     pub fn signature(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the certificate activation.\nAvailable values: \"initializing\", \"pending_deployment\", \"pending_deletion\", \"active\", \"deleted\", \"deployment_timed_out\", \"deletion_timed_out\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe form of Authenticated Origin Pulls to upload the certificate to. Available values: `per-zone`, `per-hostname`. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `uploaded_on` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `uploaded_on` after provisioning.\nThis is the time the certificate was uploaded."]
     pub fn uploaded_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `timeouts` after provisioning.\n"]
-    pub fn timeouts(&self) -> AuthenticatedOriginPullsCertificateTimeoutsElRef {
-        AuthenticatedOriginPullsCertificateTimeoutsElRef::new(
-            self.shared().clone(),
-            format!("{}.timeouts", self.extract_ref()),
-        )
     }
 }
 
@@ -251,16 +229,11 @@ impl terrars::Resource_ for AuthenticatedOriginPullsCertificate_ {
 
 pub struct BuildAuthenticatedOriginPullsCertificate {
     pub tf_id: std::string::String,
-    #[doc = "The public client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "The zone's leaf certificate."]
     pub certificate: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The private key of the client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "The zone's private key."]
     pub private_key: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The form of Authenticated Origin Pulls to upload the certificate to. Available values: `per-zone`, `per-hostname`. **Modifying this attribute will force creation of a new resource.**"]
-    pub type_: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -269,18 +242,15 @@ impl BuildAuthenticatedOriginPullsCertificate {
         let out = AuthenticatedOriginPullsCertificate(std::rc::Rc::new(AuthenticatedOriginPullsCertificate_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(AuthenticatedOriginPullsCertificateData {
+            data: std::cell::RefCell::new(AuthenticatedOriginPullsCertificateData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 certificate: self.certificate,
-                id: core::default::Default::default(),
                 private_key: self.private_key,
-                type_: self.type_,
                 zone_id: self.zone_id,
-                timeouts: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -311,138 +281,70 @@ impl AuthenticatedOriginPullsCertificateRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `certificate` after provisioning.\nThe public client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `certificate` after provisioning.\nThe zone's leaf certificate."]
     pub fn certificate(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `certificate_id` after provisioning.\nIdentifier."]
+    pub fn certificate_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_id", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `enabled` after provisioning.\nIndicates whether zone-level authenticated origin pulls is enabled."]
+    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expires_on` after provisioning.\nWhen the certificate from the authority expires."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `issuer` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `issuer` after provisioning.\nThe certificate authority that issued the certificate."]
     pub fn issuer(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.issuer", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `private_key` after provisioning.\nThe private key of the client certificate. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `private_key` after provisioning.\nThe zone's private key."]
     pub fn private_key(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.private_key", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `serial_number` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `serial_number` after provisioning.\nThe serial number on the uploaded certificate."]
     pub fn serial_number(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.serial_number", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `signature` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `signature` after provisioning.\nThe type of hash used for the certificate."]
     pub fn signature(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.signature", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the certificate activation.\nAvailable values: \"initializing\", \"pending_deployment\", \"pending_deletion\", \"active\", \"deleted\", \"deployment_timed_out\", \"deletion_timed_out\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe form of Authenticated Origin Pulls to upload the certificate to. Available values: `per-zone`, `per-hostname`. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `uploaded_on` after provisioning.\n**Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `uploaded_on` after provisioning.\nThis is the time the certificate was uploaded."]
     pub fn uploaded_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.uploaded_on", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `timeouts` after provisioning.\n"]
-    pub fn timeouts(&self) -> AuthenticatedOriginPullsCertificateTimeoutsElRef {
-        AuthenticatedOriginPullsCertificateTimeoutsElRef::new(
-            self.shared().clone(),
-            format!("{}.timeouts", self.extract_ref()),
-        )
-    }
-}
-
-#[derive(Serialize)]
-pub struct AuthenticatedOriginPullsCertificateTimeoutsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    create: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl AuthenticatedOriginPullsCertificateTimeoutsEl {
-    #[doc = "Set the field `create`.\n"]
-    pub fn set_create(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.create = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for AuthenticatedOriginPullsCertificateTimeoutsEl {
-    type O = terrars::BlockAssignable<AuthenticatedOriginPullsCertificateTimeoutsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildAuthenticatedOriginPullsCertificateTimeoutsEl {}
-
-impl BuildAuthenticatedOriginPullsCertificateTimeoutsEl {
-    pub fn build(self) -> AuthenticatedOriginPullsCertificateTimeoutsEl {
-        AuthenticatedOriginPullsCertificateTimeoutsEl { create: core::default::Default::default() }
-    }
-}
-
-pub struct AuthenticatedOriginPullsCertificateTimeoutsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for AuthenticatedOriginPullsCertificateTimeoutsElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> AuthenticatedOriginPullsCertificateTimeoutsElRef {
-        AuthenticatedOriginPullsCertificateTimeoutsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl AuthenticatedOriginPullsCertificateTimeoutsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `create` after provisioning.\n"]
-    pub fn create(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.create", self.base))
     }
 }

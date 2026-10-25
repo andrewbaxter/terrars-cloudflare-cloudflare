@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct SpectrumApplicationData {
+struct SpectrumApplicationData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,14 +22,19 @@ struct SpectrumApplicationData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     argo_smart_routing: std::option::Option<terrars::PrimField<bool>>,
+    dns: SpectrumApplication_Dns,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    edge_ips: std::option::Option<SpectrumApplication_EdgeIps>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     ip_firewall: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     origin_direct: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    origin_port: std::option::Option<terrars::PrimField<f64>>,
+    origin_dns: std::option::Option<SpectrumApplication_OriginDns>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    origin_port: std::option::Option<terrars::PrimField<serde_json::Value>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    origin_worker_id: std::option::Option<terrars::PrimField<std::string::String>>,
     protocol: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     proxy_protocol: std::option::Option<terrars::PrimField<std::string::String>>,
@@ -35,22 +42,15 @@ struct SpectrumApplicationData {
     tls: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     traffic_type: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    virtual_network_id: std::option::Option<terrars::PrimField<std::string::String>>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    dns: std::option::Option<std::vec::Vec<SpectrumApplicationDnsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    edge_ips: std::option::Option<std::vec::Vec<SpectrumApplicationEdgeIpsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    origin_dns: std::option::Option<std::vec::Vec<SpectrumApplicationOriginDnsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    origin_port_range: std::option::Option<std::vec::Vec<SpectrumApplicationOriginPortRangeEl>>,
-    dynamic: SpectrumApplicationDynamic,
 }
 
 struct SpectrumApplication_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<SpectrumApplicationData>,
+    data: std::cell::RefCell<SpectrumApplicationData_>,
 }
 
 #[derive(Clone)]
@@ -150,25 +150,28 @@ impl SpectrumApplication {
         self
     }
 
-    #[doc = "Set the field `argo_smart_routing`.\nEnables Argo Smart Routing. Defaults to `false`."]
+    #[doc =
+        "Set the field `argo_smart_routing`.\nEnables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\"."]
     pub fn set_argo_smart_routing(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().argo_smart_routing = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `edge_ips`.\nThe anycast edge IP configuration for the hostname of this application."]
+    pub fn set_edge_ips(self, v: impl std::convert::Into<SpectrumApplication_EdgeIps>) -> Self {
+        self.0.data.borrow_mut().edge_ips = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `ip_firewall`.\nEnables the IP Firewall for this application. Defaults to `true`."]
+    #[doc =
+        "Set the field `ip_firewall`.\nEnables IP Access Rules for this application.\nNotes: Only available for TCP applications."]
     pub fn set_ip_firewall(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().ip_firewall = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `origin_direct`.\nA list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`."]
+    #[doc =
+        "Set the field `origin_direct`.\nList of origin IP addresses. Array may contain multiple IP addresses for load balancing."]
     pub fn set_origin_direct(
         self,
         v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
@@ -177,171 +180,151 @@ impl SpectrumApplication {
         self
     }
 
-    #[doc = "Set the field `origin_port`.\nOrigin port to proxy traffice to. Conflicts with `origin_port_range`."]
-    pub fn set_origin_port(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+    #[doc = "Set the field `origin_dns`.\nThe name and type of DNS record for the Spectrum application."]
+    pub fn set_origin_dns(self, v: impl std::convert::Into<SpectrumApplication_OriginDns>) -> Self {
+        self.0.data.borrow_mut().origin_dns = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `origin_port`.\nThe destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."]
+    pub fn set_origin_port(self, v: impl std::convert::Into<terrars::PrimField<serde_json::Value>>) -> Self {
         self.0.data.borrow_mut().origin_port = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `proxy_protocol`.\nEnables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. Defaults to `off`."]
+        "Set the field `origin_worker_id`.\nOptional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\"."]
+    pub fn set_origin_worker_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().origin_worker_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `proxy_protocol`.\nEnables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol.\nAvailable values: \"off\", \"v1\", \"v2\", \"simple\"."]
     pub fn set_proxy_protocol(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().proxy_protocol = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `tls`.\nTLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. Defaults to `off`."]
+        "Set the field `tls`.\nThe type of TLS termination associated with the application.\nAvailable values: \"off\", \"flexible\", \"full\", \"strict\"."]
     pub fn set_tls(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().tls = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `traffic_type`.\nSets application type. Available values: `direct`, `http`, `https`. Defaults to `direct`."]
+        "Set the field `traffic_type`.\nDetermines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`.\nAvailable values: \"direct\", \"http\", \"https\", \"worker\"."]
     pub fn set_traffic_type(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().traffic_type = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `dns`.\n"]
-    pub fn set_dns(self, v: impl std::convert::Into<terrars::BlockAssignable<SpectrumApplicationDnsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().dns = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.dns = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `edge_ips`.\n"]
-    pub fn set_edge_ips(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<SpectrumApplicationEdgeIpsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().edge_ips = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.edge_ips = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `origin_dns`.\n"]
-    pub fn set_origin_dns(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<SpectrumApplicationOriginDnsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().origin_dns = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.origin_dns = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `origin_port_range`.\n"]
-    pub fn set_origin_port_range(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<SpectrumApplicationOriginPortRangeEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().origin_port_range = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.origin_port_range = std::option::Option::Some(d);
-            },
-        }
+    #[doc =
+        "Set the field `virtual_network_id`.\nOptional UUID of a virtual network for routing origin traffic through tunnel virtual networks."]
+    pub fn set_virtual_network_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().virtual_network_id = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `argo_smart_routing` after provisioning.\nEnables Argo Smart Routing. Defaults to `false`."]
+        "Get a reference to the value of field `argo_smart_routing` after provisioning.\nEnables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\"."]
     pub fn argo_smart_routing(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.argo_smart_routing", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the Application was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `dns` after provisioning.\nThe name and type of DNS record for the Spectrum application."]
+    pub fn dns(&self) -> SpectrumApplication_DnsRef {
+        SpectrumApplication_DnsRef::new(self.shared().clone(), format!("{}.dns", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `edge_ips` after provisioning.\nThe anycast edge IP configuration for the hostname of this application."]
+    pub fn edge_ips(&self) -> SpectrumApplication_EdgeIpsRef {
+        SpectrumApplication_EdgeIpsRef::new(self.shared().clone(), format!("{}.edge_ips", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nApp identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ip_firewall` after provisioning.\nEnables the IP Firewall for this application. Defaults to `true`."]
+        "Get a reference to the value of field `ip_firewall` after provisioning.\nEnables IP Access Rules for this application.\nNotes: Only available for TCP applications."]
     pub fn ip_firewall(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip_firewall", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin_direct` after provisioning.\nA list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nWhen the Application was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin_direct` after provisioning.\nList of origin IP addresses. Array may contain multiple IP addresses for load balancing."]
     pub fn origin_direct(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.origin_direct", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin_port` after provisioning.\nOrigin port to proxy traffice to. Conflicts with `origin_port_range`."]
-    pub fn origin_port(&self) -> terrars::PrimExpr<f64> {
+        "Get a reference to the value of field `origin_dns` after provisioning.\nThe name and type of DNS record for the Spectrum application."]
+    pub fn origin_dns(&self) -> SpectrumApplication_OriginDnsRef {
+        SpectrumApplication_OriginDnsRef::new(self.shared().clone(), format!("{}.origin_dns", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin_port` after provisioning.\nThe destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."]
+    pub fn origin_port(&self) -> terrars::PrimExpr<serde_json::Value> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin_port", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `protocol` after provisioning.\nThe port configuration at Cloudflare's edge. e.g. `tcp/22`."]
+        "Get a reference to the value of field `origin_worker_id` after provisioning.\nOptional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\"."]
+    pub fn origin_worker_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin_worker_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `protocol` after provisioning.\nThe port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."]
     pub fn protocol(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.protocol", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `proxy_protocol` after provisioning.\nEnables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. Defaults to `off`."]
+        "Get a reference to the value of field `proxy_protocol` after provisioning.\nEnables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol.\nAvailable values: \"off\", \"v1\", \"v2\", \"simple\"."]
     pub fn proxy_protocol(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.proxy_protocol", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `tls` after provisioning.\nTLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. Defaults to `off`."]
+        "Get a reference to the value of field `tls` after provisioning.\nThe type of TLS termination associated with the application.\nAvailable values: \"off\", \"flexible\", \"full\", \"strict\"."]
     pub fn tls(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tls", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `traffic_type` after provisioning.\nSets application type. Available values: `direct`, `http`, `https`. Defaults to `direct`."]
+        "Get a reference to the value of field `traffic_type` after provisioning.\nDetermines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`.\nAvailable values: \"direct\", \"http\", \"https\", \"worker\"."]
     pub fn traffic_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.traffic_type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+        "Get a reference to the value of field `virtual_network_id` after provisioning.\nOptional UUID of a virtual network for routing origin traffic through tunnel virtual networks."]
+    pub fn virtual_network_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.virtual_network_id", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nZone identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `dns` after provisioning.\n"]
-    pub fn dns(&self) -> terrars::ListRef<SpectrumApplicationDnsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.dns", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `edge_ips` after provisioning.\n"]
-    pub fn edge_ips(&self) -> terrars::ListRef<SpectrumApplicationEdgeIpsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.edge_ips", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `origin_dns` after provisioning.\n"]
-    pub fn origin_dns(&self) -> terrars::ListRef<SpectrumApplicationOriginDnsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.origin_dns", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `origin_port_range` after provisioning.\n"]
-    pub fn origin_port_range(&self) -> terrars::ListRef<SpectrumApplicationOriginPortRangeElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.origin_port_range", self.extract_ref()))
     }
 }
 
@@ -378,9 +361,12 @@ impl terrars::Resource_ for SpectrumApplication_ {
 
 pub struct BuildSpectrumApplication {
     pub tf_id: std::string::String,
-    #[doc = "The port configuration at Cloudflare's edge. e.g. `tcp/22`."]
+    #[doc = "The name and type of DNS record for the Spectrum application."]
+    pub dns: SpectrumApplication_Dns,
+    #[doc =
+        "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."]
     pub protocol: terrars::PrimField<std::string::String>,
-    #[doc = "The zone identifier to target for the resource."]
+    #[doc = "Zone identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -389,27 +375,26 @@ impl BuildSpectrumApplication {
         let out = SpectrumApplication(std::rc::Rc::new(SpectrumApplication_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(SpectrumApplicationData {
+            data: std::cell::RefCell::new(SpectrumApplicationData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 argo_smart_routing: core::default::Default::default(),
-                id: core::default::Default::default(),
+                dns: self.dns,
+                edge_ips: core::default::Default::default(),
                 ip_firewall: core::default::Default::default(),
                 origin_direct: core::default::Default::default(),
+                origin_dns: core::default::Default::default(),
                 origin_port: core::default::Default::default(),
+                origin_worker_id: core::default::Default::default(),
                 protocol: self.protocol,
                 proxy_protocol: core::default::Default::default(),
                 tls: core::default::Default::default(),
                 traffic_type: core::default::Default::default(),
+                virtual_network_id: core::default::Default::default(),
                 zone_id: self.zone_id,
-                dns: core::default::Default::default(),
-                edge_ips: core::default::Default::default(),
-                origin_dns: core::default::Default::default(),
-                origin_port_range: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -441,96 +426,130 @@ impl SpectrumApplicationRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `argo_smart_routing` after provisioning.\nEnables Argo Smart Routing. Defaults to `false`."]
+        "Get a reference to the value of field `argo_smart_routing` after provisioning.\nEnables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\"."]
     pub fn argo_smart_routing(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.argo_smart_routing", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the Application was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `dns` after provisioning.\nThe name and type of DNS record for the Spectrum application."]
+    pub fn dns(&self) -> SpectrumApplication_DnsRef {
+        SpectrumApplication_DnsRef::new(self.shared().clone(), format!("{}.dns", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `edge_ips` after provisioning.\nThe anycast edge IP configuration for the hostname of this application."]
+    pub fn edge_ips(&self) -> SpectrumApplication_EdgeIpsRef {
+        SpectrumApplication_EdgeIpsRef::new(self.shared().clone(), format!("{}.edge_ips", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nApp identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ip_firewall` after provisioning.\nEnables the IP Firewall for this application. Defaults to `true`."]
+        "Get a reference to the value of field `ip_firewall` after provisioning.\nEnables IP Access Rules for this application.\nNotes: Only available for TCP applications."]
     pub fn ip_firewall(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip_firewall", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin_direct` after provisioning.\nA list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nWhen the Application was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin_direct` after provisioning.\nList of origin IP addresses. Array may contain multiple IP addresses for load balancing."]
     pub fn origin_direct(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.origin_direct", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin_port` after provisioning.\nOrigin port to proxy traffice to. Conflicts with `origin_port_range`."]
-    pub fn origin_port(&self) -> terrars::PrimExpr<f64> {
+        "Get a reference to the value of field `origin_dns` after provisioning.\nThe name and type of DNS record for the Spectrum application."]
+    pub fn origin_dns(&self) -> SpectrumApplication_OriginDnsRef {
+        SpectrumApplication_OriginDnsRef::new(self.shared().clone(), format!("{}.origin_dns", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin_port` after provisioning.\nThe destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."]
+    pub fn origin_port(&self) -> terrars::PrimExpr<serde_json::Value> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin_port", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `protocol` after provisioning.\nThe port configuration at Cloudflare's edge. e.g. `tcp/22`."]
+        "Get a reference to the value of field `origin_worker_id` after provisioning.\nOptional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\"."]
+    pub fn origin_worker_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin_worker_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `protocol` after provisioning.\nThe port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."]
     pub fn protocol(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.protocol", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `proxy_protocol` after provisioning.\nEnables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. Defaults to `off`."]
+        "Get a reference to the value of field `proxy_protocol` after provisioning.\nEnables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol.\nAvailable values: \"off\", \"v1\", \"v2\", \"simple\"."]
     pub fn proxy_protocol(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.proxy_protocol", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `tls` after provisioning.\nTLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. Defaults to `off`."]
+        "Get a reference to the value of field `tls` after provisioning.\nThe type of TLS termination associated with the application.\nAvailable values: \"off\", \"flexible\", \"full\", \"strict\"."]
     pub fn tls(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tls", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `traffic_type` after provisioning.\nSets application type. Available values: `direct`, `http`, `https`. Defaults to `direct`."]
+        "Get a reference to the value of field `traffic_type` after provisioning.\nDetermines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`.\nAvailable values: \"direct\", \"http\", \"https\", \"worker\"."]
     pub fn traffic_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.traffic_type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+        "Get a reference to the value of field `virtual_network_id` after provisioning.\nOptional UUID of a virtual network for routing origin traffic through tunnel virtual networks."]
+    pub fn virtual_network_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.virtual_network_id", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nZone identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `dns` after provisioning.\n"]
-    pub fn dns(&self) -> terrars::ListRef<SpectrumApplicationDnsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.dns", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `edge_ips` after provisioning.\n"]
-    pub fn edge_ips(&self) -> terrars::ListRef<SpectrumApplicationEdgeIpsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.edge_ips", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `origin_dns` after provisioning.\n"]
-    pub fn origin_dns(&self) -> terrars::ListRef<SpectrumApplicationOriginDnsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.origin_dns", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `origin_port_range` after provisioning.\n"]
-    pub fn origin_port_range(&self) -> terrars::ListRef<SpectrumApplicationOriginPortRangeElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.origin_port_range", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct SpectrumApplicationDnsEl {
-    name: terrars::PrimField<std::string::String>,
-    #[serde(rename = "type")]
-    type_: terrars::PrimField<std::string::String>,
+pub struct SpectrumApplication_Dns {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
+    type_: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl SpectrumApplicationDnsEl { }
+impl SpectrumApplication_Dns {
+    #[doc = "Set the field `name`.\nThe name of the DNS record associated with the application."]
+    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for SpectrumApplicationDnsEl {
-    type O = terrars::BlockAssignable<SpectrumApplicationDnsEl>;
+    #[doc =
+        "Set the field `type_`.\nThe type of DNS record associated with the application.\nAvailable values: \"CNAME\", \"ADDRESS\"."]
+    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.type_ = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for SpectrumApplication_Dns {
+    type O = terrars::BlockAssignable<SpectrumApplication_Dns>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -541,37 +560,34 @@ impl terrars::ToListMappable for SpectrumApplicationDnsEl {
     }
 }
 
-pub struct BuildSpectrumApplicationDnsEl {
-    #[doc = "The name of the DNS record associated with the application."]
-    pub name: terrars::PrimField<std::string::String>,
-    #[doc = "The type of DNS record associated with the application."]
-    pub type_: terrars::PrimField<std::string::String>,
-}
+pub struct BuildSpectrumApplication_Dns {}
 
-impl BuildSpectrumApplicationDnsEl {
-    pub fn build(self) -> SpectrumApplicationDnsEl {
-        SpectrumApplicationDnsEl {
-            name: self.name,
-            type_: self.type_,
+impl BuildSpectrumApplication_Dns {
+    pub fn build(self) -> SpectrumApplication_Dns {
+        SpectrumApplication_Dns {
+            name: core::default::Default::default(),
+            type_: core::default::Default::default(),
         }
     }
 }
 
-pub struct SpectrumApplicationDnsElRef {
+#[allow(dead_code)]
+pub struct SpectrumApplication_DnsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for SpectrumApplicationDnsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplicationDnsElRef {
-        SpectrumApplicationDnsElRef {
+impl terrars::Ref for SpectrumApplication_DnsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplication_DnsRef {
+        SpectrumApplication_DnsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl SpectrumApplicationDnsElRef {
+impl SpectrumApplication_DnsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -583,43 +599,50 @@ impl SpectrumApplicationDnsElRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe type of DNS record associated with the application."]
+        "Get a reference to the value of field `type_` after provisioning.\nThe type of DNS record associated with the application.\nAvailable values: \"CNAME\", \"ADDRESS\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct SpectrumApplicationEdgeIpsEl {
+pub struct SpectrumApplication_EdgeIps {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     connectivity: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ips: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    #[serde(rename = "type")]
-    type_: terrars::PrimField<std::string::String>,
+    ips: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
+    type_: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl SpectrumApplicationEdgeIpsEl {
+impl SpectrumApplication_EdgeIps {
     #[doc =
-        "Set the field `connectivity`.\nThe IP versions supported for inbound connections on Spectrum anycast IPs. Required when `type` is not `static`. Available values: `all`, `ipv4`, `ipv6`."]
+        "Set the field `connectivity`.\nThe IP versions supported for inbound connections on Spectrum anycast IPs.\nAvailable values: \"all\", \"ipv4\", \"ipv6\"."]
     pub fn set_connectivity(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.connectivity = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `ips`.\nThe collection of customer owned IPs to broadcast via anycast for this hostname and application. Requires [Bring Your Own IP](https://developers.cloudflare.com/spectrum/getting-started/byoip/) provisioned."]
+        "Set the field `ips`.\nThe array of customer owned IPs we broadcast via anycast for this hostname and application."]
     pub fn set_ips(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.ips = std::option::Option::Some(v.into());
         self
     }
+
+    #[doc =
+        "Set the field `type_`.\nThe type of edge IP configuration specified. Dynamically allocated edge IPs use Spectrum anycast IPs in accordance with the connectivity you specify. Only valid with CNAME DNS names.\nAvailable values: \"dynamic\", \"static\"."]
+    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.type_ = std::option::Option::Some(v.into());
+        self
+    }
 }
 
-impl terrars::ToListMappable for SpectrumApplicationEdgeIpsEl {
-    type O = terrars::BlockAssignable<SpectrumApplicationEdgeIpsEl>;
+impl terrars::ToListMappable for SpectrumApplication_EdgeIps {
+    type O = terrars::BlockAssignable<SpectrumApplication_EdgeIps>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -630,68 +653,91 @@ impl terrars::ToListMappable for SpectrumApplicationEdgeIpsEl {
     }
 }
 
-pub struct BuildSpectrumApplicationEdgeIpsEl {
-    #[doc = "The type of edge IP configuration specified. Available values: `dynamic`, `static`."]
-    pub type_: terrars::PrimField<std::string::String>,
-}
+pub struct BuildSpectrumApplication_EdgeIps {}
 
-impl BuildSpectrumApplicationEdgeIpsEl {
-    pub fn build(self) -> SpectrumApplicationEdgeIpsEl {
-        SpectrumApplicationEdgeIpsEl {
+impl BuildSpectrumApplication_EdgeIps {
+    pub fn build(self) -> SpectrumApplication_EdgeIps {
+        SpectrumApplication_EdgeIps {
             connectivity: core::default::Default::default(),
             ips: core::default::Default::default(),
-            type_: self.type_,
+            type_: core::default::Default::default(),
         }
     }
 }
 
-pub struct SpectrumApplicationEdgeIpsElRef {
+#[allow(dead_code)]
+pub struct SpectrumApplication_EdgeIpsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for SpectrumApplicationEdgeIpsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplicationEdgeIpsElRef {
-        SpectrumApplicationEdgeIpsElRef {
+impl terrars::Ref for SpectrumApplication_EdgeIpsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplication_EdgeIpsRef {
+        SpectrumApplication_EdgeIpsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl SpectrumApplicationEdgeIpsElRef {
+impl SpectrumApplication_EdgeIpsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `connectivity` after provisioning.\nThe IP versions supported for inbound connections on Spectrum anycast IPs. Required when `type` is not `static`. Available values: `all`, `ipv4`, `ipv6`."]
+        "Get a reference to the value of field `connectivity` after provisioning.\nThe IP versions supported for inbound connections on Spectrum anycast IPs.\nAvailable values: \"all\", \"ipv4\", \"ipv6\"."]
     pub fn connectivity(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.connectivity", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `ips` after provisioning.\nThe collection of customer owned IPs to broadcast via anycast for this hostname and application. Requires [Bring Your Own IP](https://developers.cloudflare.com/spectrum/getting-started/byoip/) provisioned."]
-    pub fn ips(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.ips", self.base))
+        "Get a reference to the value of field `ips` after provisioning.\nThe array of customer owned IPs we broadcast via anycast for this hostname and application."]
+    pub fn ips(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.ips", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe type of edge IP configuration specified. Available values: `dynamic`, `static`."]
+        "Get a reference to the value of field `type_` after provisioning.\nThe type of edge IP configuration specified. Dynamically allocated edge IPs use Spectrum anycast IPs in accordance with the connectivity you specify. Only valid with CNAME DNS names.\nAvailable values: \"dynamic\", \"static\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct SpectrumApplicationOriginDnsEl {
-    name: terrars::PrimField<std::string::String>,
+pub struct SpectrumApplication_OriginDns {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    ttl: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
+    type_: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl SpectrumApplicationOriginDnsEl { }
+impl SpectrumApplication_OriginDns {
+    #[doc = "Set the field `name`.\nThe name of the DNS record associated with the origin."]
+    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for SpectrumApplicationOriginDnsEl {
-    type O = terrars::BlockAssignable<SpectrumApplicationOriginDnsEl>;
+    #[doc = "Set the field `ttl`.\nThe TTL of our resolution of your DNS record in seconds."]
+    pub fn set_ttl(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `type_`.\nThe type of DNS record associated with the origin. \"\" is used to specify a combination of A/AAAA records.\nAvailable values: \"\", \"A\", \"AAAA\", \"SRV\"."]
+    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.type_ = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for SpectrumApplication_OriginDns {
+    type O = terrars::BlockAssignable<SpectrumApplication_OriginDns>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -702,113 +748,54 @@ impl terrars::ToListMappable for SpectrumApplicationOriginDnsEl {
     }
 }
 
-pub struct BuildSpectrumApplicationOriginDnsEl {
-    #[doc = "Fully qualified domain name of the origin."]
-    pub name: terrars::PrimField<std::string::String>,
-}
+pub struct BuildSpectrumApplication_OriginDns {}
 
-impl BuildSpectrumApplicationOriginDnsEl {
-    pub fn build(self) -> SpectrumApplicationOriginDnsEl {
-        SpectrumApplicationOriginDnsEl { name: self.name }
+impl BuildSpectrumApplication_OriginDns {
+    pub fn build(self) -> SpectrumApplication_OriginDns {
+        SpectrumApplication_OriginDns {
+            name: core::default::Default::default(),
+            ttl: core::default::Default::default(),
+            type_: core::default::Default::default(),
+        }
     }
 }
 
-pub struct SpectrumApplicationOriginDnsElRef {
+#[allow(dead_code)]
+pub struct SpectrumApplication_OriginDnsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for SpectrumApplicationOriginDnsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplicationOriginDnsElRef {
-        SpectrumApplicationOriginDnsElRef {
+impl terrars::Ref for SpectrumApplication_OriginDnsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplication_OriginDnsRef {
+        SpectrumApplication_OriginDnsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl SpectrumApplicationOriginDnsElRef {
+impl SpectrumApplication_OriginDnsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nFully qualified domain name of the origin."]
+        "Get a reference to the value of field `name` after provisioning.\nThe name of the DNS record associated with the origin."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
-}
 
-#[derive(Serialize)]
-pub struct SpectrumApplicationOriginPortRangeEl {
-    end: terrars::PrimField<f64>,
-    start: terrars::PrimField<f64>,
-}
-
-impl SpectrumApplicationOriginPortRangeEl { }
-
-impl terrars::ToListMappable for SpectrumApplicationOriginPortRangeEl {
-    type O = terrars::BlockAssignable<SpectrumApplicationOriginPortRangeEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildSpectrumApplicationOriginPortRangeEl {
-    #[doc = "Upper bound of the origin port range."]
-    pub end: terrars::PrimField<f64>,
-    #[doc = "Lower bound of the origin port range."]
-    pub start: terrars::PrimField<f64>,
-}
-
-impl BuildSpectrumApplicationOriginPortRangeEl {
-    pub fn build(self) -> SpectrumApplicationOriginPortRangeEl {
-        SpectrumApplicationOriginPortRangeEl {
-            end: self.end,
-            start: self.start,
-        }
-    }
-}
-
-pub struct SpectrumApplicationOriginPortRangeElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for SpectrumApplicationOriginPortRangeElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> SpectrumApplicationOriginPortRangeElRef {
-        SpectrumApplicationOriginPortRangeElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl SpectrumApplicationOriginPortRangeElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
+    #[doc =
+        "Get a reference to the value of field `ttl` after provisioning.\nThe TTL of our resolution of your DNS record in seconds."]
+    pub fn ttl(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ttl", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `end` after provisioning.\nUpper bound of the origin port range."]
-    pub fn end(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.end", self.base))
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nThe type of DNS record associated with the origin. \"\" is used to specify a combination of A/AAAA records.\nAvailable values: \"\", \"A\", \"AAAA\", \"SRV\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `start` after provisioning.\nLower bound of the origin port range."]
-    pub fn start(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.start", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct SpectrumApplicationDynamic {
-    dns: std::option::Option<terrars::DynamicBlock<SpectrumApplicationDnsEl>>,
-    edge_ips: std::option::Option<terrars::DynamicBlock<SpectrumApplicationEdgeIpsEl>>,
-    origin_dns: std::option::Option<terrars::DynamicBlock<SpectrumApplicationOriginDnsEl>>,
-    origin_port_range: std::option::Option<terrars::DynamicBlock<SpectrumApplicationOriginPortRangeEl>>,
 }

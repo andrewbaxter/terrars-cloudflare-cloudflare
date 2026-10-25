@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct RegionalHostnameData {
+struct RegionalHostnameData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,18 +21,16 @@ struct RegionalHostnameData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     hostname: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     region_key: terrars::PrimField<std::string::String>,
-    zone_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    timeouts: std::option::Option<RegionalHostnameTimeoutsEl>,
+    routing: std::option::Option<terrars::PrimField<std::string::String>>,
+    zone_id: terrars::PrimField<std::string::String>,
 }
 
 struct RegionalHostname_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<RegionalHostnameData>,
+    data: std::cell::RefCell<RegionalHostnameData_>,
 }
 
 #[derive(Clone)]
@@ -130,49 +130,44 @@ impl RegionalHostname {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `timeouts`.\n"]
-    pub fn set_timeouts(self, v: impl std::convert::Into<RegionalHostnameTimeoutsEl>) -> Self {
-        self.0.data.borrow_mut().timeouts = std::option::Option::Some(v.into());
+    #[doc = "Set the field `routing`.\nConfigure which routing method to use for the regional hostname"]
+    pub fn set_routing(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().routing = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the hostname was created."]
+        "Get a reference to the value of field `created_on` after provisioning.\nWhen the regional hostname was created"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `hostname` after provisioning.\nThe hostname to regionalize."]
+    #[doc =
+        "Get a reference to the value of field `hostname` after provisioning.\nDNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"]
     pub fn hostname(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.hostname", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nDNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `region_key` after provisioning.\nThe region key. See [the full region list](https://developers.cloudflare.com/data-localization/regional-services/get-started/)."]
+    #[doc = "Get a reference to the value of field `region_key` after provisioning.\nIdentifying key for the region"]
     pub fn region_key(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.region_key", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
-    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+        "Get a reference to the value of field `routing` after provisioning.\nConfigure which routing method to use for the regional hostname"]
+    pub fn routing(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.routing", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `timeouts` after provisioning.\n"]
-    pub fn timeouts(&self) -> RegionalHostnameTimeoutsElRef {
-        RegionalHostnameTimeoutsElRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
@@ -209,12 +204,12 @@ impl terrars::Resource_ for RegionalHostname_ {
 
 pub struct BuildRegionalHostname {
     pub tf_id: std::string::String,
-    #[doc = "The hostname to regionalize."]
-    pub hostname: terrars::PrimField<std::string::String>,
     #[doc =
-        "The region key. See [the full region list](https://developers.cloudflare.com/data-localization/regional-services/get-started/)."]
+        "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"]
+    pub hostname: terrars::PrimField<std::string::String>,
+    #[doc = "Identifying key for the region"]
     pub region_key: terrars::PrimField<std::string::String>,
-    #[doc = "The zone identifier to target for the resource."]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -223,17 +218,16 @@ impl BuildRegionalHostname {
         let out = RegionalHostname(std::rc::Rc::new(RegionalHostname_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(RegionalHostnameData {
+            data: std::cell::RefCell::new(RegionalHostnameData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 hostname: self.hostname,
-                id: core::default::Default::default(),
                 region_key: self.region_key,
+                routing: core::default::Default::default(),
                 zone_id: self.zone_id,
-                timeouts: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -265,110 +259,36 @@ impl RegionalHostnameRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the hostname was created."]
+        "Get a reference to the value of field `created_on` after provisioning.\nWhen the regional hostname was created"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `hostname` after provisioning.\nThe hostname to regionalize."]
+    #[doc =
+        "Get a reference to the value of field `hostname` after provisioning.\nDNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"]
     pub fn hostname(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.hostname", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nDNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `region_key` after provisioning.\nThe region key. See [the full region list](https://developers.cloudflare.com/data-localization/regional-services/get-started/)."]
+    #[doc = "Get a reference to the value of field `region_key` after provisioning.\nIdentifying key for the region"]
     pub fn region_key(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.region_key", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+        "Get a reference to the value of field `routing` after provisioning.\nConfigure which routing method to use for the regional hostname"]
+    pub fn routing(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.routing", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `timeouts` after provisioning.\n"]
-    pub fn timeouts(&self) -> RegionalHostnameTimeoutsElRef {
-        RegionalHostnameTimeoutsElRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
-    }
-}
-
-#[derive(Serialize)]
-pub struct RegionalHostnameTimeoutsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    create: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    update: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl RegionalHostnameTimeoutsEl {
-    #[doc = "Set the field `create`.\n"]
-    pub fn set_create(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.create = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `update`.\n"]
-    pub fn set_update(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.update = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for RegionalHostnameTimeoutsEl {
-    type O = terrars::BlockAssignable<RegionalHostnameTimeoutsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildRegionalHostnameTimeoutsEl {}
-
-impl BuildRegionalHostnameTimeoutsEl {
-    pub fn build(self) -> RegionalHostnameTimeoutsEl {
-        RegionalHostnameTimeoutsEl {
-            create: core::default::Default::default(),
-            update: core::default::Default::default(),
-        }
-    }
-}
-
-pub struct RegionalHostnameTimeoutsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for RegionalHostnameTimeoutsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RegionalHostnameTimeoutsElRef {
-        RegionalHostnameTimeoutsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl RegionalHostnameTimeoutsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `create` after provisioning.\n"]
-    pub fn create(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.create", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `update` after provisioning.\n"]
-    pub fn update(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.update", self.base))
     }
 }

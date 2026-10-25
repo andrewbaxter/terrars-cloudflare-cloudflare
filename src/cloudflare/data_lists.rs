@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct DataListsData {
+struct DataListsData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -16,15 +18,16 @@ struct DataListsData {
     lifecycle: terrars::DatasourceLifecycle,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     for_each: std::option::Option<std::string::String>,
-    account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    max_items: std::option::Option<terrars::PrimField<f64>>,
 }
 
 struct DataLists_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataListsData>,
+    data: std::cell::RefCell<DataListsData_>,
 }
 
 #[derive(Clone)]
@@ -69,26 +72,31 @@ impl DataLists {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `account_id`.\nThe Account ID for this resource."]
+    pub fn set_account_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().account_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Set the field `max_items`.\nMax items to fetch, default: 1000"]
+    pub fn set_max_items(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().max_items = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID for this resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `max_items` after provisioning.\nMax items to fetch, default: 1000"]
+    pub fn max_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.max_items", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `lists` after provisioning.\n"]
-    pub fn lists(&self) -> terrars::ListRef<DataListsListsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.lists", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `result` after provisioning.\nThe items returned by the data source"]
+    pub fn result(&self) -> terrars::ListRef<DataLists_ResultRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.result", self.extract_ref()))
     }
 }
 
@@ -125,8 +133,6 @@ impl terrars::Datasource_ for DataLists_ {
 
 pub struct BuildDataLists {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
-    pub account_id: terrars::PrimField<std::string::String>,
 }
 
 impl BuildDataLists {
@@ -134,13 +140,13 @@ impl BuildDataLists {
         let out = DataLists(std::rc::Rc::new(DataLists_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataListsData {
+            data: std::cell::RefCell::new(DataListsData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
-                account_id: self.account_id,
-                id: core::default::Default::default(),
+                account_id: core::default::Default::default(),
+                max_items: core::default::Default::default(),
             }),
         }));
         stack.add_datasource(out.0.clone());
@@ -171,71 +177,29 @@ impl DataListsRef {
         self.base.clone()
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID for this resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `max_items` after provisioning.\nMax items to fetch, default: 1000"]
+    pub fn max_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.max_items", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `lists` after provisioning.\n"]
-    pub fn lists(&self) -> terrars::ListRef<DataListsListsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.lists", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `result` after provisioning.\nThe items returned by the data source"]
+    pub fn result(&self) -> terrars::ListRef<DataLists_ResultRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.result", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct DataListsListsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    description: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    kind: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    numitems: std::option::Option<terrars::PrimField<f64>>,
-}
+pub struct DataLists_Result {}
 
-impl DataListsListsEl {
-    #[doc = "Set the field `description`.\n"]
-    pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.description = std::option::Option::Some(v.into());
-        self
-    }
+impl DataLists_Result { }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `kind`.\n"]
-    pub fn set_kind(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.kind = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `name`.\n"]
-    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.name = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `numitems`.\n"]
-    pub fn set_numitems(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.numitems = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for DataListsListsEl {
-    type O = terrars::BlockAssignable<DataListsListsEl>;
+impl terrars::ToListMappable for DataLists_Result {
+    type O = terrars::BlockAssignable<DataLists_Result>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -246,61 +210,78 @@ impl terrars::ToListMappable for DataListsListsEl {
     }
 }
 
-pub struct BuildDataListsListsEl {}
+pub struct BuildDataLists_Result {}
 
-impl BuildDataListsListsEl {
-    pub fn build(self) -> DataListsListsEl {
-        DataListsListsEl {
-            description: core::default::Default::default(),
-            id: core::default::Default::default(),
-            kind: core::default::Default::default(),
-            name: core::default::Default::default(),
-            numitems: core::default::Default::default(),
-        }
+impl BuildDataLists_Result {
+    pub fn build(self) -> DataLists_Result {
+        DataLists_Result {}
     }
 }
 
-pub struct DataListsListsElRef {
+#[allow(dead_code)]
+pub struct DataLists_ResultRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataListsListsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataListsListsElRef {
-        DataListsListsElRef {
+impl terrars::Ref for DataLists_ResultRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLists_ResultRef {
+        DataLists_ResultRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataListsListsElRef {
+impl DataLists_ResultRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC 3339 timestamp of when the list was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the list."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique ID of the list."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `kind` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `kind` after provisioning.\nThe type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects).\nAvailable values: \"ip\", \"redirect\", \"hostname\", \"asn\"."]
     pub fn kind(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.kind", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC 3339 timestamp of when the list was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nAn informative name for the list. Use this name in filter and rule expressions."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `numitems` after provisioning.\n"]
-    pub fn numitems(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.numitems", self.base))
+    #[doc = "Get a reference to the value of field `num_items` after provisioning.\nThe number of items in the list."]
+    pub fn num_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_items", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `num_referencing_filters` after provisioning.\nThe number of [filters](/api/resources/filters/) referencing the list."]
+    pub fn num_referencing_filters(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_referencing_filters", self.base))
     }
 }

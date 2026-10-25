@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct LoadBalancerData {
+struct LoadBalancerData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,19 +20,35 @@ struct LoadBalancerData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    default_pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    adaptive_routing: std::option::Option<LoadBalancer_AdaptiveRouting>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    country_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    default_pools: terrars::ListField<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     enabled: std::option::Option<terrars::PrimField<bool>>,
-    fallback_pool_id: terrars::PrimField<std::string::String>,
+    fallback_pool: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    location_strategy: std::option::Option<LoadBalancer_LocationStrategy>,
     name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    networks: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pop_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     proxied: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    random_steering: std::option::Option<LoadBalancer_RandomSteering>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    region_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    rules: std::option::Option<std::vec::Vec<LoadBalancer_Rules>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     session_affinity: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    session_affinity_attributes: std::option::Option<LoadBalancer_SessionAffinityAttributes>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     session_affinity_ttl: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -38,29 +56,12 @@ struct LoadBalancerData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     ttl: std::option::Option<terrars::PrimField<f64>>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    adaptive_routing: std::option::Option<std::vec::Vec<LoadBalancerAdaptiveRoutingEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    country_pools: std::option::Option<std::vec::Vec<LoadBalancerCountryPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    location_strategy: std::option::Option<std::vec::Vec<LoadBalancerLocationStrategyEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    pop_pools: std::option::Option<std::vec::Vec<LoadBalancerPopPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    random_steering: std::option::Option<std::vec::Vec<LoadBalancerRandomSteeringEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    region_pools: std::option::Option<std::vec::Vec<LoadBalancerRegionPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    rules: std::option::Option<std::vec::Vec<LoadBalancerRulesEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    session_affinity_attributes: std::option::Option<std::vec::Vec<LoadBalancerSessionAffinityAttributesEl>>,
-    dynamic: LoadBalancerDynamic,
 }
 
 struct LoadBalancer_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<LoadBalancerData>,
+    data: std::cell::RefCell<LoadBalancerData_>,
 }
 
 #[derive(Clone)]
@@ -160,208 +161,168 @@ impl LoadBalancer {
         self
     }
 
-    #[doc = "Set the field `description`.\nFree text description."]
+    #[doc =
+        "Set the field `adaptive_routing`.\nControls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. For example, zero-downtime failover occurs immediately when an origin becomes unavailable due to HTTP 521, 522, or 523 response codes. If there is another healthy origin in the same pool, the request is retried once against this alternate origin."]
+    pub fn set_adaptive_routing(self, v: impl std::convert::Into<LoadBalancer_AdaptiveRouting>) -> Self {
+        self.0.data.borrow_mut().adaptive_routing = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `country_pools`.\nA mapping of country codes to a list of pool IDs (ordered by their failover priority) for the given country. Any country not explicitly defined will fall back to using the corresponding region_pool mapping if it exists else to default_pools."]
+    pub fn set_country_pools(
+        self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().country_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `description`.\nObject description."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `enabled`.\nEnable or disable the load balancer. Defaults to `true`."]
+    #[doc = "Set the field `enabled`.\nWhether to enable (the default) this load balancer."]
     pub fn set_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().enabled = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `location_strategy`.\nControls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."]
+    pub fn set_location_strategy(self, v: impl std::convert::Into<LoadBalancer_LocationStrategy>) -> Self {
+        self.0.data.borrow_mut().location_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `networks`.\nList of networks where Load Balancer or Pool is enabled."]
+    pub fn set_networks(
+        self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().networks = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `proxied`.\nWhether the hostname gets Cloudflare's origin protection. Defaults to `false`. Conflicts with `ttl`."]
+        "Set the field `pop_pools`.\nEnterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."]
+    pub fn set_pop_pools(
+        self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().pop_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `proxied`.\nWhether the hostname should be gray clouded (false) or orange clouded (true)."]
     pub fn set_proxied(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().proxied = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `session_affinity`.\nSpecifies the type of session affinity the load balancer should use unless specified as `none` or `\"\"` (default). With value `cookie`, on the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy then a new origin server is calculated and used. Value `ip_cookie` behaves the same as `cookie` except the initial origin selection is stable and based on the client's IP address. Available values: `\"\"`, `none`, `cookie`, `ip_cookie`. Defaults to `none`."]
+        "Set the field `random_steering`.\nConfigures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."]
+    pub fn set_random_steering(self, v: impl std::convert::Into<LoadBalancer_RandomSteering>) -> Self {
+        self.0.data.borrow_mut().random_steering = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `region_pools`.\nA mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."]
+    pub fn set_region_pools(
+        self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().region_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `rules`.\nBETA Field Not General Access: A list of rules for this load balancer to execute."]
+    pub fn set_rules(self, v: impl std::convert::Into<std::vec::Vec<LoadBalancer_Rules>>) -> Self {
+        self.0.data.borrow_mut().rules = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `session_affinity`.\nSpecifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.\nAvailable values: \"none\", \"cookie\", \"ip_cookie\", \"header\"."]
     pub fn set_session_affinity(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().session_affinity = std::option::Option::Some(v.into());
         self
     }
 
+    #[doc = "Set the field `session_affinity_attributes`.\nConfigures attributes for session affinity."]
+    pub fn set_session_affinity_attributes(
+        self,
+        v: impl std::convert::Into<LoadBalancer_SessionAffinityAttributes>,
+    ) -> Self {
+        self.0.data.borrow_mut().session_affinity_attributes = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc =
-        "Set the field `session_affinity_ttl`.\nTime, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`."]
+        "Set the field `session_affinity_ttl`.\nTime, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."]
     pub fn set_session_affinity_ttl(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().session_affinity_ttl = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `steering_policy`.\nThe method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `\"\"` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `\"\"` Defaults to `\"\"`."]
+        "Set the field `steering_policy`.\nSteering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.\nAvailable values: \"off\", \"geo\", \"random\", \"dynamic_latency\", \"proximity\", \"least_outstanding_requests\", \"least_connections\", \"\"."]
     pub fn set_steering_policy(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().steering_policy = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `ttl`.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`."]
+        "Set the field `ttl`.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."]
     pub fn set_ttl(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().ttl = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `adaptive_routing`.\n"]
-    pub fn set_adaptive_routing(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerAdaptiveRoutingEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().adaptive_routing = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.adaptive_routing = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `country_pools`.\n"]
-    pub fn set_country_pools(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerCountryPoolsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().country_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.country_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `location_strategy`.\n"]
-    pub fn set_location_strategy(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerLocationStrategyEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().location_strategy = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.location_strategy = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `pop_pools`.\n"]
-    pub fn set_pop_pools(self, v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerPopPoolsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().pop_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.pop_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `random_steering`.\n"]
-    pub fn set_random_steering(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRandomSteeringEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().random_steering = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.random_steering = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `region_pools`.\n"]
-    pub fn set_region_pools(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRegionPoolsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().region_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.region_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `rules`.\n"]
-    pub fn set_rules(self, v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().rules = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.rules = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `session_affinity_attributes`.\n"]
-    pub fn set_session_affinity_attributes(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerSessionAffinityAttributesEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().session_affinity_attributes = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.session_affinity_attributes = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc =
+        "Get a reference to the value of field `adaptive_routing` after provisioning.\nControls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. For example, zero-downtime failover occurs immediately when an origin becomes unavailable due to HTTP 521, 522, or 523 response codes. If there is another healthy origin in the same pool, the request is retried once against this alternate origin."]
+    pub fn adaptive_routing(&self) -> LoadBalancer_AdaptiveRoutingRef {
+        LoadBalancer_AdaptiveRoutingRef::new(
+            self.shared().clone(),
+            format!("{}.adaptive_routing", self.extract_ref()),
+        )
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was created."]
+        "Get a reference to the value of field `country_pools` after provisioning.\nA mapping of country codes to a list of pool IDs (ordered by their failover priority) for the given country. Any country not explicitly defined will fall back to using the corresponding region_pool mapping if it exists else to default_pools."]
+    pub fn country_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.country_pools", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `default_pool_ids` after provisioning.\nA list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined."]
-    pub fn default_pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.default_pool_ids", self.extract_ref()))
+        "Get a reference to the value of field `default_pools` after provisioning.\nA list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."]
+    pub fn default_pools(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.default_pools", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nFree text description."]
+    #[doc = "Get a reference to the value of field `description` after provisioning.\nObject description."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nEnable or disable the load balancer. Defaults to `true`."]
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether to enable (the default) this load balancer."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `fallback_pool_id` after provisioning.\nThe pool ID to use when all other pools are detected as unhealthy."]
-    pub fn fallback_pool_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.fallback_pool_id", self.extract_ref()))
+        "Get a reference to the value of field `fallback_pool` after provisioning.\nThe pool ID to use when all other pools are detected as unhealthy."]
+    pub fn fallback_pool(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.fallback_pool", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -370,56 +331,102 @@ impl LoadBalancer {
     }
 
     #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was last modified."]
+        "Get a reference to the value of field `location_strategy` after provisioning.\nControls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."]
+    pub fn location_strategy(&self) -> LoadBalancer_LocationStrategyRef {
+        LoadBalancer_LocationStrategyRef::new(
+            self.shared().clone(),
+            format!("{}.location_strategy", self.extract_ref()),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe DNS hostname to associate with your load balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the load balancer will take precedence and the DNS record will not be used."]
+        "Get a reference to the value of field `name` after provisioning.\nThe DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `proxied` after provisioning.\nWhether the hostname gets Cloudflare's origin protection. Defaults to `false`. Conflicts with `ttl`."]
+        "Get a reference to the value of field `networks` after provisioning.\nList of networks where Load Balancer or Pool is enabled."]
+    pub fn networks(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.networks", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pop_pools` after provisioning.\nEnterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."]
+    pub fn pop_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.pop_pools", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `proxied` after provisioning.\nWhether the hostname should be gray clouded (false) or orange clouded (true)."]
     pub fn proxied(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.proxied", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity` after provisioning.\nSpecifies the type of session affinity the load balancer should use unless specified as `none` or `\"\"` (default). With value `cookie`, on the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy then a new origin server is calculated and used. Value `ip_cookie` behaves the same as `cookie` except the initial origin selection is stable and based on the client's IP address. Available values: `\"\"`, `none`, `cookie`, `ip_cookie`. Defaults to `none`."]
+        "Get a reference to the value of field `random_steering` after provisioning.\nConfigures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."]
+    pub fn random_steering(&self) -> LoadBalancer_RandomSteeringRef {
+        LoadBalancer_RandomSteeringRef::new(self.shared().clone(), format!("{}.random_steering", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `region_pools` after provisioning.\nA mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."]
+    pub fn region_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.region_pools", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `rules` after provisioning.\nBETA Field Not General Access: A list of rules for this load balancer to execute."]
+    pub fn rules(&self) -> terrars::ListRef<LoadBalancer_RulesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity` after provisioning.\nSpecifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.\nAvailable values: \"none\", \"cookie\", \"ip_cookie\", \"header\"."]
     pub fn session_affinity(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`."]
+        "Get a reference to the value of field `session_affinity_attributes` after provisioning.\nConfigures attributes for session affinity."]
+    pub fn session_affinity_attributes(&self) -> LoadBalancer_SessionAffinityAttributesRef {
+        LoadBalancer_SessionAffinityAttributesRef::new(
+            self.shared().clone(),
+            format!("{}.session_affinity_attributes", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."]
     pub fn session_affinity_ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity_ttl", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `steering_policy` after provisioning.\nThe method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `\"\"` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `\"\"` Defaults to `\"\"`."]
+        "Get a reference to the value of field `steering_policy` after provisioning.\nSteering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.\nAvailable values: \"off\", \"geo\", \"random\", \"dynamic_latency\", \"proximity\", \"least_outstanding_requests\", \"least_connections\", \"\"."]
     pub fn steering_policy(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.steering_policy", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`."]
+        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."]
     pub fn ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ttl", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone ID to add the load balancer to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\n"]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
-    pub fn rules(&self) -> terrars::ListRef<LoadBalancerRulesElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `zone_name` after provisioning.\n"]
+    pub fn zone_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_name", self.extract_ref()))
     }
 }
 
@@ -457,15 +464,14 @@ impl terrars::Resource_ for LoadBalancer_ {
 pub struct BuildLoadBalancer {
     pub tf_id: std::string::String,
     #[doc =
-        "A list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined."]
-    pub default_pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
+        "A list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."]
+    pub default_pools: terrars::ListField<terrars::PrimField<std::string::String>>,
     #[doc = "The pool ID to use when all other pools are detected as unhealthy."]
-    pub fallback_pool_id: terrars::PrimField<std::string::String>,
+    pub fallback_pool: terrars::PrimField<std::string::String>,
     #[doc =
-        "The DNS hostname to associate with your load balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the load balancer will take precedence and the DNS record will not be used."]
+        "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."]
     pub name: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone ID to add the load balancer to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = ""]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -474,33 +480,32 @@ impl BuildLoadBalancer {
         let out = LoadBalancer(std::rc::Rc::new(LoadBalancer_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(LoadBalancerData {
+            data: std::cell::RefCell::new(LoadBalancerData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                default_pool_ids: self.default_pool_ids,
+                adaptive_routing: core::default::Default::default(),
+                country_pools: core::default::Default::default(),
+                default_pools: self.default_pools,
                 description: core::default::Default::default(),
                 enabled: core::default::Default::default(),
-                fallback_pool_id: self.fallback_pool_id,
-                id: core::default::Default::default(),
+                fallback_pool: self.fallback_pool,
+                location_strategy: core::default::Default::default(),
                 name: self.name,
+                networks: core::default::Default::default(),
+                pop_pools: core::default::Default::default(),
                 proxied: core::default::Default::default(),
+                random_steering: core::default::Default::default(),
+                region_pools: core::default::Default::default(),
+                rules: core::default::Default::default(),
                 session_affinity: core::default::Default::default(),
+                session_affinity_attributes: core::default::Default::default(),
                 session_affinity_ttl: core::default::Default::default(),
                 steering_policy: core::default::Default::default(),
                 ttl: core::default::Default::default(),
                 zone_id: self.zone_id,
-                adaptive_routing: core::default::Default::default(),
-                country_pools: core::default::Default::default(),
-                location_strategy: core::default::Default::default(),
-                pop_pools: core::default::Default::default(),
-                random_steering: core::default::Default::default(),
-                region_pools: core::default::Default::default(),
-                rules: core::default::Default::default(),
-                session_affinity_attributes: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -532,32 +537,46 @@ impl LoadBalancerRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was created."]
+        "Get a reference to the value of field `adaptive_routing` after provisioning.\nControls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. For example, zero-downtime failover occurs immediately when an origin becomes unavailable due to HTTP 521, 522, or 523 response codes. If there is another healthy origin in the same pool, the request is retried once against this alternate origin."]
+    pub fn adaptive_routing(&self) -> LoadBalancer_AdaptiveRoutingRef {
+        LoadBalancer_AdaptiveRoutingRef::new(
+            self.shared().clone(),
+            format!("{}.adaptive_routing", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `country_pools` after provisioning.\nA mapping of country codes to a list of pool IDs (ordered by their failover priority) for the given country. Any country not explicitly defined will fall back to using the corresponding region_pool mapping if it exists else to default_pools."]
+    pub fn country_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.country_pools", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `default_pool_ids` after provisioning.\nA list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined."]
-    pub fn default_pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.default_pool_ids", self.extract_ref()))
+        "Get a reference to the value of field `default_pools` after provisioning.\nA list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."]
+    pub fn default_pools(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.default_pools", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nFree text description."]
+    #[doc = "Get a reference to the value of field `description` after provisioning.\nObject description."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nEnable or disable the load balancer. Defaults to `true`."]
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether to enable (the default) this load balancer."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `fallback_pool_id` after provisioning.\nThe pool ID to use when all other pools are detected as unhealthy."]
-    pub fn fallback_pool_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.fallback_pool_id", self.extract_ref()))
+        "Get a reference to the value of field `fallback_pool` after provisioning.\nThe pool ID to use when all other pools are detected as unhealthy."]
+    pub fn fallback_pool(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.fallback_pool", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -566,76 +585,122 @@ impl LoadBalancerRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was last modified."]
+        "Get a reference to the value of field `location_strategy` after provisioning.\nControls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."]
+    pub fn location_strategy(&self) -> LoadBalancer_LocationStrategyRef {
+        LoadBalancer_LocationStrategyRef::new(
+            self.shared().clone(),
+            format!("{}.location_strategy", self.extract_ref()),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe DNS hostname to associate with your load balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the load balancer will take precedence and the DNS record will not be used."]
+        "Get a reference to the value of field `name` after provisioning.\nThe DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `proxied` after provisioning.\nWhether the hostname gets Cloudflare's origin protection. Defaults to `false`. Conflicts with `ttl`."]
+        "Get a reference to the value of field `networks` after provisioning.\nList of networks where Load Balancer or Pool is enabled."]
+    pub fn networks(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.networks", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pop_pools` after provisioning.\nEnterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."]
+    pub fn pop_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.pop_pools", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `proxied` after provisioning.\nWhether the hostname should be gray clouded (false) or orange clouded (true)."]
     pub fn proxied(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.proxied", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity` after provisioning.\nSpecifies the type of session affinity the load balancer should use unless specified as `none` or `\"\"` (default). With value `cookie`, on the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy then a new origin server is calculated and used. Value `ip_cookie` behaves the same as `cookie` except the initial origin selection is stable and based on the client's IP address. Available values: `\"\"`, `none`, `cookie`, `ip_cookie`. Defaults to `none`."]
+        "Get a reference to the value of field `random_steering` after provisioning.\nConfigures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."]
+    pub fn random_steering(&self) -> LoadBalancer_RandomSteeringRef {
+        LoadBalancer_RandomSteeringRef::new(self.shared().clone(), format!("{}.random_steering", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `region_pools` after provisioning.\nA mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."]
+    pub fn region_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.region_pools", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `rules` after provisioning.\nBETA Field Not General Access: A list of rules for this load balancer to execute."]
+    pub fn rules(&self) -> terrars::ListRef<LoadBalancer_RulesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity` after provisioning.\nSpecifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.\nAvailable values: \"none\", \"cookie\", \"ip_cookie\", \"header\"."]
     pub fn session_affinity(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`."]
+        "Get a reference to the value of field `session_affinity_attributes` after provisioning.\nConfigures attributes for session affinity."]
+    pub fn session_affinity_attributes(&self) -> LoadBalancer_SessionAffinityAttributesRef {
+        LoadBalancer_SessionAffinityAttributesRef::new(
+            self.shared().clone(),
+            format!("{}.session_affinity_attributes", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."]
     pub fn session_affinity_ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity_ttl", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `steering_policy` after provisioning.\nThe method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `\"\"` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `\"\"` Defaults to `\"\"`."]
+        "Get a reference to the value of field `steering_policy` after provisioning.\nSteering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.\nAvailable values: \"off\", \"geo\", \"random\", \"dynamic_latency\", \"proximity\", \"least_outstanding_requests\", \"least_connections\", \"\"."]
     pub fn steering_policy(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.steering_policy", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`."]
+        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."]
     pub fn ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ttl", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone ID to add the load balancer to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\n"]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
-    pub fn rules(&self) -> terrars::ListRef<LoadBalancerRulesElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `zone_name` after provisioning.\n"]
+    pub fn zone_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_name", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerAdaptiveRoutingEl {
+pub struct LoadBalancer_AdaptiveRouting {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     failover_across_pools: std::option::Option<terrars::PrimField<bool>>,
 }
 
-impl LoadBalancerAdaptiveRoutingEl {
+impl LoadBalancer_AdaptiveRouting {
     #[doc =
-        "Set the field `failover_across_pools`.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. Defaults to `false`."]
+        "Set the field `failover_across_pools`.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set false (the default) zero-downtime failover will only occur between origins within the same pool. See `session_affinity_attributes` for control over when sessions are broken or reassigned."]
     pub fn set_failover_across_pools(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.failover_across_pools = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerAdaptiveRoutingEl {
-    type O = terrars::BlockAssignable<LoadBalancerAdaptiveRoutingEl>;
+impl terrars::ToListMappable for LoadBalancer_AdaptiveRouting {
+    type O = terrars::BlockAssignable<LoadBalancer_AdaptiveRouting>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -646,135 +711,68 @@ impl terrars::ToListMappable for LoadBalancerAdaptiveRoutingEl {
     }
 }
 
-pub struct BuildLoadBalancerAdaptiveRoutingEl {}
+pub struct BuildLoadBalancer_AdaptiveRouting {}
 
-impl BuildLoadBalancerAdaptiveRoutingEl {
-    pub fn build(self) -> LoadBalancerAdaptiveRoutingEl {
-        LoadBalancerAdaptiveRoutingEl { failover_across_pools: core::default::Default::default() }
+impl BuildLoadBalancer_AdaptiveRouting {
+    pub fn build(self) -> LoadBalancer_AdaptiveRouting {
+        LoadBalancer_AdaptiveRouting { failover_across_pools: core::default::Default::default() }
     }
 }
 
-pub struct LoadBalancerAdaptiveRoutingElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_AdaptiveRoutingRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerAdaptiveRoutingElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerAdaptiveRoutingElRef {
-        LoadBalancerAdaptiveRoutingElRef {
+impl terrars::Ref for LoadBalancer_AdaptiveRoutingRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_AdaptiveRoutingRef {
+        LoadBalancer_AdaptiveRoutingRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerAdaptiveRoutingElRef {
+impl LoadBalancer_AdaptiveRoutingRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `failover_across_pools` after provisioning.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. Defaults to `false`."]
+        "Get a reference to the value of field `failover_across_pools` after provisioning.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set false (the default) zero-downtime failover will only occur between origins within the same pool. See `session_affinity_attributes` for control over when sessions are broken or reassigned."]
     pub fn failover_across_pools(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.failover_across_pools", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerCountryPoolsEl {
-    country: terrars::PrimField<std::string::String>,
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl LoadBalancerCountryPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerCountryPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerCountryPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerCountryPoolsEl {
-    #[doc =
-        "A country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country."]
-    pub country: terrars::PrimField<std::string::String>,
-    #[doc = "A list of pool IDs in failover priority to use in the given country."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl BuildLoadBalancerCountryPoolsEl {
-    pub fn build(self) -> LoadBalancerCountryPoolsEl {
-        LoadBalancerCountryPoolsEl {
-            country: self.country,
-            pool_ids: self.pool_ids,
-        }
-    }
-}
-
-pub struct LoadBalancerCountryPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerCountryPoolsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerCountryPoolsElRef {
-        LoadBalancerCountryPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerCountryPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `country` after provisioning.\nA country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country."]
-    pub fn country(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.country", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use in the given country."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerLocationStrategyEl {
+pub struct LoadBalancer_LocationStrategy {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     mode: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     prefer_ecs: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl LoadBalancerLocationStrategyEl {
+impl LoadBalancer_LocationStrategy {
     #[doc =
-        "Set the field `mode`.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`. Defaults to `pop`."]
+        "Set the field `mode`.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful.\n- `\"pop\"`: Use the Cloudflare PoP location.\n- `\"resolver_ip\"`: Use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, use the Cloudflare PoP location.\nAvailable values: \"pop\", \"resolver_ip\"."]
     pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.mode = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `prefer_ecs`.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when [`steering_policy=\"proximity\"`](#steering_policy), and `geo` will prefer ECS only when [`steering_policy=\"geo\"`](#steering_policy). Available values: `always`, `never`, `proximity`, `geo`. Defaults to `proximity`."]
+        "Set the field `prefer_ecs`.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location.\n- `\"always\"`: Always prefer ECS.\n- `\"never\"`: Never prefer ECS.\n- `\"proximity\"`: Prefer ECS only when `steering_policy=\"proximity\"`.\n- `\"geo\"`: Prefer ECS only when `steering_policy=\"geo\"`.\nAvailable values: \"always\", \"never\", \"proximity\", \"geo\"."]
     pub fn set_prefer_ecs(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.prefer_ecs = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerLocationStrategyEl {
-    type O = terrars::BlockAssignable<LoadBalancerLocationStrategyEl>;
+impl terrars::ToListMappable for LoadBalancer_LocationStrategy {
+    type O = terrars::BlockAssignable<LoadBalancer_LocationStrategy>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -785,129 +783,62 @@ impl terrars::ToListMappable for LoadBalancerLocationStrategyEl {
     }
 }
 
-pub struct BuildLoadBalancerLocationStrategyEl {}
+pub struct BuildLoadBalancer_LocationStrategy {}
 
-impl BuildLoadBalancerLocationStrategyEl {
-    pub fn build(self) -> LoadBalancerLocationStrategyEl {
-        LoadBalancerLocationStrategyEl {
+impl BuildLoadBalancer_LocationStrategy {
+    pub fn build(self) -> LoadBalancer_LocationStrategy {
+        LoadBalancer_LocationStrategy {
             mode: core::default::Default::default(),
             prefer_ecs: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerLocationStrategyElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_LocationStrategyRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerLocationStrategyElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerLocationStrategyElRef {
-        LoadBalancerLocationStrategyElRef {
+impl terrars::Ref for LoadBalancer_LocationStrategyRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_LocationStrategyRef {
+        LoadBalancer_LocationStrategyRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerLocationStrategyElRef {
+impl LoadBalancer_LocationStrategyRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`. Defaults to `pop`."]
+        "Get a reference to the value of field `mode` after provisioning.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful.\n- `\"pop\"`: Use the Cloudflare PoP location.\n- `\"resolver_ip\"`: Use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, use the Cloudflare PoP location.\nAvailable values: \"pop\", \"resolver_ip\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `prefer_ecs` after provisioning.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when [`steering_policy=\"proximity\"`](#steering_policy), and `geo` will prefer ECS only when [`steering_policy=\"geo\"`](#steering_policy). Available values: `always`, `never`, `proximity`, `geo`. Defaults to `proximity`."]
+        "Get a reference to the value of field `prefer_ecs` after provisioning.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location.\n- `\"always\"`: Always prefer ECS.\n- `\"never\"`: Never prefer ECS.\n- `\"proximity\"`: Prefer ECS only when `steering_policy=\"proximity\"`.\n- `\"geo\"`: Prefer ECS only when `steering_policy=\"geo\"`.\nAvailable values: \"always\", \"never\", \"proximity\", \"geo\"."]
     pub fn prefer_ecs(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.prefer_ecs", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerPopPoolsEl {
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    pop: terrars::PrimField<std::string::String>,
-}
-
-impl LoadBalancerPopPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerPopPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerPopPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerPopPoolsEl {
-    #[doc = "A list of pool IDs in failover priority to use for traffic reaching the given PoP."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    #[doc =
-        "A 3-letter code for the Point-of-Presence. Allowed values can be found in the list of datacenters on the [status page](https://www.cloudflarestatus.com/). Multiple entries should not be specified with the same PoP."]
-    pub pop: terrars::PrimField<std::string::String>,
-}
-
-impl BuildLoadBalancerPopPoolsEl {
-    pub fn build(self) -> LoadBalancerPopPoolsEl {
-        LoadBalancerPopPoolsEl {
-            pool_ids: self.pool_ids,
-            pop: self.pop,
-        }
-    }
-}
-
-pub struct LoadBalancerPopPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerPopPoolsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerPopPoolsElRef {
-        LoadBalancerPopPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerPopPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use for traffic reaching the given PoP."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pop` after provisioning.\nA 3-letter code for the Point-of-Presence. Allowed values can be found in the list of datacenters on the [status page](https://www.cloudflarestatus.com/). Multiple entries should not be specified with the same PoP."]
-    pub fn pop(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pop", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerRandomSteeringEl {
+pub struct LoadBalancer_RandomSteering {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     default_weight: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pool_weights: std::option::Option<terrars::RecField<terrars::PrimField<f64>>>,
 }
 
-impl LoadBalancerRandomSteeringEl {
+impl LoadBalancer_RandomSteering {
     #[doc =
-        "Set the field `default_weight`.\nThe default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map."]
+        "Set the field `default_weight`.\nThe default weight for pools in the load balancer that are not specified in the pool_weights map."]
     pub fn set_default_weight(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.default_weight = std::option::Option::Some(v.into());
         self
@@ -921,8 +852,8 @@ impl LoadBalancerRandomSteeringEl {
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRandomSteeringEl {
-    type O = terrars::BlockAssignable<LoadBalancerRandomSteeringEl>;
+impl terrars::ToListMappable for LoadBalancer_RandomSteering {
+    type O = terrars::BlockAssignable<LoadBalancer_RandomSteering>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -933,38 +864,40 @@ impl terrars::ToListMappable for LoadBalancerRandomSteeringEl {
     }
 }
 
-pub struct BuildLoadBalancerRandomSteeringEl {}
+pub struct BuildLoadBalancer_RandomSteering {}
 
-impl BuildLoadBalancerRandomSteeringEl {
-    pub fn build(self) -> LoadBalancerRandomSteeringEl {
-        LoadBalancerRandomSteeringEl {
+impl BuildLoadBalancer_RandomSteering {
+    pub fn build(self) -> LoadBalancer_RandomSteering {
+        LoadBalancer_RandomSteering {
             default_weight: core::default::Default::default(),
             pool_weights: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerRandomSteeringElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_RandomSteeringRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRandomSteeringElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRandomSteeringElRef {
-        LoadBalancerRandomSteeringElRef {
+impl terrars::Ref for LoadBalancer_RandomSteeringRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_RandomSteeringRef {
+        LoadBalancer_RandomSteeringRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRandomSteeringElRef {
+impl LoadBalancer_RandomSteeringRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `default_weight` after provisioning.\nThe default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map."]
+        "Get a reference to the value of field `default_weight` after provisioning.\nThe default weight for pools in the load balancer that are not specified in the pool_weights map."]
     pub fn default_weight(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_weight", self.base))
     }
@@ -977,76 +910,7 @@ impl LoadBalancerRandomSteeringElRef {
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerRegionPoolsEl {
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    region: terrars::PrimField<std::string::String>,
-}
-
-impl LoadBalancerRegionPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerRegionPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerRegionPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerRegionPoolsEl {
-    #[doc = "A list of pool IDs in failover priority to use in the given region."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    #[doc =
-        "A region code which must be in the list defined [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/#list-of-load-balancer-regions). Multiple entries should not be specified with the same region."]
-    pub region: terrars::PrimField<std::string::String>,
-}
-
-impl BuildLoadBalancerRegionPoolsEl {
-    pub fn build(self) -> LoadBalancerRegionPoolsEl {
-        LoadBalancerRegionPoolsEl {
-            pool_ids: self.pool_ids,
-            region: self.region,
-        }
-    }
-}
-
-pub struct LoadBalancerRegionPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerRegionPoolsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRegionPoolsElRef {
-        LoadBalancerRegionPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerRegionPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use in the given region."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `region` after provisioning.\nA region code which must be in the list defined [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/#list-of-load-balancer-regions). Multiple entries should not be specified with the same region."]
-    pub fn region(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.region", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerRulesElFixedResponseEl {
+pub struct LoadBalancer_Rules_FixedResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     content_type: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1057,34 +921,34 @@ pub struct LoadBalancerRulesElFixedResponseEl {
     status_code: std::option::Option<terrars::PrimField<f64>>,
 }
 
-impl LoadBalancerRulesElFixedResponseEl {
-    #[doc = "Set the field `content_type`.\nThe value of the HTTP context-type header for this fixed response."]
+impl LoadBalancer_Rules_FixedResponse {
+    #[doc = "Set the field `content_type`.\nThe http 'Content-Type' header to include in the response."]
     pub fn set_content_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.content_type = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `location`.\nThe value of the HTTP location header for this fixed response."]
+    #[doc = "Set the field `location`.\nThe http 'Location' header to include in the response."]
     pub fn set_location(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.location = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `message_body`.\nThe text used as the html body for this fixed response."]
+    #[doc = "Set the field `message_body`.\nText to include as the http body."]
     pub fn set_message_body(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.message_body = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `status_code`.\nThe HTTP status code used for this fixed response."]
+    #[doc = "Set the field `status_code`.\nThe http status code to respond with."]
     pub fn set_status_code(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.status_code = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElFixedResponseEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElFixedResponseEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_FixedResponse {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_FixedResponse>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1095,11 +959,11 @@ impl terrars::ToListMappable for LoadBalancerRulesElFixedResponseEl {
     }
 }
 
-pub struct BuildLoadBalancerRulesElFixedResponseEl {}
+pub struct BuildLoadBalancer_Rules_FixedResponse {}
 
-impl BuildLoadBalancerRulesElFixedResponseEl {
-    pub fn build(self) -> LoadBalancerRulesElFixedResponseEl {
-        LoadBalancerRulesElFixedResponseEl {
+impl BuildLoadBalancer_Rules_FixedResponse {
+    pub fn build(self) -> LoadBalancer_Rules_FixedResponse {
+        LoadBalancer_Rules_FixedResponse {
             content_type: core::default::Default::default(),
             location: core::default::Default::default(),
             message_body: core::default::Default::default(),
@@ -1108,67 +972,69 @@ impl BuildLoadBalancerRulesElFixedResponseEl {
     }
 }
 
-pub struct LoadBalancerRulesElFixedResponseElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_FixedResponseRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElFixedResponseElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRulesElFixedResponseElRef {
-        LoadBalancerRulesElFixedResponseElRef {
+impl terrars::Ref for LoadBalancer_Rules_FixedResponseRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_Rules_FixedResponseRef {
+        LoadBalancer_Rules_FixedResponseRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElFixedResponseElRef {
+impl LoadBalancer_Rules_FixedResponseRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `content_type` after provisioning.\nThe value of the HTTP context-type header for this fixed response."]
+        "Get a reference to the value of field `content_type` after provisioning.\nThe http 'Content-Type' header to include in the response."]
     pub fn content_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `location` after provisioning.\nThe value of the HTTP location header for this fixed response."]
+        "Get a reference to the value of field `location` after provisioning.\nThe http 'Location' header to include in the response."]
     pub fn location(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.location", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `message_body` after provisioning.\nThe text used as the html body for this fixed response."]
+        "Get a reference to the value of field `message_body` after provisioning.\nText to include as the http body."]
     pub fn message_body(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.message_body", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `status_code` after provisioning.\nThe HTTP status code used for this fixed response."]
+        "Get a reference to the value of field `status_code` after provisioning.\nThe http status code to respond with."]
     pub fn status_code(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status_code", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElAdaptiveRoutingEl {
+pub struct LoadBalancer_Rules_Overrides_AdaptiveRouting {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     failover_across_pools: std::option::Option<terrars::PrimField<bool>>,
 }
 
-impl LoadBalancerRulesElOverridesElAdaptiveRoutingEl {
+impl LoadBalancer_Rules_Overrides_AdaptiveRouting {
     #[doc =
-        "Set the field `failover_across_pools`.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool."]
+        "Set the field `failover_across_pools`.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set false (the default) zero-downtime failover will only occur between origins within the same pool. See `session_affinity_attributes` for control over when sessions are broken or reassigned."]
     pub fn set_failover_across_pools(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.failover_across_pools = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElAdaptiveRoutingEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElAdaptiveRoutingEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_Overrides_AdaptiveRouting {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_Overrides_AdaptiveRouting>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1179,141 +1045,71 @@ impl terrars::ToListMappable for LoadBalancerRulesElOverridesElAdaptiveRoutingEl
     }
 }
 
-pub struct BuildLoadBalancerRulesElOverridesElAdaptiveRoutingEl {}
+pub struct BuildLoadBalancer_Rules_Overrides_AdaptiveRouting {}
 
-impl BuildLoadBalancerRulesElOverridesElAdaptiveRoutingEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElAdaptiveRoutingEl {
-        LoadBalancerRulesElOverridesElAdaptiveRoutingEl { failover_across_pools: core::default::Default::default() }
+impl BuildLoadBalancer_Rules_Overrides_AdaptiveRouting {
+    pub fn build(self) -> LoadBalancer_Rules_Overrides_AdaptiveRouting {
+        LoadBalancer_Rules_Overrides_AdaptiveRouting { failover_across_pools: core::default::Default::default() }
     }
 }
 
-pub struct LoadBalancerRulesElOverridesElAdaptiveRoutingElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElOverridesElAdaptiveRoutingElRef {
+impl terrars::Ref for LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElAdaptiveRoutingElRef {
-        LoadBalancerRulesElOverridesElAdaptiveRoutingElRef {
+    ) -> LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
+        LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElOverridesElAdaptiveRoutingElRef {
+impl LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `failover_across_pools` after provisioning.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool."]
+        "Get a reference to the value of field `failover_across_pools` after provisioning.\nExtends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set false (the default) zero-downtime failover will only occur between origins within the same pool. See `session_affinity_attributes` for control over when sessions are broken or reassigned."]
     pub fn failover_across_pools(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.failover_across_pools", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElCountryPoolsEl {
-    country: terrars::PrimField<std::string::String>,
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl LoadBalancerRulesElOverridesElCountryPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElCountryPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElCountryPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerRulesElOverridesElCountryPoolsEl {
-    #[doc =
-        "A country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country."]
-    pub country: terrars::PrimField<std::string::String>,
-    #[doc = "A list of pool IDs in failover priority to use in the given country."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl BuildLoadBalancerRulesElOverridesElCountryPoolsEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElCountryPoolsEl {
-        LoadBalancerRulesElOverridesElCountryPoolsEl {
-            country: self.country,
-            pool_ids: self.pool_ids,
-        }
-    }
-}
-
-pub struct LoadBalancerRulesElOverridesElCountryPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerRulesElOverridesElCountryPoolsElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElCountryPoolsElRef {
-        LoadBalancerRulesElOverridesElCountryPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerRulesElOverridesElCountryPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `country` after provisioning.\nA country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country."]
-    pub fn country(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.country", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use in the given country."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElLocationStrategyEl {
+pub struct LoadBalancer_Rules_Overrides_LocationStrategy {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     mode: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     prefer_ecs: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl LoadBalancerRulesElOverridesElLocationStrategyEl {
+impl LoadBalancer_Rules_Overrides_LocationStrategy {
     #[doc =
-        "Set the field `mode`.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`."]
+        "Set the field `mode`.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful.\n- `\"pop\"`: Use the Cloudflare PoP location.\n- `\"resolver_ip\"`: Use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, use the Cloudflare PoP location.\nAvailable values: \"pop\", \"resolver_ip\"."]
     pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.mode = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `prefer_ecs`.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when [`steering_policy=\"proximity\"`](#steering_policy), and `geo` will prefer ECS only when [`steering_policy=\"geo\"`](#steering_policy). Available values: `always`, `never`, `proximity`, `geo`."]
+        "Set the field `prefer_ecs`.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location.\n- `\"always\"`: Always prefer ECS.\n- `\"never\"`: Never prefer ECS.\n- `\"proximity\"`: Prefer ECS only when `steering_policy=\"proximity\"`.\n- `\"geo\"`: Prefer ECS only when `steering_policy=\"geo\"`.\nAvailable values: \"always\", \"never\", \"proximity\", \"geo\"."]
     pub fn set_prefer_ecs(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.prefer_ecs = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElLocationStrategyEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElLocationStrategyEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_Overrides_LocationStrategy {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_Overrides_LocationStrategy>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1324,132 +1120,65 @@ impl terrars::ToListMappable for LoadBalancerRulesElOverridesElLocationStrategyE
     }
 }
 
-pub struct BuildLoadBalancerRulesElOverridesElLocationStrategyEl {}
+pub struct BuildLoadBalancer_Rules_Overrides_LocationStrategy {}
 
-impl BuildLoadBalancerRulesElOverridesElLocationStrategyEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElLocationStrategyEl {
-        LoadBalancerRulesElOverridesElLocationStrategyEl {
+impl BuildLoadBalancer_Rules_Overrides_LocationStrategy {
+    pub fn build(self) -> LoadBalancer_Rules_Overrides_LocationStrategy {
+        LoadBalancer_Rules_Overrides_LocationStrategy {
             mode: core::default::Default::default(),
             prefer_ecs: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerRulesElOverridesElLocationStrategyElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_Overrides_LocationStrategyRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElOverridesElLocationStrategyElRef {
+impl terrars::Ref for LoadBalancer_Rules_Overrides_LocationStrategyRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElLocationStrategyElRef {
-        LoadBalancerRulesElOverridesElLocationStrategyElRef {
+    ) -> LoadBalancer_Rules_Overrides_LocationStrategyRef {
+        LoadBalancer_Rules_Overrides_LocationStrategyRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElOverridesElLocationStrategyElRef {
+impl LoadBalancer_Rules_Overrides_LocationStrategyRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolver_ip` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolver_ip`."]
+        "Get a reference to the value of field `mode` after provisioning.\nDetermines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful.\n- `\"pop\"`: Use the Cloudflare PoP location.\n- `\"resolver_ip\"`: Use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, use the Cloudflare PoP location.\nAvailable values: \"pop\", \"resolver_ip\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `prefer_ecs` after provisioning.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when [`steering_policy=\"proximity\"`](#steering_policy), and `geo` will prefer ECS only when [`steering_policy=\"geo\"`](#steering_policy). Available values: `always`, `never`, `proximity`, `geo`."]
+        "Get a reference to the value of field `prefer_ecs` after provisioning.\nWhether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location.\n- `\"always\"`: Always prefer ECS.\n- `\"never\"`: Never prefer ECS.\n- `\"proximity\"`: Prefer ECS only when `steering_policy=\"proximity\"`.\n- `\"geo\"`: Prefer ECS only when `steering_policy=\"geo\"`.\nAvailable values: \"always\", \"never\", \"proximity\", \"geo\"."]
     pub fn prefer_ecs(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.prefer_ecs", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElPopPoolsEl {
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    pop: terrars::PrimField<std::string::String>,
-}
-
-impl LoadBalancerRulesElOverridesElPopPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElPopPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElPopPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerRulesElOverridesElPopPoolsEl {
-    #[doc = "A list of pool IDs in failover priority to use for traffic reaching the given PoP."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    #[doc =
-        "A 3-letter code for the Point-of-Presence. Allowed values can be found in the list of datacenters on the [status page](https://www.cloudflarestatus.com/). Multiple entries should not be specified with the same PoP."]
-    pub pop: terrars::PrimField<std::string::String>,
-}
-
-impl BuildLoadBalancerRulesElOverridesElPopPoolsEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElPopPoolsEl {
-        LoadBalancerRulesElOverridesElPopPoolsEl {
-            pool_ids: self.pool_ids,
-            pop: self.pop,
-        }
-    }
-}
-
-pub struct LoadBalancerRulesElOverridesElPopPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerRulesElOverridesElPopPoolsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRulesElOverridesElPopPoolsElRef {
-        LoadBalancerRulesElOverridesElPopPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerRulesElOverridesElPopPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use for traffic reaching the given PoP."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pop` after provisioning.\nA 3-letter code for the Point-of-Presence. Allowed values can be found in the list of datacenters on the [status page](https://www.cloudflarestatus.com/). Multiple entries should not be specified with the same PoP."]
-    pub fn pop(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pop", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElRandomSteeringEl {
+pub struct LoadBalancer_Rules_Overrides_RandomSteering {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     default_weight: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pool_weights: std::option::Option<terrars::RecField<terrars::PrimField<f64>>>,
 }
 
-impl LoadBalancerRulesElOverridesElRandomSteeringEl {
+impl LoadBalancer_Rules_Overrides_RandomSteering {
     #[doc =
-        "Set the field `default_weight`.\nThe default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map."]
+        "Set the field `default_weight`.\nThe default weight for pools in the load balancer that are not specified in the pool_weights map."]
     pub fn set_default_weight(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.default_weight = std::option::Option::Some(v.into());
         self
@@ -1463,8 +1192,8 @@ impl LoadBalancerRulesElOverridesElRandomSteeringEl {
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElRandomSteeringEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElRandomSteeringEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_Overrides_RandomSteering {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_Overrides_RandomSteering>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1475,41 +1204,43 @@ impl terrars::ToListMappable for LoadBalancerRulesElOverridesElRandomSteeringEl 
     }
 }
 
-pub struct BuildLoadBalancerRulesElOverridesElRandomSteeringEl {}
+pub struct BuildLoadBalancer_Rules_Overrides_RandomSteering {}
 
-impl BuildLoadBalancerRulesElOverridesElRandomSteeringEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElRandomSteeringEl {
-        LoadBalancerRulesElOverridesElRandomSteeringEl {
+impl BuildLoadBalancer_Rules_Overrides_RandomSteering {
+    pub fn build(self) -> LoadBalancer_Rules_Overrides_RandomSteering {
+        LoadBalancer_Rules_Overrides_RandomSteering {
             default_weight: core::default::Default::default(),
             pool_weights: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerRulesElOverridesElRandomSteeringElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_Overrides_RandomSteeringRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElOverridesElRandomSteeringElRef {
+impl terrars::Ref for LoadBalancer_Rules_Overrides_RandomSteeringRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElRandomSteeringElRef {
-        LoadBalancerRulesElOverridesElRandomSteeringElRef {
+    ) -> LoadBalancer_Rules_Overrides_RandomSteeringRef {
+        LoadBalancer_Rules_Overrides_RandomSteeringRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElOverridesElRandomSteeringElRef {
+impl LoadBalancer_Rules_Overrides_RandomSteeringRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `default_weight` after provisioning.\nThe default weight for pools in the load balancer that are not specified in the [`pool_weights`](#pool_weights) map."]
+        "Get a reference to the value of field `default_weight` after provisioning.\nThe default weight for pools in the load balancer that are not specified in the pool_weights map."]
     pub fn default_weight(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_weight", self.base))
     }
@@ -1522,79 +1253,13 @@ impl LoadBalancerRulesElOverridesElRandomSteeringElRef {
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElRegionPoolsEl {
-    pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    region: terrars::PrimField<std::string::String>,
-}
-
-impl LoadBalancerRulesElOverridesElRegionPoolsEl { }
-
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElRegionPoolsEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElRegionPoolsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerRulesElOverridesElRegionPoolsEl {
-    #[doc = "A list of pool IDs in failover priority to use in the given region."]
-    pub pool_ids: terrars::ListField<terrars::PrimField<std::string::String>>,
-    #[doc =
-        "A region code which must be in the list defined [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/#list-of-load-balancer-regions). Multiple entries should not be specified with the same region."]
-    pub region: terrars::PrimField<std::string::String>,
-}
-
-impl BuildLoadBalancerRulesElOverridesElRegionPoolsEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElRegionPoolsEl {
-        LoadBalancerRulesElOverridesElRegionPoolsEl {
-            pool_ids: self.pool_ids,
-            region: self.region,
-        }
-    }
-}
-
-pub struct LoadBalancerRulesElOverridesElRegionPoolsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerRulesElOverridesElRegionPoolsElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElRegionPoolsElRef {
-        LoadBalancerRulesElOverridesElRegionPoolsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerRulesElOverridesElRegionPoolsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pool_ids` after provisioning.\nA list of pool IDs in failover priority to use in the given region."]
-    pub fn pool_ids(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pool_ids", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `region` after provisioning.\nA region code which must be in the list defined [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/#list-of-load-balancer-regions). Multiple entries should not be specified with the same region."]
-    pub fn region(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.region", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
+pub struct LoadBalancer_Rules_Overrides_SessionAffinityAttributes {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    drain_duration: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    headers: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    require_all_headers: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     samesite: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1603,23 +1268,47 @@ pub struct LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
     zero_downtime_failover: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
+impl LoadBalancer_Rules_Overrides_SessionAffinityAttributes {
     #[doc =
-        "Set the field `samesite`.\nConfigures the SameSite attribute on session affinity cookie. Value `Auto` will be translated to `Lax` or `None` depending if Always Use HTTPS is enabled. Note: when using value `None`, then you can not set [`secure=\"Never\"`](#secure). Available values: `Auto`, `Lax`, `None`, `Strict`."]
+        "Set the field `drain_duration`.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer."]
+    pub fn set_drain_duration(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.drain_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `headers`.\nConfigures the names of HTTP headers to base session affinity on when header `session_affinity` is enabled. At least one HTTP header name must be provided. To specify the exact cookies to be used, include an item in the following format: `\"cookie:<cookie-name-1>,<cookie-name-2>\"` (example) where everything after the colon is a comma-separated list of cookie names. Providing only `\"cookie\"` will result in all cookies being used. The default max number of HTTP header names that can be provided depends on your plan: 5 for Enterprise, 1 for all other plans."]
+    pub fn set_headers(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `require_all_headers`.\nWhen header `session_affinity` is enabled, this option can be used to specify how HTTP headers on load balancing requests will be used. The supported values are: - `\"true\"`: Load balancing requests must contain *all* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created. - `\"false\"`: Load balancing requests must contain *at least one* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created."]
+    pub fn set_require_all_headers(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.require_all_headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `samesite`.\nConfigures the SameSite attribute on session affinity cookie. Value \"Auto\" will be translated to \"Lax\" or \"None\" depending if Always Use HTTPS is enabled. Note: when using value \"None\", the secure attribute can not be set to \"Never\".\nAvailable values: \"Auto\", \"Lax\", \"None\", \"Strict\"."]
     pub fn set_samesite(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.samesite = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `secure`.\nConfigures the Secure attribute on session affinity cookie. Value `Always` indicates the Secure attribute will be set in the Set-Cookie header, `Never` indicates the Secure attribute will not be set, and `Auto` will set the Secure attribute depending if Always Use HTTPS is enabled. Available values: `Auto`, `Always`, `Never`."]
+        "Set the field `secure`.\nConfigures the Secure attribute on session affinity cookie. Value \"Always\" indicates the Secure attribute will be set in the Set-Cookie header, \"Never\" indicates the Secure attribute will not be set, and \"Auto\" will set the Secure attribute depending if Always Use HTTPS is enabled.\nAvailable values: \"Auto\", \"Always\", \"Never\"."]
     pub fn set_secure(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.secure = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `zero_downtime_failover`.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. Value `none` means no failover takes place for sessions pinned to the origin. Value `temporary` means traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. Value `sticky` means the session affinity cookie is updated and subsequent requests are sent to the new origin. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. Available values: `none`, `temporary`, `sticky`."]
+        "Set the field `zero_downtime_failover`.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. The supported values are: - `\"none\"`: No failover takes place for sessions pinned to the origin (default). - `\"temporary\"`: Traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. - `\"sticky\"`: The session affinity cookie is updated and subsequent requests are sent to the new origin. Note: Zero-downtime failover with sticky sessions is currently not supported for session affinity by header.\nAvailable values: \"none\", \"temporary\", \"sticky\"."]
     pub fn set_zero_downtime_failover(
         mut self,
         v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
@@ -1629,8 +1318,8 @@ impl LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesElSessionAffinityAttributesEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_Overrides_SessionAffinityAttributes {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_Overrides_SessionAffinityAttributes>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1641,11 +1330,14 @@ impl terrars::ToListMappable for LoadBalancerRulesElOverridesElSessionAffinityAt
     }
 }
 
-pub struct BuildLoadBalancerRulesElOverridesElSessionAffinityAttributesEl {}
+pub struct BuildLoadBalancer_Rules_Overrides_SessionAffinityAttributes {}
 
-impl BuildLoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
-        LoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
+impl BuildLoadBalancer_Rules_Overrides_SessionAffinityAttributes {
+    pub fn build(self) -> LoadBalancer_Rules_Overrides_SessionAffinityAttributes {
+        LoadBalancer_Rules_Overrides_SessionAffinityAttributes {
+            drain_duration: core::default::Default::default(),
+            headers: core::default::Default::default(),
+            require_all_headers: core::default::Default::default(),
             samesite: core::default::Default::default(),
             secure: core::default::Default::default(),
             zero_downtime_failover: core::default::Default::default(),
@@ -1653,96 +1345,120 @@ impl BuildLoadBalancerRulesElOverridesElSessionAffinityAttributesEl {
     }
 }
 
-pub struct LoadBalancerRulesElOverridesElSessionAffinityAttributesElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElOverridesElSessionAffinityAttributesElRef {
+impl terrars::Ref for LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> LoadBalancerRulesElOverridesElSessionAffinityAttributesElRef {
-        LoadBalancerRulesElOverridesElSessionAffinityAttributesElRef {
+    ) -> LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
+        LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElOverridesElSessionAffinityAttributesElRef {
+impl LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `samesite` after provisioning.\nConfigures the SameSite attribute on session affinity cookie. Value `Auto` will be translated to `Lax` or `None` depending if Always Use HTTPS is enabled. Note: when using value `None`, then you can not set [`secure=\"Never\"`](#secure). Available values: `Auto`, `Lax`, `None`, `Strict`."]
+        "Get a reference to the value of field `drain_duration` after provisioning.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer."]
+    pub fn drain_duration(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.drain_duration", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `headers` after provisioning.\nConfigures the names of HTTP headers to base session affinity on when header `session_affinity` is enabled. At least one HTTP header name must be provided. To specify the exact cookies to be used, include an item in the following format: `\"cookie:<cookie-name-1>,<cookie-name-2>\"` (example) where everything after the colon is a comma-separated list of cookie names. Providing only `\"cookie\"` will result in all cookies being used. The default max number of HTTP header names that can be provided depends on your plan: 5 for Enterprise, 1 for all other plans."]
+    pub fn headers(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.headers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `require_all_headers` after provisioning.\nWhen header `session_affinity` is enabled, this option can be used to specify how HTTP headers on load balancing requests will be used. The supported values are: - `\"true\"`: Load balancing requests must contain *all* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created. - `\"false\"`: Load balancing requests must contain *at least one* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created."]
+    pub fn require_all_headers(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.require_all_headers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `samesite` after provisioning.\nConfigures the SameSite attribute on session affinity cookie. Value \"Auto\" will be translated to \"Lax\" or \"None\" depending if Always Use HTTPS is enabled. Note: when using value \"None\", the secure attribute can not be set to \"Never\".\nAvailable values: \"Auto\", \"Lax\", \"None\", \"Strict\"."]
     pub fn samesite(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.samesite", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `secure` after provisioning.\nConfigures the Secure attribute on session affinity cookie. Value `Always` indicates the Secure attribute will be set in the Set-Cookie header, `Never` indicates the Secure attribute will not be set, and `Auto` will set the Secure attribute depending if Always Use HTTPS is enabled. Available values: `Auto`, `Always`, `Never`."]
+        "Get a reference to the value of field `secure` after provisioning.\nConfigures the Secure attribute on session affinity cookie. Value \"Always\" indicates the Secure attribute will be set in the Set-Cookie header, \"Never\" indicates the Secure attribute will not be set, and \"Auto\" will set the Secure attribute depending if Always Use HTTPS is enabled.\nAvailable values: \"Auto\", \"Always\", \"Never\"."]
     pub fn secure(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.secure", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `zero_downtime_failover` after provisioning.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. Value `none` means no failover takes place for sessions pinned to the origin. Value `temporary` means traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. Value `sticky` means the session affinity cookie is updated and subsequent requests are sent to the new origin. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. Available values: `none`, `temporary`, `sticky`."]
+        "Get a reference to the value of field `zero_downtime_failover` after provisioning.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. The supported values are: - `\"none\"`: No failover takes place for sessions pinned to the origin (default). - `\"temporary\"`: Traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. - `\"sticky\"`: The session affinity cookie is updated and subsequent requests are sent to the new origin. Note: Zero-downtime failover with sticky sessions is currently not supported for session affinity by header.\nAvailable values: \"none\", \"temporary\", \"sticky\"."]
     pub fn zero_downtime_failover(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zero_downtime_failover", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct LoadBalancerRulesElOverridesElDynamic {
-    adaptive_routing: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElAdaptiveRoutingEl>>,
-    country_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElCountryPoolsEl>>,
-    location_strategy: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElLocationStrategyEl>>,
-    pop_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElPopPoolsEl>>,
-    random_steering: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElRandomSteeringEl>>,
-    region_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElRegionPoolsEl>>,
-    session_affinity_attributes: std
-    ::option
-    ::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesElSessionAffinityAttributesEl>>,
-}
-
 #[derive(Serialize)]
-pub struct LoadBalancerRulesElOverridesEl {
+pub struct LoadBalancer_Rules_Overrides {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    adaptive_routing: std::option::Option<LoadBalancer_Rules_Overrides_AdaptiveRouting>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    country_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     default_pools: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     fallback_pool: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    location_strategy: std::option::Option<LoadBalancer_Rules_Overrides_LocationStrategy>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pop_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    random_steering: std::option::Option<LoadBalancer_Rules_Overrides_RandomSteering>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    region_pools: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     session_affinity: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    session_affinity_attributes: std::option::Option<LoadBalancer_Rules_Overrides_SessionAffinityAttributes>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     session_affinity_ttl: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     steering_policy: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     ttl: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    adaptive_routing: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElAdaptiveRoutingEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    country_pools: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElCountryPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    location_strategy: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElLocationStrategyEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    pop_pools: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElPopPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    random_steering: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElRandomSteeringEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    region_pools: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesElRegionPoolsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    session_affinity_attributes: std
-    ::option
-    ::Option<std::vec::Vec<LoadBalancerRulesElOverridesElSessionAffinityAttributesEl>>,
-    dynamic: LoadBalancerRulesElOverridesElDynamic,
 }
 
-impl LoadBalancerRulesElOverridesEl {
+impl LoadBalancer_Rules_Overrides {
     #[doc =
-        "Set the field `default_pools`.\nA list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined."]
+        "Set the field `adaptive_routing`.\nControls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. For example, zero-downtime failover occurs immediately when an origin becomes unavailable due to HTTP 521, 522, or 523 response codes. If there is another healthy origin in the same pool, the request is retried once against this alternate origin."]
+    pub fn set_adaptive_routing(
+        mut self,
+        v: impl std::convert::Into<LoadBalancer_Rules_Overrides_AdaptiveRouting>,
+    ) -> Self {
+        self.adaptive_routing = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `country_pools`.\nA mapping of country codes to a list of pool IDs (ordered by their failover priority) for the given country. Any country not explicitly defined will fall back to using the corresponding region_pool mapping if it exists else to default_pools."]
+    pub fn set_country_pools(
+        mut self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.country_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `default_pools`.\nA list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."]
     pub fn set_default_pools(
         mut self,
         v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
@@ -1757,153 +1473,86 @@ impl LoadBalancerRulesElOverridesEl {
         self
     }
 
-    #[doc = "Set the field `session_affinity`.\nConfigure cookie attributes for session affinity cookie."]
+    #[doc =
+        "Set the field `location_strategy`.\nControls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."]
+    pub fn set_location_strategy(
+        mut self,
+        v: impl std::convert::Into<LoadBalancer_Rules_Overrides_LocationStrategy>,
+    ) -> Self {
+        self.location_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `pop_pools`.\nEnterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."]
+    pub fn set_pop_pools(
+        mut self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.pop_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `random_steering`.\nConfigures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."]
+    pub fn set_random_steering(
+        mut self,
+        v: impl std::convert::Into<LoadBalancer_Rules_Overrides_RandomSteering>,
+    ) -> Self {
+        self.random_steering = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `region_pools`.\nA mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."]
+    pub fn set_region_pools(
+        mut self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.region_pools = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `session_affinity`.\nSpecifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.\nAvailable values: \"none\", \"cookie\", \"ip_cookie\", \"header\"."]
     pub fn set_session_affinity(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.session_affinity = std::option::Option::Some(v.into());
         self
     }
 
+    #[doc = "Set the field `session_affinity_attributes`.\nConfigures attributes for session affinity."]
+    pub fn set_session_affinity_attributes(
+        mut self,
+        v: impl std::convert::Into<LoadBalancer_Rules_Overrides_SessionAffinityAttributes>,
+    ) -> Self {
+        self.session_affinity_attributes = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc =
-        "Set the field `session_affinity_ttl`.\nTime, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`."]
+        "Set the field `session_affinity_ttl`.\nTime, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."]
     pub fn set_session_affinity_ttl(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.session_affinity_ttl = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `steering_policy`.\nThe method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `\"\"` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `\"\"` Defaults to `\"\"`."]
+        "Set the field `steering_policy`.\nSteering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.\nAvailable values: \"off\", \"geo\", \"random\", \"dynamic_latency\", \"proximity\", \"least_outstanding_requests\", \"least_connections\", \"\"."]
     pub fn set_steering_policy(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.steering_policy = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `ttl`.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`."]
+        "Set the field `ttl`.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."]
     pub fn set_ttl(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.ttl = std::option::Option::Some(v.into());
         self
     }
-
-    #[doc = "Set the field `adaptive_routing`.\n"]
-    pub fn set_adaptive_routing(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElAdaptiveRoutingEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.adaptive_routing = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.adaptive_routing = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `country_pools`.\n"]
-    pub fn set_country_pools(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElCountryPoolsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.country_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.country_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `location_strategy`.\n"]
-    pub fn set_location_strategy(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElLocationStrategyEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.location_strategy = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.location_strategy = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `pop_pools`.\n"]
-    pub fn set_pop_pools(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElPopPoolsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.pop_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.pop_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `random_steering`.\n"]
-    pub fn set_random_steering(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElRandomSteeringEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.random_steering = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.random_steering = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `region_pools`.\n"]
-    pub fn set_region_pools(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElRegionPoolsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.region_pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.region_pools = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `session_affinity_attributes`.\n"]
-    pub fn set_session_affinity_attributes(
-        mut self,
-        v:
-            impl
-
-                    std
-                    ::convert
-                    ::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesElSessionAffinityAttributesEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.session_affinity_attributes = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.session_affinity_attributes = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesElOverridesEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesElOverridesEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules_Overrides {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules_Overrides>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1914,50 +1563,66 @@ impl terrars::ToListMappable for LoadBalancerRulesElOverridesEl {
     }
 }
 
-pub struct BuildLoadBalancerRulesElOverridesEl {}
+pub struct BuildLoadBalancer_Rules_Overrides {}
 
-impl BuildLoadBalancerRulesElOverridesEl {
-    pub fn build(self) -> LoadBalancerRulesElOverridesEl {
-        LoadBalancerRulesElOverridesEl {
-            default_pools: core::default::Default::default(),
-            fallback_pool: core::default::Default::default(),
-            session_affinity: core::default::Default::default(),
-            session_affinity_ttl: core::default::Default::default(),
-            steering_policy: core::default::Default::default(),
-            ttl: core::default::Default::default(),
+impl BuildLoadBalancer_Rules_Overrides {
+    pub fn build(self) -> LoadBalancer_Rules_Overrides {
+        LoadBalancer_Rules_Overrides {
             adaptive_routing: core::default::Default::default(),
             country_pools: core::default::Default::default(),
+            default_pools: core::default::Default::default(),
+            fallback_pool: core::default::Default::default(),
             location_strategy: core::default::Default::default(),
             pop_pools: core::default::Default::default(),
             random_steering: core::default::Default::default(),
             region_pools: core::default::Default::default(),
+            session_affinity: core::default::Default::default(),
             session_affinity_attributes: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+            session_affinity_ttl: core::default::Default::default(),
+            steering_policy: core::default::Default::default(),
+            ttl: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerRulesElOverridesElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_Rules_OverridesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElOverridesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRulesElOverridesElRef {
-        LoadBalancerRulesElOverridesElRef {
+impl terrars::Ref for LoadBalancer_Rules_OverridesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_Rules_OverridesRef {
+        LoadBalancer_Rules_OverridesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElOverridesElRef {
+impl LoadBalancer_Rules_OverridesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `default_pools` after provisioning.\nA list of pool IDs ordered by their failover priority. Used whenever [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) are not defined."]
+        "Get a reference to the value of field `adaptive_routing` after provisioning.\nControls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests. For example, zero-downtime failover occurs immediately when an origin becomes unavailable due to HTTP 521, 522, or 523 response codes. If there is another healthy origin in the same pool, the request is retried once against this alternate origin."]
+    pub fn adaptive_routing(&self) -> LoadBalancer_Rules_Overrides_AdaptiveRoutingRef {
+        LoadBalancer_Rules_Overrides_AdaptiveRoutingRef::new(
+            self.shared().clone(),
+            format!("{}.adaptive_routing", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `country_pools` after provisioning.\nA mapping of country codes to a list of pool IDs (ordered by their failover priority) for the given country. Any country not explicitly defined will fall back to using the corresponding region_pool mapping if it exists else to default_pools."]
+    pub fn country_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.country_pools", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `default_pools` after provisioning.\nA list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."]
     pub fn default_pools(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.default_pools", self.base))
     }
@@ -1969,117 +1634,139 @@ impl LoadBalancerRulesElOverridesElRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity` after provisioning.\nConfigure cookie attributes for session affinity cookie."]
+        "Get a reference to the value of field `location_strategy` after provisioning.\nControls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."]
+    pub fn location_strategy(&self) -> LoadBalancer_Rules_Overrides_LocationStrategyRef {
+        LoadBalancer_Rules_Overrides_LocationStrategyRef::new(
+            self.shared().clone(),
+            format!("{}.location_strategy", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pop_pools` after provisioning.\nEnterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."]
+    pub fn pop_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.pop_pools", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `random_steering` after provisioning.\nConfigures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."]
+    pub fn random_steering(&self) -> LoadBalancer_Rules_Overrides_RandomSteeringRef {
+        LoadBalancer_Rules_Overrides_RandomSteeringRef::new(
+            self.shared().clone(),
+            format!("{}.random_steering", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `region_pools` after provisioning.\nA mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."]
+    pub fn region_pools(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.region_pools", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity` after provisioning.\nSpecifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.\nAvailable values: \"none\", \"cookie\", \"ip_cookie\", \"header\"."]
     pub fn session_affinity(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`."]
+        "Get a reference to the value of field `session_affinity_attributes` after provisioning.\nConfigures attributes for session affinity."]
+    pub fn session_affinity_attributes(&self) -> LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef {
+        LoadBalancer_Rules_Overrides_SessionAffinityAttributesRef::new(
+            self.shared().clone(),
+            format!("{}.session_affinity_attributes", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `session_affinity_ttl` after provisioning.\nTime, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."]
     pub fn session_affinity_ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_affinity_ttl", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `steering_policy` after provisioning.\nThe method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `\"\"` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `\"\"` Defaults to `\"\"`."]
+        "Get a reference to the value of field `steering_policy` after provisioning.\nSteering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.\nAvailable values: \"off\", \"geo\", \"random\", \"dynamic_latency\", \"proximity\", \"least_outstanding_requests\", \"least_connections\", \"\"."]
     pub fn steering_policy(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.steering_policy", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`."]
+        "Get a reference to the value of field `ttl` after provisioning.\nTime to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."]
     pub fn ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ttl", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct LoadBalancerRulesElDynamic {
-    fixed_response: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElFixedResponseEl>>,
-    overrides: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesElOverridesEl>>,
-}
-
 #[derive(Serialize)]
-pub struct LoadBalancerRulesEl {
+pub struct LoadBalancer_Rules {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     condition: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     disabled: std::option::Option<terrars::PrimField<bool>>,
-    name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    fixed_response: std::option::Option<LoadBalancer_Rules_FixedResponse>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    overrides: std::option::Option<LoadBalancer_Rules_Overrides>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     priority: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     terminates: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    fixed_response: std::option::Option<std::vec::Vec<LoadBalancerRulesElFixedResponseEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    overrides: std::option::Option<std::vec::Vec<LoadBalancerRulesElOverridesEl>>,
-    dynamic: LoadBalancerRulesElDynamic,
 }
 
-impl LoadBalancerRulesEl {
+impl LoadBalancer_Rules {
     #[doc =
-        "Set the field `condition`.\nThe statement to evaluate to determine if this rule's effects should be applied. An empty condition is always true. See [load balancing rules](https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules)."]
+        "Set the field `condition`.\nThe condition expressions to evaluate. If the condition evaluates to true, the overrides or fixed_response in this rule will be applied. An empty condition is always true. For more details on condition expressions, please see https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules/expressions."]
     pub fn set_condition(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.condition = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `disabled`.\nA disabled rule will not be executed."]
+    #[doc =
+        "Set the field `disabled`.\nDisable this specific rule. It will no longer be evaluated by this load balancer."]
     pub fn set_disabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.disabled = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `priority`.\nPriority used when determining the order of rule execution. Lower values are executed first. If not provided, the list order will be used."]
+        "Set the field `fixed_response`.\nA collection of fields used to directly respond to the eyeball instead of routing to a pool. If a fixed_response is supplied the rule will be marked as terminates."]
+    pub fn set_fixed_response(mut self, v: impl std::convert::Into<LoadBalancer_Rules_FixedResponse>) -> Self {
+        self.fixed_response = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `name`.\nName of this rule. Only used for human readability."]
+    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `overrides`.\nA collection of overrides to apply to the load balancer when this rule's condition is true. All fields are optional."]
+    pub fn set_overrides(mut self, v: impl std::convert::Into<LoadBalancer_Rules_Overrides>) -> Self {
+        self.overrides = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `priority`.\nThe order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If no value is provided for any rule the array order of the rules field will be used to assign a priority."]
     pub fn set_priority(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.priority = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `terminates`.\nTerminates indicates that if this rule is true no further rules should be executed. Note: setting a [`fixed_response`](#fixed_response) forces this field to `true`."]
+        "Set the field `terminates`.\nIf this rule's condition is true, this causes rule evaluation to stop after processing this rule."]
     pub fn set_terminates(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.terminates = std::option::Option::Some(v.into());
         self
     }
-
-    #[doc = "Set the field `fixed_response`.\n"]
-    pub fn set_fixed_response(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElFixedResponseEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.fixed_response = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.fixed_response = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `overrides`.\n"]
-    pub fn set_overrides(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerRulesElOverridesEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.overrides = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.overrides = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
 }
 
-impl terrars::ToListMappable for LoadBalancerRulesEl {
-    type O = terrars::BlockAssignable<LoadBalancerRulesEl>;
+impl terrars::ToListMappable for LoadBalancer_Rules {
+    type O = terrars::BlockAssignable<LoadBalancer_Rules>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -2090,89 +1777,94 @@ impl terrars::ToListMappable for LoadBalancerRulesEl {
     }
 }
 
-pub struct BuildLoadBalancerRulesEl {
-    #[doc = "Human readable name for this rule."]
-    pub name: terrars::PrimField<std::string::String>,
-}
+pub struct BuildLoadBalancer_Rules {}
 
-impl BuildLoadBalancerRulesEl {
-    pub fn build(self) -> LoadBalancerRulesEl {
-        LoadBalancerRulesEl {
+impl BuildLoadBalancer_Rules {
+    pub fn build(self) -> LoadBalancer_Rules {
+        LoadBalancer_Rules {
             condition: core::default::Default::default(),
             disabled: core::default::Default::default(),
-            name: self.name,
+            fixed_response: core::default::Default::default(),
+            name: core::default::Default::default(),
+            overrides: core::default::Default::default(),
             priority: core::default::Default::default(),
             terminates: core::default::Default::default(),
-            fixed_response: core::default::Default::default(),
-            overrides: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
         }
     }
 }
 
-pub struct LoadBalancerRulesElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_RulesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerRulesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerRulesElRef {
-        LoadBalancerRulesElRef {
+impl terrars::Ref for LoadBalancer_RulesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_RulesRef {
+        LoadBalancer_RulesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerRulesElRef {
+impl LoadBalancer_RulesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `condition` after provisioning.\nThe statement to evaluate to determine if this rule's effects should be applied. An empty condition is always true. See [load balancing rules](https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules)."]
+        "Get a reference to the value of field `condition` after provisioning.\nThe condition expressions to evaluate. If the condition evaluates to true, the overrides or fixed_response in this rule will be applied. An empty condition is always true. For more details on condition expressions, please see https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules/expressions."]
     pub fn condition(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.condition", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `disabled` after provisioning.\nA disabled rule will not be executed."]
+        "Get a reference to the value of field `disabled` after provisioning.\nDisable this specific rule. It will no longer be evaluated by this load balancer."]
     pub fn disabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.disabled", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nHuman readable name for this rule."]
+    #[doc =
+        "Get a reference to the value of field `fixed_response` after provisioning.\nA collection of fields used to directly respond to the eyeball instead of routing to a pool. If a fixed_response is supplied the rule will be marked as terminates."]
+    pub fn fixed_response(&self) -> LoadBalancer_Rules_FixedResponseRef {
+        LoadBalancer_Rules_FixedResponseRef::new(self.shared().clone(), format!("{}.fixed_response", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nName of this rule. Only used for human readability."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `priority` after provisioning.\nPriority used when determining the order of rule execution. Lower values are executed first. If not provided, the list order will be used."]
+        "Get a reference to the value of field `overrides` after provisioning.\nA collection of overrides to apply to the load balancer when this rule's condition is true. All fields are optional."]
+    pub fn overrides(&self) -> LoadBalancer_Rules_OverridesRef {
+        LoadBalancer_Rules_OverridesRef::new(self.shared().clone(), format!("{}.overrides", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `priority` after provisioning.\nThe order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If no value is provided for any rule the array order of the rules field will be used to assign a priority."]
     pub fn priority(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `terminates` after provisioning.\nTerminates indicates that if this rule is true no further rules should be executed. Note: setting a [`fixed_response`](#fixed_response) forces this field to `true`."]
+        "Get a reference to the value of field `terminates` after provisioning.\nIf this rule's condition is true, this causes rule evaluation to stop after processing this rule."]
     pub fn terminates(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.terminates", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `fixed_response` after provisioning.\n"]
-    pub fn fixed_response(&self) -> terrars::ListRef<LoadBalancerRulesElFixedResponseElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.fixed_response", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `overrides` after provisioning.\n"]
-    pub fn overrides(&self) -> terrars::ListRef<LoadBalancerRulesElOverridesElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.overrides", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct LoadBalancerSessionAffinityAttributesEl {
+pub struct LoadBalancer_SessionAffinityAttributes {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     drain_duration: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    headers: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    require_all_headers: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     samesite: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2181,30 +1873,47 @@ pub struct LoadBalancerSessionAffinityAttributesEl {
     zero_downtime_failover: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl LoadBalancerSessionAffinityAttributesEl {
+impl LoadBalancer_SessionAffinityAttributes {
     #[doc =
-        "Set the field `drain_duration`.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer. Defaults to `0`."]
+        "Set the field `drain_duration`.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer."]
     pub fn set_drain_duration(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.drain_duration = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `samesite`.\nConfigures the SameSite attribute on session affinity cookie. Value `Auto` will be translated to `Lax` or `None` depending if Always Use HTTPS is enabled. Note: when using value `None`, then you can not set [`secure=\"Never\"`](#secure). Available values: `Auto`, `Lax`, `None`, `Strict`. Defaults to `Auto`."]
+        "Set the field `headers`.\nConfigures the names of HTTP headers to base session affinity on when header `session_affinity` is enabled. At least one HTTP header name must be provided. To specify the exact cookies to be used, include an item in the following format: `\"cookie:<cookie-name-1>,<cookie-name-2>\"` (example) where everything after the colon is a comma-separated list of cookie names. Providing only `\"cookie\"` will result in all cookies being used. The default max number of HTTP header names that can be provided depends on your plan: 5 for Enterprise, 1 for all other plans."]
+    pub fn set_headers(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `require_all_headers`.\nWhen header `session_affinity` is enabled, this option can be used to specify how HTTP headers on load balancing requests will be used. The supported values are: - `\"true\"`: Load balancing requests must contain *all* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created. - `\"false\"`: Load balancing requests must contain *at least one* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created."]
+    pub fn set_require_all_headers(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.require_all_headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `samesite`.\nConfigures the SameSite attribute on session affinity cookie. Value \"Auto\" will be translated to \"Lax\" or \"None\" depending if Always Use HTTPS is enabled. Note: when using value \"None\", the secure attribute can not be set to \"Never\".\nAvailable values: \"Auto\", \"Lax\", \"None\", \"Strict\"."]
     pub fn set_samesite(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.samesite = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `secure`.\nConfigures the Secure attribute on session affinity cookie. Value `Always` indicates the Secure attribute will be set in the Set-Cookie header, `Never` indicates the Secure attribute will not be set, and `Auto` will set the Secure attribute depending if Always Use HTTPS is enabled. Available values: `Auto`, `Always`, `Never`. Defaults to `Auto`."]
+        "Set the field `secure`.\nConfigures the Secure attribute on session affinity cookie. Value \"Always\" indicates the Secure attribute will be set in the Set-Cookie header, \"Never\" indicates the Secure attribute will not be set, and \"Auto\" will set the Secure attribute depending if Always Use HTTPS is enabled.\nAvailable values: \"Auto\", \"Always\", \"Never\"."]
     pub fn set_secure(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.secure = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `zero_downtime_failover`.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. Value `none` means no failover takes place for sessions pinned to the origin. Value `temporary` means traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. Value `sticky` means the session affinity cookie is updated and subsequent requests are sent to the new origin. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. Available values: `none`, `temporary`, `sticky`. Defaults to `none`."]
+        "Set the field `zero_downtime_failover`.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. The supported values are: - `\"none\"`: No failover takes place for sessions pinned to the origin (default). - `\"temporary\"`: Traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. - `\"sticky\"`: The session affinity cookie is updated and subsequent requests are sent to the new origin. Note: Zero-downtime failover with sticky sessions is currently not supported for session affinity by header.\nAvailable values: \"none\", \"temporary\", \"sticky\"."]
     pub fn set_zero_downtime_failover(
         mut self,
         v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
@@ -2214,8 +1923,8 @@ impl LoadBalancerSessionAffinityAttributesEl {
     }
 }
 
-impl terrars::ToListMappable for LoadBalancerSessionAffinityAttributesEl {
-    type O = terrars::BlockAssignable<LoadBalancerSessionAffinityAttributesEl>;
+impl terrars::ToListMappable for LoadBalancer_SessionAffinityAttributes {
+    type O = terrars::BlockAssignable<LoadBalancer_SessionAffinityAttributes>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -2226,12 +1935,14 @@ impl terrars::ToListMappable for LoadBalancerSessionAffinityAttributesEl {
     }
 }
 
-pub struct BuildLoadBalancerSessionAffinityAttributesEl {}
+pub struct BuildLoadBalancer_SessionAffinityAttributes {}
 
-impl BuildLoadBalancerSessionAffinityAttributesEl {
-    pub fn build(self) -> LoadBalancerSessionAffinityAttributesEl {
-        LoadBalancerSessionAffinityAttributesEl {
+impl BuildLoadBalancer_SessionAffinityAttributes {
+    pub fn build(self) -> LoadBalancer_SessionAffinityAttributes {
+        LoadBalancer_SessionAffinityAttributes {
             drain_duration: core::default::Default::default(),
+            headers: core::default::Default::default(),
+            require_all_headers: core::default::Default::default(),
             samesite: core::default::Default::default(),
             secure: core::default::Default::default(),
             zero_downtime_failover: core::default::Default::default(),
@@ -2239,60 +1950,60 @@ impl BuildLoadBalancerSessionAffinityAttributesEl {
     }
 }
 
-pub struct LoadBalancerSessionAffinityAttributesElRef {
+#[allow(dead_code)]
+pub struct LoadBalancer_SessionAffinityAttributesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for LoadBalancerSessionAffinityAttributesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerSessionAffinityAttributesElRef {
-        LoadBalancerSessionAffinityAttributesElRef {
+impl terrars::Ref for LoadBalancer_SessionAffinityAttributesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancer_SessionAffinityAttributesRef {
+        LoadBalancer_SessionAffinityAttributesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl LoadBalancerSessionAffinityAttributesElRef {
+impl LoadBalancer_SessionAffinityAttributesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `drain_duration` after provisioning.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer. Defaults to `0`."]
+        "Get a reference to the value of field `drain_duration` after provisioning.\nConfigures the drain duration in seconds. This field is only used when session affinity is enabled on the load balancer."]
     pub fn drain_duration(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.drain_duration", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `samesite` after provisioning.\nConfigures the SameSite attribute on session affinity cookie. Value `Auto` will be translated to `Lax` or `None` depending if Always Use HTTPS is enabled. Note: when using value `None`, then you can not set [`secure=\"Never\"`](#secure). Available values: `Auto`, `Lax`, `None`, `Strict`. Defaults to `Auto`."]
+        "Get a reference to the value of field `headers` after provisioning.\nConfigures the names of HTTP headers to base session affinity on when header `session_affinity` is enabled. At least one HTTP header name must be provided. To specify the exact cookies to be used, include an item in the following format: `\"cookie:<cookie-name-1>,<cookie-name-2>\"` (example) where everything after the colon is a comma-separated list of cookie names. Providing only `\"cookie\"` will result in all cookies being used. The default max number of HTTP header names that can be provided depends on your plan: 5 for Enterprise, 1 for all other plans."]
+    pub fn headers(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.headers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `require_all_headers` after provisioning.\nWhen header `session_affinity` is enabled, this option can be used to specify how HTTP headers on load balancing requests will be used. The supported values are: - `\"true\"`: Load balancing requests must contain *all* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created. - `\"false\"`: Load balancing requests must contain *at least one* of the HTTP headers specified by the `headers` session affinity attribute, otherwise sessions aren't created."]
+    pub fn require_all_headers(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.require_all_headers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `samesite` after provisioning.\nConfigures the SameSite attribute on session affinity cookie. Value \"Auto\" will be translated to \"Lax\" or \"None\" depending if Always Use HTTPS is enabled. Note: when using value \"None\", the secure attribute can not be set to \"Never\".\nAvailable values: \"Auto\", \"Lax\", \"None\", \"Strict\"."]
     pub fn samesite(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.samesite", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `secure` after provisioning.\nConfigures the Secure attribute on session affinity cookie. Value `Always` indicates the Secure attribute will be set in the Set-Cookie header, `Never` indicates the Secure attribute will not be set, and `Auto` will set the Secure attribute depending if Always Use HTTPS is enabled. Available values: `Auto`, `Always`, `Never`. Defaults to `Auto`."]
+        "Get a reference to the value of field `secure` after provisioning.\nConfigures the Secure attribute on session affinity cookie. Value \"Always\" indicates the Secure attribute will be set in the Set-Cookie header, \"Never\" indicates the Secure attribute will not be set, and \"Auto\" will set the Secure attribute depending if Always Use HTTPS is enabled.\nAvailable values: \"Auto\", \"Always\", \"Never\"."]
     pub fn secure(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.secure", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `zero_downtime_failover` after provisioning.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. Value `none` means no failover takes place for sessions pinned to the origin. Value `temporary` means traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. Value `sticky` means the session affinity cookie is updated and subsequent requests are sent to the new origin. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. Available values: `none`, `temporary`, `sticky`. Defaults to `none`."]
+        "Get a reference to the value of field `zero_downtime_failover` after provisioning.\nConfigures the zero-downtime failover between origins within a pool when session affinity is enabled. This feature is currently incompatible with Argo, Tiered Cache, and Bandwidth Alliance. The supported values are: - `\"none\"`: No failover takes place for sessions pinned to the origin (default). - `\"temporary\"`: Traffic will be sent to another other healthy origin until the originally pinned origin is available; note that this can potentially result in heavy origin flapping. - `\"sticky\"`: The session affinity cookie is updated and subsequent requests are sent to the new origin. Note: Zero-downtime failover with sticky sessions is currently not supported for session affinity by header.\nAvailable values: \"none\", \"temporary\", \"sticky\"."]
     pub fn zero_downtime_failover(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zero_downtime_failover", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct LoadBalancerDynamic {
-    adaptive_routing: std::option::Option<terrars::DynamicBlock<LoadBalancerAdaptiveRoutingEl>>,
-    country_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerCountryPoolsEl>>,
-    location_strategy: std::option::Option<terrars::DynamicBlock<LoadBalancerLocationStrategyEl>>,
-    pop_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerPopPoolsEl>>,
-    random_steering: std::option::Option<terrars::DynamicBlock<LoadBalancerRandomSteeringEl>>,
-    region_pools: std::option::Option<terrars::DynamicBlock<LoadBalancerRegionPoolsEl>>,
-    rules: std::option::Option<terrars::DynamicBlock<LoadBalancerRulesEl>>,
-    session_affinity_attributes: std
-    ::option
-    ::Option<terrars::DynamicBlock<LoadBalancerSessionAffinityAttributesEl>>,
 }

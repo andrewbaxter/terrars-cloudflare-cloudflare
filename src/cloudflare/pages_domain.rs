@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct PagesDomainData {
+struct PagesDomainData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,16 +21,14 @@ struct PagesDomainData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
-    domain: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    name: terrars::PrimField<std::string::String>,
     project_name: terrars::PrimField<std::string::String>,
 }
 
 struct PagesDomain_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<PagesDomainData>,
+    data: std::cell::RefCell<PagesDomainData_>,
 }
 
 #[derive(Clone)]
@@ -128,38 +128,67 @@ impl PagesDomain {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `domain` after provisioning.\nCustom domain. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn domain(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain", self.extract_ref()))
+        "Get a reference to the value of field `certificate_authority` after provisioning.\nAvailable values: \"google\", \"lets_encrypt\"."]
+    pub fn certificate_authority(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_authority", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `domain_id` after provisioning.\n"]
+    pub fn domain_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nFully qualified domain name for the Pages project, such as `example.com`."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages Project. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `name` after provisioning.\nFully qualified domain name for the Pages project, such as `example.com`."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn project_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the custom domain."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nAvailable values: \"initializing\", \"pending\", \"active\", \"deactivated\", \"blocked\", \"error\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `validation_data` after provisioning.\n"]
+    pub fn validation_data(&self) -> PagesDomain_ValidationDataRef {
+        PagesDomain_ValidationDataRef::new(self.shared().clone(), format!("{}.validation_data", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `verification_data` after provisioning.\n"]
+    pub fn verification_data(&self) -> PagesDomain_VerificationDataRef {
+        PagesDomain_VerificationDataRef::new(
+            self.shared().clone(),
+            format!("{}.verification_data", self.extract_ref()),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `zone_tag` after provisioning.\n"]
+    pub fn zone_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_tag", self.extract_ref()))
     }
 }
 
@@ -196,12 +225,12 @@ impl terrars::Resource_ for PagesDomain_ {
 
 pub struct BuildPagesDomain {
     pub tf_id: std::string::String,
-    #[doc =
-        "The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "Custom domain. **Modifying this attribute will force creation of a new resource.**"]
-    pub domain: terrars::PrimField<std::string::String>,
-    #[doc = "Name of the Pages Project. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Fully qualified domain name for the Pages project, such as `example.com`."]
+    pub name: terrars::PrimField<std::string::String>,
+    #[doc =
+        "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub project_name: terrars::PrimField<std::string::String>,
 }
 
@@ -210,15 +239,14 @@ impl BuildPagesDomain {
         let out = PagesDomain(std::rc::Rc::new(PagesDomain_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(PagesDomainData {
+            data: std::cell::RefCell::new(PagesDomainData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                domain: self.domain,
-                id: core::default::Default::default(),
+                name: self.name,
                 project_name: self.project_name,
             }),
         }));
@@ -250,31 +278,197 @@ impl PagesDomainRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `domain` after provisioning.\nCustom domain. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn domain(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain", self.extract_ref()))
+        "Get a reference to the value of field `certificate_authority` after provisioning.\nAvailable values: \"google\", \"lets_encrypt\"."]
+    pub fn certificate_authority(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_authority", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `domain_id` after provisioning.\n"]
+    pub fn domain_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nFully qualified domain name for the Pages project, such as `example.com`."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages Project. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `name` after provisioning.\nFully qualified domain name for the Pages project, such as `example.com`."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn project_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the custom domain."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nAvailable values: \"initializing\", \"pending\", \"active\", \"deactivated\", \"blocked\", \"error\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `validation_data` after provisioning.\n"]
+    pub fn validation_data(&self) -> PagesDomain_ValidationDataRef {
+        PagesDomain_ValidationDataRef::new(self.shared().clone(), format!("{}.validation_data", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `verification_data` after provisioning.\n"]
+    pub fn verification_data(&self) -> PagesDomain_VerificationDataRef {
+        PagesDomain_VerificationDataRef::new(
+            self.shared().clone(),
+            format!("{}.verification_data", self.extract_ref()),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `zone_tag` after provisioning.\n"]
+    pub fn zone_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_tag", self.extract_ref()))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesDomain_ValidationData {}
+
+impl PagesDomain_ValidationData { }
+
+impl terrars::ToListMappable for PagesDomain_ValidationData {
+    type O = terrars::BlockAssignable<PagesDomain_ValidationData>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesDomain_ValidationData {}
+
+impl BuildPagesDomain_ValidationData {
+    pub fn build(self) -> PagesDomain_ValidationData {
+        PagesDomain_ValidationData {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesDomain_ValidationDataRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesDomain_ValidationDataRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesDomain_ValidationDataRef {
+        PagesDomain_ValidationDataRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesDomain_ValidationDataRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `error_message` after provisioning.\n"]
+    pub fn error_message(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.error_message", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `method` after provisioning.\nAvailable values: \"http\", \"txt\"."]
+    pub fn method(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.method", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nAvailable values: \"initializing\", \"pending\", \"active\", \"deactivated\", \"error\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `txt_name` after provisioning.\n"]
+    pub fn txt_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.txt_name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `txt_value` after provisioning.\n"]
+    pub fn txt_value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.txt_value", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesDomain_VerificationData {}
+
+impl PagesDomain_VerificationData { }
+
+impl terrars::ToListMappable for PagesDomain_VerificationData {
+    type O = terrars::BlockAssignable<PagesDomain_VerificationData>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesDomain_VerificationData {}
+
+impl BuildPagesDomain_VerificationData {
+    pub fn build(self) -> PagesDomain_VerificationData {
+        PagesDomain_VerificationData {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesDomain_VerificationDataRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesDomain_VerificationDataRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesDomain_VerificationDataRef {
+        PagesDomain_VerificationDataRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesDomain_VerificationDataRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `error_message` after provisioning.\n"]
+    pub fn error_message(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.error_message", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nAvailable values: \"pending\", \"active\", \"deactivated\", \"blocked\", \"error\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
     }
 }

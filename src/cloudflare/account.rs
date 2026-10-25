@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct AccountData {
+struct AccountData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,18 +21,22 @@ struct AccountData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    enforce_twofactor: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    managed_by: std::option::Option<Account_ManagedBy>,
     name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    settings: std::option::Option<Account_Settings>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    standalone: std::option::Option<terrars::PrimField<bool>>,
     #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
     type_: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    unit: std::option::Option<Account_Unit>,
 }
 
 struct Account_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<AccountData>,
+    data: std::cell::RefCell<AccountData_>,
 }
 
 #[derive(Clone)]
@@ -130,46 +136,80 @@ impl Account {
         self
     }
 
-    #[doc = "Set the field `enforce_twofactor`.\nWhether 2FA is enforced on the account. Defaults to `false`."]
-    pub fn set_enforce_twofactor(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().enforce_twofactor = std::option::Option::Some(v.into());
+    #[doc = "Set the field `managed_by`.\nParent container details"]
+    pub fn set_managed_by(self, v: impl std::convert::Into<Account_ManagedBy>) -> Self {
+        self.0.data.borrow_mut().managed_by = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `settings`.\nAccount settings"]
+    pub fn set_settings(self, v: impl std::convert::Into<Account_Settings>) -> Self {
+        self.0.data.borrow_mut().settings = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `type_`.\nAccount type. Available values: `enterprise`, `standard`. Defaults to `standard`. **Modifying this attribute will force creation of a new resource.**"]
+        "Set the field `standalone`.\nSet to `true` and omit `unit` to create a standalone Free Account. If provided, this field must be `true`."]
+    pub fn set_standalone(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().standalone = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `type_`.\nAvailable values: \"standard\", \"enterprise\"."]
     pub fn set_type(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().type_ = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `enforce_twofactor` after provisioning.\nWhether 2FA is enforced on the account. Defaults to `false`."]
-    pub fn enforce_twofactor(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enforce_twofactor", self.extract_ref()))
+        "Set the field `unit`.\nInformation related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/."]
+    pub fn set_unit(self, v: impl std::convert::Into<Account_Unit>) -> Self {
+        self.0.data.borrow_mut().unit = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nTimestamp for the creation of the account"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe name of the account that is displayed in the Cloudflare dashboard."]
+    #[doc = "Get a reference to the value of field `managed_by` after provisioning.\nParent container details"]
+    pub fn managed_by(&self) -> Account_ManagedByRef {
+        Account_ManagedByRef::new(self.shared().clone(), format!("{}.managed_by", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nAccount name"]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `settings` after provisioning.\nAccount settings"]
+    pub fn settings(&self) -> Account_SettingsRef {
+        Account_SettingsRef::new(self.shared().clone(), format!("{}.settings", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAccount type. Available values: `enterprise`, `standard`. Defaults to `standard`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `standalone` after provisioning.\nSet to `true` and omit `unit` to create a standalone Free Account. If provided, this field must be `true`."]
+    pub fn standalone(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.standalone", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"standard\", \"enterprise\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `unit` after provisioning.\nInformation related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/."]
+    pub fn unit(&self) -> Account_UnitRef {
+        Account_UnitRef::new(self.shared().clone(), format!("{}.unit", self.extract_ref()))
     }
 }
 
@@ -206,7 +246,7 @@ impl terrars::Resource_ for Account_ {
 
 pub struct BuildAccount {
     pub tf_id: std::string::String,
-    #[doc = "The name of the account that is displayed in the Cloudflare dashboard."]
+    #[doc = "Account name"]
     pub name: terrars::PrimField<std::string::String>,
 }
 
@@ -215,16 +255,18 @@ impl BuildAccount {
         let out = Account(std::rc::Rc::new(Account_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(AccountData {
+            data: std::cell::RefCell::new(AccountData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                enforce_twofactor: core::default::Default::default(),
-                id: core::default::Default::default(),
+                managed_by: core::default::Default::default(),
                 name: self.name,
+                settings: core::default::Default::default(),
+                standalone: core::default::Default::default(),
                 type_: core::default::Default::default(),
+                unit: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -256,25 +298,249 @@ impl AccountRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `enforce_twofactor` after provisioning.\nWhether 2FA is enforced on the account. Defaults to `false`."]
-    pub fn enforce_twofactor(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enforce_twofactor", self.extract_ref()))
+        "Get a reference to the value of field `created_on` after provisioning.\nTimestamp for the creation of the account"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe name of the account that is displayed in the Cloudflare dashboard."]
+    #[doc = "Get a reference to the value of field `managed_by` after provisioning.\nParent container details"]
+    pub fn managed_by(&self) -> Account_ManagedByRef {
+        Account_ManagedByRef::new(self.shared().clone(), format!("{}.managed_by", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nAccount name"]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `settings` after provisioning.\nAccount settings"]
+    pub fn settings(&self) -> Account_SettingsRef {
+        Account_SettingsRef::new(self.shared().clone(), format!("{}.settings", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAccount type. Available values: `enterprise`, `standard`. Defaults to `standard`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `standalone` after provisioning.\nSet to `true` and omit `unit` to create a standalone Free Account. If provided, this field must be `true`."]
+    pub fn standalone(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.standalone", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"standard\", \"enterprise\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `unit` after provisioning.\nInformation related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/."]
+    pub fn unit(&self) -> Account_UnitRef {
+        Account_UnitRef::new(self.shared().clone(), format!("{}.unit", self.extract_ref()))
+    }
+}
+
+#[derive(Serialize)]
+pub struct Account_ManagedBy {}
+
+impl Account_ManagedBy { }
+
+impl terrars::ToListMappable for Account_ManagedBy {
+    type O = terrars::BlockAssignable<Account_ManagedBy>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccount_ManagedBy {}
+
+impl BuildAccount_ManagedBy {
+    pub fn build(self) -> Account_ManagedBy {
+        Account_ManagedBy {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct Account_ManagedByRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for Account_ManagedByRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Account_ManagedByRef {
+        Account_ManagedByRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl Account_ManagedByRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `parent_org_id` after provisioning.\nID of the parent Organization, if one exists"]
+    pub fn parent_org_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.parent_org_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `parent_org_name` after provisioning.\nName of the parent Organization, if one exists"]
+    pub fn parent_org_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.parent_org_name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct Account_Settings {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    abuse_contact_email: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    enforce_twofactor: std::option::Option<terrars::PrimField<bool>>,
+}
+
+impl Account_Settings {
+    #[doc = "Set the field `abuse_contact_email`.\nSets an abuse contact email to notify for abuse reports."]
+    pub fn set_abuse_contact_email(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.abuse_contact_email = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `enforce_twofactor`.\nIndicates whether membership in this account requires that\nTwo-Factor Authentication is enabled"]
+    pub fn set_enforce_twofactor(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.enforce_twofactor = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for Account_Settings {
+    type O = terrars::BlockAssignable<Account_Settings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccount_Settings {}
+
+impl BuildAccount_Settings {
+    pub fn build(self) -> Account_Settings {
+        Account_Settings {
+            abuse_contact_email: core::default::Default::default(),
+            enforce_twofactor: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct Account_SettingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for Account_SettingsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Account_SettingsRef {
+        Account_SettingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl Account_SettingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `abuse_contact_email` after provisioning.\nSets an abuse contact email to notify for abuse reports."]
+    pub fn abuse_contact_email(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.abuse_contact_email", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `enforce_twofactor` after provisioning.\nIndicates whether membership in this account requires that\nTwo-Factor Authentication is enabled"]
+    pub fn enforce_twofactor(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enforce_twofactor", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct Account_Unit {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    id: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl Account_Unit {
+    #[doc = "Set the field `id`.\nTenant unit ID"]
+    pub fn set_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for Account_Unit {
+    type O = terrars::BlockAssignable<Account_Unit>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccount_Unit {}
+
+impl BuildAccount_Unit {
+    pub fn build(self) -> Account_Unit {
+        Account_Unit { id: core::default::Default::default() }
+    }
+}
+
+#[allow(dead_code)]
+pub struct Account_UnitRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for Account_UnitRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Account_UnitRef {
+        Account_UnitRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl Account_UnitRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nTenant unit ID"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 }

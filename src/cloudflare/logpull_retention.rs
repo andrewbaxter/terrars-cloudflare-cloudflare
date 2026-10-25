@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct LogpullRetentionData {
+struct LogpullRetentionData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,16 +20,15 @@ struct LogpullRetentionData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    enabled: terrars::PrimField<bool>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    flag: std::option::Option<terrars::PrimField<bool>>,
     zone_id: terrars::PrimField<std::string::String>,
 }
 
 struct LogpullRetention_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<LogpullRetentionData>,
+    data: std::cell::RefCell<LogpullRetentionData_>,
 }
 
 #[derive(Clone)]
@@ -127,25 +128,23 @@ impl LogpullRetention {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `flag`.\nThe log retention flag for Logpull API."]
+    pub fn set_flag(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().flag = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether you wish to retain logs or not."]
-    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `flag` after provisioning.\nThe log retention flag for Logpull API."]
+    pub fn flag(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.flag", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -184,10 +183,7 @@ impl terrars::Resource_ for LogpullRetention_ {
 
 pub struct BuildLogpullRetention {
     pub tf_id: std::string::String,
-    #[doc = "Whether you wish to retain logs or not."]
-    pub enabled: terrars::PrimField<bool>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -196,14 +192,13 @@ impl BuildLogpullRetention {
         let out = LogpullRetention(std::rc::Rc::new(LogpullRetention_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(LogpullRetentionData {
+            data: std::cell::RefCell::new(LogpullRetentionData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                enabled: self.enabled,
-                id: core::default::Default::default(),
+                flag: core::default::Default::default(),
                 zone_id: self.zone_id,
             }),
         }));
@@ -235,19 +230,17 @@ impl LogpullRetentionRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether you wish to retain logs or not."]
-    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `flag` after provisioning.\nThe log retention flag for Logpull API."]
+    pub fn flag(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.flag", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct WorkersKvNamespaceData {
+struct WorkersKvNamespaceData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,14 +22,16 @@ struct WorkersKvNamespaceData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    jurisdiction: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mode: std::option::Option<terrars::PrimField<std::string::String>>,
     title: terrars::PrimField<std::string::String>,
 }
 
 struct WorkersKvNamespace_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<WorkersKvNamespaceData>,
+    data: std::cell::RefCell<WorkersKvNamespaceData_>,
 }
 
 #[derive(Clone)]
@@ -127,25 +131,51 @@ impl WorkersKvNamespace {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `jurisdiction`.\nSpecify the jurisdiction to restrict the KV namespace to durably store data within. Can only be set at namespace creation time.\nAvailable values: \"eu\", \"fedramp\", \"us\"."]
+    pub fn set_jurisdiction(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().jurisdiction = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Set the field `mode`.\nThe mode of the Workers KV namespace. Specify `instant` when creating a namespace to create a KV Instant namespace. Omit this field when creating a namespace to create a classic namespace. Currently, `instant` is the only supported explicit value.\nAvailable values: \"instant\"."]
+    pub fn set_mode(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Get a reference to the value of field `account_id` after provisioning.\nID of the Cloudflare account that owns the Workers KV namespaces."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nID of the Workers KV namespace."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `title` after provisioning.\nTitle value of the Worker KV Namespace."]
+        "Get a reference to the value of field `jurisdiction` after provisioning.\nSpecify the jurisdiction to restrict the KV namespace to durably store data within. Can only be set at namespace creation time.\nAvailable values: \"eu\", \"fedramp\", \"us\"."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `mode` after provisioning.\nThe mode of the Workers KV namespace. Specify `instant` when creating a namespace to create a KV Instant namespace. Omit this field when creating a namespace to create a classic namespace. Currently, `instant` is the only supported explicit value.\nAvailable values: \"instant\"."]
+    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `supports_url_encoding` after provisioning.\nTrue if keys written on the URL will be URL-decoded before storing. For example, if set to \"true\", a key written on the URL as \"%3F\" will be stored as \"?\"."]
+    pub fn supports_url_encoding(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.supports_url_encoding", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `title` after provisioning.\nHuman-readable string name for a Workers KV namespace."]
     pub fn title(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.title", self.extract_ref()))
     }
@@ -184,9 +214,9 @@ impl terrars::Resource_ for WorkersKvNamespace_ {
 
 pub struct BuildWorkersKvNamespace {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "ID of the Cloudflare account that owns the Workers KV namespaces."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "Title value of the Worker KV Namespace."]
+    #[doc = "Human-readable string name for a Workers KV namespace."]
     pub title: terrars::PrimField<std::string::String>,
 }
 
@@ -195,14 +225,15 @@ impl BuildWorkersKvNamespace {
         let out = WorkersKvNamespace(std::rc::Rc::new(WorkersKvNamespace_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(WorkersKvNamespaceData {
+            data: std::cell::RefCell::new(WorkersKvNamespaceData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                id: core::default::Default::default(),
+                jurisdiction: core::default::Default::default(),
+                mode: core::default::Default::default(),
                 title: self.title,
             }),
         }));
@@ -235,18 +266,36 @@ impl WorkersKvNamespaceRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Get a reference to the value of field `account_id` after provisioning.\nID of the Cloudflare account that owns the Workers KV namespaces."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nID of the Workers KV namespace."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `title` after provisioning.\nTitle value of the Worker KV Namespace."]
+        "Get a reference to the value of field `jurisdiction` after provisioning.\nSpecify the jurisdiction to restrict the KV namespace to durably store data within. Can only be set at namespace creation time.\nAvailable values: \"eu\", \"fedramp\", \"us\"."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `mode` after provisioning.\nThe mode of the Workers KV namespace. Specify `instant` when creating a namespace to create a KV Instant namespace. Omit this field when creating a namespace to create a classic namespace. Currently, `instant` is the only supported explicit value.\nAvailable values: \"instant\"."]
+    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `supports_url_encoding` after provisioning.\nTrue if keys written on the URL will be URL-decoded before storing. For example, if set to \"true\", a key written on the URL as \"%3F\" will be stored as \"?\"."]
+    pub fn supports_url_encoding(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.supports_url_encoding", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `title` after provisioning.\nHuman-readable string name for a Workers KV namespace."]
     pub fn title(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.title", self.extract_ref()))
     }

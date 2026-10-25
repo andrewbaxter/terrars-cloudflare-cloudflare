@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct NotificationPolicyWebhooksData {
+struct NotificationPolicyWebhooksData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,19 +21,16 @@ struct NotificationPolicyWebhooksData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     name: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     secret: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    url: std::option::Option<terrars::PrimField<std::string::String>>,
+    url: terrars::PrimField<std::string::String>,
 }
 
 struct NotificationPolicyWebhooks_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<NotificationPolicyWebhooksData>,
+    data: std::cell::RefCell<NotificationPolicyWebhooksData_>,
 }
 
 #[derive(Clone)]
@@ -131,73 +130,61 @@ impl NotificationPolicyWebhooks {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
     #[doc =
-        "Set the field `secret`.\nAn optional secret can be provided that will be passed in the `cf-webhook-auth` header when dispatching a webhook notification. Secrets are not returned in any API response body. Refer to the [documentation](https://api.cloudflare.com/#notification-webhooks-create-webhook) for more details."]
+        "Set the field `secret`.\nOptional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body."]
     pub fn set_secret(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().secret = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `url`.\nThe URL of the webhook destinations. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn set_url(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().url = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe account id"]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `created_at` after provisioning.\nTimestamp of when the notification webhook was created."]
+        "Get a reference to the value of field `created_at` after provisioning.\nTimestamp of when the webhook destination was created."]
     pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nUUID"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `last_failure` after provisioning.\nTimestamp of when the notification webhook last faiuled."]
+        "Get a reference to the value of field `last_failure` after provisioning.\nTimestamp of the last time an attempt to dispatch a notification to this webhook failed."]
     pub fn last_failure(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_failure", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `last_success` after provisioning.\nTimestamp of when the notification webhook was last successful."]
+        "Get a reference to the value of field `last_success` after provisioning.\nTimestamp of the last time Cloudflare was able to successfully dispatch a notification using this webhook."]
     pub fn last_success(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_success", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the webhook destination."]
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe name of the webhook destination. This will be included in the request body when you receive a webhook notification."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `secret` after provisioning.\nAn optional secret can be provided that will be passed in the `cf-webhook-auth` header when dispatching a webhook notification. Secrets are not returned in any API response body. Refer to the [documentation](https://api.cloudflare.com/#notification-webhooks-create-webhook) for more details."]
+        "Get a reference to the value of field `secret` after provisioning.\nOptional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body."]
     pub fn secret(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.secret", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `type_` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nType of webhook endpoint.\nAvailable values: \"datadog\", \"discord\", \"feishu\", \"gchat\", \"generic\", \"opsgenie\", \"slack\", \"splunk\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `url` after provisioning.\nThe URL of the webhook destinations. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `url` after provisioning.\nThe POST endpoint to call when dispatching a notification."]
     pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.extract_ref()))
     }
@@ -236,10 +223,13 @@ impl terrars::Resource_ for NotificationPolicyWebhooks_ {
 
 pub struct BuildNotificationPolicyWebhooks {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "The account id"]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the webhook destination."]
+    #[doc =
+        "The name of the webhook destination. This will be included in the request body when you receive a webhook notification."]
     pub name: terrars::PrimField<std::string::String>,
+    #[doc = "The POST endpoint to call when dispatching a notification."]
+    pub url: terrars::PrimField<std::string::String>,
 }
 
 impl BuildNotificationPolicyWebhooks {
@@ -247,17 +237,16 @@ impl BuildNotificationPolicyWebhooks {
         let out = NotificationPolicyWebhooks(std::rc::Rc::new(NotificationPolicyWebhooks_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(NotificationPolicyWebhooksData {
+            data: std::cell::RefCell::new(NotificationPolicyWebhooksData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                id: core::default::Default::default(),
                 name: self.name,
                 secret: core::default::Default::default(),
-                url: core::default::Default::default(),
+                url: self.url,
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -288,53 +277,54 @@ impl NotificationPolicyWebhooksRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe account id"]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `created_at` after provisioning.\nTimestamp of when the notification webhook was created."]
+        "Get a reference to the value of field `created_at` after provisioning.\nTimestamp of when the webhook destination was created."]
     pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nUUID"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `last_failure` after provisioning.\nTimestamp of when the notification webhook last faiuled."]
+        "Get a reference to the value of field `last_failure` after provisioning.\nTimestamp of the last time an attempt to dispatch a notification to this webhook failed."]
     pub fn last_failure(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_failure", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `last_success` after provisioning.\nTimestamp of when the notification webhook was last successful."]
+        "Get a reference to the value of field `last_success` after provisioning.\nTimestamp of the last time Cloudflare was able to successfully dispatch a notification using this webhook."]
     pub fn last_success(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_success", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the webhook destination."]
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe name of the webhook destination. This will be included in the request body when you receive a webhook notification."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `secret` after provisioning.\nAn optional secret can be provided that will be passed in the `cf-webhook-auth` header when dispatching a webhook notification. Secrets are not returned in any API response body. Refer to the [documentation](https://api.cloudflare.com/#notification-webhooks-create-webhook) for more details."]
+        "Get a reference to the value of field `secret` after provisioning.\nOptional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body."]
     pub fn secret(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.secret", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `type_` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nType of webhook endpoint.\nAvailable values: \"datadog\", \"discord\", \"feishu\", \"gchat\", \"generic\", \"opsgenie\", \"slack\", \"splunk\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `url` after provisioning.\nThe URL of the webhook destinations. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `url` after provisioning.\nThe POST endpoint to call when dispatching a notification."]
     pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.extract_ref()))
     }

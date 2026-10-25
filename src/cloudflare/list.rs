@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct ListData {
+struct ListData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -22,18 +24,15 @@ struct ListData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    items: std::option::Option<std::vec::Vec<List_Items>>,
     kind: terrars::PrimField<std::string::String>,
     name: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    item: std::option::Option<std::vec::Vec<ListItemEl>>,
-    dynamic: ListDynamic,
 }
 
 struct List_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<ListData>,
+    data: std::cell::RefCell<ListData_>,
 }
 
 #[derive(Clone)]
@@ -133,58 +132,74 @@ impl List {
         self
     }
 
-    #[doc = "Set the field `description`.\nAn optional description of the list."]
+    #[doc = "Set the field `description`.\nAn informative summary of the list."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `item`.\n"]
-    pub fn set_item(self, v: impl std::convert::Into<terrars::BlockAssignable<ListItemEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().item = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.item = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Set the field `items`.\nThe items in the list. If set, this overwrites all items in the list. Do not use with `cloudflare_list_item`."]
+    pub fn set_items(self, v: impl std::convert::Into<std::vec::Vec<List_Items>>) -> Self {
+        self.0.data.borrow_mut().items = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID for this resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn optional description of the list."]
+        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC 3339 timestamp of when the list was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the list."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique ID of the list."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `kind` after provisioning.\nThe type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `items` after provisioning.\nThe items in the list. If set, this overwrites all items in the list. Do not use with `cloudflare_list_item`."]
+    pub fn items(&self) -> terrars::SetRef<List_ItemsRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.items", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `kind` after provisioning.\nThe type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects).\nAvailable values: \"ip\", \"redirect\", \"hostname\", \"asn\"."]
     pub fn kind(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.kind", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe name of the list. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC 3339 timestamp of when the list was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nAn informative name for the list. Use this name in filter and rule expressions."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `num_items` after provisioning.\nThe number of items in the list."]
+    pub fn num_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_items", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `num_referencing_filters` after provisioning.\nThe number of [filters](/api/resources/filters/) referencing the list."]
+    pub fn num_referencing_filters(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_referencing_filters", self.extract_ref()))
     }
 }
 
@@ -221,12 +236,12 @@ impl terrars::Resource_ for List_ {
 
 pub struct BuildList {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "The Account ID for this resource."]
     pub account_id: terrars::PrimField<std::string::String>,
     #[doc =
-        "The type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.**"]
+        "The type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects).\nAvailable values: \"ip\", \"redirect\", \"hostname\", \"asn\"."]
     pub kind: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the list. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "An informative name for the list. Use this name in filter and rule expressions."]
     pub name: terrars::PrimField<std::string::String>,
 }
 
@@ -235,7 +250,7 @@ impl BuildList {
         let out = List(std::rc::Rc::new(List_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(ListData {
+            data: std::cell::RefCell::new(ListData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -243,11 +258,9 @@ impl BuildList {
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
                 description: core::default::Default::default(),
-                id: core::default::Default::default(),
+                items: core::default::Default::default(),
                 kind: self.kind,
                 name: self.name,
-                item: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -278,45 +291,82 @@ impl ListRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID for this resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn optional description of the list."]
+        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC 3339 timestamp of when the list was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the list."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique ID of the list."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `kind` after provisioning.\nThe type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `items` after provisioning.\nThe items in the list. If set, this overwrites all items in the list. Do not use with `cloudflare_list_item`."]
+    pub fn items(&self) -> terrars::SetRef<List_ItemsRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.items", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `kind` after provisioning.\nThe type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects).\nAvailable values: \"ip\", \"redirect\", \"hostname\", \"asn\"."]
     pub fn kind(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.kind", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe name of the list. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC 3339 timestamp of when the list was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nAn informative name for the list. Use this name in filter and rule expressions."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `num_items` after provisioning.\nThe number of items in the list."]
+    pub fn num_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_items", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `num_referencing_filters` after provisioning.\nThe number of [filters](/api/resources/filters/) referencing the list."]
+    pub fn num_referencing_filters(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_referencing_filters", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct ListItemElValueElHostnameEl {
+pub struct List_Items_Hostname {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    exclude_exact_hostname: std::option::Option<terrars::PrimField<bool>>,
     url_hostname: terrars::PrimField<std::string::String>,
 }
 
-impl ListItemElValueElHostnameEl { }
+impl List_Items_Hostname {
+    #[doc =
+        "Set the field `exclude_exact_hostname`.\nOnly applies to wildcard hostnames (e.g., *.example.com). When true (default), only subdomains are blocked. When false, both the root domain and subdomains are blocked."]
+    pub fn set_exclude_exact_hostname(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.exclude_exact_hostname = std::option::Option::Some(v.into());
+        self
+    }
+}
 
-impl terrars::ToListMappable for ListItemElValueElHostnameEl {
-    type O = terrars::BlockAssignable<ListItemElValueElHostnameEl>;
+impl terrars::ToListMappable for List_Items_Hostname {
+    type O = terrars::BlockAssignable<List_Items_Hostname>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -327,106 +377,103 @@ impl terrars::ToListMappable for ListItemElValueElHostnameEl {
     }
 }
 
-pub struct BuildListItemElValueElHostnameEl {
-    #[doc = "The FQDN to match on. Wildcard sub-domain matching is allowed. Eg. *.abc.com."]
+pub struct BuildList_Items_Hostname {
+    #[doc = ""]
     pub url_hostname: terrars::PrimField<std::string::String>,
 }
 
-impl BuildListItemElValueElHostnameEl {
-    pub fn build(self) -> ListItemElValueElHostnameEl {
-        ListItemElValueElHostnameEl { url_hostname: self.url_hostname }
+impl BuildList_Items_Hostname {
+    pub fn build(self) -> List_Items_Hostname {
+        List_Items_Hostname {
+            exclude_exact_hostname: core::default::Default::default(),
+            url_hostname: self.url_hostname,
+        }
     }
 }
 
-pub struct ListItemElValueElHostnameElRef {
+#[allow(dead_code)]
+pub struct List_Items_HostnameRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ListItemElValueElHostnameElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ListItemElValueElHostnameElRef {
-        ListItemElValueElHostnameElRef {
+impl terrars::Ref for List_Items_HostnameRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> List_Items_HostnameRef {
+        List_Items_HostnameRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ListItemElValueElHostnameElRef {
+impl List_Items_HostnameRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `url_hostname` after provisioning.\nThe FQDN to match on. Wildcard sub-domain matching is allowed. Eg. *.abc.com."]
+        "Get a reference to the value of field `exclude_exact_hostname` after provisioning.\nOnly applies to wildcard hostnames (e.g., *.example.com). When true (default), only subdomains are blocked. When false, both the root domain and subdomains are blocked."]
+    pub fn exclude_exact_hostname(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.exclude_exact_hostname", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `url_hostname` after provisioning.\n"]
     pub fn url_hostname(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url_hostname", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct ListItemElValueElRedirectEl {
+pub struct List_Items_Redirect {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    include_subdomains: std::option::Option<terrars::PrimField<std::string::String>>,
+    include_subdomains: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    preserve_path_suffix: std::option::Option<terrars::PrimField<std::string::String>>,
+    preserve_path_suffix: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    preserve_query_string: std::option::Option<terrars::PrimField<std::string::String>>,
+    preserve_query_string: std::option::Option<terrars::PrimField<bool>>,
     source_url: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     status_code: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    subpath_matching: std::option::Option<terrars::PrimField<std::string::String>>,
+    subpath_matching: std::option::Option<terrars::PrimField<bool>>,
     target_url: terrars::PrimField<std::string::String>,
 }
 
-impl ListItemElValueElRedirectEl {
-    #[doc =
-        "Set the field `include_subdomains`.\nWhether the redirect also matches subdomains of the source url. Available values: `disabled`, `enabled`."]
-    pub fn set_include_subdomains(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
+impl List_Items_Redirect {
+    #[doc = "Set the field `include_subdomains`.\n"]
+    pub fn set_include_subdomains(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.include_subdomains = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `preserve_path_suffix`.\nWhether to preserve the path suffix when doing subpath matching. Available values: `disabled`, `enabled`."]
-    pub fn set_preserve_path_suffix(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
+    #[doc = "Set the field `preserve_path_suffix`.\n"]
+    pub fn set_preserve_path_suffix(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.preserve_path_suffix = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `preserve_query_string`.\nWhether the redirect target url should keep the query string of the request's url. Available values: `disabled`, `enabled`."]
-    pub fn set_preserve_query_string(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
+    #[doc = "Set the field `preserve_query_string`.\n"]
+    pub fn set_preserve_query_string(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.preserve_query_string = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `status_code`.\nThe status code to be used when redirecting a request."]
+    #[doc = "Set the field `status_code`.\nAvailable values: 301, 302, 307, 308."]
     pub fn set_status_code(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.status_code = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `subpath_matching`.\nWhether the redirect also matches subpaths of the source url. Available values: `disabled`, `enabled`."]
-    pub fn set_subpath_matching(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+    #[doc = "Set the field `subpath_matching`.\n"]
+    pub fn set_subpath_matching(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.subpath_matching = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for ListItemElValueElRedirectEl {
-    type O = terrars::BlockAssignable<ListItemElValueElRedirectEl>;
+impl terrars::ToListMappable for List_Items_Redirect {
+    type O = terrars::BlockAssignable<List_Items_Redirect>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -437,16 +484,16 @@ impl terrars::ToListMappable for ListItemElValueElRedirectEl {
     }
 }
 
-pub struct BuildListItemElValueElRedirectEl {
-    #[doc = "The source url of the redirect."]
+pub struct BuildList_Items_Redirect {
+    #[doc = ""]
     pub source_url: terrars::PrimField<std::string::String>,
-    #[doc = "The target url of the redirect."]
+    #[doc = ""]
     pub target_url: terrars::PrimField<std::string::String>,
 }
 
-impl BuildListItemElValueElRedirectEl {
-    pub fn build(self) -> ListItemElValueElRedirectEl {
-        ListItemElValueElRedirectEl {
+impl BuildList_Items_Redirect {
+    pub fn build(self) -> List_Items_Redirect {
+        List_Items_Redirect {
             include_subdomains: core::default::Default::default(),
             preserve_path_suffix: core::default::Default::default(),
             preserve_query_string: core::default::Default::default(),
@@ -458,234 +505,113 @@ impl BuildListItemElValueElRedirectEl {
     }
 }
 
-pub struct ListItemElValueElRedirectElRef {
+#[allow(dead_code)]
+pub struct List_Items_RedirectRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ListItemElValueElRedirectElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ListItemElValueElRedirectElRef {
-        ListItemElValueElRedirectElRef {
+impl terrars::Ref for List_Items_RedirectRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> List_Items_RedirectRef {
+        List_Items_RedirectRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ListItemElValueElRedirectElRef {
+impl List_Items_RedirectRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `include_subdomains` after provisioning.\nWhether the redirect also matches subdomains of the source url. Available values: `disabled`, `enabled`."]
-    pub fn include_subdomains(&self) -> terrars::PrimExpr<std::string::String> {
+    #[doc = "Get a reference to the value of field `include_subdomains` after provisioning.\n"]
+    pub fn include_subdomains(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.include_subdomains", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `preserve_path_suffix` after provisioning.\nWhether to preserve the path suffix when doing subpath matching. Available values: `disabled`, `enabled`."]
-    pub fn preserve_path_suffix(&self) -> terrars::PrimExpr<std::string::String> {
+    #[doc = "Get a reference to the value of field `preserve_path_suffix` after provisioning.\n"]
+    pub fn preserve_path_suffix(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.preserve_path_suffix", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `preserve_query_string` after provisioning.\nWhether the redirect target url should keep the query string of the request's url. Available values: `disabled`, `enabled`."]
-    pub fn preserve_query_string(&self) -> terrars::PrimExpr<std::string::String> {
+    #[doc = "Get a reference to the value of field `preserve_query_string` after provisioning.\n"]
+    pub fn preserve_query_string(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.preserve_query_string", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `source_url` after provisioning.\nThe source url of the redirect."]
+    #[doc = "Get a reference to the value of field `source_url` after provisioning.\n"]
     pub fn source_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.source_url", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `status_code` after provisioning.\nThe status code to be used when redirecting a request."]
+        "Get a reference to the value of field `status_code` after provisioning.\nAvailable values: 301, 302, 307, 308."]
     pub fn status_code(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status_code", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `subpath_matching` after provisioning.\nWhether the redirect also matches subpaths of the source url. Available values: `disabled`, `enabled`."]
-    pub fn subpath_matching(&self) -> terrars::PrimExpr<std::string::String> {
+    #[doc = "Get a reference to the value of field `subpath_matching` after provisioning.\n"]
+    pub fn subpath_matching(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.subpath_matching", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `target_url` after provisioning.\nThe target url of the redirect."]
+    #[doc = "Get a reference to the value of field `target_url` after provisioning.\n"]
     pub fn target_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target_url", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct ListItemElValueElDynamic {
-    hostname: std::option::Option<terrars::DynamicBlock<ListItemElValueElHostnameEl>>,
-    redirect: std::option::Option<terrars::DynamicBlock<ListItemElValueElRedirectEl>>,
-}
-
 #[derive(Serialize)]
-pub struct ListItemElValueEl {
+pub struct List_Items {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     asn: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    comment: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    hostname: std::option::Option<List_Items_Hostname>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     ip: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    hostname: std::option::Option<std::vec::Vec<ListItemElValueElHostnameEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    redirect: std::option::Option<std::vec::Vec<ListItemElValueElRedirectEl>>,
-    dynamic: ListItemElValueElDynamic,
+    redirect: std::option::Option<List_Items_Redirect>,
 }
 
-impl ListItemElValueEl {
-    #[doc = "Set the field `asn`.\n"]
+impl List_Items {
+    #[doc = "Set the field `asn`.\nA non-negative 32 bit integer"]
     pub fn set_asn(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.asn = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `ip`.\n"]
-    pub fn set_ip(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.ip = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `hostname`.\n"]
-    pub fn set_hostname(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<ListItemElValueElHostnameEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.hostname = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.hostname = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `redirect`.\n"]
-    pub fn set_redirect(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<ListItemElValueElRedirectEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.redirect = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.redirect = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-}
-
-impl terrars::ToListMappable for ListItemElValueEl {
-    type O = terrars::BlockAssignable<ListItemElValueEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildListItemElValueEl {}
-
-impl BuildListItemElValueEl {
-    pub fn build(self) -> ListItemElValueEl {
-        ListItemElValueEl {
-            asn: core::default::Default::default(),
-            ip: core::default::Default::default(),
-            hostname: core::default::Default::default(),
-            redirect: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
-        }
-    }
-}
-
-pub struct ListItemElValueElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ListItemElValueElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ListItemElValueElRef {
-        ListItemElValueElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ListItemElValueElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `asn` after provisioning.\n"]
-    pub fn asn(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.asn", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `ip` after provisioning.\n"]
-    pub fn ip(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `hostname` after provisioning.\n"]
-    pub fn hostname(&self) -> terrars::ListRef<ListItemElValueElHostnameElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.hostname", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `redirect` after provisioning.\n"]
-    pub fn redirect(&self) -> terrars::ListRef<ListItemElValueElRedirectElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.redirect", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct ListItemElDynamic {
-    value: std::option::Option<terrars::DynamicBlock<ListItemElValueEl>>,
-}
-
-#[derive(Serialize)]
-pub struct ListItemEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    comment: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    value: std::option::Option<std::vec::Vec<ListItemElValueEl>>,
-    dynamic: ListItemElDynamic,
-}
-
-impl ListItemEl {
-    #[doc = "Set the field `comment`.\nAn optional comment for the item."]
+    #[doc = "Set the field `comment`.\nAn informative summary of the list item."]
     pub fn set_comment(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.comment = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `value`.\n"]
-    pub fn set_value(mut self, v: impl std::convert::Into<terrars::BlockAssignable<ListItemElValueEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.value = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.value = std::option::Option::Some(d);
-            },
-        }
+    #[doc =
+        "Set the field `hostname`.\nValid characters for hostnames are ASCII(7) letters from a to z, the digits from 0 to 9, wildcards (*), and the hyphen (-)."]
+    pub fn set_hostname(mut self, v: impl std::convert::Into<List_Items_Hostname>) -> Self {
+        self.hostname = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `ip`.\nAn IPv4 address, an IPv4 CIDR, an IPv6 address, or an IPv6 CIDR."]
+    pub fn set_ip(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.ip = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `redirect`.\nThe definition of the redirect."]
+    pub fn set_redirect(mut self, v: impl std::convert::Into<List_Items_Redirect>) -> Self {
+        self.redirect = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for ListItemEl {
-    type O = terrars::BlockAssignable<ListItemEl>;
+impl terrars::ToListMappable for List_Items {
+    type O = terrars::BlockAssignable<List_Items>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -696,49 +622,66 @@ impl terrars::ToListMappable for ListItemEl {
     }
 }
 
-pub struct BuildListItemEl {}
+pub struct BuildList_Items {}
 
-impl BuildListItemEl {
-    pub fn build(self) -> ListItemEl {
-        ListItemEl {
+impl BuildList_Items {
+    pub fn build(self) -> List_Items {
+        List_Items {
+            asn: core::default::Default::default(),
             comment: core::default::Default::default(),
-            value: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+            hostname: core::default::Default::default(),
+            ip: core::default::Default::default(),
+            redirect: core::default::Default::default(),
         }
     }
 }
 
-pub struct ListItemElRef {
+#[allow(dead_code)]
+pub struct List_ItemsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ListItemElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ListItemElRef {
-        ListItemElRef {
+impl terrars::Ref for List_ItemsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> List_ItemsRef {
+        List_ItemsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ListItemElRef {
+impl List_ItemsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `comment` after provisioning.\nAn optional comment for the item."]
+    #[doc = "Get a reference to the value of field `asn` after provisioning.\nA non-negative 32 bit integer"]
+    pub fn asn(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.asn", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `comment` after provisioning.\nAn informative summary of the list item."]
     pub fn comment(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.comment", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `value` after provisioning.\n"]
-    pub fn value(&self) -> terrars::ListRef<ListItemElValueElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.value", self.base))
+    #[doc =
+        "Get a reference to the value of field `hostname` after provisioning.\nValid characters for hostnames are ASCII(7) letters from a to z, the digits from 0 to 9, wildcards (*), and the hyphen (-)."]
+    pub fn hostname(&self) -> List_Items_HostnameRef {
+        List_Items_HostnameRef::new(self.shared().clone(), format!("{}.hostname", self.base))
     }
-}
 
-#[derive(Serialize, Default)]
-struct ListDynamic {
-    item: std::option::Option<terrars::DynamicBlock<ListItemEl>>,
+    #[doc =
+        "Get a reference to the value of field `ip` after provisioning.\nAn IPv4 address, an IPv4 CIDR, an IPv6 address, or an IPv6 CIDR."]
+    pub fn ip(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `redirect` after provisioning.\nThe definition of the redirect."]
+    pub fn redirect(&self) -> List_Items_RedirectRef {
+        List_Items_RedirectRef::new(self.shared().clone(), format!("{}.redirect", self.base))
+    }
 }

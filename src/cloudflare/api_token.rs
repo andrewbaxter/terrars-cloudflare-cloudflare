@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct ApiTokenData {
+struct ApiTokenData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,23 +21,21 @@ struct ApiTokenData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    expires_on: std::option::Option<terrars::PrimField<std::string::String>>,
+    condition: std::option::Option<ApiToken_Condition>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    expires_on: std::option::Option<terrars::PrimField<std::string::String>>,
     name: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     not_before: std::option::Option<terrars::PrimField<std::string::String>>,
+    policies: std::vec::Vec<ApiToken_Policies>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    condition: std::option::Option<std::vec::Vec<ApiTokenConditionEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    policy: std::option::Option<std::vec::Vec<ApiTokenPolicyEl>>,
-    dynamic: ApiTokenDynamic,
+    status: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 struct ApiToken_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<ApiTokenData>,
+    data: std::cell::RefCell<ApiTokenData_>,
 }
 
 #[derive(Clone)]
@@ -135,16 +135,16 @@ impl ApiToken {
         self
     }
 
-    #[doc =
-        "Set the field `expires_on`.\nThe expiration time on or after which the token MUST NOT be accepted for processing."]
-    pub fn set_expires_on(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().expires_on = std::option::Option::Some(v.into());
+    #[doc = "Set the field `condition`.\n"]
+    pub fn set_condition(self, v: impl std::convert::Into<ApiToken_Condition>) -> Self {
+        self.0.data.borrow_mut().condition = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `expires_on`.\nThe expiration time on or after which the JWT MUST NOT be accepted for processing."]
+    pub fn set_expires_on(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().expires_on = std::option::Option::Some(v.into());
         self
     }
 
@@ -154,56 +154,52 @@ impl ApiToken {
         self
     }
 
-    #[doc = "Set the field `condition`.\n"]
-    pub fn set_condition(self, v: impl std::convert::Into<terrars::BlockAssignable<ApiTokenConditionEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().condition = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.condition = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `status`.\nStatus of the token.\nAvailable values: \"active\", \"disabled\", \"expired\"."]
+    pub fn set_status(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().status = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `policy`.\n"]
-    pub fn set_policy(self, v: impl std::convert::Into<terrars::BlockAssignable<ApiTokenPolicyEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().policy = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.policy = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc = "Get a reference to the value of field `condition` after provisioning.\n"]
+    pub fn condition(&self) -> ApiToken_ConditionRef {
+        ApiToken_ConditionRef::new(self.shared().clone(), format!("{}.condition", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\nThe expiration time on or after which the token MUST NOT be accepted for processing."]
+        "Get a reference to the value of field `creator_email_at_creation` after provisioning.\nThe email address of the user who created the token at the time of\ncreation. Only present for Account Owned API Tokens when a creator email\nwas available."]
+    pub fn creator_email_at_creation(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.creator_email_at_creation", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expires_on` after provisioning.\nThe expiration time on or after which the JWT MUST NOT be accepted for processing."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nToken identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `issued_on` after provisioning.\nTimestamp of when the token was issued."]
+        "Get a reference to the value of field `issued_on` after provisioning.\nThe time on which the token was created."]
     pub fn issued_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.issued_on", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `last_used_on` after provisioning.\nLast time the token was used."]
+    pub fn last_used_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_used_on", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nTimestamp of when the token was last modified."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nLast time the token was modified."]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the API Token."]
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nToken name."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
@@ -214,19 +210,33 @@ impl ApiToken {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.not_before", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `policies` after provisioning.\nList of access policies assigned to the token."]
+    pub fn policies(&self) -> terrars::ListRef<ApiToken_PoliciesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.policies", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `provisioner_id` after provisioning.\nThe identifier of the service that provisioned the token. For an\nOAuth-provisioned token, this is the OAuth client identifier. Present\nwhen `provisioner_type` is present and null when the identifier is\nunavailable."]
+    pub fn provisioner_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.provisioner_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `provisioner_type` after provisioning.\nThe type of service that provisioned the token. Only present for\nprovisioned Account Owned API Tokens."]
+    pub fn provisioner_type(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.provisioner_type", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the token.\nAvailable values: \"active\", \"disabled\", \"expired\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nThe value of the API Token."]
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nThe token value."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `condition` after provisioning.\n"]
-    pub fn condition(&self) -> terrars::ListRef<ApiTokenConditionElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.condition", self.extract_ref()))
     }
 }
 
@@ -263,8 +273,10 @@ impl terrars::Resource_ for ApiToken_ {
 
 pub struct BuildApiToken {
     pub tf_id: std::string::String,
-    #[doc = "Name of the API Token."]
+    #[doc = "Token name."]
     pub name: terrars::PrimField<std::string::String>,
+    #[doc = "List of access policies assigned to the token."]
+    pub policies: std::vec::Vec<ApiToken_Policies>,
 }
 
 impl BuildApiToken {
@@ -272,19 +284,18 @@ impl BuildApiToken {
         let out = ApiToken(std::rc::Rc::new(ApiToken_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(ApiTokenData {
+            data: std::cell::RefCell::new(ApiTokenData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
+                condition: core::default::Default::default(),
                 expires_on: core::default::Default::default(),
-                id: core::default::Default::default(),
                 name: self.name,
                 not_before: core::default::Default::default(),
-                condition: core::default::Default::default(),
-                policy: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
+                policies: self.policies,
+                status: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -315,30 +326,46 @@ impl ApiTokenRef {
         &self.shared
     }
 
+    #[doc = "Get a reference to the value of field `condition` after provisioning.\n"]
+    pub fn condition(&self) -> ApiToken_ConditionRef {
+        ApiToken_ConditionRef::new(self.shared().clone(), format!("{}.condition", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\nThe expiration time on or after which the token MUST NOT be accepted for processing."]
+        "Get a reference to the value of field `creator_email_at_creation` after provisioning.\nThe email address of the user who created the token at the time of\ncreation. Only present for Account Owned API Tokens when a creator email\nwas available."]
+    pub fn creator_email_at_creation(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.creator_email_at_creation", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expires_on` after provisioning.\nThe expiration time on or after which the JWT MUST NOT be accepted for processing."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nToken identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `issued_on` after provisioning.\nTimestamp of when the token was issued."]
+        "Get a reference to the value of field `issued_on` after provisioning.\nThe time on which the token was created."]
     pub fn issued_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.issued_on", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `last_used_on` after provisioning.\nLast time the token was used."]
+    pub fn last_used_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_used_on", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nTimestamp of when the token was last modified."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nLast time the token was modified."]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the API Token."]
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nToken name."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
@@ -349,53 +376,66 @@ impl ApiTokenRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.not_before", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `policies` after provisioning.\nList of access policies assigned to the token."]
+    pub fn policies(&self) -> terrars::ListRef<ApiToken_PoliciesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.policies", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `provisioner_id` after provisioning.\nThe identifier of the service that provisioned the token. For an\nOAuth-provisioned token, this is the OAuth client identifier. Present\nwhen `provisioner_type` is present and null when the identifier is\nunavailable."]
+    pub fn provisioner_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.provisioner_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `provisioner_type` after provisioning.\nThe type of service that provisioned the token. Only present for\nprovisioned Account Owned API Tokens."]
+    pub fn provisioner_type(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.provisioner_type", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the token.\nAvailable values: \"active\", \"disabled\", \"expired\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nThe value of the API Token."]
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nThe token value."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `condition` after provisioning.\n"]
-    pub fn condition(&self) -> terrars::ListRef<ApiTokenConditionElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.condition", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct ApiTokenConditionElRequestIpEl {
+pub struct ApiToken_Condition_RequestIp {
     #[serde(rename = "in", skip_serializing_if = "std::option::Option::is_none")]
-    in_: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    in_: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    not_in: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    not_in: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
 }
 
-impl ApiTokenConditionElRequestIpEl {
-    #[doc =
-        "Set the field `in_`.\nList of IP addresses or CIDR notation where the token may be used from. If not specified, the token will be valid for all IP addresses."]
+impl ApiToken_Condition_RequestIp {
+    #[doc = "Set the field `in_`.\nList of IPv4/IPv6 CIDR addresses."]
     pub fn set_in(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.in_ = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `not_in`.\nList of IP addresses or CIDR notation where the token should not be used from."]
+    #[doc = "Set the field `not_in`.\nList of IPv4/IPv6 CIDR addresses."]
     pub fn set_not_in(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.not_in = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for ApiTokenConditionElRequestIpEl {
-    type O = terrars::BlockAssignable<ApiTokenConditionElRequestIpEl>;
+impl terrars::ToListMappable for ApiToken_Condition_RequestIp {
+    type O = terrars::BlockAssignable<ApiToken_Condition_RequestIp>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -406,81 +446,65 @@ impl terrars::ToListMappable for ApiTokenConditionElRequestIpEl {
     }
 }
 
-pub struct BuildApiTokenConditionElRequestIpEl {}
+pub struct BuildApiToken_Condition_RequestIp {}
 
-impl BuildApiTokenConditionElRequestIpEl {
-    pub fn build(self) -> ApiTokenConditionElRequestIpEl {
-        ApiTokenConditionElRequestIpEl {
+impl BuildApiToken_Condition_RequestIp {
+    pub fn build(self) -> ApiToken_Condition_RequestIp {
+        ApiToken_Condition_RequestIp {
             in_: core::default::Default::default(),
             not_in: core::default::Default::default(),
         }
     }
 }
 
-pub struct ApiTokenConditionElRequestIpElRef {
+#[allow(dead_code)]
+pub struct ApiToken_Condition_RequestIpRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ApiTokenConditionElRequestIpElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiTokenConditionElRequestIpElRef {
-        ApiTokenConditionElRequestIpElRef {
+impl terrars::Ref for ApiToken_Condition_RequestIpRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiToken_Condition_RequestIpRef {
+        ApiToken_Condition_RequestIpRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ApiTokenConditionElRequestIpElRef {
+impl ApiToken_Condition_RequestIpRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `in_` after provisioning.\nList of IP addresses or CIDR notation where the token may be used from. If not specified, the token will be valid for all IP addresses."]
-    pub fn in_(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.in", self.base))
+    #[doc = "Get a reference to the value of field `in_` after provisioning.\nList of IPv4/IPv6 CIDR addresses."]
+    pub fn in_(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.in", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `not_in` after provisioning.\nList of IP addresses or CIDR notation where the token should not be used from."]
-    pub fn not_in(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.not_in", self.base))
+    #[doc = "Get a reference to the value of field `not_in` after provisioning.\nList of IPv4/IPv6 CIDR addresses."]
+    pub fn not_in(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.not_in", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct ApiTokenConditionElDynamic {
-    request_ip: std::option::Option<terrars::DynamicBlock<ApiTokenConditionElRequestIpEl>>,
 }
 
 #[derive(Serialize)]
-pub struct ApiTokenConditionEl {
+pub struct ApiToken_Condition {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    request_ip: std::option::Option<std::vec::Vec<ApiTokenConditionElRequestIpEl>>,
-    dynamic: ApiTokenConditionElDynamic,
+    request_ip: std::option::Option<ApiToken_Condition_RequestIp>,
 }
 
-impl ApiTokenConditionEl {
-    #[doc = "Set the field `request_ip`.\n"]
-    pub fn set_request_ip(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<ApiTokenConditionElRequestIpEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.request_ip = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.request_ip = std::option::Option::Some(d);
-            },
-        }
+impl ApiToken_Condition {
+    #[doc = "Set the field `request_ip`.\nClient IP restrictions."]
+    pub fn set_request_ip(mut self, v: impl std::convert::Into<ApiToken_Condition_RequestIp>) -> Self {
+        self.request_ip = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for ApiTokenConditionEl {
-    type O = terrars::BlockAssignable<ApiTokenConditionEl>;
+impl terrars::ToListMappable for ApiToken_Condition {
+    type O = terrars::BlockAssignable<ApiToken_Condition>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -491,60 +515,50 @@ impl terrars::ToListMappable for ApiTokenConditionEl {
     }
 }
 
-pub struct BuildApiTokenConditionEl {}
+pub struct BuildApiToken_Condition {}
 
-impl BuildApiTokenConditionEl {
-    pub fn build(self) -> ApiTokenConditionEl {
-        ApiTokenConditionEl {
-            request_ip: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
-        }
+impl BuildApiToken_Condition {
+    pub fn build(self) -> ApiToken_Condition {
+        ApiToken_Condition { request_ip: core::default::Default::default() }
     }
 }
 
-pub struct ApiTokenConditionElRef {
+#[allow(dead_code)]
+pub struct ApiToken_ConditionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ApiTokenConditionElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiTokenConditionElRef {
-        ApiTokenConditionElRef {
+impl terrars::Ref for ApiToken_ConditionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiToken_ConditionRef {
+        ApiToken_ConditionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ApiTokenConditionElRef {
+impl ApiToken_ConditionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `request_ip` after provisioning.\n"]
-    pub fn request_ip(&self) -> terrars::ListRef<ApiTokenConditionElRequestIpElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.request_ip", self.base))
+    #[doc = "Get a reference to the value of field `request_ip` after provisioning.\nClient IP restrictions."]
+    pub fn request_ip(&self) -> ApiToken_Condition_RequestIpRef {
+        ApiToken_Condition_RequestIpRef::new(self.shared().clone(), format!("{}.request_ip", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct ApiTokenPolicyEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    effect: std::option::Option<terrars::PrimField<std::string::String>>,
-    permission_groups: terrars::SetField<terrars::PrimField<std::string::String>>,
-    resources: terrars::RecField<terrars::PrimField<std::string::String>>,
+pub struct ApiToken_Policies_PermissionGroups {
+    id: terrars::PrimField<std::string::String>,
 }
 
-impl ApiTokenPolicyEl {
-    #[doc = "Set the field `effect`.\nEffect of the policy. Available values: `allow`, `deny`. Defaults to `allow`."]
-    pub fn set_effect(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.effect = std::option::Option::Some(v.into());
-        self
-    }
-}
+impl ApiToken_Policies_PermissionGroups { }
 
-impl terrars::ToListMappable for ApiTokenPolicyEl {
-    type O = terrars::BlockAssignable<ApiTokenPolicyEl>;
+impl terrars::ToListMappable for ApiToken_Policies_PermissionGroups {
+    type O = terrars::BlockAssignable<ApiToken_Policies_PermissionGroups>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -555,64 +569,120 @@ impl terrars::ToListMappable for ApiTokenPolicyEl {
     }
 }
 
-pub struct BuildApiTokenPolicyEl {
-    #[doc =
-        "List of permissions groups IDs. See [documentation](https://developers.cloudflare.com/api/tokens/create/permissions) for more information."]
-    pub permission_groups: terrars::SetField<terrars::PrimField<std::string::String>>,
-    #[doc = "Describes what operations against which resources are allowed or denied."]
-    pub resources: terrars::RecField<terrars::PrimField<std::string::String>>,
+pub struct BuildApiToken_Policies_PermissionGroups {
+    #[doc = "Identifier of the permission group."]
+    pub id: terrars::PrimField<std::string::String>,
 }
 
-impl BuildApiTokenPolicyEl {
-    pub fn build(self) -> ApiTokenPolicyEl {
-        ApiTokenPolicyEl {
-            effect: core::default::Default::default(),
+impl BuildApiToken_Policies_PermissionGroups {
+    pub fn build(self) -> ApiToken_Policies_PermissionGroups {
+        ApiToken_Policies_PermissionGroups { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct ApiToken_Policies_PermissionGroupsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for ApiToken_Policies_PermissionGroupsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiToken_Policies_PermissionGroupsRef {
+        ApiToken_Policies_PermissionGroupsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl ApiToken_Policies_PermissionGroupsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier of the permission group."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct ApiToken_Policies {
+    effect: terrars::PrimField<std::string::String>,
+    permission_groups: std::vec::Vec<ApiToken_Policies_PermissionGroups>,
+    resources: terrars::PrimField<std::string::String>,
+}
+
+impl ApiToken_Policies { }
+
+impl terrars::ToListMappable for ApiToken_Policies {
+    type O = terrars::BlockAssignable<ApiToken_Policies>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildApiToken_Policies {
+    #[doc = "Allow or deny operations against the resources.\nAvailable values: \"allow\", \"deny\"."]
+    pub effect: terrars::PrimField<std::string::String>,
+    #[doc = "A set of permission groups that are specified to the policy."]
+    pub permission_groups: std::vec::Vec<ApiToken_Policies_PermissionGroups>,
+    #[doc = "A json object representing the resources that are specified to the policy."]
+    pub resources: terrars::PrimField<std::string::String>,
+}
+
+impl BuildApiToken_Policies {
+    pub fn build(self) -> ApiToken_Policies {
+        ApiToken_Policies {
+            effect: self.effect,
             permission_groups: self.permission_groups,
             resources: self.resources,
         }
     }
 }
 
-pub struct ApiTokenPolicyElRef {
+#[allow(dead_code)]
+pub struct ApiToken_PoliciesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ApiTokenPolicyElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiTokenPolicyElRef {
-        ApiTokenPolicyElRef {
+impl terrars::Ref for ApiToken_PoliciesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiToken_PoliciesRef {
+        ApiToken_PoliciesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ApiTokenPolicyElRef {
+impl ApiToken_PoliciesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `effect` after provisioning.\nEffect of the policy. Available values: `allow`, `deny`. Defaults to `allow`."]
+        "Get a reference to the value of field `effect` after provisioning.\nAllow or deny operations against the resources.\nAvailable values: \"allow\", \"deny\"."]
     pub fn effect(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.effect", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `permission_groups` after provisioning.\nList of permissions groups IDs. See [documentation](https://developers.cloudflare.com/api/tokens/create/permissions) for more information."]
-    pub fn permission_groups(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.permission_groups", self.base))
+        "Get a reference to the value of field `permission_groups` after provisioning.\nA set of permission groups that are specified to the policy."]
+    pub fn permission_groups(&self) -> terrars::ListRef<ApiToken_Policies_PermissionGroupsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.permission_groups", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `resources` after provisioning.\nDescribes what operations against which resources are allowed or denied."]
-    pub fn resources(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.resources", self.base))
+        "Get a reference to the value of field `resources` after provisioning.\nA json object representing the resources that are specified to the policy."]
+    pub fn resources(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.resources", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct ApiTokenDynamic {
-    condition: std::option::Option<terrars::DynamicBlock<ApiTokenConditionEl>>,
-    policy: std::option::Option<terrars::DynamicBlock<ApiTokenPolicyEl>>,
 }

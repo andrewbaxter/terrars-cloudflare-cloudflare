@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct CustomHostnameFallbackOriginData {
+struct CustomHostnameFallbackOriginData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,8 +20,6 @@ struct CustomHostnameFallbackOriginData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     origin: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
 }
@@ -27,7 +27,7 @@ struct CustomHostnameFallbackOriginData {
 struct CustomHostnameFallbackOrigin_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<CustomHostnameFallbackOriginData>,
+    data: std::cell::RefCell<CustomHostnameFallbackOriginData_>,
 }
 
 #[derive(Clone)]
@@ -127,31 +127,42 @@ impl CustomHostnameFallbackOrigin {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
+    #[doc =
+        "Get a reference to the value of field `created_at` after provisioning.\nThis is the time the fallback origin was created."]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `errors` after provisioning.\nThese are errors that were encountered while trying to activate a fallback origin."]
+    pub fn errors(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.errors", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin` after provisioning.\nHostname you intend to fallback requests to. Origin must be a proxied A/AAAA/CNAME DNS record within Clouldflare."]
+        "Get a reference to the value of field `origin` after provisioning.\nYour origin hostname that requests to your custom hostnames will be sent to."]
     pub fn origin(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nStatus of the fallback origin's activation."]
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the fallback origin's activation.\nAvailable values: \"initializing\", \"pending_deployment\", \"pending_deletion\", \"active\", \"deployment_timed_out\", \"deletion_timed_out\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `updated_at` after provisioning.\nThis is the time the fallback origin was updated."]
+    pub fn updated_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.updated_at", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -190,11 +201,9 @@ impl terrars::Resource_ for CustomHostnameFallbackOrigin_ {
 
 pub struct BuildCustomHostnameFallbackOrigin {
     pub tf_id: std::string::String,
-    #[doc =
-        "Hostname you intend to fallback requests to. Origin must be a proxied A/AAAA/CNAME DNS record within Clouldflare."]
+    #[doc = "Your origin hostname that requests to your custom hostnames will be sent to."]
     pub origin: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -203,13 +212,12 @@ impl BuildCustomHostnameFallbackOrigin {
         let out = CustomHostnameFallbackOrigin(std::rc::Rc::new(CustomHostnameFallbackOrigin_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(CustomHostnameFallbackOriginData {
+            data: std::cell::RefCell::new(CustomHostnameFallbackOriginData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                id: core::default::Default::default(),
                 origin: self.origin,
                 zone_id: self.zone_id,
             }),
@@ -242,25 +250,42 @@ impl CustomHostnameFallbackOriginRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `created_at` after provisioning.\nThis is the time the fallback origin was created."]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `errors` after provisioning.\nThese are errors that were encountered while trying to activate a fallback origin."]
+    pub fn errors(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.errors", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `origin` after provisioning.\nHostname you intend to fallback requests to. Origin must be a proxied A/AAAA/CNAME DNS record within Clouldflare."]
+        "Get a reference to the value of field `origin` after provisioning.\nYour origin hostname that requests to your custom hostnames will be sent to."]
     pub fn origin(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nStatus of the fallback origin's activation."]
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the fallback origin's activation.\nAvailable values: \"initializing\", \"pending_deployment\", \"pending_deletion\", \"active\", \"deployment_timed_out\", \"deletion_timed_out\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `updated_at` after provisioning.\nThis is the time the fallback origin was updated."]
+    pub fn updated_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.updated_at", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

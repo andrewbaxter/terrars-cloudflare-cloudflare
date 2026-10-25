@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct WaitingRoomRulesData {
+struct WaitingRoomRulesData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,19 +20,15 @@ struct WaitingRoomRulesData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    rules: std::vec::Vec<WaitingRoomRules_Rules>,
     waiting_room_id: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    rules: std::option::Option<std::vec::Vec<WaitingRoomRulesRulesEl>>,
-    dynamic: WaitingRoomRulesDynamic,
 }
 
 struct WaitingRoomRules_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<WaitingRoomRulesData>,
+    data: std::cell::RefCell<WaitingRoomRulesData_>,
 }
 
 #[derive(Clone)]
@@ -130,45 +128,24 @@ impl WaitingRoomRules {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `rules`.\n"]
-    pub fn set_rules(self, v: impl std::convert::Into<terrars::BlockAssignable<WaitingRoomRulesRulesEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().rules = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.rules = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of the rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `waiting_room_id` after provisioning.\nThe Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
+    pub fn rules(&self) -> terrars::ListRef<WaitingRoomRules_RulesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `waiting_room_id` after provisioning.\n"]
     pub fn waiting_room_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.waiting_room_id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
-    pub fn rules(&self) -> terrars::ListRef<WaitingRoomRulesRulesElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
     }
 }
 
@@ -205,11 +182,11 @@ impl terrars::Resource_ for WaitingRoomRules_ {
 
 pub struct BuildWaitingRoomRules {
     pub tf_id: std::string::String,
-    #[doc =
-        "The Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = ""]
+    pub rules: std::vec::Vec<WaitingRoomRules_Rules>,
+    #[doc = ""]
     pub waiting_room_id: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -218,17 +195,15 @@ impl BuildWaitingRoomRules {
         let out = WaitingRoomRules(std::rc::Rc::new(WaitingRoomRules_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(WaitingRoomRulesData {
+            data: std::cell::RefCell::new(WaitingRoomRulesData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                id: core::default::Default::default(),
+                rules: self.rules,
                 waiting_room_id: self.waiting_room_id,
                 zone_id: self.zone_id,
-                rules: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -259,56 +234,53 @@ impl WaitingRoomRulesRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of the rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `waiting_room_id` after provisioning.\nThe Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
+    pub fn rules(&self) -> terrars::ListRef<WaitingRoomRules_RulesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `waiting_room_id` after provisioning.\n"]
     pub fn waiting_room_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.waiting_room_id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `rules` after provisioning.\n"]
-    pub fn rules(&self) -> terrars::ListRef<WaitingRoomRulesRulesElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.rules", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct WaitingRoomRulesRulesEl {
+pub struct WaitingRoomRules_Rules {
     action: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
-    expression: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    status: std::option::Option<terrars::PrimField<std::string::String>>,
+    enabled: std::option::Option<terrars::PrimField<bool>>,
+    expression: terrars::PrimField<std::string::String>,
 }
 
-impl WaitingRoomRulesRulesEl {
-    #[doc = "Set the field `description`.\nBrief summary of the waiting room rule and its intended use."]
+impl WaitingRoomRules_Rules {
+    #[doc = "Set the field `description`.\nThe description of the rule."]
     pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `status`.\nWhether the rule is enabled or disabled. Available values: `enabled`, `disabled`."]
-    pub fn set_status(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.status = std::option::Option::Some(v.into());
+    #[doc = "Set the field `enabled`.\nWhen set to true, the rule is enabled."]
+    pub fn set_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.enabled = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for WaitingRoomRulesRulesEl {
-    type O = terrars::BlockAssignable<WaitingRoomRulesRulesEl>;
+impl terrars::ToListMappable for WaitingRoomRules_Rules {
+    type O = terrars::BlockAssignable<WaitingRoomRules_Rules>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -319,80 +291,65 @@ impl terrars::ToListMappable for WaitingRoomRulesRulesEl {
     }
 }
 
-pub struct BuildWaitingRoomRulesRulesEl {
-    #[doc = "Action to perform in the ruleset rule. Available values: `bypass_waiting_room`."]
+pub struct BuildWaitingRoomRules_Rules {
+    #[doc = "The action to take when the expression matches.\nAvailable values: \"bypass_waiting_room\"."]
     pub action: terrars::PrimField<std::string::String>,
-    #[doc =
-        "Criteria for an HTTP request to trigger the waiting room rule action. Uses the Firewall Rules expression language based on Wireshark display filters. Refer to the [Waiting Room Rules Docs](https://developers.cloudflare.com/waiting-room/additional-options/waiting-room-rules/bypass-rules/)."]
+    #[doc = "Criteria defining when there is a match for the current rule."]
     pub expression: terrars::PrimField<std::string::String>,
 }
 
-impl BuildWaitingRoomRulesRulesEl {
-    pub fn build(self) -> WaitingRoomRulesRulesEl {
-        WaitingRoomRulesRulesEl {
+impl BuildWaitingRoomRules_Rules {
+    pub fn build(self) -> WaitingRoomRules_Rules {
+        WaitingRoomRules_Rules {
             action: self.action,
             description: core::default::Default::default(),
+            enabled: core::default::Default::default(),
             expression: self.expression,
-            status: core::default::Default::default(),
         }
     }
 }
 
-pub struct WaitingRoomRulesRulesElRef {
+#[allow(dead_code)]
+pub struct WaitingRoomRules_RulesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for WaitingRoomRulesRulesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> WaitingRoomRulesRulesElRef {
-        WaitingRoomRulesRulesElRef {
+impl terrars::Ref for WaitingRoomRules_RulesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> WaitingRoomRules_RulesRef {
+        WaitingRoomRules_RulesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl WaitingRoomRulesRulesElRef {
+impl WaitingRoomRules_RulesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `action` after provisioning.\nAction to perform in the ruleset rule. Available values: `bypass_waiting_room`."]
+        "Get a reference to the value of field `action` after provisioning.\nThe action to take when the expression matches.\nAvailable values: \"bypass_waiting_room\"."]
     pub fn action(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.action", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nBrief summary of the waiting room rule and its intended use."]
+    #[doc = "Get a reference to the value of field `description` after provisioning.\nThe description of the rule."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `expression` after provisioning.\nCriteria for an HTTP request to trigger the waiting room rule action. Uses the Firewall Rules expression language based on Wireshark display filters. Refer to the [Waiting Room Rules Docs](https://developers.cloudflare.com/waiting-room/additional-options/waiting-room-rules/bypass-rules/)."]
-    pub fn expression(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expression", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nUnique rule identifier."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+        "Get a reference to the value of field `enabled` after provisioning.\nWhen set to true, the rule is enabled."]
+    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nWhether the rule is enabled or disabled. Available values: `enabled`, `disabled`."]
-    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+        "Get a reference to the value of field `expression` after provisioning.\nCriteria defining when there is a match for the current rule."]
+    pub fn expression(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expression", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `version` after provisioning.\nVersion of the waiting room rule."]
-    pub fn version(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.version", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct WaitingRoomRulesDynamic {
-    rules: std::option::Option<terrars::DynamicBlock<WaitingRoomRulesRulesEl>>,
 }

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct FilterData {
+struct FilterData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,11 +20,11 @@ struct FilterData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
+    body: std::vec::Vec<Filter_Body>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
-    expression: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    expression: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     paused: std::option::Option<terrars::PrimField<bool>>,
     #[serde(rename = "ref", skip_serializing_if = "std::option::Option::is_none")]
@@ -33,7 +35,7 @@ struct FilterData {
 struct Filter_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<FilterData>,
+    data: std::cell::RefCell<FilterData_>,
 }
 
 #[derive(Clone)]
@@ -133,60 +135,66 @@ impl Filter {
         self
     }
 
-    #[doc = "Set the field `description`.\nA note that you can use to describe the purpose of the filter."]
+    #[doc = "Set the field `description`.\nAn informative summary of the filter."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `expression`.\nThe filter expression. For more information, refer to [Expressions](https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/)."]
+    pub fn set_expression(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().expression = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `paused`.\nWhether this filter is currently paused."]
+    #[doc = "Set the field `paused`.\nWhen true, indicates that the filter is currently paused."]
     pub fn set_paused(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().paused = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `ref_`.\nShort reference tag to quickly select related rules."]
+    #[doc = "Set the field `ref_`.\nA short reference tag. Allows you to select related filters."]
     pub fn set_ref(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().ref_ = std::option::Option::Some(v.into());
         self
     }
 
+    #[doc = "Get a reference to the value of field `body` after provisioning.\n"]
+    pub fn body(&self) -> terrars::ListRef<Filter_BodyRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.body", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA note that you can use to describe the purpose of the filter."]
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the filter."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `expression` after provisioning.\nThe filter expression to be used."]
+    #[doc =
+        "Get a reference to the value of field `expression` after provisioning.\nThe filter expression. For more information, refer to [Expressions](https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/)."]
     pub fn expression(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expression", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the filter."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `paused` after provisioning.\nWhether this filter is currently paused."]
+        "Get a reference to the value of field `paused` after provisioning.\nWhen true, indicates that the filter is currently paused."]
     pub fn paused(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ref_` after provisioning.\nShort reference tag to quickly select related rules."]
+        "Get a reference to the value of field `ref_` after provisioning.\nA short reference tag. Allows you to select related filters."]
     pub fn ref_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ref", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -225,10 +233,9 @@ impl terrars::Resource_ for Filter_ {
 
 pub struct BuildFilter {
     pub tf_id: std::string::String,
-    #[doc = "The filter expression to be used."]
-    pub expression: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = ""]
+    pub body: std::vec::Vec<Filter_Body>,
+    #[doc = "Defines an identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -237,15 +244,15 @@ impl BuildFilter {
         let out = Filter(std::rc::Rc::new(Filter_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(FilterData {
+            data: std::cell::RefCell::new(FilterData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
+                body: self.body,
                 description: core::default::Default::default(),
-                expression: self.expression,
-                id: core::default::Default::default(),
+                expression: core::default::Default::default(),
                 paused: core::default::Default::default(),
                 ref_: core::default::Default::default(),
                 zone_id: self.zone_id,
@@ -279,37 +286,157 @@ impl FilterRef {
         &self.shared
     }
 
+    #[doc = "Get a reference to the value of field `body` after provisioning.\n"]
+    pub fn body(&self) -> terrars::ListRef<Filter_BodyRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.body", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA note that you can use to describe the purpose of the filter."]
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the filter."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `expression` after provisioning.\nThe filter expression to be used."]
+    #[doc =
+        "Get a reference to the value of field `expression` after provisioning.\nThe filter expression. For more information, refer to [Expressions](https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/)."]
     pub fn expression(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expression", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the filter."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `paused` after provisioning.\nWhether this filter is currently paused."]
+        "Get a reference to the value of field `paused` after provisioning.\nWhen true, indicates that the filter is currently paused."]
     pub fn paused(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `ref_` after provisioning.\nShort reference tag to quickly select related rules."]
+        "Get a reference to the value of field `ref_` after provisioning.\nA short reference tag. Allows you to select related filters."]
     pub fn ref_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.ref", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+    }
+}
+
+#[derive(Serialize)]
+pub struct Filter_Body {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    description: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    expression: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    paused: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(rename = "ref", skip_serializing_if = "std::option::Option::is_none")]
+    ref_: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl Filter_Body {
+    #[doc = "Set the field `description`.\nAn informative summary of the filter."]
+    pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `expression`.\nThe filter expression. For more information, refer to [Expressions](https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/)."]
+    pub fn set_expression(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `paused`.\nWhen true, indicates that the filter is currently paused."]
+    pub fn set_paused(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.paused = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `ref_`.\nA short reference tag. Allows you to select related filters."]
+    pub fn set_ref(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.ref_ = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for Filter_Body {
+    type O = terrars::BlockAssignable<Filter_Body>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildFilter_Body {}
+
+impl BuildFilter_Body {
+    pub fn build(self) -> Filter_Body {
+        Filter_Body {
+            description: core::default::Default::default(),
+            expression: core::default::Default::default(),
+            paused: core::default::Default::default(),
+            ref_: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct Filter_BodyRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for Filter_BodyRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Filter_BodyRef {
+        Filter_BodyRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl Filter_BodyRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the filter."]
+    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expression` after provisioning.\nThe filter expression. For more information, refer to [Expressions](https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/)."]
+    pub fn expression(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expression", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the filter."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `paused` after provisioning.\nWhen true, indicates that the filter is currently paused."]
+    pub fn paused(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `ref_` after provisioning.\nA short reference tag. Allows you to select related filters."]
+    pub fn ref_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ref", self.base))
     }
 }

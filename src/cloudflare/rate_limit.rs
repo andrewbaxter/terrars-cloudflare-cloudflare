@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct RateLimitData {
+struct RateLimitData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,30 +20,20 @@ struct RateLimitData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    bypass_url_patterns: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    description: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    disabled: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    action: RateLimit_Action,
+    #[serde(rename = "match")]
+    match_: RateLimit_Match,
     period: terrars::PrimField<f64>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    rate_limit_id: std::option::Option<terrars::PrimField<std::string::String>>,
     threshold: terrars::PrimField<f64>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    action: std::option::Option<std::vec::Vec<RateLimitActionEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    correlate: std::option::Option<std::vec::Vec<RateLimitCorrelateEl>>,
-    #[serde(rename = "match", skip_serializing_if = "std::option::Option::is_none")]
-    match_: std::option::Option<std::vec::Vec<RateLimitMatchEl>>,
-    dynamic: RateLimitDynamic,
 }
 
 struct RateLimit_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<RateLimitData>,
+    data: std::cell::RefCell<RateLimitData_>,
 }
 
 #[derive(Clone)]
@@ -141,126 +133,45 @@ impl RateLimit {
         self
     }
 
-    #[doc = "Set the field `bypass_url_patterns`.\n"]
-    pub fn set_bypass_url_patterns(
-        self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.0.data.borrow_mut().bypass_url_patterns = std::option::Option::Some(v.into());
+    #[doc = "Set the field `rate_limit_id`.\nDefines the unique identifier of the rate limit."]
+    pub fn set_rate_limit_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().rate_limit_id = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `description`.\nA note that you can use to describe the reason for a rate limit. This value is sanitized and all tags are removed."]
-    pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `disabled`.\nWhether this ratelimit is currently disabled. Defaults to `false`."]
-    pub fn set_disabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().disabled = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `action`.\n"]
-    pub fn set_action(self, v: impl std::convert::Into<terrars::BlockAssignable<RateLimitActionEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().action = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.action = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `correlate`.\n"]
-    pub fn set_correlate(self, v: impl std::convert::Into<terrars::BlockAssignable<RateLimitCorrelateEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().correlate = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.correlate = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `match_`.\n"]
-    pub fn set_match(self, v: impl std::convert::Into<terrars::BlockAssignable<RateLimitMatchEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().match_ = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.match_ = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Get a reference to the value of field `bypass_url_patterns` after provisioning.\n"]
-    pub fn bypass_url_patterns(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.bypass_url_patterns", self.extract_ref()))
+        "Get a reference to the value of field `action` after provisioning.\nThe action to perform when the threshold of matched traffic within the configured period is exceeded."]
+    pub fn action(&self) -> RateLimit_ActionRef {
+        RateLimit_ActionRef::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA note that you can use to describe the reason for a rate limit. This value is sanitized and all tags are removed."]
-    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
+        "Get a reference to the value of field `match_` after provisioning.\nDetermines which traffic the rate limit counts towards the threshold."]
+    pub fn match_(&self) -> RateLimit_MatchRef {
+        RateLimit_MatchRef::new(self.shared().clone(), format!("{}.match", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `disabled` after provisioning.\nWhether this ratelimit is currently disabled. Defaults to `false`."]
-    pub fn disabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disabled", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `period` after provisioning.\nThe time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed."]
+        "Get a reference to the value of field `period` after provisioning.\nThe time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action."]
     pub fn period(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.period", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `threshold` after provisioning.\nThe threshold that triggers the rate limit mitigations, combine with period."]
+        "Get a reference to the value of field `rate_limit_id` after provisioning.\nDefines the unique identifier of the rate limit."]
+    pub fn rate_limit_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.rate_limit_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `threshold` after provisioning.\nThe threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period."]
     pub fn threshold(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.threshold", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `action` after provisioning.\n"]
-    pub fn action(&self) -> terrars::ListRef<RateLimitActionElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `correlate` after provisioning.\n"]
-    pub fn correlate(&self) -> terrars::ListRef<RateLimitCorrelateElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.correlate", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `match_` after provisioning.\n"]
-    pub fn match_(&self) -> terrars::ListRef<RateLimitMatchElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.match", self.extract_ref()))
     }
 }
 
@@ -297,13 +208,17 @@ impl terrars::Resource_ for RateLimit_ {
 
 pub struct BuildRateLimit {
     pub tf_id: std::string::String,
+    #[doc = "The action to perform when the threshold of matched traffic within the configured period is exceeded."]
+    pub action: RateLimit_Action,
+    #[doc = "Determines which traffic the rate limit counts towards the threshold."]
+    pub match_: RateLimit_Match,
     #[doc =
-        "The time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed."]
+        "The time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action."]
     pub period: terrars::PrimField<f64>,
-    #[doc = "The threshold that triggers the rate limit mitigations, combine with period."]
-    pub threshold: terrars::PrimField<f64>,
     #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "The threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period."]
+    pub threshold: terrars::PrimField<f64>,
+    #[doc = "Defines an identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -312,23 +227,18 @@ impl BuildRateLimit {
         let out = RateLimit(std::rc::Rc::new(RateLimit_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(RateLimitData {
+            data: std::cell::RefCell::new(RateLimitData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                bypass_url_patterns: core::default::Default::default(),
-                description: core::default::Default::default(),
-                disabled: core::default::Default::default(),
-                id: core::default::Default::default(),
+                action: self.action,
+                match_: self.match_,
                 period: self.period,
+                rate_limit_id: core::default::Default::default(),
                 threshold: self.threshold,
                 zone_id: self.zone_id,
-                action: core::default::Default::default(),
-                correlate: core::default::Default::default(),
-                match_: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -359,72 +269,68 @@ impl RateLimitRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `bypass_url_patterns` after provisioning.\n"]
-    pub fn bypass_url_patterns(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.bypass_url_patterns", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `action` after provisioning.\nThe action to perform when the threshold of matched traffic within the configured period is exceeded."]
+    pub fn action(&self) -> RateLimit_ActionRef {
+        RateLimit_ActionRef::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA note that you can use to describe the reason for a rate limit. This value is sanitized and all tags are removed."]
-    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
+        "Get a reference to the value of field `match_` after provisioning.\nDetermines which traffic the rate limit counts towards the threshold."]
+    pub fn match_(&self) -> RateLimit_MatchRef {
+        RateLimit_MatchRef::new(self.shared().clone(), format!("{}.match", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `disabled` after provisioning.\nWhether this ratelimit is currently disabled. Defaults to `false`."]
-    pub fn disabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disabled", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `period` after provisioning.\nThe time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed."]
+        "Get a reference to the value of field `period` after provisioning.\nThe time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action."]
     pub fn period(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.period", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `threshold` after provisioning.\nThe threshold that triggers the rate limit mitigations, combine with period."]
+        "Get a reference to the value of field `rate_limit_id` after provisioning.\nDefines the unique identifier of the rate limit."]
+    pub fn rate_limit_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.rate_limit_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `threshold` after provisioning.\nThe threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period."]
     pub fn threshold(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.threshold", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `action` after provisioning.\n"]
-    pub fn action(&self) -> terrars::ListRef<RateLimitActionElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `correlate` after provisioning.\n"]
-    pub fn correlate(&self) -> terrars::ListRef<RateLimitCorrelateElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.correlate", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `match_` after provisioning.\n"]
-    pub fn match_(&self) -> terrars::ListRef<RateLimitMatchElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.match", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct RateLimitActionElResponseEl {
-    body: terrars::PrimField<std::string::String>,
-    content_type: terrars::PrimField<std::string::String>,
+pub struct RateLimit_Action_Response {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    body: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    content_type: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RateLimitActionElResponseEl { }
+impl RateLimit_Action_Response {
+    #[doc =
+        "Set the field `body`.\nThe response body to return. The value must conform to the configured content type."]
+    pub fn set_body(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for RateLimitActionElResponseEl {
-    type O = terrars::BlockAssignable<RateLimitActionElResponseEl>;
+    #[doc =
+        "Set the field `content_type`.\nThe content type of the body. Must be one of the following: `text/plain`, `text/xml`, or `application/json`."]
+    pub fn set_content_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.content_type = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for RateLimit_Action_Response {
+    type O = terrars::BlockAssignable<RateLimit_Action_Response>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -435,96 +341,86 @@ impl terrars::ToListMappable for RateLimitActionElResponseEl {
     }
 }
 
-pub struct BuildRateLimitActionElResponseEl {
-    #[doc = "The body to return, the content here should conform to the `content_type`."]
-    pub body: terrars::PrimField<std::string::String>,
-    #[doc = "The content-type of the body. Available values: `text/plain`, `text/xml`, `application/json`."]
-    pub content_type: terrars::PrimField<std::string::String>,
-}
+pub struct BuildRateLimit_Action_Response {}
 
-impl BuildRateLimitActionElResponseEl {
-    pub fn build(self) -> RateLimitActionElResponseEl {
-        RateLimitActionElResponseEl {
-            body: self.body,
-            content_type: self.content_type,
+impl BuildRateLimit_Action_Response {
+    pub fn build(self) -> RateLimit_Action_Response {
+        RateLimit_Action_Response {
+            body: core::default::Default::default(),
+            content_type: core::default::Default::default(),
         }
     }
 }
 
-pub struct RateLimitActionElResponseElRef {
+#[allow(dead_code)]
+pub struct RateLimit_Action_ResponseRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitActionElResponseElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitActionElResponseElRef {
-        RateLimitActionElResponseElRef {
+impl terrars::Ref for RateLimit_Action_ResponseRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_Action_ResponseRef {
+        RateLimit_Action_ResponseRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitActionElResponseElRef {
+impl RateLimit_Action_ResponseRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `body` after provisioning.\nThe body to return, the content here should conform to the `content_type`."]
+        "Get a reference to the value of field `body` after provisioning.\nThe response body to return. The value must conform to the configured content type."]
     pub fn body(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.body", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `content_type` after provisioning.\nThe content-type of the body. Available values: `text/plain`, `text/xml`, `application/json`."]
+        "Get a reference to the value of field `content_type` after provisioning.\nThe content type of the body. Must be one of the following: `text/plain`, `text/xml`, or `application/json`."]
     pub fn content_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct RateLimitActionElDynamic {
-    response: std::option::Option<terrars::DynamicBlock<RateLimitActionElResponseEl>>,
-}
-
 #[derive(Serialize)]
-pub struct RateLimitActionEl {
-    mode: terrars::PrimField<std::string::String>,
+pub struct RateLimit_Action {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mode: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    response: std::option::Option<RateLimit_Action_Response>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     timeout: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    response: std::option::Option<std::vec::Vec<RateLimitActionElResponseEl>>,
-    dynamic: RateLimitActionElDynamic,
 }
 
-impl RateLimitActionEl {
+impl RateLimit_Action {
     #[doc =
-        "Set the field `timeout`.\nThe time in seconds as an integer to perform the mitigation action. This field is required if the `mode` is either `simulate` or `ban`. Must be the same or greater than the period."]
+        "Set the field `mode`.\nThe action to perform.\nAvailable values: \"simulate\", \"ban\", \"challenge\", \"js_challenge\", \"managed_challenge\"."]
+    pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `response`.\nA custom content type and reponse to return when the threshold is exceeded. The custom response configured in this object will override the custom error for the zone. This object is optional.\nNotes: If you omit this object, Cloudflare will use the default HTML error page. If \"mode\" is \"challenge\", \"managed_challenge\", or \"js_challenge\", Cloudflare will use the zone challenge pages and you should not provide the \"response\" object."]
+    pub fn set_response(mut self, v: impl std::convert::Into<RateLimit_Action_Response>) -> Self {
+        self.response = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `timeout`.\nThe time in seconds during which Cloudflare will perform the mitigation action. Must be an integer value greater than or equal to the period.\nNotes: If \"mode\" is \"challenge\", \"managed_challenge\", or \"js_challenge\", Cloudflare will use the zone's Challenge Passage time and you should not provide this value."]
     pub fn set_timeout(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.timeout = std::option::Option::Some(v.into());
         self
     }
-
-    #[doc = "Set the field `response`.\n"]
-    pub fn set_response(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<RateLimitActionElResponseEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.response = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.response = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
 }
 
-impl terrars::ToListMappable for RateLimitActionEl {
-    type O = terrars::BlockAssignable<RateLimitActionEl>;
+impl terrars::ToListMappable for RateLimit_Action {
+    type O = terrars::BlockAssignable<RateLimit_Action>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -535,77 +431,91 @@ impl terrars::ToListMappable for RateLimitActionEl {
     }
 }
 
-pub struct BuildRateLimitActionEl {
-    #[doc =
-        "The type of action to perform. Available values: `simulate`, `ban`, `challenge`, `js_challenge`, `managed_challenge`."]
-    pub mode: terrars::PrimField<std::string::String>,
-}
+pub struct BuildRateLimit_Action {}
 
-impl BuildRateLimitActionEl {
-    pub fn build(self) -> RateLimitActionEl {
-        RateLimitActionEl {
-            mode: self.mode,
-            timeout: core::default::Default::default(),
+impl BuildRateLimit_Action {
+    pub fn build(self) -> RateLimit_Action {
+        RateLimit_Action {
+            mode: core::default::Default::default(),
             response: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+            timeout: core::default::Default::default(),
         }
     }
 }
 
-pub struct RateLimitActionElRef {
+#[allow(dead_code)]
+pub struct RateLimit_ActionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitActionElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitActionElRef {
-        RateLimitActionElRef {
+impl terrars::Ref for RateLimit_ActionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_ActionRef {
+        RateLimit_ActionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitActionElRef {
+impl RateLimit_ActionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nThe type of action to perform. Available values: `simulate`, `ban`, `challenge`, `js_challenge`, `managed_challenge`."]
+        "Get a reference to the value of field `mode` after provisioning.\nThe action to perform.\nAvailable values: \"simulate\", \"ban\", \"challenge\", \"js_challenge\", \"managed_challenge\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `timeout` after provisioning.\nThe time in seconds as an integer to perform the mitigation action. This field is required if the `mode` is either `simulate` or `ban`. Must be the same or greater than the period."]
-    pub fn timeout(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.timeout", self.base))
+        "Get a reference to the value of field `response` after provisioning.\nA custom content type and reponse to return when the threshold is exceeded. The custom response configured in this object will override the custom error for the zone. This object is optional.\nNotes: If you omit this object, Cloudflare will use the default HTML error page. If \"mode\" is \"challenge\", \"managed_challenge\", or \"js_challenge\", Cloudflare will use the zone challenge pages and you should not provide the \"response\" object."]
+    pub fn response(&self) -> RateLimit_Action_ResponseRef {
+        RateLimit_Action_ResponseRef::new(self.shared().clone(), format!("{}.response", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `response` after provisioning.\n"]
-    pub fn response(&self) -> terrars::ListRef<RateLimitActionElResponseElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.response", self.base))
+    #[doc =
+        "Get a reference to the value of field `timeout` after provisioning.\nThe time in seconds during which Cloudflare will perform the mitigation action. Must be an integer value greater than or equal to the period.\nNotes: If \"mode\" is \"challenge\", \"managed_challenge\", or \"js_challenge\", Cloudflare will use the zone's Challenge Passage time and you should not provide this value."]
+    pub fn timeout(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.timeout", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct RateLimitCorrelateEl {
+pub struct RateLimit_Match_Headers {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    by: std::option::Option<terrars::PrimField<std::string::String>>,
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    op: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    value: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RateLimitCorrelateEl {
+impl RateLimit_Match_Headers {
+    #[doc = "Set the field `name`.\nThe name of the response header to match."]
+    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc =
-        "Set the field `by`.\nIf set to 'nat', NAT support will be enabled for rate limiting. Available values: `nat`."]
-    pub fn set_by(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.by = std::option::Option::Some(v.into());
+        "Set the field `op`.\nThe operator used when matching: `eq` means \"equal\" and `ne` means \"not equal\".\nAvailable values: \"eq\", \"ne\"."]
+    pub fn set_op(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.op = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `value`.\nThe value of the response header, which must match exactly."]
+    pub fn set_value(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.value = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for RateLimitCorrelateEl {
-    type O = terrars::BlockAssignable<RateLimitCorrelateEl>;
+impl terrars::ToListMappable for RateLimit_Match_Headers {
+    type O = terrars::BlockAssignable<RateLimit_Match_Headers>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -616,80 +526,99 @@ impl terrars::ToListMappable for RateLimitCorrelateEl {
     }
 }
 
-pub struct BuildRateLimitCorrelateEl {}
+pub struct BuildRateLimit_Match_Headers {}
 
-impl BuildRateLimitCorrelateEl {
-    pub fn build(self) -> RateLimitCorrelateEl {
-        RateLimitCorrelateEl { by: core::default::Default::default() }
+impl BuildRateLimit_Match_Headers {
+    pub fn build(self) -> RateLimit_Match_Headers {
+        RateLimit_Match_Headers {
+            name: core::default::Default::default(),
+            op: core::default::Default::default(),
+            value: core::default::Default::default(),
+        }
     }
 }
 
-pub struct RateLimitCorrelateElRef {
+#[allow(dead_code)]
+pub struct RateLimit_Match_HeadersRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitCorrelateElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitCorrelateElRef {
-        RateLimitCorrelateElRef {
+impl terrars::Ref for RateLimit_Match_HeadersRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_Match_HeadersRef {
+        RateLimit_Match_HeadersRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitCorrelateElRef {
+impl RateLimit_Match_HeadersRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `by` after provisioning.\nIf set to 'nat', NAT support will be enabled for rate limiting. Available values: `nat`."]
-    pub fn by(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.by", self.base))
+        "Get a reference to the value of field `name` after provisioning.\nThe name of the response header to match."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `op` after provisioning.\nThe operator used when matching: `eq` means \"equal\" and `ne` means \"not equal\".\nAvailable values: \"eq\", \"ne\"."]
+    pub fn op(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.op", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `value` after provisioning.\nThe value of the response header, which must match exactly."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct RateLimitMatchElRequestEl {
+pub struct RateLimit_Match_Request {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    methods: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    methods: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    schemes: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    schemes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    url_pattern: std::option::Option<terrars::PrimField<std::string::String>>,
+    url: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RateLimitMatchElRequestEl {
+impl RateLimit_Match_Request {
     #[doc =
-        "Set the field `methods`.\nHTTP Methods to match traffic on. Available values: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `HEAD`, `_ALL_`."]
+        "Set the field `methods`.\nThe HTTP methods to match. You can specify a subset (for example, `['POST','PUT']`) or all methods (`['_ALL_']`). This field is optional when creating a rate limit."]
     pub fn set_methods(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.methods = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `schemes`.\nHTTP schemes to match traffic on. Available values: `HTTP`, `HTTPS`, `_ALL_`."]
+    #[doc =
+        "Set the field `schemes`.\nThe HTTP schemes to match. You can specify one scheme (`['HTTPS']`), both schemes (`['HTTP','HTTPS']`), or all schemes (`['_ALL_']`). This field is optional."]
     pub fn set_schemes(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.schemes = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `url_pattern`.\nThe URL pattern to match comprised of the host and path, i.e. example.org/path. Wildcard are expanded to match applicable traffic, query strings are not matched. Use _ for all traffic to your zone."]
-    pub fn set_url_pattern(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.url_pattern = std::option::Option::Some(v.into());
+        "Set the field `url`.\nThe URL pattern to match, composed of a host and a path such as `example.org/path*`. Normalization is applied before the pattern is matched. `*` wildcards are expanded to match applicable traffic. Query strings are not matched. Set the value to `*` to match all traffic to your zone."]
+    pub fn set_url(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.url = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for RateLimitMatchElRequestEl {
-    type O = terrars::BlockAssignable<RateLimitMatchElRequestEl>;
+impl terrars::ToListMappable for RateLimit_Match_Request {
+    type O = terrars::BlockAssignable<RateLimit_Match_Request>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -700,93 +629,75 @@ impl terrars::ToListMappable for RateLimitMatchElRequestEl {
     }
 }
 
-pub struct BuildRateLimitMatchElRequestEl {}
+pub struct BuildRateLimit_Match_Request {}
 
-impl BuildRateLimitMatchElRequestEl {
-    pub fn build(self) -> RateLimitMatchElRequestEl {
-        RateLimitMatchElRequestEl {
+impl BuildRateLimit_Match_Request {
+    pub fn build(self) -> RateLimit_Match_Request {
+        RateLimit_Match_Request {
             methods: core::default::Default::default(),
             schemes: core::default::Default::default(),
-            url_pattern: core::default::Default::default(),
+            url: core::default::Default::default(),
         }
     }
 }
 
-pub struct RateLimitMatchElRequestElRef {
+#[allow(dead_code)]
+pub struct RateLimit_Match_RequestRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitMatchElRequestElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitMatchElRequestElRef {
-        RateLimitMatchElRequestElRef {
+impl terrars::Ref for RateLimit_Match_RequestRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_Match_RequestRef {
+        RateLimit_Match_RequestRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitMatchElRequestElRef {
+impl RateLimit_Match_RequestRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `methods` after provisioning.\nHTTP Methods to match traffic on. Available values: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `HEAD`, `_ALL_`."]
-    pub fn methods(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.methods", self.base))
+        "Get a reference to the value of field `methods` after provisioning.\nThe HTTP methods to match. You can specify a subset (for example, `['POST','PUT']`) or all methods (`['_ALL_']`). This field is optional when creating a rate limit."]
+    pub fn methods(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.methods", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `schemes` after provisioning.\nHTTP schemes to match traffic on. Available values: `HTTP`, `HTTPS`, `_ALL_`."]
-    pub fn schemes(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.schemes", self.base))
+        "Get a reference to the value of field `schemes` after provisioning.\nThe HTTP schemes to match. You can specify one scheme (`['HTTPS']`), both schemes (`['HTTP','HTTPS']`), or all schemes (`['_ALL_']`). This field is optional."]
+    pub fn schemes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.schemes", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `url_pattern` after provisioning.\nThe URL pattern to match comprised of the host and path, i.e. example.org/path. Wildcard are expanded to match applicable traffic, query strings are not matched. Use _ for all traffic to your zone."]
-    pub fn url_pattern(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.url_pattern", self.base))
+        "Get a reference to the value of field `url` after provisioning.\nThe URL pattern to match, composed of a host and a path such as `example.org/path*`. Normalization is applied before the pattern is matched. `*` wildcards are expanded to match applicable traffic. Query strings are not matched. Set the value to `*` to match all traffic to your zone."]
+    pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct RateLimitMatchElResponseEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    headers: std::option::Option<terrars::ListField<terrars::RecField<terrars::PrimField<std::string::String>>>>,
+pub struct RateLimit_Match_Response {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     origin_traffic: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    statuses: std::option::Option<terrars::SetField<terrars::PrimField<f64>>>,
 }
 
-impl RateLimitMatchElResponseEl {
-    #[doc = "Set the field `headers`.\nList of HTTP headers maps to match the origin response on."]
-    pub fn set_headers(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::RecField<terrars::PrimField<std::string::String>>>>,
-    ) -> Self {
-        self.headers = std::option::Option::Some(v.into());
-        self
-    }
-
+impl RateLimit_Match_Response {
     #[doc =
-        "Set the field `origin_traffic`.\nOnly count traffic that has come from your origin servers. If true, cached items that Cloudflare serve will not count towards rate limiting."]
+        "Set the field `origin_traffic`.\nWhen true, only the uncached traffic served from your origin servers will count towards rate limiting. In this case, any cached traffic served by Cloudflare will not count towards rate limiting. This field is optional.\nNotes: This field is deprecated. Instead, use response headers and set \"origin_traffic\" to \"false\" to avoid legacy behaviour interacting with the \"response_headers\" property."]
     pub fn set_origin_traffic(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.origin_traffic = std::option::Option::Some(v.into());
         self
     }
-
-    #[doc =
-        "Set the field `statuses`.\nHTTP Status codes, can be one, many or indicate all by not providing this value."]
-    pub fn set_statuses(mut self, v: impl std::convert::Into<terrars::SetField<terrars::PrimField<f64>>>) -> Self {
-        self.statuses = std::option::Option::Some(v.into());
-        self
-    }
 }
 
-impl terrars::ToListMappable for RateLimitMatchElResponseEl {
-    type O = terrars::BlockAssignable<RateLimitMatchElResponseEl>;
+impl terrars::ToListMappable for RateLimit_Match_Response {
+    type O = terrars::BlockAssignable<RateLimit_Match_Response>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -797,107 +708,74 @@ impl terrars::ToListMappable for RateLimitMatchElResponseEl {
     }
 }
 
-pub struct BuildRateLimitMatchElResponseEl {}
+pub struct BuildRateLimit_Match_Response {}
 
-impl BuildRateLimitMatchElResponseEl {
-    pub fn build(self) -> RateLimitMatchElResponseEl {
-        RateLimitMatchElResponseEl {
-            headers: core::default::Default::default(),
-            origin_traffic: core::default::Default::default(),
-            statuses: core::default::Default::default(),
-        }
+impl BuildRateLimit_Match_Response {
+    pub fn build(self) -> RateLimit_Match_Response {
+        RateLimit_Match_Response { origin_traffic: core::default::Default::default() }
     }
 }
 
-pub struct RateLimitMatchElResponseElRef {
+#[allow(dead_code)]
+pub struct RateLimit_Match_ResponseRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitMatchElResponseElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitMatchElResponseElRef {
-        RateLimitMatchElResponseElRef {
+impl terrars::Ref for RateLimit_Match_ResponseRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_Match_ResponseRef {
+        RateLimit_Match_ResponseRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitMatchElResponseElRef {
+impl RateLimit_Match_ResponseRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `headers` after provisioning.\nList of HTTP headers maps to match the origin response on."]
-    pub fn headers(&self) -> terrars::ListRef<terrars::RecRef<terrars::PrimExpr<std::string::String>>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.headers", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `origin_traffic` after provisioning.\nOnly count traffic that has come from your origin servers. If true, cached items that Cloudflare serve will not count towards rate limiting."]
+        "Get a reference to the value of field `origin_traffic` after provisioning.\nWhen true, only the uncached traffic served from your origin servers will count towards rate limiting. In this case, any cached traffic served by Cloudflare will not count towards rate limiting. This field is optional.\nNotes: This field is deprecated. Instead, use response headers and set \"origin_traffic\" to \"false\" to avoid legacy behaviour interacting with the \"response_headers\" property."]
     pub fn origin_traffic(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.origin_traffic", self.base))
     }
-
-    #[doc =
-        "Get a reference to the value of field `statuses` after provisioning.\nHTTP Status codes, can be one, many or indicate all by not providing this value."]
-    pub fn statuses(&self) -> terrars::SetRef<terrars::PrimExpr<f64>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.statuses", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct RateLimitMatchElDynamic {
-    request: std::option::Option<terrars::DynamicBlock<RateLimitMatchElRequestEl>>,
-    response: std::option::Option<terrars::DynamicBlock<RateLimitMatchElResponseEl>>,
 }
 
 #[derive(Serialize)]
-pub struct RateLimitMatchEl {
+pub struct RateLimit_Match {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    request: std::option::Option<std::vec::Vec<RateLimitMatchElRequestEl>>,
+    headers: std::option::Option<std::vec::Vec<RateLimit_Match_Headers>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    response: std::option::Option<std::vec::Vec<RateLimitMatchElResponseEl>>,
-    dynamic: RateLimitMatchElDynamic,
+    request: std::option::Option<RateLimit_Match_Request>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    response: std::option::Option<RateLimit_Match_Response>,
 }
 
-impl RateLimitMatchEl {
+impl RateLimit_Match {
+    #[doc = "Set the field `headers`.\n"]
+    pub fn set_headers(mut self, v: impl std::convert::Into<std::vec::Vec<RateLimit_Match_Headers>>) -> Self {
+        self.headers = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc = "Set the field `request`.\n"]
-    pub fn set_request(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<RateLimitMatchElRequestEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.request = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.request = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_request(mut self, v: impl std::convert::Into<RateLimit_Match_Request>) -> Self {
+        self.request = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `response`.\n"]
-    pub fn set_response(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<RateLimitMatchElResponseEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.response = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.response = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_response(mut self, v: impl std::convert::Into<RateLimit_Match_Response>) -> Self {
+        self.response = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for RateLimitMatchEl {
-    type O = terrars::BlockAssignable<RateLimitMatchEl>;
+impl terrars::ToListMappable for RateLimit_Match {
+    type O = terrars::BlockAssignable<RateLimit_Match>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -908,51 +786,51 @@ impl terrars::ToListMappable for RateLimitMatchEl {
     }
 }
 
-pub struct BuildRateLimitMatchEl {}
+pub struct BuildRateLimit_Match {}
 
-impl BuildRateLimitMatchEl {
-    pub fn build(self) -> RateLimitMatchEl {
-        RateLimitMatchEl {
+impl BuildRateLimit_Match {
+    pub fn build(self) -> RateLimit_Match {
+        RateLimit_Match {
+            headers: core::default::Default::default(),
             request: core::default::Default::default(),
             response: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
         }
     }
 }
 
-pub struct RateLimitMatchElRef {
+#[allow(dead_code)]
+pub struct RateLimit_MatchRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RateLimitMatchElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimitMatchElRef {
-        RateLimitMatchElRef {
+impl terrars::Ref for RateLimit_MatchRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RateLimit_MatchRef {
+        RateLimit_MatchRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RateLimitMatchElRef {
+impl RateLimit_MatchRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
+    #[doc = "Get a reference to the value of field `headers` after provisioning.\n"]
+    pub fn headers(&self) -> terrars::ListRef<RateLimit_Match_HeadersRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.headers", self.base))
+    }
+
     #[doc = "Get a reference to the value of field `request` after provisioning.\n"]
-    pub fn request(&self) -> terrars::ListRef<RateLimitMatchElRequestElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.request", self.base))
+    pub fn request(&self) -> RateLimit_Match_RequestRef {
+        RateLimit_Match_RequestRef::new(self.shared().clone(), format!("{}.request", self.base))
     }
 
     #[doc = "Get a reference to the value of field `response` after provisioning.\n"]
-    pub fn response(&self) -> terrars::ListRef<RateLimitMatchElResponseElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.response", self.base))
+    pub fn response(&self) -> RateLimit_Match_ResponseRef {
+        RateLimit_Match_ResponseRef::new(self.shared().clone(), format!("{}.response", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct RateLimitDynamic {
-    action: std::option::Option<terrars::DynamicBlock<RateLimitActionEl>>,
-    correlate: std::option::Option<terrars::DynamicBlock<RateLimitCorrelateEl>>,
-    match_: std::option::Option<terrars::DynamicBlock<RateLimitMatchEl>>,
 }

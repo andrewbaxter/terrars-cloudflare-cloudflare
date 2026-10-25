@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct AccessRuleData {
+struct AccessRuleData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,22 +22,18 @@ struct AccessRuleData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     account_id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    configuration: AccessRule_Configuration,
     mode: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     notes: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     zone_id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    configuration: std::option::Option<std::vec::Vec<AccessRuleConfigurationEl>>,
-    dynamic: AccessRuleDynamic,
 }
 
 struct AccessRule_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<AccessRuleData>,
+    data: std::cell::RefCell<AccessRuleData_>,
 }
 
 #[derive(Clone)]
@@ -136,80 +134,81 @@ impl AccessRule {
     }
 
     #[doc =
-        "Set the field `account_id`.\nThe account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
+        "Set the field `account_id`.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn set_account_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().account_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `notes`.\nA personal note about the rule. Typically used as a reminder or explanation for the rule."]
+    #[doc = "Set the field `notes`.\nAn informative summary of the rule, typically used as a reminder or explanation."]
     pub fn set_notes(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().notes = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `zone_id`.\nThe zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Set the field `zone_id`.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
     pub fn set_zone_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().zone_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `configuration`.\n"]
-    pub fn set_configuration(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<AccessRuleConfigurationEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().configuration = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.configuration = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `allowed_modes` after provisioning.\nThe available actions that a rule can apply to a matched request."]
+    pub fn allowed_modes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.allowed_modes", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `configuration` after provisioning.\nThe rule configuration."]
+    pub fn configuration(&self) -> AccessRule_ConfigurationRef {
+        AccessRule_ConfigurationRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the IP Access rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`."]
+        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `notes` after provisioning.\nA personal note about the rule. Typically used as a reminder or explanation for the rule."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `notes` after provisioning.\nAn informative summary of the rule, typically used as a reminder or explanation."]
     pub fn notes(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.notes", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+        "Get a reference to the value of field `scope` after provisioning.\nAll zones owned by the user will have the rule applied."]
+    pub fn scope(&self) -> AccessRule_ScopeRef {
+        AccessRule_ScopeRef::new(self.shared().clone(), format!("{}.scope", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
-    pub fn configuration(&self) -> terrars::ListRef<AccessRuleConfigurationElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
@@ -246,8 +245,10 @@ impl terrars::Resource_ for AccessRule_ {
 
 pub struct BuildAccessRule {
     pub tf_id: std::string::String,
+    #[doc = "The rule configuration."]
+    pub configuration: AccessRule_Configuration,
     #[doc =
-        "The action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`."]
+        "The action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub mode: terrars::PrimField<std::string::String>,
 }
 
@@ -256,19 +257,17 @@ impl BuildAccessRule {
         let out = AccessRule(std::rc::Rc::new(AccessRule_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(AccessRuleData {
+            data: std::cell::RefCell::new(AccessRuleData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: core::default::Default::default(),
-                id: core::default::Default::default(),
+                configuration: self.configuration,
                 mode: self.mode,
                 notes: core::default::Default::default(),
                 zone_id: core::default::Default::default(),
-                configuration: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -300,50 +299,91 @@ impl AccessRuleRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `allowed_modes` after provisioning.\nThe available actions that a rule can apply to a matched request."]
+    pub fn allowed_modes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.allowed_modes", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `configuration` after provisioning.\nThe rule configuration."]
+    pub fn configuration(&self) -> AccessRule_ConfigurationRef {
+        AccessRule_ConfigurationRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the IP Access rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`."]
+        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `notes` after provisioning.\nA personal note about the rule. Typically used as a reminder or explanation for the rule."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `notes` after provisioning.\nAn informative summary of the rule, typically used as a reminder or explanation."]
     pub fn notes(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.notes", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+        "Get a reference to the value of field `scope` after provisioning.\nAll zones owned by the user will have the rule applied."]
+    pub fn scope(&self) -> AccessRule_ScopeRef {
+        AccessRule_ScopeRef::new(self.shared().clone(), format!("{}.scope", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
-    pub fn configuration(&self) -> terrars::ListRef<AccessRuleConfigurationElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct AccessRuleConfigurationEl {
-    target: terrars::PrimField<std::string::String>,
-    value: terrars::PrimField<std::string::String>,
+pub struct AccessRule_Configuration {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    target: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    value: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl AccessRuleConfigurationEl { }
+impl AccessRule_Configuration {
+    #[doc =
+        "Set the field `target`.\nThe configuration target. You must set the target to `ip` when specifying an IP address in the rule.\nAvailable values: \"ip\", \"ip6\", \"ip_range\", \"asn\", \"country\"."]
+    pub fn set_target(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for AccessRuleConfigurationEl {
-    type O = terrars::BlockAssignable<AccessRuleConfigurationEl>;
+    #[doc =
+        "Set the field `value`.\nThe IP address to match. This address will be compared to the IP address of incoming requests."]
+    pub fn set_value(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for AccessRule_Configuration {
+    type O = terrars::BlockAssignable<AccessRule_Configuration>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -354,57 +394,110 @@ impl terrars::ToListMappable for AccessRuleConfigurationEl {
     }
 }
 
-pub struct BuildAccessRuleConfigurationEl {
-    #[doc =
-        "The request property to target. Available values: `ip`, `ip6`, `ip_range`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.**"]
-    pub target: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The value to target. Depends on target's type. **Modifying this attribute will force creation of a new resource.**"]
-    pub value: terrars::PrimField<std::string::String>,
-}
+pub struct BuildAccessRule_Configuration {}
 
-impl BuildAccessRuleConfigurationEl {
-    pub fn build(self) -> AccessRuleConfigurationEl {
-        AccessRuleConfigurationEl {
-            target: self.target,
-            value: self.value,
+impl BuildAccessRule_Configuration {
+    pub fn build(self) -> AccessRule_Configuration {
+        AccessRule_Configuration {
+            target: core::default::Default::default(),
+            value: core::default::Default::default(),
         }
     }
 }
 
-pub struct AccessRuleConfigurationElRef {
+#[allow(dead_code)]
+pub struct AccessRule_ConfigurationRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for AccessRuleConfigurationElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AccessRuleConfigurationElRef {
-        AccessRuleConfigurationElRef {
+impl terrars::Ref for AccessRule_ConfigurationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccessRule_ConfigurationRef {
+        AccessRule_ConfigurationRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl AccessRuleConfigurationElRef {
+impl AccessRule_ConfigurationRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `target` after provisioning.\nThe request property to target. Available values: `ip`, `ip6`, `ip_range`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `target` after provisioning.\nThe configuration target. You must set the target to `ip` when specifying an IP address in the rule.\nAvailable values: \"ip\", \"ip6\", \"ip_range\", \"asn\", \"country\"."]
     pub fn target(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `value` after provisioning.\nThe value to target. Depends on target's type. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `value` after provisioning.\nThe IP address to match. This address will be compared to the IP address of incoming requests."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct AccessRuleDynamic {
-    configuration: std::option::Option<terrars::DynamicBlock<AccessRuleConfigurationEl>>,
+#[derive(Serialize)]
+pub struct AccessRule_Scope {}
+
+impl AccessRule_Scope { }
+
+impl terrars::ToListMappable for AccessRule_Scope {
+    type O = terrars::BlockAssignable<AccessRule_Scope>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccessRule_Scope {}
+
+impl BuildAccessRule_Scope {
+    pub fn build(self) -> AccessRule_Scope {
+        AccessRule_Scope {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct AccessRule_ScopeRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for AccessRule_ScopeRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccessRule_ScopeRef {
+        AccessRule_ScopeRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl AccessRule_ScopeRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
+    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nDefines an identifier."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nDefines the scope of the rule.\nAvailable values: \"user\", \"organization\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
 }

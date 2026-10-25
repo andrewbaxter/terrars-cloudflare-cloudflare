@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct R2BucketData {
+struct R2BucketData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,14 +22,18 @@ struct R2BucketData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    jurisdiction: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     location: std::option::Option<terrars::PrimField<std::string::String>>,
     name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    storage_class: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 struct R2Bucket_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<R2BucketData>,
+    data: std::cell::RefCell<R2BucketData_>,
 }
 
 #[derive(Clone)]
@@ -127,31 +133,64 @@ impl R2Bucket {
         self
     }
 
-    #[doc = "Set the field `location`.\nThe location hint of the R2 bucket."]
+    #[doc =
+        "Set the field `jurisdiction`.\nJurisdiction where objects in this bucket are guaranteed to be stored.\nAvailable values: \"default\", \"eu\", \"fedramp\", \"us\"."]
+    pub fn set_jurisdiction(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().jurisdiction = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `location`.\nLocation of the bucket.\nAvailable values: \"apac\", \"eeur\", \"enam\", \"weur\", \"wnam\", \"oc\".  Note: `location` is only honored the first time a bucket with a given name is created. If you delete and recreate a bucket with the same name, the original bucket location will be used. It is also a best-effort, not a guarantee, of bucket location."]
     pub fn set_location(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().location = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Set the field `storage_class`.\nStorage class for newly uploaded objects, unless specified otherwise.\nAvailable values: \"Standard\", \"InfrequentAccess\"."]
+    pub fn set_storage_class(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().storage_class = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Get a reference to the value of field `account_id` after provisioning.\nCloudflare account ID that owns the R2 resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe identifier of this resource."]
+    #[doc = "Get a reference to the value of field `creation_date` after provisioning.\nCreation timestamp."]
+    pub fn creation_date(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.creation_date", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nName of the bucket."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `location` after provisioning.\nThe location hint of the R2 bucket."]
+    #[doc =
+        "Get a reference to the value of field `jurisdiction` after provisioning.\nJurisdiction where objects in this bucket are guaranteed to be stored.\nAvailable values: \"default\", \"eu\", \"fedramp\", \"us\"."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `location` after provisioning.\nLocation of the bucket.\nAvailable values: \"apac\", \"eeur\", \"enam\", \"weur\", \"wnam\", \"oc\".  Note: `location` is only honored the first time a bucket with a given name is created. If you delete and recreate a bucket with the same name, the original bucket location will be used. It is also a best-effort, not a guarantee, of bucket location."]
     pub fn location(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.location", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the R2 bucket."]
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the bucket."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `storage_class` after provisioning.\nStorage class for newly uploaded objects, unless specified otherwise.\nAvailable values: \"Standard\", \"InfrequentAccess\"."]
+    pub fn storage_class(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.storage_class", self.extract_ref()))
     }
 }
 
@@ -188,9 +227,9 @@ impl terrars::Resource_ for R2Bucket_ {
 
 pub struct BuildR2Bucket {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "Cloudflare account ID that owns the R2 resource."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the R2 bucket."]
+    #[doc = "Name of the bucket."]
     pub name: terrars::PrimField<std::string::String>,
 }
 
@@ -199,15 +238,17 @@ impl BuildR2Bucket {
         let out = R2Bucket(std::rc::Rc::new(R2Bucket_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(R2BucketData {
+            data: std::cell::RefCell::new(R2BucketData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
+                jurisdiction: core::default::Default::default(),
                 location: core::default::Default::default(),
                 name: self.name,
+                storage_class: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -239,23 +280,41 @@ impl R2BucketRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Get a reference to the value of field `account_id` after provisioning.\nCloudflare account ID that owns the R2 resource."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe identifier of this resource."]
+    #[doc = "Get a reference to the value of field `creation_date` after provisioning.\nCreation timestamp."]
+    pub fn creation_date(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.creation_date", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nName of the bucket."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `location` after provisioning.\nThe location hint of the R2 bucket."]
+    #[doc =
+        "Get a reference to the value of field `jurisdiction` after provisioning.\nJurisdiction where objects in this bucket are guaranteed to be stored.\nAvailable values: \"default\", \"eu\", \"fedramp\", \"us\"."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `location` after provisioning.\nLocation of the bucket.\nAvailable values: \"apac\", \"eeur\", \"enam\", \"weur\", \"wnam\", \"oc\".  Note: `location` is only honored the first time a bucket with a given name is created. If you delete and recreate a bucket with the same name, the original bucket location will be used. It is also a best-effort, not a guarantee, of bucket location."]
     pub fn location(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.location", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the R2 bucket."]
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the bucket."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `storage_class` after provisioning.\nStorage class for newly uploaded objects, unless specified otherwise.\nAvailable values: \"Standard\", \"InfrequentAccess\"."]
+    pub fn storage_class(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.storage_class", self.extract_ref()))
     }
 }

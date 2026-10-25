@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct PageRuleData {
+struct PageRuleData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,23 +20,19 @@ struct PageRuleData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    actions: PageRule_Actions,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     priority: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     status: std::option::Option<terrars::PrimField<std::string::String>>,
     target: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    actions: std::option::Option<std::vec::Vec<PageRuleActionsEl>>,
-    dynamic: PageRuleDynamic,
 }
 
 struct PageRule_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<PageRuleData>,
+    data: std::cell::RefCell<PageRuleData_>,
 }
 
 #[derive(Clone)]
@@ -134,48 +132,49 @@ impl PageRule {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `priority`.\nDefaults to `1`."]
+    #[doc =
+        "Set the field `priority`.\nThe priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A."]
     pub fn set_priority(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().priority = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `status`.\nDefaults to `active`."]
+    #[doc = "Set the field `status`.\nThe status of the Page Rule.\nAvailable values: \"active\", \"disabled\"."]
     pub fn set_status(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().status = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `actions`.\n"]
-    pub fn set_actions(self, v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().actions = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.actions = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc = "Get a reference to the value of field `actions` after provisioning.\n"]
+    pub fn actions(&self) -> PageRule_ActionsRef {
+        PageRule_ActionsRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the Page Rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `priority` after provisioning.\nDefaults to `1`."]
+    #[doc =
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the Page Rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `priority` after provisioning.\nThe priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A."]
     pub fn priority(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nDefaults to `active`."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nThe status of the Page Rule.\nAvailable values: \"active\", \"disabled\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
@@ -185,15 +184,9 @@ impl PageRule {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `actions` after provisioning.\n"]
-    pub fn actions(&self) -> terrars::ListRef<PageRuleActionsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
     }
 }
 
@@ -231,9 +224,10 @@ impl terrars::Resource_ for PageRule_ {
 pub struct BuildPageRule {
     pub tf_id: std::string::String,
     #[doc = ""]
+    pub actions: PageRule_Actions,
+    #[doc = ""]
     pub target: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -242,19 +236,17 @@ impl BuildPageRule {
         let out = PageRule(std::rc::Rc::new(PageRule_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(PageRuleData {
+            data: std::cell::RefCell::new(PageRuleData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                id: core::default::Default::default(),
+                actions: self.actions,
                 priority: core::default::Default::default(),
                 status: core::default::Default::default(),
                 target: self.target,
                 zone_id: self.zone_id,
-                actions: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -285,17 +277,36 @@ impl PageRuleRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `actions` after provisioning.\n"]
+    pub fn actions(&self) -> PageRule_ActionsRef {
+        PageRule_ActionsRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the Page Rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `priority` after provisioning.\nDefaults to `1`."]
+    #[doc =
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the Page Rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `priority` after provisioning.\nThe priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A."]
     pub fn priority(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nDefaults to `active`."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nThe status of the Page Rule.\nAvailable values: \"active\", \"disabled\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
@@ -305,31 +316,25 @@ impl PageRuleRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `actions` after provisioning.\n"]
-    pub fn actions(&self) -> terrars::ListRef<PageRuleActionsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsElCookieEl {
+pub struct PageRule_Actions_CacheKeyFields_Cookie {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    check_presence: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    check_presence: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    include: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    include: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsElCookieEl {
+impl PageRule_Actions_CacheKeyFields_Cookie {
     #[doc = "Set the field `check_presence`.\n"]
     pub fn set_check_presence(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.check_presence = std::option::Option::Some(v.into());
         self
@@ -338,15 +343,15 @@ impl PageRuleActionsElCacheKeyFieldsElCookieEl {
     #[doc = "Set the field `include`.\n"]
     pub fn set_include(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.include = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElCookieEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElCookieEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields_Cookie {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields_Cookie>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -357,62 +362,64 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElCookieEl {
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsElCookieEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields_Cookie {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsElCookieEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsElCookieEl {
-        PageRuleActionsElCacheKeyFieldsElCookieEl {
+impl BuildPageRule_Actions_CacheKeyFields_Cookie {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields_Cookie {
+        PageRule_Actions_CacheKeyFields_Cookie {
             check_presence: core::default::Default::default(),
             include: core::default::Default::default(),
         }
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElCookieElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFields_CookieRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElCookieElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheKeyFieldsElCookieElRef {
-        PageRuleActionsElCacheKeyFieldsElCookieElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFields_CookieRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_CacheKeyFields_CookieRef {
+        PageRule_Actions_CacheKeyFields_CookieRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElCookieElRef {
+impl PageRule_Actions_CacheKeyFields_CookieRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `check_presence` after provisioning.\n"]
-    pub fn check_presence(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.check_presence", self.base))
+    pub fn check_presence(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.check_presence", self.base))
     }
 
     #[doc = "Get a reference to the value of field `include` after provisioning.\n"]
-    pub fn include(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.include", self.base))
+    pub fn include(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.include", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsElHeaderEl {
+pub struct PageRule_Actions_CacheKeyFields_Header {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    check_presence: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    check_presence: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    exclude: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    exclude: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    include: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    include: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsElHeaderEl {
+impl PageRule_Actions_CacheKeyFields_Header {
     #[doc = "Set the field `check_presence`.\n"]
     pub fn set_check_presence(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.check_presence = std::option::Option::Some(v.into());
         self
@@ -421,7 +428,7 @@ impl PageRuleActionsElCacheKeyFieldsElHeaderEl {
     #[doc = "Set the field `exclude`.\n"]
     pub fn set_exclude(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.exclude = std::option::Option::Some(v.into());
         self
@@ -430,15 +437,15 @@ impl PageRuleActionsElCacheKeyFieldsElHeaderEl {
     #[doc = "Set the field `include`.\n"]
     pub fn set_include(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.include = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElHeaderEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElHeaderEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields_Header {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields_Header>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -449,11 +456,11 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElHeaderEl {
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsElHeaderEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields_Header {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsElHeaderEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsElHeaderEl {
-        PageRuleActionsElCacheKeyFieldsElHeaderEl {
+impl BuildPageRule_Actions_CacheKeyFields_Header {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields_Header {
+        PageRule_Actions_CacheKeyFields_Header {
             check_presence: core::default::Default::default(),
             exclude: core::default::Default::default(),
             include: core::default::Default::default(),
@@ -461,57 +468,59 @@ impl BuildPageRuleActionsElCacheKeyFieldsElHeaderEl {
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElHeaderElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFields_HeaderRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElHeaderElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheKeyFieldsElHeaderElRef {
-        PageRuleActionsElCacheKeyFieldsElHeaderElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFields_HeaderRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_CacheKeyFields_HeaderRef {
+        PageRule_Actions_CacheKeyFields_HeaderRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElHeaderElRef {
+impl PageRule_Actions_CacheKeyFields_HeaderRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `check_presence` after provisioning.\n"]
-    pub fn check_presence(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.check_presence", self.base))
+    pub fn check_presence(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.check_presence", self.base))
     }
 
     #[doc = "Get a reference to the value of field `exclude` after provisioning.\n"]
-    pub fn exclude(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.exclude", self.base))
+    pub fn exclude(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.exclude", self.base))
     }
 
     #[doc = "Get a reference to the value of field `include` after provisioning.\n"]
-    pub fn include(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.include", self.base))
+    pub fn include(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.include", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsElHostEl {
+pub struct PageRule_Actions_CacheKeyFields_Host {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     resolved: std::option::Option<terrars::PrimField<bool>>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsElHostEl {
-    #[doc = "Set the field `resolved`.\nDefaults to `false`."]
+impl PageRule_Actions_CacheKeyFields_Host {
+    #[doc = "Set the field `resolved`.\n"]
     pub fn set_resolved(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.resolved = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElHostEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElHostEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields_Host {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields_Host>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -522,77 +531,71 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElHostEl {
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsElHostEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields_Host {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsElHostEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsElHostEl {
-        PageRuleActionsElCacheKeyFieldsElHostEl { resolved: core::default::Default::default() }
+impl BuildPageRule_Actions_CacheKeyFields_Host {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields_Host {
+        PageRule_Actions_CacheKeyFields_Host { resolved: core::default::Default::default() }
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElHostElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFields_HostRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElHostElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheKeyFieldsElHostElRef {
-        PageRuleActionsElCacheKeyFieldsElHostElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFields_HostRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_CacheKeyFields_HostRef {
+        PageRule_Actions_CacheKeyFields_HostRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElHostElRef {
+impl PageRule_Actions_CacheKeyFields_HostRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `resolved` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `resolved` after provisioning.\n"]
     pub fn resolved(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.resolved", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsElQueryStringEl {
+pub struct PageRule_Actions_CacheKeyFields_QueryString {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    exclude: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    exclude: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ignore: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    include: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    include: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsElQueryStringEl {
+impl PageRule_Actions_CacheKeyFields_QueryString {
     #[doc = "Set the field `exclude`.\n"]
     pub fn set_exclude(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.exclude = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `ignore`.\n"]
-    pub fn set_ignore(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.ignore = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `include`.\n"]
     pub fn set_include(
         mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
     ) -> Self {
         self.include = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElQueryStringEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElQueryStringEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields_QueryString {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields_QueryString>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -603,58 +606,54 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElQueryStringEl 
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsElQueryStringEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields_QueryString {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsElQueryStringEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsElQueryStringEl {
-        PageRuleActionsElCacheKeyFieldsElQueryStringEl {
+impl BuildPageRule_Actions_CacheKeyFields_QueryString {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields_QueryString {
+        PageRule_Actions_CacheKeyFields_QueryString {
             exclude: core::default::Default::default(),
-            ignore: core::default::Default::default(),
             include: core::default::Default::default(),
         }
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElQueryStringElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFields_QueryStringRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElQueryStringElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFields_QueryStringRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> PageRuleActionsElCacheKeyFieldsElQueryStringElRef {
-        PageRuleActionsElCacheKeyFieldsElQueryStringElRef {
+    ) -> PageRule_Actions_CacheKeyFields_QueryStringRef {
+        PageRule_Actions_CacheKeyFields_QueryStringRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElQueryStringElRef {
+impl PageRule_Actions_CacheKeyFields_QueryStringRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `exclude` after provisioning.\n"]
-    pub fn exclude(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.exclude", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `ignore` after provisioning.\n"]
-    pub fn ignore(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ignore", self.base))
+    pub fn exclude(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.exclude", self.base))
     }
 
     #[doc = "Get a reference to the value of field `include` after provisioning.\n"]
-    pub fn include(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.include", self.base))
+    pub fn include(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.include", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsElUserEl {
+pub struct PageRule_Actions_CacheKeyFields_User {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     device_type: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -663,7 +662,7 @@ pub struct PageRuleActionsElCacheKeyFieldsElUserEl {
     lang: std::option::Option<terrars::PrimField<bool>>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsElUserEl {
+impl PageRule_Actions_CacheKeyFields_User {
     #[doc = "Set the field `device_type`.\n"]
     pub fn set_device_type(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.device_type = std::option::Option::Some(v.into());
@@ -683,8 +682,8 @@ impl PageRuleActionsElCacheKeyFieldsElUserEl {
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElUserEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElUserEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields_User {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields_User>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -695,11 +694,11 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsElUserEl {
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsElUserEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields_User {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsElUserEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsElUserEl {
-        PageRuleActionsElCacheKeyFieldsElUserEl {
+impl BuildPageRule_Actions_CacheKeyFields_User {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields_User {
+        PageRule_Actions_CacheKeyFields_User {
             device_type: core::default::Default::default(),
             geo: core::default::Default::default(),
             lang: core::default::Default::default(),
@@ -707,21 +706,23 @@ impl BuildPageRuleActionsElCacheKeyFieldsElUserEl {
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElUserElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFields_UserRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElUserElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheKeyFieldsElUserElRef {
-        PageRuleActionsElCacheKeyFieldsElUserElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFields_UserRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_CacheKeyFields_UserRef {
+        PageRule_Actions_CacheKeyFields_UserRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElUserElRef {
+impl PageRule_Actions_CacheKeyFields_UserRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -742,114 +743,54 @@ impl PageRuleActionsElCacheKeyFieldsElUserElRef {
     }
 }
 
-#[derive(Serialize, Default)]
-struct PageRuleActionsElCacheKeyFieldsElDynamic {
-    cookie: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsElCookieEl>>,
-    header: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsElHeaderEl>>,
-    host: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsElHostEl>>,
-    query_string: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsElQueryStringEl>>,
-    user: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsElUserEl>>,
-}
-
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheKeyFieldsEl {
+pub struct PageRule_Actions_CacheKeyFields {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cookie: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsElCookieEl>>,
+    cookie: std::option::Option<PageRule_Actions_CacheKeyFields_Cookie>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    header: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsElHeaderEl>>,
+    header: std::option::Option<PageRule_Actions_CacheKeyFields_Header>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    host: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsElHostEl>>,
+    host: std::option::Option<PageRule_Actions_CacheKeyFields_Host>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    query_string: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsElQueryStringEl>>,
+    query_string: std::option::Option<PageRule_Actions_CacheKeyFields_QueryString>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    user: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsElUserEl>>,
-    dynamic: PageRuleActionsElCacheKeyFieldsElDynamic,
+    user: std::option::Option<PageRule_Actions_CacheKeyFields_User>,
 }
 
-impl PageRuleActionsElCacheKeyFieldsEl {
+impl PageRule_Actions_CacheKeyFields {
     #[doc = "Set the field `cookie`.\n"]
-    pub fn set_cookie(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElCookieEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.cookie = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.cookie = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_cookie(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields_Cookie>) -> Self {
+        self.cookie = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `header`.\n"]
-    pub fn set_header(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElHeaderEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.header = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.header = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_header(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields_Header>) -> Self {
+        self.header = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `host`.\n"]
-    pub fn set_host(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElHostEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.host = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.host = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_host(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields_Host>) -> Self {
+        self.host = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `query_string`.\n"]
-    pub fn set_query_string(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElQueryStringEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.query_string = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.query_string = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_query_string(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields_QueryString>) -> Self {
+        self.query_string = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `user`.\n"]
-    pub fn set_user(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsElUserEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.user = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.user = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_user(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields_User>) -> Self {
+        self.user = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsEl>;
+impl terrars::ToListMappable for PageRule_Actions_CacheKeyFields {
+    type O = terrars::BlockAssignable<PageRule_Actions_CacheKeyFields>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -860,142 +801,80 @@ impl terrars::ToListMappable for PageRuleActionsElCacheKeyFieldsEl {
     }
 }
 
-pub struct BuildPageRuleActionsElCacheKeyFieldsEl {}
+pub struct BuildPageRule_Actions_CacheKeyFields {}
 
-impl BuildPageRuleActionsElCacheKeyFieldsEl {
-    pub fn build(self) -> PageRuleActionsElCacheKeyFieldsEl {
-        PageRuleActionsElCacheKeyFieldsEl {
+impl BuildPageRule_Actions_CacheKeyFields {
+    pub fn build(self) -> PageRule_Actions_CacheKeyFields {
+        PageRule_Actions_CacheKeyFields {
             cookie: core::default::Default::default(),
             header: core::default::Default::default(),
             host: core::default::Default::default(),
             query_string: core::default::Default::default(),
             user: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
         }
     }
 }
 
-pub struct PageRuleActionsElCacheKeyFieldsElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_CacheKeyFieldsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElCacheKeyFieldsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheKeyFieldsElRef {
-        PageRuleActionsElCacheKeyFieldsElRef {
+impl terrars::Ref for PageRule_Actions_CacheKeyFieldsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_CacheKeyFieldsRef {
+        PageRule_Actions_CacheKeyFieldsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElCacheKeyFieldsElRef {
+impl PageRule_Actions_CacheKeyFieldsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `cookie` after provisioning.\n"]
-    pub fn cookie(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElCookieElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.cookie", self.base))
+    pub fn cookie(&self) -> PageRule_Actions_CacheKeyFields_CookieRef {
+        PageRule_Actions_CacheKeyFields_CookieRef::new(self.shared().clone(), format!("{}.cookie", self.base))
     }
 
     #[doc = "Get a reference to the value of field `header` after provisioning.\n"]
-    pub fn header(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElHeaderElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.header", self.base))
+    pub fn header(&self) -> PageRule_Actions_CacheKeyFields_HeaderRef {
+        PageRule_Actions_CacheKeyFields_HeaderRef::new(self.shared().clone(), format!("{}.header", self.base))
     }
 
     #[doc = "Get a reference to the value of field `host` after provisioning.\n"]
-    pub fn host(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElHostElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.host", self.base))
+    pub fn host(&self) -> PageRule_Actions_CacheKeyFields_HostRef {
+        PageRule_Actions_CacheKeyFields_HostRef::new(self.shared().clone(), format!("{}.host", self.base))
     }
 
     #[doc = "Get a reference to the value of field `query_string` after provisioning.\n"]
-    pub fn query_string(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElQueryStringElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.query_string", self.base))
+    pub fn query_string(&self) -> PageRule_Actions_CacheKeyFields_QueryStringRef {
+        PageRule_Actions_CacheKeyFields_QueryStringRef::new(
+            self.shared().clone(),
+            format!("{}.query_string", self.base),
+        )
     }
 
     #[doc = "Get a reference to the value of field `user` after provisioning.\n"]
-    pub fn user(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElUserElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.user", self.base))
+    pub fn user(&self) -> PageRule_Actions_CacheKeyFields_UserRef {
+        PageRule_Actions_CacheKeyFields_UserRef::new(self.shared().clone(), format!("{}.user", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElCacheTtlByStatusEl {
-    codes: terrars::PrimField<std::string::String>,
-    ttl: terrars::PrimField<f64>,
-}
-
-impl PageRuleActionsElCacheTtlByStatusEl { }
-
-impl terrars::ToListMappable for PageRuleActionsElCacheTtlByStatusEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElCacheTtlByStatusEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildPageRuleActionsElCacheTtlByStatusEl {
-    #[doc = ""]
-    pub codes: terrars::PrimField<std::string::String>,
-    #[doc = ""]
-    pub ttl: terrars::PrimField<f64>,
-}
-
-impl BuildPageRuleActionsElCacheTtlByStatusEl {
-    pub fn build(self) -> PageRuleActionsElCacheTtlByStatusEl {
-        PageRuleActionsElCacheTtlByStatusEl {
-            codes: self.codes,
-            ttl: self.ttl,
-        }
-    }
-}
-
-pub struct PageRuleActionsElCacheTtlByStatusElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for PageRuleActionsElCacheTtlByStatusElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElCacheTtlByStatusElRef {
-        PageRuleActionsElCacheTtlByStatusElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl PageRuleActionsElCacheTtlByStatusElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `codes` after provisioning.\n"]
-    pub fn codes(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.codes", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `ttl` after provisioning.\n"]
-    pub fn ttl(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ttl", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct PageRuleActionsElForwardingUrlEl {
+pub struct PageRule_Actions_ForwardingUrl {
     status_code: terrars::PrimField<f64>,
     url: terrars::PrimField<std::string::String>,
 }
 
-impl PageRuleActionsElForwardingUrlEl { }
+impl PageRule_Actions_ForwardingUrl { }
 
-impl terrars::ToListMappable for PageRuleActionsElForwardingUrlEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElForwardingUrlEl>;
+impl terrars::ToListMappable for PageRule_Actions_ForwardingUrl {
+    type O = terrars::BlockAssignable<PageRule_Actions_ForwardingUrl>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1006,37 +885,39 @@ impl terrars::ToListMappable for PageRuleActionsElForwardingUrlEl {
     }
 }
 
-pub struct BuildPageRuleActionsElForwardingUrlEl {
+pub struct BuildPageRule_Actions_ForwardingUrl {
     #[doc = ""]
     pub status_code: terrars::PrimField<f64>,
     #[doc = ""]
     pub url: terrars::PrimField<std::string::String>,
 }
 
-impl BuildPageRuleActionsElForwardingUrlEl {
-    pub fn build(self) -> PageRuleActionsElForwardingUrlEl {
-        PageRuleActionsElForwardingUrlEl {
+impl BuildPageRule_Actions_ForwardingUrl {
+    pub fn build(self) -> PageRule_Actions_ForwardingUrl {
+        PageRule_Actions_ForwardingUrl {
             status_code: self.status_code,
             url: self.url,
         }
     }
 }
 
-pub struct PageRuleActionsElForwardingUrlElRef {
+#[allow(dead_code)]
+pub struct PageRule_Actions_ForwardingUrlRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElForwardingUrlElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElForwardingUrlElRef {
-        PageRuleActionsElForwardingUrlElRef {
+impl terrars::Ref for PageRule_Actions_ForwardingUrlRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_Actions_ForwardingUrlRef {
+        PageRule_Actions_ForwardingUrlRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElForwardingUrlElRef {
+impl PageRule_Actions_ForwardingUrlRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -1053,96 +934,13 @@ impl PageRuleActionsElForwardingUrlElRef {
 }
 
 #[derive(Serialize)]
-pub struct PageRuleActionsElMinifyEl {
-    css: terrars::PrimField<std::string::String>,
-    html: terrars::PrimField<std::string::String>,
-    js: terrars::PrimField<std::string::String>,
-}
-
-impl PageRuleActionsElMinifyEl { }
-
-impl terrars::ToListMappable for PageRuleActionsElMinifyEl {
-    type O = terrars::BlockAssignable<PageRuleActionsElMinifyEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildPageRuleActionsElMinifyEl {
-    #[doc = ""]
-    pub css: terrars::PrimField<std::string::String>,
-    #[doc = ""]
-    pub html: terrars::PrimField<std::string::String>,
-    #[doc = ""]
-    pub js: terrars::PrimField<std::string::String>,
-}
-
-impl BuildPageRuleActionsElMinifyEl {
-    pub fn build(self) -> PageRuleActionsElMinifyEl {
-        PageRuleActionsElMinifyEl {
-            css: self.css,
-            html: self.html,
-            js: self.js,
-        }
-    }
-}
-
-pub struct PageRuleActionsElMinifyElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for PageRuleActionsElMinifyElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElMinifyElRef {
-        PageRuleActionsElMinifyElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl PageRuleActionsElMinifyElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `css` after provisioning.\n"]
-    pub fn css(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.css", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `html` after provisioning.\n"]
-    pub fn html(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.html", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `js` after provisioning.\n"]
-    pub fn js(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.js", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct PageRuleActionsElDynamic {
-    cache_key_fields: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheKeyFieldsEl>>,
-    cache_ttl_by_status: std::option::Option<terrars::DynamicBlock<PageRuleActionsElCacheTtlByStatusEl>>,
-    forwarding_url: std::option::Option<terrars::DynamicBlock<PageRuleActionsElForwardingUrlEl>>,
-    minify: std::option::Option<terrars::DynamicBlock<PageRuleActionsElMinifyEl>>,
-}
-
-#[derive(Serialize)]
-pub struct PageRuleActionsEl {
+pub struct PageRule_Actions {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     always_use_https: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     automatic_https_rewrites: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    browser_cache_ttl: std::option::Option<terrars::PrimField<std::string::String>>,
+    browser_cache_ttl: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     browser_check: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1152,15 +950,17 @@ pub struct PageRuleActionsEl {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     cache_deception_armor: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    cache_key_fields: std::option::Option<PageRule_Actions_CacheKeyFields>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     cache_level: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     cache_on_cookie: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    cache_ttl_by_status: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     disable_apps: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     disable_performance: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    disable_railgun: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     disable_security: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1171,6 +971,8 @@ pub struct PageRuleActionsEl {
     email_obfuscation: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     explicit_cache_control: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    forwarding_url: std::option::Option<PageRule_Actions_ForwardingUrl>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     host_header_override: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1194,8 +996,6 @@ pub struct PageRuleActionsEl {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     security_level: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    server_side_exclude: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     sort_query_string_for_cache: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     ssl: std::option::Option<terrars::PrimField<std::string::String>>,
@@ -1203,19 +1003,10 @@ pub struct PageRuleActionsEl {
     true_client_ip_header: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     waf: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cache_key_fields: std::option::Option<std::vec::Vec<PageRuleActionsElCacheKeyFieldsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cache_ttl_by_status: std::option::Option<std::vec::Vec<PageRuleActionsElCacheTtlByStatusEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    forwarding_url: std::option::Option<std::vec::Vec<PageRuleActionsElForwardingUrlEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    minify: std::option::Option<std::vec::Vec<PageRuleActionsElMinifyEl>>,
-    dynamic: PageRuleActionsElDynamic,
 }
 
-impl PageRuleActionsEl {
-    #[doc = "Set the field `always_use_https`.\nDefaults to `false`."]
+impl PageRule_Actions {
+    #[doc = "Set the field `always_use_https`.\n"]
     pub fn set_always_use_https(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.always_use_https = std::option::Option::Some(v.into());
         self
@@ -1231,7 +1022,7 @@ impl PageRuleActionsEl {
     }
 
     #[doc = "Set the field `browser_cache_ttl`.\n"]
-    pub fn set_browser_cache_ttl(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+    pub fn set_browser_cache_ttl(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.browser_cache_ttl = std::option::Option::Some(v.into());
         self
     }
@@ -1269,6 +1060,12 @@ impl PageRuleActionsEl {
         self
     }
 
+    #[doc = "Set the field `cache_key_fields`.\n"]
+    pub fn set_cache_key_fields(mut self, v: impl std::convert::Into<PageRule_Actions_CacheKeyFields>) -> Self {
+        self.cache_key_fields = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc = "Set the field `cache_level`.\n"]
     pub fn set_cache_level(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.cache_level = std::option::Option::Some(v.into());
@@ -1281,31 +1078,34 @@ impl PageRuleActionsEl {
         self
     }
 
-    #[doc = "Set the field `disable_apps`.\nDefaults to `false`."]
+    #[doc = "Set the field `cache_ttl_by_status`.\n"]
+    pub fn set_cache_ttl_by_status(
+        mut self,
+        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.cache_ttl_by_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `disable_apps`.\n"]
     pub fn set_disable_apps(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.disable_apps = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `disable_performance`.\nDefaults to `false`."]
+    #[doc = "Set the field `disable_performance`.\n"]
     pub fn set_disable_performance(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.disable_performance = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `disable_railgun`.\nDefaults to `false`."]
-    pub fn set_disable_railgun(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.disable_railgun = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `disable_security`.\nDefaults to `false`."]
+    #[doc = "Set the field `disable_security`.\n"]
     pub fn set_disable_security(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.disable_security = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `disable_zaraz`.\nDefaults to `false`."]
+    #[doc = "Set the field `disable_zaraz`.\n"]
     pub fn set_disable_zaraz(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.disable_zaraz = std::option::Option::Some(v.into());
         self
@@ -1329,6 +1129,12 @@ impl PageRuleActionsEl {
         v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
     ) -> Self {
         self.explicit_cache_control = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `forwarding_url`.\n"]
+    pub fn set_forwarding_url(mut self, v: impl std::convert::Into<PageRule_Actions_ForwardingUrl>) -> Self {
+        self.forwarding_url = std::option::Option::Some(v.into());
         self
     }
 
@@ -1413,15 +1219,6 @@ impl PageRuleActionsEl {
         self
     }
 
-    #[doc = "Set the field `server_side_exclude`.\n"]
-    pub fn set_server_side_exclude(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
-        self.server_side_exclude = std::option::Option::Some(v.into());
-        self
-    }
-
     #[doc = "Set the field `sort_query_string_for_cache`.\n"]
     pub fn set_sort_query_string_for_cache(
         mut self,
@@ -1451,74 +1248,10 @@ impl PageRuleActionsEl {
         self.waf = std::option::Option::Some(v.into());
         self
     }
-
-    #[doc = "Set the field `cache_key_fields`.\n"]
-    pub fn set_cache_key_fields(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheKeyFieldsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.cache_key_fields = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.cache_key_fields = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `cache_ttl_by_status`.\n"]
-    pub fn set_cache_ttl_by_status(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElCacheTtlByStatusEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.cache_ttl_by_status = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.cache_ttl_by_status = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `forwarding_url`.\n"]
-    pub fn set_forwarding_url(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElForwardingUrlEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.forwarding_url = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.forwarding_url = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `minify`.\n"]
-    pub fn set_minify(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PageRuleActionsElMinifyEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.minify = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.minify = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
 }
 
-impl terrars::ToListMappable for PageRuleActionsEl {
-    type O = terrars::BlockAssignable<PageRuleActionsEl>;
+impl terrars::ToListMappable for PageRule_Actions {
+    type O = terrars::BlockAssignable<PageRule_Actions>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1529,11 +1262,11 @@ impl terrars::ToListMappable for PageRuleActionsEl {
     }
 }
 
-pub struct BuildPageRuleActionsEl {}
+pub struct BuildPageRule_Actions {}
 
-impl BuildPageRuleActionsEl {
-    pub fn build(self) -> PageRuleActionsEl {
-        PageRuleActionsEl {
+impl BuildPageRule_Actions {
+    pub fn build(self) -> PageRule_Actions {
+        PageRule_Actions {
             always_use_https: core::default::Default::default(),
             automatic_https_rewrites: core::default::Default::default(),
             browser_cache_ttl: core::default::Default::default(),
@@ -1541,16 +1274,18 @@ impl BuildPageRuleActionsEl {
             bypass_cache_on_cookie: core::default::Default::default(),
             cache_by_device_type: core::default::Default::default(),
             cache_deception_armor: core::default::Default::default(),
+            cache_key_fields: core::default::Default::default(),
             cache_level: core::default::Default::default(),
             cache_on_cookie: core::default::Default::default(),
+            cache_ttl_by_status: core::default::Default::default(),
             disable_apps: core::default::Default::default(),
             disable_performance: core::default::Default::default(),
-            disable_railgun: core::default::Default::default(),
             disable_security: core::default::Default::default(),
             disable_zaraz: core::default::Default::default(),
             edge_cache_ttl: core::default::Default::default(),
             email_obfuscation: core::default::Default::default(),
             explicit_cache_control: core::default::Default::default(),
+            forwarding_url: core::default::Default::default(),
             host_header_override: core::default::Default::default(),
             ip_geolocation: core::default::Default::default(),
             mirage: core::default::Default::default(),
@@ -1562,40 +1297,36 @@ impl BuildPageRuleActionsEl {
             response_buffering: core::default::Default::default(),
             rocket_loader: core::default::Default::default(),
             security_level: core::default::Default::default(),
-            server_side_exclude: core::default::Default::default(),
             sort_query_string_for_cache: core::default::Default::default(),
             ssl: core::default::Default::default(),
             true_client_ip_header: core::default::Default::default(),
             waf: core::default::Default::default(),
-            cache_key_fields: core::default::Default::default(),
-            cache_ttl_by_status: core::default::Default::default(),
-            forwarding_url: core::default::Default::default(),
-            minify: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
         }
     }
 }
 
-pub struct PageRuleActionsElRef {
+#[allow(dead_code)]
+pub struct PageRule_ActionsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PageRuleActionsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRuleActionsElRef {
-        PageRuleActionsElRef {
+impl terrars::Ref for PageRule_ActionsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PageRule_ActionsRef {
+        PageRule_ActionsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PageRuleActionsElRef {
+impl PageRule_ActionsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `always_use_https` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `always_use_https` after provisioning.\n"]
     pub fn always_use_https(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.always_use_https", self.base))
     }
@@ -1606,7 +1337,7 @@ impl PageRuleActionsElRef {
     }
 
     #[doc = "Get a reference to the value of field `browser_cache_ttl` after provisioning.\n"]
-    pub fn browser_cache_ttl(&self) -> terrars::PrimExpr<std::string::String> {
+    pub fn browser_cache_ttl(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.browser_cache_ttl", self.base))
     }
 
@@ -1630,6 +1361,11 @@ impl PageRuleActionsElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.cache_deception_armor", self.base))
     }
 
+    #[doc = "Get a reference to the value of field `cache_key_fields` after provisioning.\n"]
+    pub fn cache_key_fields(&self) -> PageRule_Actions_CacheKeyFieldsRef {
+        PageRule_Actions_CacheKeyFieldsRef::new(self.shared().clone(), format!("{}.cache_key_fields", self.base))
+    }
+
     #[doc = "Get a reference to the value of field `cache_level` after provisioning.\n"]
     pub fn cache_level(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.cache_level", self.base))
@@ -1640,27 +1376,27 @@ impl PageRuleActionsElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.cache_on_cookie", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `disable_apps` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `cache_ttl_by_status` after provisioning.\n"]
+    pub fn cache_ttl_by_status(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.cache_ttl_by_status", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `disable_apps` after provisioning.\n"]
     pub fn disable_apps(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable_apps", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `disable_performance` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `disable_performance` after provisioning.\n"]
     pub fn disable_performance(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable_performance", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `disable_railgun` after provisioning.\nDefaults to `false`."]
-    pub fn disable_railgun(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable_railgun", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `disable_security` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `disable_security` after provisioning.\n"]
     pub fn disable_security(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable_security", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `disable_zaraz` after provisioning.\nDefaults to `false`."]
+    #[doc = "Get a reference to the value of field `disable_zaraz` after provisioning.\n"]
     pub fn disable_zaraz(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable_zaraz", self.base))
     }
@@ -1678,6 +1414,11 @@ impl PageRuleActionsElRef {
     #[doc = "Get a reference to the value of field `explicit_cache_control` after provisioning.\n"]
     pub fn explicit_cache_control(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.explicit_cache_control", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `forwarding_url` after provisioning.\n"]
+    pub fn forwarding_url(&self) -> PageRule_Actions_ForwardingUrlRef {
+        PageRule_Actions_ForwardingUrlRef::new(self.shared().clone(), format!("{}.forwarding_url", self.base))
     }
 
     #[doc = "Get a reference to the value of field `host_header_override` after provisioning.\n"]
@@ -1735,11 +1476,6 @@ impl PageRuleActionsElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.security_level", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `server_side_exclude` after provisioning.\n"]
-    pub fn server_side_exclude(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.server_side_exclude", self.base))
-    }
-
     #[doc = "Get a reference to the value of field `sort_query_string_for_cache` after provisioning.\n"]
     pub fn sort_query_string_for_cache(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.sort_query_string_for_cache", self.base))
@@ -1759,24 +1495,4 @@ impl PageRuleActionsElRef {
     pub fn waf(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.waf", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `cache_key_fields` after provisioning.\n"]
-    pub fn cache_key_fields(&self) -> terrars::ListRef<PageRuleActionsElCacheKeyFieldsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.cache_key_fields", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `forwarding_url` after provisioning.\n"]
-    pub fn forwarding_url(&self) -> terrars::ListRef<PageRuleActionsElForwardingUrlElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.forwarding_url", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `minify` after provisioning.\n"]
-    pub fn minify(&self) -> terrars::ListRef<PageRuleActionsElMinifyElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.minify", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct PageRuleDynamic {
-    actions: std::option::Option<terrars::DynamicBlock<PageRuleActionsEl>>,
 }

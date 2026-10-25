@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct EmailRoutingSettingsData {
+struct EmailRoutingSettingsData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,18 +20,15 @@ struct EmailRoutingSettingsData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    enabled: terrars::PrimField<bool>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    skip_wizard: std::option::Option<terrars::PrimField<bool>>,
+    support_subaddress: std::option::Option<terrars::PrimField<bool>>,
     zone_id: terrars::PrimField<std::string::String>,
 }
 
 struct EmailRoutingSettings_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<EmailRoutingSettingsData>,
+    data: std::cell::RefCell<EmailRoutingSettingsData_>,
 }
 
 #[derive(Clone)]
@@ -129,15 +128,10 @@ impl EmailRoutingSettings {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `skip_wizard`.\nFlag to check if the user skipped the configuration wizard."]
-    pub fn set_skip_wizard(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().skip_wizard = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `support_subaddress`.\nWhether subaddressing (plus-addressing) is honored when matching incoming mail against routing rules."]
+    pub fn set_support_subaddress(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().support_subaddress = std::option::Option::Some(v.into());
         self
     }
 
@@ -148,12 +142,12 @@ impl EmailRoutingSettings {
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nState of the zone settings for Email Routing. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `enabled` after provisioning.\nState of the zone settings for Email Routing."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nEmail Routing settings identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
@@ -176,18 +170,24 @@ impl EmailRoutingSettings {
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nShow the state of your account, and the type or configuration error."]
+        "Get a reference to the value of field `status` after provisioning.\nShow the state of your account, and the type or configuration error.\nAvailable values: \"ready\", \"unconfigured\", \"misconfigured\", \"misconfigured/locked\", \"unlocked\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nEmail Routing settings identifier."]
+    #[doc =
+        "Get a reference to the value of field `support_subaddress` after provisioning.\nWhether subaddressing (plus-addressing) is honored when matching incoming mail against routing rules."]
+    pub fn support_subaddress(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.support_subaddress", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nEmail Routing settings tag. (Deprecated, replaced by Email Routing settings identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -226,11 +226,7 @@ impl terrars::Resource_ for EmailRoutingSettings_ {
 
 pub struct BuildEmailRoutingSettings {
     pub tf_id: std::string::String,
-    #[doc =
-        "State of the zone settings for Email Routing. **Modifying this attribute will force creation of a new resource.**"]
-    pub enabled: terrars::PrimField<bool>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -239,15 +235,13 @@ impl BuildEmailRoutingSettings {
         let out = EmailRoutingSettings(std::rc::Rc::new(EmailRoutingSettings_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(EmailRoutingSettingsData {
+            data: std::cell::RefCell::new(EmailRoutingSettingsData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                enabled: self.enabled,
-                id: core::default::Default::default(),
-                skip_wizard: core::default::Default::default(),
+                support_subaddress: core::default::Default::default(),
                 zone_id: self.zone_id,
             }),
         }));
@@ -286,12 +280,12 @@ impl EmailRoutingSettingsRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nState of the zone settings for Email Routing. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `enabled` after provisioning.\nState of the zone settings for Email Routing."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nEmail Routing settings identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
@@ -314,18 +308,24 @@ impl EmailRoutingSettingsRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nShow the state of your account, and the type or configuration error."]
+        "Get a reference to the value of field `status` after provisioning.\nShow the state of your account, and the type or configuration error.\nAvailable values: \"ready\", \"unconfigured\", \"misconfigured\", \"misconfigured/locked\", \"unlocked\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nEmail Routing settings identifier."]
+    #[doc =
+        "Get a reference to the value of field `support_subaddress` after provisioning.\nWhether subaddressing (plus-addressing) is honored when matching incoming mail against routing rules."]
+    pub fn support_subaddress(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.support_subaddress", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nEmail Routing settings tag. (Deprecated, replaced by Email Routing settings identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct CustomHostnameData {
+struct CustomHostnameData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -26,19 +28,14 @@ struct CustomHostnameData {
     custom_origin_sni: std::option::Option<terrars::PrimField<std::string::String>>,
     hostname: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    wait_for_ssl_pending_validation: std::option::Option<terrars::PrimField<bool>>,
+    ssl: std::option::Option<CustomHostname_Ssl>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ssl: std::option::Option<std::vec::Vec<CustomHostnameSslEl>>,
-    dynamic: CustomHostnameDynamic,
 }
 
 struct CustomHostname_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<CustomHostnameData>,
+    data: std::cell::RefCell<CustomHostnameData_>,
 }
 
 #[derive(Clone)]
@@ -139,7 +136,7 @@ impl CustomHostname {
     }
 
     #[doc =
-        "Set the field `custom_metadata`.\nCustom metadata associated with custom hostname. Only supports primitive string values, all other values are accessible via the API directly."]
+        "Set the field `custom_metadata`.\nUnique key/value metadata for this hostname. These are per-hostname (customer) settings."]
     pub fn set_custom_metadata(
         self,
         v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
@@ -148,107 +145,100 @@ impl CustomHostname {
         self
     }
 
-    #[doc = "Set the field `custom_origin_server`.\nThe custom origin server used for certificates."]
+    #[doc =
+        "Set the field `custom_origin_server`.\na valid hostname that’s been added to your DNS zone as an A, AAAA, or CNAME record."]
     pub fn set_custom_origin_server(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().custom_origin_server = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `custom_origin_sni`.\nThe [custom origin SNI](https://developers.cloudflare.com/ssl/ssl-for-saas/hostname-specific-behavior/custom-origin) used for certificates."]
+        "Set the field `custom_origin_sni`.\nA hostname that will be sent to your custom origin server as SNI for TLS handshake. This can be a valid subdomain of the zone or custom origin server name or the string ':request_host_header:' which will cause the host header in the request to be used as SNI. Not configurable with default/fallback origin server."]
     pub fn set_custom_origin_sni(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().custom_origin_sni = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `ssl`.\nSSL properties used when creating the custom hostname."]
+    pub fn set_ssl(self, v: impl std::convert::Into<CustomHostname_Ssl>) -> Self {
+        self.0.data.borrow_mut().ssl = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `wait_for_ssl_pending_validation`.\nWhether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`."]
-    pub fn set_wait_for_ssl_pending_validation(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().wait_for_ssl_pending_validation = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `ssl`.\n"]
-    pub fn set_ssl(self, v: impl std::convert::Into<terrars::BlockAssignable<CustomHostnameSslEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().ssl = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.ssl = std::option::Option::Some(d);
-            },
-        }
-        self
+        "Get a reference to the value of field `created_at` after provisioning.\nThis is the time the hostname was created."]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_metadata` after provisioning.\nCustom metadata associated with custom hostname. Only supports primitive string values, all other values are accessible via the API directly."]
+        "Get a reference to the value of field `custom_metadata` after provisioning.\nUnique key/value metadata for this hostname. These are per-hostname (customer) settings."]
     pub fn custom_metadata(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.custom_metadata", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_origin_server` after provisioning.\nThe custom origin server used for certificates."]
+        "Get a reference to the value of field `custom_origin_server` after provisioning.\na valid hostname that’s been added to your DNS zone as an A, AAAA, or CNAME record."]
     pub fn custom_origin_server(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_origin_server", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_origin_sni` after provisioning.\nThe [custom origin SNI](https://developers.cloudflare.com/ssl/ssl-for-saas/hostname-specific-behavior/custom-origin) used for certificates."]
+        "Get a reference to the value of field `custom_origin_sni` after provisioning.\nA hostname that will be sent to your custom origin server as SNI for TLS handshake. This can be a valid subdomain of the zone or custom origin server name or the string ':request_host_header:' which will cause the host header in the request to be used as SNI. Not configurable with default/fallback origin server."]
     pub fn custom_origin_sni(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_origin_sni", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `hostname` after provisioning.\nHostname you intend to request a certificate for. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `hostname` after provisioning.\nThe custom hostname that will point to your hostname via CNAME."]
     pub fn hostname(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.hostname", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nCustom hostname identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `ownership_verification` after provisioning.\n"]
-    pub fn ownership_verification(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.ownership_verification", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `ownership_verification` after provisioning.\nThis is a record which can be placed to activate a hostname."]
+    pub fn ownership_verification(&self) -> CustomHostname_OwnershipVerificationRef {
+        CustomHostname_OwnershipVerificationRef::new(
+            self.shared().clone(),
+            format!("{}.ownership_verification", self.extract_ref()),
+        )
     }
 
-    #[doc = "Get a reference to the value of field `ownership_verification_http` after provisioning.\n"]
-    pub fn ownership_verification_http(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.ownership_verification_http", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `ownership_verification_http` after provisioning.\nThis presents the token to be served by the given http url to activate a hostname."]
+    pub fn ownership_verification_http(&self) -> CustomHostname_OwnershipVerificationHttpRef {
+        CustomHostname_OwnershipVerificationHttpRef::new(
+            self.shared().clone(),
+            format!("{}.ownership_verification_http", self.extract_ref()),
+        )
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the certificate."]
+    #[doc =
+        "Get a reference to the value of field `ssl` after provisioning.\nSSL properties used when creating the custom hostname."]
+    pub fn ssl(&self) -> CustomHostname_SslRef {
+        CustomHostname_SslRef::new(self.shared().clone(), format!("{}.ssl", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the hostname's activation.\nAvailable values: \"active\", \"pending\", \"active_redeploying\", \"moved\", \"pending_deletion\", \"deleted\", \"pending_blocked\", \"pending_migration\", \"pending_provisioned\", \"test_pending\", \"test_active\", \"test_active_apex\", \"test_blocked\", \"test_failed\", \"provisioned\", \"blocked\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `wait_for_ssl_pending_validation` after provisioning.\nWhether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`."]
-    pub fn wait_for_ssl_pending_validation(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(
-            self.shared().clone(),
-            format!("{}.wait_for_ssl_pending_validation", self.extract_ref()),
-        )
+        "Get a reference to the value of field `verification_errors` after provisioning.\nThese are errors that were encountered while trying to activate a hostname."]
+    pub fn verification_errors(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.verification_errors", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `ssl` after provisioning.\n"]
-    pub fn ssl(&self) -> terrars::ListRef<CustomHostnameSslElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.ssl", self.extract_ref()))
     }
 }
 
@@ -285,11 +275,9 @@ impl terrars::Resource_ for CustomHostname_ {
 
 pub struct BuildCustomHostname {
     pub tf_id: std::string::String,
-    #[doc =
-        "Hostname you intend to request a certificate for. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "The custom hostname that will point to your hostname via CNAME."]
     pub hostname: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -298,7 +286,7 @@ impl BuildCustomHostname {
         let out = CustomHostname(std::rc::Rc::new(CustomHostname_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(CustomHostnameData {
+            data: std::cell::RefCell::new(CustomHostnameData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -308,11 +296,8 @@ impl BuildCustomHostname {
                 custom_origin_server: core::default::Default::default(),
                 custom_origin_sni: core::default::Default::default(),
                 hostname: self.hostname,
-                id: core::default::Default::default(),
-                wait_for_ssl_pending_validation: core::default::Default::default(),
-                zone_id: self.zone_id,
                 ssl: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
+                zone_id: self.zone_id,
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -344,86 +329,89 @@ impl CustomHostnameRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_metadata` after provisioning.\nCustom metadata associated with custom hostname. Only supports primitive string values, all other values are accessible via the API directly."]
+        "Get a reference to the value of field `created_at` after provisioning.\nThis is the time the hostname was created."]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `custom_metadata` after provisioning.\nUnique key/value metadata for this hostname. These are per-hostname (customer) settings."]
     pub fn custom_metadata(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.custom_metadata", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_origin_server` after provisioning.\nThe custom origin server used for certificates."]
+        "Get a reference to the value of field `custom_origin_server` after provisioning.\na valid hostname that’s been added to your DNS zone as an A, AAAA, or CNAME record."]
     pub fn custom_origin_server(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_origin_server", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `custom_origin_sni` after provisioning.\nThe [custom origin SNI](https://developers.cloudflare.com/ssl/ssl-for-saas/hostname-specific-behavior/custom-origin) used for certificates."]
+        "Get a reference to the value of field `custom_origin_sni` after provisioning.\nA hostname that will be sent to your custom origin server as SNI for TLS handshake. This can be a valid subdomain of the zone or custom origin server name or the string ':request_host_header:' which will cause the host header in the request to be used as SNI. Not configurable with default/fallback origin server."]
     pub fn custom_origin_sni(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_origin_sni", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `hostname` after provisioning.\nHostname you intend to request a certificate for. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `hostname` after provisioning.\nThe custom hostname that will point to your hostname via CNAME."]
     pub fn hostname(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.hostname", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nCustom hostname identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `ownership_verification` after provisioning.\n"]
-    pub fn ownership_verification(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.ownership_verification", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `ownership_verification` after provisioning.\nThis is a record which can be placed to activate a hostname."]
+    pub fn ownership_verification(&self) -> CustomHostname_OwnershipVerificationRef {
+        CustomHostname_OwnershipVerificationRef::new(
+            self.shared().clone(),
+            format!("{}.ownership_verification", self.extract_ref()),
+        )
     }
 
-    #[doc = "Get a reference to the value of field `ownership_verification_http` after provisioning.\n"]
-    pub fn ownership_verification_http(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.ownership_verification_http", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `ownership_verification_http` after provisioning.\nThis presents the token to be served by the given http url to activate a hostname."]
+    pub fn ownership_verification_http(&self) -> CustomHostname_OwnershipVerificationHttpRef {
+        CustomHostname_OwnershipVerificationHttpRef::new(
+            self.shared().clone(),
+            format!("{}.ownership_verification_http", self.extract_ref()),
+        )
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the certificate."]
+    #[doc =
+        "Get a reference to the value of field `ssl` after provisioning.\nSSL properties used when creating the custom hostname."]
+    pub fn ssl(&self) -> CustomHostname_SslRef {
+        CustomHostname_SslRef::new(self.shared().clone(), format!("{}.ssl", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the hostname's activation.\nAvailable values: \"active\", \"pending\", \"active_redeploying\", \"moved\", \"pending_deletion\", \"deleted\", \"pending_blocked\", \"pending_migration\", \"pending_provisioned\", \"test_pending\", \"test_active\", \"test_active_apex\", \"test_blocked\", \"test_failed\", \"provisioned\", \"blocked\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `wait_for_ssl_pending_validation` after provisioning.\nWhether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`."]
-    pub fn wait_for_ssl_pending_validation(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(
-            self.shared().clone(),
-            format!("{}.wait_for_ssl_pending_validation", self.extract_ref()),
-        )
+        "Get a reference to the value of field `verification_errors` after provisioning.\nThese are errors that were encountered while trying to activate a hostname."]
+    pub fn verification_errors(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.verification_errors", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
-
-    #[doc = "Get a reference to the value of field `ssl` after provisioning.\n"]
-    pub fn ssl(&self) -> terrars::ListRef<CustomHostnameSslElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.ssl", self.extract_ref()))
-    }
 }
 
 #[derive(Serialize)]
-pub struct CustomHostnameSslElValidationErrorsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    message: std::option::Option<terrars::PrimField<std::string::String>>,
-}
+pub struct CustomHostname_OwnershipVerification {}
 
-impl CustomHostnameSslElValidationErrorsEl {
-    #[doc = "Set the field `message`.\n"]
-    pub fn set_message(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.message = std::option::Option::Some(v.into());
-        self
-    }
-}
+impl CustomHostname_OwnershipVerification { }
 
-impl terrars::ToListMappable for CustomHostnameSslElValidationErrorsEl {
-    type O = terrars::BlockAssignable<CustomHostnameSslElValidationErrorsEl>;
+impl terrars::ToListMappable for CustomHostname_OwnershipVerification {
+    type O = terrars::BlockAssignable<CustomHostname_OwnershipVerification>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -434,106 +422,59 @@ impl terrars::ToListMappable for CustomHostnameSslElValidationErrorsEl {
     }
 }
 
-pub struct BuildCustomHostnameSslElValidationErrorsEl {}
+pub struct BuildCustomHostname_OwnershipVerification {}
 
-impl BuildCustomHostnameSslElValidationErrorsEl {
-    pub fn build(self) -> CustomHostnameSslElValidationErrorsEl {
-        CustomHostnameSslElValidationErrorsEl { message: core::default::Default::default() }
+impl BuildCustomHostname_OwnershipVerification {
+    pub fn build(self) -> CustomHostname_OwnershipVerification {
+        CustomHostname_OwnershipVerification {}
     }
 }
 
-pub struct CustomHostnameSslElValidationErrorsElRef {
+#[allow(dead_code)]
+pub struct CustomHostname_OwnershipVerificationRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for CustomHostnameSslElValidationErrorsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostnameSslElValidationErrorsElRef {
-        CustomHostnameSslElValidationErrorsElRef {
+impl terrars::Ref for CustomHostname_OwnershipVerificationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostname_OwnershipVerificationRef {
+        CustomHostname_OwnershipVerificationRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl CustomHostnameSslElValidationErrorsElRef {
+impl CustomHostname_OwnershipVerificationRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `message` after provisioning.\n"]
-    pub fn message(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.message", self.base))
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nDNS Name for record."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nDNS Record type.\nAvailable values: \"txt\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nContent for the record."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct CustomHostnameSslElValidationRecordsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cname_name: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cname_target: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    emails: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    http_body: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    http_url: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    txt_name: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    txt_value: std::option::Option<terrars::PrimField<std::string::String>>,
-}
+pub struct CustomHostname_OwnershipVerificationHttp {}
 
-impl CustomHostnameSslElValidationRecordsEl {
-    #[doc = "Set the field `cname_name`.\n"]
-    pub fn set_cname_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.cname_name = std::option::Option::Some(v.into());
-        self
-    }
+impl CustomHostname_OwnershipVerificationHttp { }
 
-    #[doc = "Set the field `cname_target`.\n"]
-    pub fn set_cname_target(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.cname_target = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `emails`.\n"]
-    pub fn set_emails(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.emails = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `http_body`.\n"]
-    pub fn set_http_body(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.http_body = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `http_url`.\n"]
-    pub fn set_http_url(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.http_url = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `txt_name`.\n"]
-    pub fn set_txt_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.txt_name = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `txt_value`.\n"]
-    pub fn set_txt_value(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.txt_value = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for CustomHostnameSslElValidationRecordsEl {
-    type O = terrars::BlockAssignable<CustomHostnameSslElValidationRecordsEl>;
+impl terrars::ToListMappable for CustomHostname_OwnershipVerificationHttp {
+    type O = terrars::BlockAssignable<CustomHostname_OwnershipVerificationHttp>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -544,129 +485,57 @@ impl terrars::ToListMappable for CustomHostnameSslElValidationRecordsEl {
     }
 }
 
-pub struct BuildCustomHostnameSslElValidationRecordsEl {}
+pub struct BuildCustomHostname_OwnershipVerificationHttp {}
 
-impl BuildCustomHostnameSslElValidationRecordsEl {
-    pub fn build(self) -> CustomHostnameSslElValidationRecordsEl {
-        CustomHostnameSslElValidationRecordsEl {
-            cname_name: core::default::Default::default(),
-            cname_target: core::default::Default::default(),
-            emails: core::default::Default::default(),
-            http_body: core::default::Default::default(),
-            http_url: core::default::Default::default(),
-            txt_name: core::default::Default::default(),
-            txt_value: core::default::Default::default(),
-        }
+impl BuildCustomHostname_OwnershipVerificationHttp {
+    pub fn build(self) -> CustomHostname_OwnershipVerificationHttp {
+        CustomHostname_OwnershipVerificationHttp {}
     }
 }
 
-pub struct CustomHostnameSslElValidationRecordsElRef {
+#[allow(dead_code)]
+pub struct CustomHostname_OwnershipVerificationHttpRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for CustomHostnameSslElValidationRecordsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostnameSslElValidationRecordsElRef {
-        CustomHostnameSslElValidationRecordsElRef {
+impl terrars::Ref for CustomHostname_OwnershipVerificationHttpRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostname_OwnershipVerificationHttpRef {
+        CustomHostname_OwnershipVerificationHttpRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl CustomHostnameSslElValidationRecordsElRef {
+impl CustomHostname_OwnershipVerificationHttpRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `cname_name` after provisioning.\n"]
-    pub fn cname_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cname_name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `cname_target` after provisioning.\n"]
-    pub fn cname_target(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cname_target", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `emails` after provisioning.\n"]
-    pub fn emails(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.emails", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `http_body` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `http_body` after provisioning.\nToken to be served."]
     pub fn http_body(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.http_body", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `http_url` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `http_url` after provisioning.\nThe HTTP URL that will be checked during custom hostname verification and where the customer should host the token."]
     pub fn http_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.http_url", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `txt_name` after provisioning.\n"]
-    pub fn txt_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.txt_name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `txt_value` after provisioning.\n"]
-    pub fn txt_value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.txt_value", self.base))
-    }
 }
 
 #[derive(Serialize)]
-pub struct CustomHostnameSslElSettingsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ciphers: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    early_hints: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    http2: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    min_tls_version: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    tls13: std::option::Option<terrars::PrimField<std::string::String>>,
+pub struct CustomHostname_Ssl_CustomCertBundle {
+    custom_certificate: terrars::PrimField<std::string::String>,
+    custom_key: terrars::PrimField<std::string::String>,
 }
 
-impl CustomHostnameSslElSettingsEl {
-    #[doc = "Set the field `ciphers`.\nList of SSL/TLS ciphers to associate with this certificate."]
-    pub fn set_ciphers(
-        mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.ciphers = std::option::Option::Some(v.into());
-        self
-    }
+impl CustomHostname_Ssl_CustomCertBundle { }
 
-    #[doc = "Set the field `early_hints`.\nWhether early hints should be supported. Available values: `on`, `off`."]
-    pub fn set_early_hints(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.early_hints = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `http2`.\nWhether HTTP2 should be supported. Available values: `on`, `off`."]
-    pub fn set_http2(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.http2 = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `min_tls_version`.\nLowest version of TLS this certificate should support. Available values: `1.0`, `1.1`, `1.2`, `1.3`."]
-    pub fn set_min_tls_version(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.min_tls_version = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `tls13`.\nWhether TLSv1.3 should be supported. Available values: `on`, `off`."]
-    pub fn set_tls13(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.tls13 = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for CustomHostnameSslElSettingsEl {
-    type O = terrars::BlockAssignable<CustomHostnameSslElSettingsEl>;
+impl terrars::ToListMappable for CustomHostname_Ssl_CustomCertBundle {
+    type O = terrars::BlockAssignable<CustomHostname_Ssl_CustomCertBundle>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -677,207 +546,41 @@ impl terrars::ToListMappable for CustomHostnameSslElSettingsEl {
     }
 }
 
-pub struct BuildCustomHostnameSslElSettingsEl {}
+pub struct BuildCustomHostname_Ssl_CustomCertBundle {
+    #[doc = "If a custom uploaded certificate is used."]
+    pub custom_certificate: terrars::PrimField<std::string::String>,
+    #[doc = "The key for a custom uploaded certificate."]
+    pub custom_key: terrars::PrimField<std::string::String>,
+}
 
-impl BuildCustomHostnameSslElSettingsEl {
-    pub fn build(self) -> CustomHostnameSslElSettingsEl {
-        CustomHostnameSslElSettingsEl {
-            ciphers: core::default::Default::default(),
-            early_hints: core::default::Default::default(),
-            http2: core::default::Default::default(),
-            min_tls_version: core::default::Default::default(),
-            tls13: core::default::Default::default(),
+impl BuildCustomHostname_Ssl_CustomCertBundle {
+    pub fn build(self) -> CustomHostname_Ssl_CustomCertBundle {
+        CustomHostname_Ssl_CustomCertBundle {
+            custom_certificate: self.custom_certificate,
+            custom_key: self.custom_key,
         }
     }
 }
 
-pub struct CustomHostnameSslElSettingsElRef {
+#[allow(dead_code)]
+pub struct CustomHostname_Ssl_CustomCertBundleRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for CustomHostnameSslElSettingsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostnameSslElSettingsElRef {
-        CustomHostnameSslElSettingsElRef {
+impl terrars::Ref for CustomHostname_Ssl_CustomCertBundleRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostname_Ssl_CustomCertBundleRef {
+        CustomHostname_Ssl_CustomCertBundleRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl CustomHostnameSslElSettingsElRef {
+impl CustomHostname_Ssl_CustomCertBundleRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `ciphers` after provisioning.\nList of SSL/TLS ciphers to associate with this certificate."]
-    pub fn ciphers(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.ciphers", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `early_hints` after provisioning.\nWhether early hints should be supported. Available values: `on`, `off`."]
-    pub fn early_hints(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.early_hints", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `http2` after provisioning.\nWhether HTTP2 should be supported. Available values: `on`, `off`."]
-    pub fn http2(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.http2", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `min_tls_version` after provisioning.\nLowest version of TLS this certificate should support. Available values: `1.0`, `1.1`, `1.2`, `1.3`."]
-    pub fn min_tls_version(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.min_tls_version", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `tls13` after provisioning.\nWhether TLSv1.3 should be supported. Available values: `on`, `off`."]
-    pub fn tls13(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.tls13", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct CustomHostnameSslElDynamic {
-    settings: std::option::Option<terrars::DynamicBlock<CustomHostnameSslElSettingsEl>>,
-}
-
-#[derive(Serialize)]
-pub struct CustomHostnameSslEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    certificate_authority: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    custom_certificate: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    custom_key: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    method: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
-    type_: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    wildcard: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    settings: std::option::Option<std::vec::Vec<CustomHostnameSslElSettingsEl>>,
-    dynamic: CustomHostnameSslElDynamic,
-}
-
-impl CustomHostnameSslEl {
-    #[doc = "Set the field `certificate_authority`.\n"]
-    pub fn set_certificate_authority(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
-        self.certificate_authority = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `custom_certificate`.\nIf a custom uploaded certificate is used."]
-    pub fn set_custom_certificate(
-        mut self,
-        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
-    ) -> Self {
-        self.custom_certificate = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `custom_key`.\nThe key for a custom uploaded certificate."]
-    pub fn set_custom_key(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.custom_key = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `method`.\nDomain control validation (DCV) method used for this hostname. Available values: `http`, `txt`, `email`."]
-    pub fn set_method(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.method = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `type_`.\nLevel of validation to be used for this hostname. Available values: `dv`. Defaults to `dv`."]
-    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.type_ = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `wildcard`.\nIndicates whether the certificate covers a wildcard."]
-    pub fn set_wildcard(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.wildcard = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `settings`.\n"]
-    pub fn set_settings(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<CustomHostnameSslElSettingsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.settings = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.settings = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-}
-
-impl terrars::ToListMappable for CustomHostnameSslEl {
-    type O = terrars::BlockAssignable<CustomHostnameSslEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildCustomHostnameSslEl {}
-
-impl BuildCustomHostnameSslEl {
-    pub fn build(self) -> CustomHostnameSslEl {
-        CustomHostnameSslEl {
-            certificate_authority: core::default::Default::default(),
-            custom_certificate: core::default::Default::default(),
-            custom_key: core::default::Default::default(),
-            method: core::default::Default::default(),
-            type_: core::default::Default::default(),
-            wildcard: core::default::Default::default(),
-            settings: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
-        }
-    }
-}
-
-pub struct CustomHostnameSslElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for CustomHostnameSslElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostnameSslElRef {
-        CustomHostnameSslElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl CustomHostnameSslElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `certificate_authority` after provisioning.\n"]
-    pub fn certificate_authority(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_authority", self.base))
     }
 
     #[doc =
@@ -891,32 +594,355 @@ impl CustomHostnameSslElRef {
     pub fn custom_key(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_key", self.base))
     }
+}
+
+#[derive(Serialize)]
+pub struct CustomHostname_Ssl_Settings {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    ciphers: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    early_hints: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    http2: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    min_tls_version: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    tls_1_3: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl CustomHostname_Ssl_Settings {
+    #[doc =
+        "Set the field `ciphers`.\nAn allowlist of ciphers for TLS termination. These ciphers must be in the BoringSSL format."]
+    pub fn set_ciphers(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.ciphers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `early_hints`.\nWhether or not Early Hints is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn set_early_hints(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.early_hints = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `http2`.\nWhether or not HTTP2 is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn set_http2(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.http2 = std::option::Option::Some(v.into());
+        self
+    }
 
     #[doc =
-        "Get a reference to the value of field `method` after provisioning.\nDomain control validation (DCV) method used for this hostname. Available values: `http`, `txt`, `email`."]
+        "Set the field `min_tls_version`.\nThe minimum TLS version supported.\nAvailable values: \"1.0\", \"1.1\", \"1.2\", \"1.3\"."]
+    pub fn set_min_tls_version(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.min_tls_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `tls_1_3`.\nWhether or not TLS 1.3 is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn set_tls_1_3(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.tls_1_3 = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for CustomHostname_Ssl_Settings {
+    type O = terrars::BlockAssignable<CustomHostname_Ssl_Settings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildCustomHostname_Ssl_Settings {}
+
+impl BuildCustomHostname_Ssl_Settings {
+    pub fn build(self) -> CustomHostname_Ssl_Settings {
+        CustomHostname_Ssl_Settings {
+            ciphers: core::default::Default::default(),
+            early_hints: core::default::Default::default(),
+            http2: core::default::Default::default(),
+            min_tls_version: core::default::Default::default(),
+            tls_1_3: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct CustomHostname_Ssl_SettingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for CustomHostname_Ssl_SettingsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostname_Ssl_SettingsRef {
+        CustomHostname_Ssl_SettingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl CustomHostname_Ssl_SettingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `ciphers` after provisioning.\nAn allowlist of ciphers for TLS termination. These ciphers must be in the BoringSSL format."]
+    pub fn ciphers(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.ciphers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `early_hints` after provisioning.\nWhether or not Early Hints is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn early_hints(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.early_hints", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `http2` after provisioning.\nWhether or not HTTP2 is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn http2(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.http2", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `min_tls_version` after provisioning.\nThe minimum TLS version supported.\nAvailable values: \"1.0\", \"1.1\", \"1.2\", \"1.3\"."]
+    pub fn min_tls_version(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.min_tls_version", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tls_1_3` after provisioning.\nWhether or not TLS 1.3 is enabled.\nAvailable values: \"on\", \"off\"."]
+    pub fn tls_1_3(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.tls_1_3", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct CustomHostname_Ssl {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    bundle_method: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    certificate_authority: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    cloudflare_branding: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_cert_bundle: std::option::Option<std::vec::Vec<CustomHostname_Ssl_CustomCertBundle>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_certificate: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_csr_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    custom_key: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    method: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    settings: std::option::Option<CustomHostname_Ssl_Settings>,
+    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
+    type_: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    wildcard: std::option::Option<terrars::PrimField<bool>>,
+}
+
+impl CustomHostname_Ssl {
+    #[doc =
+        "Set the field `bundle_method`.\nA ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it.\nAvailable values: \"ubiquitous\", \"optimal\", \"force\"."]
+    pub fn set_bundle_method(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.bundle_method = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `certificate_authority`.\nThe Certificate Authority that will issue the certificate.\nAvailable values: \"digicert\", \"google\", \"lets_encrypt\", \"ssl_com\"."]
+    pub fn set_certificate_authority(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.certificate_authority = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `cloudflare_branding`.\nWhether or not to add Cloudflare Branding for the order.  This will add a subdomain of sni.cloudflaressl.com as the Common Name if set to true."]
+    pub fn set_cloudflare_branding(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.cloudflare_branding = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `custom_cert_bundle`.\nArray of custom certificate and key pairs (1 or 2 pairs allowed)."]
+    pub fn set_custom_cert_bundle(
+        mut self,
+        v: impl std::convert::Into<std::vec::Vec<CustomHostname_Ssl_CustomCertBundle>>,
+    ) -> Self {
+        self.custom_cert_bundle = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `custom_certificate`.\nIf a custom uploaded certificate is used."]
+    pub fn set_custom_certificate(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.custom_certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `custom_csr_id`.\nThe identifier for the Custom CSR that was used."]
+    pub fn set_custom_csr_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.custom_csr_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `custom_key`.\nThe key for a custom uploaded certificate."]
+    pub fn set_custom_key(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.custom_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `method`.\nDomain control validation (DCV) method used for this hostname.\nAvailable values: \"http\", \"txt\", \"email\"."]
+    pub fn set_method(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.method = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `settings`.\nSSL specific settings."]
+    pub fn set_settings(mut self, v: impl std::convert::Into<CustomHostname_Ssl_Settings>) -> Self {
+        self.settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `type_`.\nLevel of validation to be used for this hostname. Domain validation (dv) must be used.\nAvailable values: \"dv\"."]
+    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.type_ = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `wildcard`.\nIndicates whether the certificate covers a wildcard."]
+    pub fn set_wildcard(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.wildcard = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for CustomHostname_Ssl {
+    type O = terrars::BlockAssignable<CustomHostname_Ssl>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildCustomHostname_Ssl {}
+
+impl BuildCustomHostname_Ssl {
+    pub fn build(self) -> CustomHostname_Ssl {
+        CustomHostname_Ssl {
+            bundle_method: core::default::Default::default(),
+            certificate_authority: core::default::Default::default(),
+            cloudflare_branding: core::default::Default::default(),
+            custom_cert_bundle: core::default::Default::default(),
+            custom_certificate: core::default::Default::default(),
+            custom_csr_id: core::default::Default::default(),
+            custom_key: core::default::Default::default(),
+            method: core::default::Default::default(),
+            settings: core::default::Default::default(),
+            type_: core::default::Default::default(),
+            wildcard: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct CustomHostname_SslRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for CustomHostname_SslRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> CustomHostname_SslRef {
+        CustomHostname_SslRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl CustomHostname_SslRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `bundle_method` after provisioning.\nA ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it.\nAvailable values: \"ubiquitous\", \"optimal\", \"force\"."]
+    pub fn bundle_method(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.bundle_method", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `certificate_authority` after provisioning.\nThe Certificate Authority that will issue the certificate.\nAvailable values: \"digicert\", \"google\", \"lets_encrypt\", \"ssl_com\"."]
+    pub fn certificate_authority(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_authority", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `cloudflare_branding` after provisioning.\nWhether or not to add Cloudflare Branding for the order.  This will add a subdomain of sni.cloudflaressl.com as the Common Name if set to true."]
+    pub fn cloudflare_branding(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cloudflare_branding", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `custom_cert_bundle` after provisioning.\nArray of custom certificate and key pairs (1 or 2 pairs allowed)."]
+    pub fn custom_cert_bundle(&self) -> terrars::ListRef<CustomHostname_Ssl_CustomCertBundleRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.custom_cert_bundle", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `custom_certificate` after provisioning.\nIf a custom uploaded certificate is used."]
+    pub fn custom_certificate(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_certificate", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `custom_csr_id` after provisioning.\nThe identifier for the Custom CSR that was used."]
+    pub fn custom_csr_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_csr_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `custom_key` after provisioning.\nThe key for a custom uploaded certificate."]
+    pub fn custom_key(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.custom_key", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `method` after provisioning.\nDomain control validation (DCV) method used for this hostname.\nAvailable values: \"http\", \"txt\", \"email\"."]
     pub fn method(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.method", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\n"]
-    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    #[doc = "Get a reference to the value of field `settings` after provisioning.\nSSL specific settings."]
+    pub fn settings(&self) -> CustomHostname_Ssl_SettingsRef {
+        CustomHostname_Ssl_SettingsRef::new(self.shared().clone(), format!("{}.settings", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nLevel of validation to be used for this hostname. Available values: `dv`. Defaults to `dv`."]
+        "Get a reference to the value of field `type_` after provisioning.\nLevel of validation to be used for this hostname. Domain validation (dv) must be used.\nAvailable values: \"dv\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `validation_errors` after provisioning.\n"]
-    pub fn validation_errors(&self) -> terrars::ListRef<CustomHostnameSslElValidationErrorsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.validation_errors", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `validation_records` after provisioning.\n"]
-    pub fn validation_records(&self) -> terrars::ListRef<CustomHostnameSslElValidationRecordsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.validation_records", self.base))
     }
 
     #[doc =
@@ -924,14 +950,4 @@ impl CustomHostnameSslElRef {
     pub fn wildcard(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.wildcard", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `settings` after provisioning.\n"]
-    pub fn settings(&self) -> terrars::ListRef<CustomHostnameSslElSettingsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.settings", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct CustomHostnameDynamic {
-    ssl: std::option::Option<terrars::DynamicBlock<CustomHostnameSslEl>>,
 }

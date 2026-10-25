@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct Web3HostnameData {
+struct Web3HostnameData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -22,8 +24,6 @@ struct Web3HostnameData {
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     dnslink: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     name: terrars::PrimField<std::string::String>,
     target: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
@@ -32,7 +32,7 @@ struct Web3HostnameData {
 struct Web3Hostname_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<Web3HostnameData>,
+    data: std::cell::RefCell<Web3HostnameData_>,
 }
 
 #[derive(Clone)]
@@ -132,69 +132,65 @@ impl Web3Hostname {
         self
     }
 
-    #[doc = "Set the field `description`.\nAn optional description of the hostname."]
+    #[doc = "Set the field `description`.\nSpecify an optional description of the hostname."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `dnslink`.\nDNSLink value used if the target is ipfs."]
+    #[doc = "Set the field `dnslink`.\nSpecify the DNSLink value used if the target is ipfs."]
     pub fn set_dnslink(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().dnslink = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nCreation time."]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn optional description of the hostname."]
+        "Get a reference to the value of field `description` after provisioning.\nSpecify an optional description of the hostname."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `dnslink` after provisioning.\nDNSLink value used if the target is ipfs."]
+        "Get a reference to the value of field `dnslink` after provisioning.\nSpecify the DNSLink value used if the target is ipfs."]
     pub fn dnslink(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.dnslink", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nSpecify the identifier of the hostname."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\nLast modification time."]
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe hostname that will point to the target gateway via CNAME."]
+        "Get a reference to the value of field `name` after provisioning.\nSpecify the hostname that points to the target gateway via CNAME."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the hostname's activation."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nSpecifies the status of the hostname's activation.\nAvailable values: \"active\", \"pending\", \"deleting\", \"error\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `target` after provisioning.\nTarget gateway of the hostname."]
+    #[doc =
+        "Get a reference to the value of field `target` after provisioning.\nSpecify the target gateway of the hostname.\nAvailable values: \"ethereum\", \"ipfs\", \"ipfs_universal_path\"."]
     pub fn target(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+        "Get a reference to the value of field `zone_id` after provisioning.\nSpecify the identifier of the hostname."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -233,11 +229,12 @@ impl terrars::Resource_ for Web3Hostname_ {
 
 pub struct BuildWeb3Hostname {
     pub tf_id: std::string::String,
-    #[doc = "The hostname that will point to the target gateway via CNAME."]
+    #[doc = "Specify the hostname that points to the target gateway via CNAME."]
     pub name: terrars::PrimField<std::string::String>,
-    #[doc = "Target gateway of the hostname."]
+    #[doc =
+        "Specify the target gateway of the hostname.\nAvailable values: \"ethereum\", \"ipfs\", \"ipfs_universal_path\"."]
     pub target: terrars::PrimField<std::string::String>,
-    #[doc = "The zone identifier to target for the resource."]
+    #[doc = "Specify the identifier of the hostname."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -246,7 +243,7 @@ impl BuildWeb3Hostname {
         let out = Web3Hostname(std::rc::Rc::new(Web3Hostname_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(Web3HostnameData {
+            data: std::cell::RefCell::new(Web3HostnameData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -254,7 +251,6 @@ impl BuildWeb3Hostname {
                 provisioner: core::default::Default::default(),
                 description: core::default::Default::default(),
                 dnslink: core::default::Default::default(),
-                id: core::default::Default::default(),
                 name: self.name,
                 target: self.target,
                 zone_id: self.zone_id,
@@ -288,51 +284,53 @@ impl Web3HostnameRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nCreation time."]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn optional description of the hostname."]
+        "Get a reference to the value of field `description` after provisioning.\nSpecify an optional description of the hostname."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `dnslink` after provisioning.\nDNSLink value used if the target is ipfs."]
+        "Get a reference to the value of field `dnslink` after provisioning.\nSpecify the DNSLink value used if the target is ipfs."]
     pub fn dnslink(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.dnslink", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nSpecify the identifier of the hostname."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\nLast modification time."]
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe hostname that will point to the target gateway via CNAME."]
+        "Get a reference to the value of field `name` after provisioning.\nSpecify the hostname that points to the target gateway via CNAME."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `status` after provisioning.\nStatus of the hostname's activation."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nSpecifies the status of the hostname's activation.\nAvailable values: \"active\", \"pending\", \"deleting\", \"error\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `target` after provisioning.\nTarget gateway of the hostname."]
+    #[doc =
+        "Get a reference to the value of field `target` after provisioning.\nSpecify the target gateway of the hostname.\nAvailable values: \"ethereum\", \"ipfs\", \"ipfs_universal_path\"."]
     pub fn target(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+        "Get a reference to the value of field `zone_id` after provisioning.\nSpecify the identifier of the hostname."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

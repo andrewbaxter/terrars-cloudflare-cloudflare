@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct EmailRoutingAddressData {
+struct EmailRoutingAddressData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -21,13 +23,13 @@ struct EmailRoutingAddressData {
     account_id: terrars::PrimField<std::string::String>,
     email: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    status: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 struct EmailRoutingAddress_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<EmailRoutingAddressData>,
+    data: std::cell::RefCell<EmailRoutingAddressData_>,
 }
 
 #[derive(Clone)]
@@ -127,14 +129,14 @@ impl EmailRoutingAddress {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `status`.\nDestination address status. Non-admin callers may only set verified addresses back to unverified; setting to verified requires admin privileges.\nAvailable values: \"unverified\", \"verified\"."]
+    pub fn set_status(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().status = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
@@ -145,13 +147,12 @@ impl EmailRoutingAddress {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
     pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nDestination address identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
@@ -162,7 +163,14 @@ impl EmailRoutingAddress {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nDestination address identifier."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nDestination address status. Non-admin callers may only set verified addresses back to unverified; setting to verified requires admin privileges.\nAvailable values: \"unverified\", \"verified\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nDestination address tag. (Deprecated, replaced by destination address identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }
@@ -207,11 +215,9 @@ impl terrars::Resource_ for EmailRoutingAddress_ {
 
 pub struct BuildEmailRoutingAddress {
     pub tf_id: std::string::String,
-    #[doc =
-        "The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The contact email address of the user. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "The contact email address of the user."]
     pub email: terrars::PrimField<std::string::String>,
 }
 
@@ -220,7 +226,7 @@ impl BuildEmailRoutingAddress {
         let out = EmailRoutingAddress(std::rc::Rc::new(EmailRoutingAddress_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(EmailRoutingAddressData {
+            data: std::cell::RefCell::new(EmailRoutingAddressData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -228,7 +234,7 @@ impl BuildEmailRoutingAddress {
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
                 email: self.email,
-                id: core::default::Default::default(),
+                status: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -259,8 +265,7 @@ impl EmailRoutingAddressRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
@@ -271,13 +276,12 @@ impl EmailRoutingAddressRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
     pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nDestination address identifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
@@ -288,7 +292,14 @@ impl EmailRoutingAddressRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nDestination address identifier."]
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nDestination address status. Non-admin callers may only set verified addresses back to unverified; setting to verified requires admin privileges.\nAvailable values: \"unverified\", \"verified\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nDestination address tag. (Deprecated, replaced by destination address identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }

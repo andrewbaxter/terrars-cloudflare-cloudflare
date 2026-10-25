@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct AddressMapData {
+struct AddressMapData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -23,20 +25,18 @@ struct AddressMapData {
     default_sni: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
-    enabled: terrars::PrimField<bool>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    enabled: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ips: std::option::Option<std::vec::Vec<AddressMapIpsEl>>,
+    ips: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    memberships: std::option::Option<std::vec::Vec<AddressMapMembershipsEl>>,
-    dynamic: AddressMapDynamic,
+    memberships: std::option::Option<std::vec::Vec<AddressMap_Memberships>>,
 }
 
 struct AddressMap_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<AddressMapData>,
+    data: std::cell::RefCell<AddressMapData_>,
 }
 
 #[derive(Clone)]
@@ -137,52 +137,44 @@ impl AddressMap {
     }
 
     #[doc =
-        "Set the field `default_sni`.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map."]
+        "Set the field `default_sni`.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map. If Cloudflare receives a TLS handshake from a client without an SNI, it will respond with the default SNI on those IPs. The default SNI can be any valid zone or subdomain owned by the account."]
     pub fn set_default_sni(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().default_sni = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `description`.\nDescription of the address map."]
+    #[doc =
+        "Set the field `description`.\nAn optional description field which may be used to describe the types of IPs or zones on the map."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `enabled`.\nWhether the Address Map is enabled or not. Cloudflare's DNS will not respond with IP addresses on an Address Map until the map is enabled."]
+    pub fn set_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().enabled = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `ips`.\n"]
-    pub fn set_ips(self, v: impl std::convert::Into<terrars::BlockAssignable<AddressMapIpsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().ips = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.ips = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `memberships`.\n"]
-    pub fn set_memberships(self, v: impl std::convert::Into<terrars::BlockAssignable<AddressMapMembershipsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().memberships = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.memberships = std::option::Option::Some(d);
-            },
-        }
+    pub fn set_ips(
+        self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().ips = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Set the field `memberships`.\nZones and Accounts which will be assigned IPs on this Address Map. A zone membership will take priority over an account membership."]
+    pub fn set_memberships(self, v: impl std::convert::Into<std::vec::Vec<AddressMap_Memberships>>) -> Self {
+        self.0.data.borrow_mut().memberships = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Get a reference to the value of field `account_id` after provisioning.\nIdentifier of a Cloudflare account."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
@@ -199,26 +191,48 @@ impl AddressMap {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.can_modify_ips", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `created_at` after provisioning.\n"]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `default_sni` after provisioning.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map."]
+        "Get a reference to the value of field `default_sni` after provisioning.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map. If Cloudflare receives a TLS handshake from a client without an SNI, it will respond with the default SNI on those IPs. The default SNI can be any valid zone or subdomain owned by the account."]
     pub fn default_sni(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_sni", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nDescription of the address map."]
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn optional description field which may be used to describe the types of IPs or zones on the map."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether the Address Map is enabled or not."]
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether the Address Map is enabled or not. Cloudflare's DNS will not respond with IP addresses on an Address Map until the map is enabled."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier of an Address Map."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `ips` after provisioning.\n"]
+    pub fn ips(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.ips", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `memberships` after provisioning.\nZones and Accounts which will be assigned IPs on this Address Map. A zone membership will take priority over an account membership."]
+    pub fn memberships(&self) -> terrars::ListRef<AddressMap_MembershipsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.memberships", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `modified_at` after provisioning.\n"]
+    pub fn modified_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_at", self.extract_ref()))
     }
 }
 
@@ -255,10 +269,8 @@ impl terrars::Resource_ for AddressMap_ {
 
 pub struct BuildAddressMap {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "Identifier of a Cloudflare account."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "Whether the Address Map is enabled or not."]
-    pub enabled: terrars::PrimField<bool>,
 }
 
 impl BuildAddressMap {
@@ -266,7 +278,7 @@ impl BuildAddressMap {
         let out = AddressMap(std::rc::Rc::new(AddressMap_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(AddressMapData {
+            data: std::cell::RefCell::new(AddressMapData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -275,11 +287,9 @@ impl BuildAddressMap {
                 account_id: self.account_id,
                 default_sni: core::default::Default::default(),
                 description: core::default::Default::default(),
-                enabled: self.enabled,
-                id: core::default::Default::default(),
+                enabled: core::default::Default::default(),
                 ips: core::default::Default::default(),
                 memberships: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -311,7 +321,7 @@ impl AddressMapRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Get a reference to the value of field `account_id` after provisioning.\nIdentifier of a Cloudflare account."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
@@ -328,38 +338,75 @@ impl AddressMapRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.can_modify_ips", self.extract_ref()))
     }
 
+    #[doc = "Get a reference to the value of field `created_at` after provisioning.\n"]
+    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.extract_ref()))
+    }
+
     #[doc =
-        "Get a reference to the value of field `default_sni` after provisioning.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map."]
+        "Get a reference to the value of field `default_sni` after provisioning.\nIf you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map. If Cloudflare receives a TLS handshake from a client without an SNI, it will respond with the default SNI on those IPs. The default SNI can be any valid zone or subdomain owned by the account."]
     pub fn default_sni(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_sni", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nDescription of the address map."]
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn optional description field which may be used to describe the types of IPs or zones on the map."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether the Address Map is enabled or not."]
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether the Address Map is enabled or not. Cloudflare's DNS will not respond with IP addresses on an Address Map until the map is enabled."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier of an Address Map."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
+
+    #[doc = "Get a reference to the value of field `ips` after provisioning.\n"]
+    pub fn ips(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.ips", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `memberships` after provisioning.\nZones and Accounts which will be assigned IPs on this Address Map. A zone membership will take priority over an account membership."]
+    pub fn memberships(&self) -> terrars::ListRef<AddressMap_MembershipsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.memberships", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `modified_at` after provisioning.\n"]
+    pub fn modified_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_at", self.extract_ref()))
+    }
 }
 
 #[derive(Serialize)]
-pub struct AddressMapIpsEl {
-    ip: terrars::PrimField<std::string::String>,
+pub struct AddressMap_Memberships {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    identifier: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    kind: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl AddressMapIpsEl { }
+impl AddressMap_Memberships {
+    #[doc = "Set the field `identifier`.\nThe identifier for the membership (eg. a zone or account tag)."]
+    pub fn set_identifier(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.identifier = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for AddressMapIpsEl {
-    type O = terrars::BlockAssignable<AddressMapIpsEl>;
+    #[doc = "Set the field `kind`.\nThe type of the membership.\nAvailable values: \"zone\", \"account\"."]
+    pub fn set_kind(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for AddressMap_Memberships {
+    type O = terrars::BlockAssignable<AddressMap_Memberships>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -370,117 +417,47 @@ impl terrars::ToListMappable for AddressMapIpsEl {
     }
 }
 
-pub struct BuildAddressMapIpsEl {
-    #[doc = "An IPv4 or IPv6 address."]
-    pub ip: terrars::PrimField<std::string::String>,
-}
+pub struct BuildAddressMap_Memberships {}
 
-impl BuildAddressMapIpsEl {
-    pub fn build(self) -> AddressMapIpsEl {
-        AddressMapIpsEl { ip: self.ip }
+impl BuildAddressMap_Memberships {
+    pub fn build(self) -> AddressMap_Memberships {
+        AddressMap_Memberships {
+            identifier: core::default::Default::default(),
+            kind: core::default::Default::default(),
+        }
     }
 }
 
-pub struct AddressMapIpsElRef {
+#[allow(dead_code)]
+pub struct AddressMap_MembershipsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for AddressMapIpsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AddressMapIpsElRef {
-        AddressMapIpsElRef {
+impl terrars::Ref for AddressMap_MembershipsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AddressMap_MembershipsRef {
+        AddressMap_MembershipsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl AddressMapIpsElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ip` after provisioning.\nAn IPv4 or IPv6 address."]
-    pub fn ip(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct AddressMapMembershipsEl {
-    identifier: terrars::PrimField<std::string::String>,
-    kind: terrars::PrimField<std::string::String>,
-}
-
-impl AddressMapMembershipsEl { }
-
-impl terrars::ToListMappable for AddressMapMembershipsEl {
-    type O = terrars::BlockAssignable<AddressMapMembershipsEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildAddressMapMembershipsEl {
-    #[doc = "Identifier of the account or zone."]
-    pub identifier: terrars::PrimField<std::string::String>,
-    #[doc = "The type of the membership."]
-    pub kind: terrars::PrimField<std::string::String>,
-}
-
-impl BuildAddressMapMembershipsEl {
-    pub fn build(self) -> AddressMapMembershipsEl {
-        AddressMapMembershipsEl {
-            identifier: self.identifier,
-            kind: self.kind,
-        }
-    }
-}
-
-pub struct AddressMapMembershipsElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for AddressMapMembershipsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AddressMapMembershipsElRef {
-        AddressMapMembershipsElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl AddressMapMembershipsElRef {
+impl AddressMap_MembershipsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `can_delete` after provisioning.\nControls whether the membership can be deleted via the API or not."]
-    pub fn can_delete(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.can_delete", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identifier` after provisioning.\nIdentifier of the account or zone."]
+        "Get a reference to the value of field `identifier` after provisioning.\nThe identifier for the membership (eg. a zone or account tag)."]
     pub fn identifier(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.identifier", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `kind` after provisioning.\nThe type of the membership."]
+    #[doc =
+        "Get a reference to the value of field `kind` after provisioning.\nThe type of the membership.\nAvailable values: \"zone\", \"account\"."]
     pub fn kind(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.kind", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct AddressMapDynamic {
-    ips: std::option::Option<terrars::DynamicBlock<AddressMapIpsEl>>,
-    memberships: std::option::Option<terrars::DynamicBlock<AddressMapMembershipsEl>>,
 }

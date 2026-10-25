@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct ZoneLockdownData {
+struct ZoneLockdownData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,25 +20,21 @@ struct ZoneLockdownData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
+    configurations: std::vec::Vec<ZoneLockdown_Configurations>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     paused: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     priority: std::option::Option<terrars::PrimField<f64>>,
     urls: terrars::SetField<terrars::PrimField<std::string::String>>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    configurations: std::option::Option<std::vec::Vec<ZoneLockdownConfigurationsEl>>,
-    dynamic: ZoneLockdownDynamic,
 }
 
 struct ZoneLockdown_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<ZoneLockdownData>,
+    data: std::cell::RefCell<ZoneLockdownData_>,
 }
 
 #[derive(Clone)]
@@ -137,76 +135,74 @@ impl ZoneLockdown {
     }
 
     #[doc =
-        "Set the field `description`.\nA description about the lockdown entry. Typically used as a reminder or explanation for the lockdown."]
+        "Set the field `description`.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `paused`.\nBoolean of whether this zone lockdown is currently paused. Defaults to `false`."]
+    #[doc = "Set the field `paused`.\nWhen true, indicates that the rule is currently paused."]
     pub fn set_paused(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().paused = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `priority`.\n"]
+    #[doc =
+        "Set the field `priority`.\nThe priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority."]
     pub fn set_priority(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().priority = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `configurations`.\n"]
-    pub fn set_configurations(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<ZoneLockdownConfigurationsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().configurations = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.configurations = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc =
+        "Get a reference to the value of field `configurations` after provisioning.\nA list of IP addresses or CIDR ranges that will be allowed to access the URLs specified in the Zone Lockdown rule. You can include any number of `ip` or `ip_range` configurations."]
+    pub fn configurations(&self) -> terrars::ListRef<ZoneLockdown_ConfigurationsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.configurations", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA description about the lockdown entry. Typically used as a reminder or explanation for the lockdown."]
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the Zone Lockdown rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `paused` after provisioning.\nBoolean of whether this zone lockdown is currently paused. Defaults to `false`."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `paused` after provisioning.\nWhen true, indicates that the rule is currently paused."]
     pub fn paused(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `priority` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `priority` after provisioning.\nThe priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority."]
     pub fn priority(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `urls` after provisioning.\nA list of simple wildcard patterns to match requests against. The order of the urls is unimportant."]
+        "Get a reference to the value of field `urls` after provisioning.\nThe URLs to include in the current WAF override. You can use wildcards. Each entered URL will be escaped before use, which means you can only use simple wildcard patterns."]
     pub fn urls(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.urls", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -245,10 +241,13 @@ impl terrars::Resource_ for ZoneLockdown_ {
 
 pub struct BuildZoneLockdown {
     pub tf_id: std::string::String,
-    #[doc = "A list of simple wildcard patterns to match requests against. The order of the urls is unimportant."]
-    pub urls: terrars::SetField<terrars::PrimField<std::string::String>>,
     #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "A list of IP addresses or CIDR ranges that will be allowed to access the URLs specified in the Zone Lockdown rule. You can include any number of `ip` or `ip_range` configurations."]
+    pub configurations: std::vec::Vec<ZoneLockdown_Configurations>,
+    #[doc =
+        "The URLs to include in the current WAF override. You can use wildcards. Each entered URL will be escaped before use, which means you can only use simple wildcard patterns."]
+    pub urls: terrars::SetField<terrars::PrimField<std::string::String>>,
+    #[doc = "Defines an identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -257,20 +256,18 @@ impl BuildZoneLockdown {
         let out = ZoneLockdown(std::rc::Rc::new(ZoneLockdown_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(ZoneLockdownData {
+            data: std::cell::RefCell::new(ZoneLockdownData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
+                configurations: self.configurations,
                 description: core::default::Default::default(),
-                id: core::default::Default::default(),
                 paused: core::default::Default::default(),
                 priority: core::default::Default::default(),
                 urls: self.urls,
                 zone_id: self.zone_id,
-                configurations: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -302,50 +299,85 @@ impl ZoneLockdownRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA description about the lockdown entry. Typically used as a reminder or explanation for the lockdown."]
+        "Get a reference to the value of field `configurations` after provisioning.\nA list of IP addresses or CIDR ranges that will be allowed to access the URLs specified in the Zone Lockdown rule. You can include any number of `ip` or `ip_range` configurations."]
+    pub fn configurations(&self) -> terrars::ListRef<ZoneLockdown_ConfigurationsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.configurations", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `created_on` after provisioning.\nThe timestamp of when the rule was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the Zone Lockdown rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `paused` after provisioning.\nBoolean of whether this zone lockdown is currently paused. Defaults to `false`."]
+        "Get a reference to the value of field `modified_on` after provisioning.\nThe timestamp of when the rule was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `paused` after provisioning.\nWhen true, indicates that the rule is currently paused."]
     pub fn paused(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `priority` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `priority` after provisioning.\nThe priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority."]
     pub fn priority(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.priority", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `urls` after provisioning.\nA list of simple wildcard patterns to match requests against. The order of the urls is unimportant."]
+        "Get a reference to the value of field `urls` after provisioning.\nThe URLs to include in the current WAF override. You can use wildcards. Each entered URL will be escaped before use, which means you can only use simple wildcard patterns."]
     pub fn urls(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.urls", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct ZoneLockdownConfigurationsEl {
-    target: terrars::PrimField<std::string::String>,
-    value: terrars::PrimField<std::string::String>,
+pub struct ZoneLockdown_Configurations {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    target: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    value: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl ZoneLockdownConfigurationsEl { }
+impl ZoneLockdown_Configurations {
+    #[doc =
+        "Set the field `target`.\nThe configuration target. You must set the target to `ip` when specifying an IP address in the Zone Lockdown rule.\nAvailable values: \"ip\", \"ip_range\"."]
+    pub fn set_target(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for ZoneLockdownConfigurationsEl {
-    type O = terrars::BlockAssignable<ZoneLockdownConfigurationsEl>;
+    #[doc =
+        "Set the field `value`.\nThe IP address to match. This address will be compared to the IP address of incoming requests."]
+    pub fn set_value(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for ZoneLockdown_Configurations {
+    type O = terrars::BlockAssignable<ZoneLockdown_Configurations>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -356,56 +388,47 @@ impl terrars::ToListMappable for ZoneLockdownConfigurationsEl {
     }
 }
 
-pub struct BuildZoneLockdownConfigurationsEl {
-    #[doc = "The request property to target. Available values: `ip`, `ip_range`."]
-    pub target: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The value to target. Depends on target's type. IP addresses should just be standard IPv4/IPv6 notation i.e. `192.0.2.1` or `2001:db8::/32` and IP ranges in CIDR format i.e. `192.0.2.0/24`."]
-    pub value: terrars::PrimField<std::string::String>,
-}
+pub struct BuildZoneLockdown_Configurations {}
 
-impl BuildZoneLockdownConfigurationsEl {
-    pub fn build(self) -> ZoneLockdownConfigurationsEl {
-        ZoneLockdownConfigurationsEl {
-            target: self.target,
-            value: self.value,
+impl BuildZoneLockdown_Configurations {
+    pub fn build(self) -> ZoneLockdown_Configurations {
+        ZoneLockdown_Configurations {
+            target: core::default::Default::default(),
+            value: core::default::Default::default(),
         }
     }
 }
 
-pub struct ZoneLockdownConfigurationsElRef {
+#[allow(dead_code)]
+pub struct ZoneLockdown_ConfigurationsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ZoneLockdownConfigurationsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZoneLockdownConfigurationsElRef {
-        ZoneLockdownConfigurationsElRef {
+impl terrars::Ref for ZoneLockdown_ConfigurationsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ZoneLockdown_ConfigurationsRef {
+        ZoneLockdown_ConfigurationsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ZoneLockdownConfigurationsElRef {
+impl ZoneLockdown_ConfigurationsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `target` after provisioning.\nThe request property to target. Available values: `ip`, `ip_range`."]
+        "Get a reference to the value of field `target` after provisioning.\nThe configuration target. You must set the target to `ip` when specifying an IP address in the Zone Lockdown rule.\nAvailable values: \"ip\", \"ip_range\"."]
     pub fn target(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `value` after provisioning.\nThe value to target. Depends on target's type. IP addresses should just be standard IPv4/IPv6 notation i.e. `192.0.2.1` or `2001:db8::/32` and IP ranges in CIDR format i.e. `192.0.2.0/24`."]
+        "Get a reference to the value of field `value` after provisioning.\nThe IP address to match. This address will be compared to the IP address of incoming requests."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct ZoneLockdownDynamic {
-    configurations: std::option::Option<terrars::DynamicBlock<ZoneLockdownConfigurationsEl>>,
 }

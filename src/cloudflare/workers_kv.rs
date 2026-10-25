@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct WorkersKvData {
+struct WorkersKvData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,8 +22,12 @@ struct WorkersKvData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    key: terrars::PrimField<std::string::String>,
+    expiration: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    expiration_ttl: std::option::Option<terrars::PrimField<f64>>,
+    key_name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    metadata: std::option::Option<terrars::PrimField<std::string::String>>,
     namespace_id: terrars::PrimField<std::string::String>,
     value: terrars::PrimField<std::string::String>,
 }
@@ -29,7 +35,7 @@ struct WorkersKvData {
 struct WorkersKv_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<WorkersKvData>,
+    data: std::cell::RefCell<WorkersKvData_>,
 }
 
 #[derive(Clone)]
@@ -129,36 +135,69 @@ impl WorkersKv {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `expiration`.\nExpires the key at a certain time, measured in number of seconds since the UNIX epoch."]
+    pub fn set_expiration(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().expiration = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Set the field `expiration_ttl`.\nNumber of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified."]
+    pub fn set_expiration_ttl(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().expiration_ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `metadata`.\nAssociates arbitrary JSON data with a key/value pair."]
+    pub fn set_metadata(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Get a reference to the value of field `account_id` after provisioning.\nID of the Cloudflare account that owns the Workers KV namespaces."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `expiration` after provisioning.\nExpires the key at a certain time, measured in number of seconds since the UNIX epoch."]
+    pub fn expiration(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_ttl` after provisioning.\nNumber of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified."]
+    pub fn expiration_ttl(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_ttl", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nA key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `key` after provisioning.\nName of the KV pair. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn key(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key", self.extract_ref()))
+        "Get a reference to the value of field `key_name` after provisioning.\nA key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."]
+    pub fn key_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `namespace_id` after provisioning.\nThe ID of the Workers KV namespace in which you want to create the KV pair. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `metadata` after provisioning.\nAssociates arbitrary JSON data with a key/value pair."]
+    pub fn metadata(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.metadata", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Workers KV namespace."]
     pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nValue of the KV pair."]
+    #[doc =
+        "Get a reference to the value of field `value` after provisioning.\nA byte sequence to be stored, up to 25 MiB in length."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
     }
@@ -197,14 +236,14 @@ impl terrars::Resource_ for WorkersKv_ {
 
 pub struct BuildWorkersKv {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "ID of the Cloudflare account that owns the Workers KV namespaces."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "Name of the KV pair. **Modifying this attribute will force creation of a new resource.**"]
-    pub key: terrars::PrimField<std::string::String>,
     #[doc =
-        "The ID of the Workers KV namespace in which you want to create the KV pair. **Modifying this attribute will force creation of a new resource.**"]
+        "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."]
+    pub key_name: terrars::PrimField<std::string::String>,
+    #[doc = "ID of the Workers KV namespace."]
     pub namespace_id: terrars::PrimField<std::string::String>,
-    #[doc = "Value of the KV pair."]
+    #[doc = "A byte sequence to be stored, up to 25 MiB in length."]
     pub value: terrars::PrimField<std::string::String>,
 }
 
@@ -213,15 +252,17 @@ impl BuildWorkersKv {
         let out = WorkersKv(std::rc::Rc::new(WorkersKv_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(WorkersKvData {
+            data: std::cell::RefCell::new(WorkersKvData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                id: core::default::Default::default(),
-                key: self.key,
+                expiration: core::default::Default::default(),
+                expiration_ttl: core::default::Default::default(),
+                key_name: self.key_name,
+                metadata: core::default::Default::default(),
                 namespace_id: self.namespace_id,
                 value: self.value,
             }),
@@ -255,29 +296,48 @@ impl WorkersKvRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+        "Get a reference to the value of field `account_id` after provisioning.\nID of the Cloudflare account that owns the Workers KV namespaces."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `expiration` after provisioning.\nExpires the key at a certain time, measured in number of seconds since the UNIX epoch."]
+    pub fn expiration(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_ttl` after provisioning.\nNumber of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified."]
+    pub fn expiration_ttl(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_ttl", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nA key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `key` after provisioning.\nName of the KV pair. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn key(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key", self.extract_ref()))
+        "Get a reference to the value of field `key_name` after provisioning.\nA key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."]
+    pub fn key_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `namespace_id` after provisioning.\nThe ID of the Workers KV namespace in which you want to create the KV pair. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `metadata` after provisioning.\nAssociates arbitrary JSON data with a key/value pair."]
+    pub fn metadata(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.metadata", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Workers KV namespace."]
     pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nValue of the KV pair."]
+    #[doc =
+        "Get a reference to the value of field `value` after provisioning.\nA byte sequence to be stored, up to 25 MiB in length."]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
     }

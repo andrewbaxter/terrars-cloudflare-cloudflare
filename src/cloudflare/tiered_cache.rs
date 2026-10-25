@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct TieredCacheData {
+struct TieredCacheData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,16 +20,14 @@ struct TieredCacheData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    cache_type: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    value: terrars::PrimField<std::string::String>,
     zone_id: terrars::PrimField<std::string::String>,
 }
 
 struct TieredCache_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<TieredCacheData>,
+    data: std::cell::RefCell<TieredCacheData_>,
 }
 
 #[derive(Clone)]
@@ -127,25 +127,29 @@ impl TieredCache {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
+    #[doc = "Get a reference to the value of field `editable` after provisioning.\nWhether the setting is editable."]
+    pub fn editable(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.editable", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `cache_type` after provisioning.\nThe typed of tiered cache to utilize on the zone. Available values: `generic`, `smart`, `off`."]
-    pub fn cache_type(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cache_type", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `modified_on` after provisioning.\nLast time this setting was modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `value` after provisioning.\nEnable or disable the Smart Tiered Cache.\nAvailable values: \"on\", \"off\"."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -184,10 +188,9 @@ impl terrars::Resource_ for TieredCache_ {
 
 pub struct BuildTieredCache {
     pub tf_id: std::string::String,
-    #[doc = "The typed of tiered cache to utilize on the zone. Available values: `generic`, `smart`, `off`."]
-    pub cache_type: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Enable or disable the Smart Tiered Cache.\nAvailable values: \"on\", \"off\"."]
+    pub value: terrars::PrimField<std::string::String>,
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -196,14 +199,13 @@ impl BuildTieredCache {
         let out = TieredCache(std::rc::Rc::new(TieredCache_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(TieredCacheData {
+            data: std::cell::RefCell::new(TieredCacheData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                cache_type: self.cache_type,
-                id: core::default::Default::default(),
+                value: self.value,
                 zone_id: self.zone_id,
             }),
         }));
@@ -235,19 +237,29 @@ impl TieredCacheRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `cache_type` after provisioning.\nThe typed of tiered cache to utilize on the zone. Available values: `generic`, `smart`, `off`."]
-    pub fn cache_type(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cache_type", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `editable` after provisioning.\nWhether the setting is editable."]
+    pub fn editable(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.editable", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `modified_on` after provisioning.\nLast time this setting was modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `value` after provisioning.\nEnable or disable the Smart Tiered Cache.\nAvailable values: \"on\", \"off\"."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

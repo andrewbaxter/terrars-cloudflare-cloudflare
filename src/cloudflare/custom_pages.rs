@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct CustomPagesData {
+struct CustomPagesData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,13 +22,10 @@ struct CustomPagesData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     account_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    identifier: terrars::PrimField<std::string::String>,
+    state: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    state: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(rename = "type")]
-    type_: terrars::PrimField<std::string::String>,
-    url: terrars::PrimField<std::string::String>,
+    url: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     zone_id: std::option::Option<terrars::PrimField<std::string::String>>,
 }
@@ -34,7 +33,7 @@ struct CustomPagesData {
 struct CustomPages_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<CustomPagesData>,
+    data: std::cell::RefCell<CustomPagesData_>,
 }
 
 #[derive(Clone)]
@@ -134,61 +133,81 @@ impl CustomPages {
         self
     }
 
-    #[doc = "Set the field `account_id`.\nThe account identifier to target for the resource. Conflicts with `zone_id`."]
+    #[doc =
+        "Set the field `account_id`.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn set_account_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().account_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `url`.\nThe URL associated with the custom page."]
+    pub fn set_url(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().url = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `state`.\nManaged state of the custom page. Available values: `default`, `customized`."]
-    pub fn set_state(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().state = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `zone_id`.\nThe zone identifier to target for the resource. Conflicts with `account_id`."]
+    #[doc = "Set the field `zone_id`.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
     pub fn set_zone_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().zone_id = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. Conflicts with `zone_id`."]
+        "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `description` after provisioning.\n"]
+    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nCustom page type.\nAvailable values: \"1000_errors\", \"500_errors\", \"basic_challenge\", \"country_challenge\", \"ip_block\", \"managed_challenge\", \"ratelimit_block\", \"under_attack\", \"waf_block\", \"waf_challenge\"."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `state` after provisioning.\nManaged state of the custom page. Available values: `default`, `customized`."]
+        "Get a reference to the value of field `identifier` after provisioning.\nCustom page type.\nAvailable values: \"1000_errors\", \"500_errors\", \"basic_challenge\", \"country_challenge\", \"ip_block\", \"managed_challenge\", \"ratelimit_block\", \"under_attack\", \"waf_block\", \"waf_challenge\"."]
+    pub fn identifier(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identifier", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `preview_target` after provisioning.\n"]
+    pub fn preview_target(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_target", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `required_tokens` after provisioning.\n"]
+    pub fn required_tokens(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.required_tokens", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `state` after provisioning.\nThe custom page state.\nAvailable values: \"default\", \"customized\"."]
     pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe type of custom page you wish to update. Available values: `basic_challenge`, `waf_challenge`, `waf_block`, `ratelimit_block`, `country_challenge`, `ip_block`, `under_attack`, `500_errors`, `1000_errors`, `always_online`, `managed_challenge`."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `url` after provisioning.\nURL of where the custom page source is located."]
+    #[doc = "Get a reference to the value of field `url` after provisioning.\nThe URL associated with the custom page."]
     pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. Conflicts with `account_id`."]
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -228,10 +247,10 @@ impl terrars::Resource_ for CustomPages_ {
 pub struct BuildCustomPages {
     pub tf_id: std::string::String,
     #[doc =
-        "The type of custom page you wish to update. Available values: `basic_challenge`, `waf_challenge`, `waf_block`, `ratelimit_block`, `country_challenge`, `ip_block`, `under_attack`, `500_errors`, `1000_errors`, `always_online`, `managed_challenge`."]
-    pub type_: terrars::PrimField<std::string::String>,
-    #[doc = "URL of where the custom page source is located."]
-    pub url: terrars::PrimField<std::string::String>,
+        "Custom page type.\nAvailable values: \"1000_errors\", \"500_errors\", \"basic_challenge\", \"country_challenge\", \"ip_block\", \"managed_challenge\", \"ratelimit_block\", \"under_attack\", \"waf_block\", \"waf_challenge\"."]
+    pub identifier: terrars::PrimField<std::string::String>,
+    #[doc = "The custom page state.\nAvailable values: \"default\", \"customized\"."]
+    pub state: terrars::PrimField<std::string::String>,
 }
 
 impl BuildCustomPages {
@@ -239,17 +258,16 @@ impl BuildCustomPages {
         let out = CustomPages(std::rc::Rc::new(CustomPages_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(CustomPagesData {
+            data: std::cell::RefCell::new(CustomPagesData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: core::default::Default::default(),
-                id: core::default::Default::default(),
-                state: core::default::Default::default(),
-                type_: self.type_,
-                url: self.url,
+                identifier: self.identifier,
+                state: self.state,
+                url: core::default::Default::default(),
                 zone_id: core::default::Default::default(),
             }),
         }));
@@ -282,36 +300,61 @@ impl CustomPagesRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource. Conflicts with `zone_id`."]
+        "Get a reference to the value of field `account_id` after provisioning.\nThe Account ID to use for this endpoint. Mutually exclusive with the Zone ID."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `description` after provisioning.\n"]
+    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nCustom page type.\nAvailable values: \"1000_errors\", \"500_errors\", \"basic_challenge\", \"country_challenge\", \"ip_block\", \"managed_challenge\", \"ratelimit_block\", \"under_attack\", \"waf_block\", \"waf_challenge\"."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `state` after provisioning.\nManaged state of the custom page. Available values: `default`, `customized`."]
+        "Get a reference to the value of field `identifier` after provisioning.\nCustom page type.\nAvailable values: \"1000_errors\", \"500_errors\", \"basic_challenge\", \"country_challenge\", \"ip_block\", \"managed_challenge\", \"ratelimit_block\", \"under_attack\", \"waf_block\", \"waf_challenge\"."]
+    pub fn identifier(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identifier", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `preview_target` after provisioning.\n"]
+    pub fn preview_target(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_target", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `required_tokens` after provisioning.\n"]
+    pub fn required_tokens(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.required_tokens", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `state` after provisioning.\nThe custom page state.\nAvailable values: \"default\", \"customized\"."]
     pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe type of custom page you wish to update. Available values: `basic_challenge`, `waf_challenge`, `waf_block`, `ratelimit_block`, `country_challenge`, `ip_block`, `under_attack`, `500_errors`, `1000_errors`, `always_online`, `managed_challenge`."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `url` after provisioning.\nURL of where the custom page source is located."]
+    #[doc = "Get a reference to the value of field `url` after provisioning.\nThe URL associated with the custom page."]
     pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. Conflicts with `account_id`."]
+        "Get a reference to the value of field `zone_id` after provisioning.\nThe Zone ID to use for this endpoint. Mutually exclusive with the Account ID."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

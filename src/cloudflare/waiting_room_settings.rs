@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct WaitingRoomSettingsData {
+struct WaitingRoomSettingsData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,8 +21,6 @@ struct WaitingRoomSettingsData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     search_engine_crawler_bypass: std::option::Option<terrars::PrimField<bool>>,
     zone_id: terrars::PrimField<std::string::String>,
 }
@@ -28,7 +28,7 @@ struct WaitingRoomSettingsData {
 struct WaitingRoomSettings_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<WaitingRoomSettingsData>,
+    data: std::cell::RefCell<WaitingRoomSettingsData_>,
 }
 
 #[derive(Clone)]
@@ -128,32 +128,25 @@ impl WaitingRoomSettings {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
     #[doc =
-        "Set the field `search_engine_crawler_bypass`.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone. Defaults to `false`."]
+        "Set the field `search_engine_crawler_bypass`.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics."]
     pub fn set_search_engine_crawler_bypass(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().search_engine_crawler_bypass = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `search_engine_crawler_bypass` after provisioning.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone. Defaults to `false`."]
+        "Get a reference to the value of field `search_engine_crawler_bypass` after provisioning.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics."]
     pub fn search_engine_crawler_bypass(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.search_engine_crawler_bypass", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -192,8 +185,7 @@ impl terrars::Resource_ for WaitingRoomSettings_ {
 
 pub struct BuildWaitingRoomSettings {
     pub tf_id: std::string::String,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -202,13 +194,12 @@ impl BuildWaitingRoomSettings {
         let out = WaitingRoomSettings(std::rc::Rc::new(WaitingRoomSettings_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(WaitingRoomSettingsData {
+            data: std::cell::RefCell::new(WaitingRoomSettingsData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                id: core::default::Default::default(),
                 search_engine_crawler_bypass: core::default::Default::default(),
                 zone_id: self.zone_id,
             }),
@@ -241,19 +232,18 @@ impl WaitingRoomSettingsRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `search_engine_crawler_bypass` after provisioning.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone. Defaults to `false`."]
+        "Get a reference to the value of field `search_engine_crawler_bypass` after provisioning.\nWhether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics."]
     pub fn search_engine_crawler_bypass(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.search_engine_crawler_bypass", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct AccountMemberData {
+struct AccountMemberData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,10 +21,11 @@ struct AccountMemberData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
-    email_address: terrars::PrimField<std::string::String>,
+    email: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    role_ids: terrars::SetField<terrars::PrimField<std::string::String>>,
+    policies: std::option::Option<std::vec::Vec<AccountMember_Policies>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    roles: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     status: std::option::Option<terrars::PrimField<std::string::String>>,
 }
@@ -30,7 +33,7 @@ struct AccountMemberData {
 struct AccountMember_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<AccountMemberData>,
+    data: std::cell::RefCell<AccountMemberData_>,
 }
 
 #[derive(Clone)]
@@ -130,45 +133,65 @@ impl AccountMember {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `policies`.\nArray of policies associated with this member."]
+    pub fn set_policies(self, v: impl std::convert::Into<std::vec::Vec<AccountMember_Policies>>) -> Self {
+        self.0.data.borrow_mut().policies = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `status`.\nA member's status in the account. Available values: `accepted`, `pending`."]
+    #[doc = "Set the field `roles`.\nSet of roles associated with this member."]
+    pub fn set_roles(
+        self,
+        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().roles = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `status`.\nStatus of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\nAvailable values: \"accepted\", \"pending\"."]
     pub fn set_status(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().status = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nAccount ID to create the account member in."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nAccount identifier tag."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `email_address` after provisioning.\nThe email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated."]
-    pub fn email_address(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email_address", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
+    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nMembership identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `role_ids` after provisioning.\nList of account role IDs that you want to assign to a member."]
-    pub fn role_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.role_ids", self.extract_ref()))
+        "Get a reference to the value of field `policies` after provisioning.\nArray of policies associated with this member."]
+    pub fn policies(&self) -> terrars::SetRef<AccountMember_PoliciesRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.policies", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nA member's status in the account. Available values: `accepted`, `pending`."]
+        "Get a reference to the value of field `roles` after provisioning.\nSet of roles associated with this member."]
+    pub fn roles(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.roles", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\nAvailable values: \"accepted\", \"pending\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `user` after provisioning.\nDetails of the user associated to the membership."]
+    pub fn user(&self) -> AccountMember_UserRef {
+        AccountMember_UserRef::new(self.shared().clone(), format!("{}.user", self.extract_ref()))
     }
 }
 
@@ -205,13 +228,10 @@ impl terrars::Resource_ for AccountMember_ {
 
 pub struct BuildAccountMember {
     pub tf_id: std::string::String,
-    #[doc = "Account ID to create the account member in."]
+    #[doc = "Account identifier tag."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated."]
-    pub email_address: terrars::PrimField<std::string::String>,
-    #[doc = "List of account role IDs that you want to assign to a member."]
-    pub role_ids: terrars::SetField<terrars::PrimField<std::string::String>>,
+    #[doc = "The contact email address of the user."]
+    pub email: terrars::PrimField<std::string::String>,
 }
 
 impl BuildAccountMember {
@@ -219,16 +239,16 @@ impl BuildAccountMember {
         let out = AccountMember(std::rc::Rc::new(AccountMember_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(AccountMemberData {
+            data: std::cell::RefCell::new(AccountMemberData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                email_address: self.email_address,
-                id: core::default::Default::default(),
-                role_ids: self.role_ids,
+                email: self.email,
+                policies: core::default::Default::default(),
+                roles: core::default::Default::default(),
                 status: core::default::Default::default(),
             }),
         }));
@@ -260,32 +280,309 @@ impl AccountMemberRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nAccount ID to create the account member in."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nAccount identifier tag."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `email_address` after provisioning.\nThe email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated."]
-    pub fn email_address(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email_address", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
+    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nMembership identifier tag."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `role_ids` after provisioning.\nList of account role IDs that you want to assign to a member."]
-    pub fn role_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.role_ids", self.extract_ref()))
+        "Get a reference to the value of field `policies` after provisioning.\nArray of policies associated with this member."]
+    pub fn policies(&self) -> terrars::SetRef<AccountMember_PoliciesRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.policies", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nA member's status in the account. Available values: `accepted`, `pending`."]
+        "Get a reference to the value of field `roles` after provisioning.\nSet of roles associated with this member."]
+    pub fn roles(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.roles", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nStatus of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\nAvailable values: \"accepted\", \"pending\"."]
     pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `user` after provisioning.\nDetails of the user associated to the membership."]
+    pub fn user(&self) -> AccountMember_UserRef {
+        AccountMember_UserRef::new(self.shared().clone(), format!("{}.user", self.extract_ref()))
+    }
+}
+
+#[derive(Serialize)]
+pub struct AccountMember_Policies_PermissionGroups {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl AccountMember_Policies_PermissionGroups { }
+
+impl terrars::ToListMappable for AccountMember_Policies_PermissionGroups {
+    type O = terrars::BlockAssignable<AccountMember_Policies_PermissionGroups>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccountMember_Policies_PermissionGroups {
+    #[doc = "Identifier of the group."]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildAccountMember_Policies_PermissionGroups {
+    pub fn build(self) -> AccountMember_Policies_PermissionGroups {
+        AccountMember_Policies_PermissionGroups { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct AccountMember_Policies_PermissionGroupsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for AccountMember_Policies_PermissionGroupsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccountMember_Policies_PermissionGroupsRef {
+        AccountMember_Policies_PermissionGroupsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl AccountMember_Policies_PermissionGroupsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier of the group."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct AccountMember_Policies_ResourceGroups {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl AccountMember_Policies_ResourceGroups { }
+
+impl terrars::ToListMappable for AccountMember_Policies_ResourceGroups {
+    type O = terrars::BlockAssignable<AccountMember_Policies_ResourceGroups>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccountMember_Policies_ResourceGroups {
+    #[doc = "Identifier of the group."]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildAccountMember_Policies_ResourceGroups {
+    pub fn build(self) -> AccountMember_Policies_ResourceGroups {
+        AccountMember_Policies_ResourceGroups { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct AccountMember_Policies_ResourceGroupsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for AccountMember_Policies_ResourceGroupsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccountMember_Policies_ResourceGroupsRef {
+        AccountMember_Policies_ResourceGroupsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl AccountMember_Policies_ResourceGroupsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier of the group."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct AccountMember_Policies {
+    access: terrars::PrimField<std::string::String>,
+    permission_groups: std::vec::Vec<AccountMember_Policies_PermissionGroups>,
+    resource_groups: std::vec::Vec<AccountMember_Policies_ResourceGroups>,
+}
+
+impl AccountMember_Policies { }
+
+impl terrars::ToListMappable for AccountMember_Policies {
+    type O = terrars::BlockAssignable<AccountMember_Policies>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccountMember_Policies {
+    #[doc = "Allow or deny operations against the resources.\nAvailable values: \"allow\", \"deny\"."]
+    pub access: terrars::PrimField<std::string::String>,
+    #[doc = "A set of permission groups that are specified to the policy."]
+    pub permission_groups: std::vec::Vec<AccountMember_Policies_PermissionGroups>,
+    #[doc = "A list of resource groups that the policy applies to."]
+    pub resource_groups: std::vec::Vec<AccountMember_Policies_ResourceGroups>,
+}
+
+impl BuildAccountMember_Policies {
+    pub fn build(self) -> AccountMember_Policies {
+        AccountMember_Policies {
+            access: self.access,
+            permission_groups: self.permission_groups,
+            resource_groups: self.resource_groups,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct AccountMember_PoliciesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for AccountMember_PoliciesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccountMember_PoliciesRef {
+        AccountMember_PoliciesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl AccountMember_PoliciesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `access` after provisioning.\nAllow or deny operations against the resources.\nAvailable values: \"allow\", \"deny\"."]
+    pub fn access(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.access", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `permission_groups` after provisioning.\nA set of permission groups that are specified to the policy."]
+    pub fn permission_groups(&self) -> terrars::SetRef<AccountMember_Policies_PermissionGroupsRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.permission_groups", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `resource_groups` after provisioning.\nA list of resource groups that the policy applies to."]
+    pub fn resource_groups(&self) -> terrars::SetRef<AccountMember_Policies_ResourceGroupsRef> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.resource_groups", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct AccountMember_User {}
+
+impl AccountMember_User { }
+
+impl terrars::ToListMappable for AccountMember_User {
+    type O = terrars::BlockAssignable<AccountMember_User>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildAccountMember_User {}
+
+impl BuildAccountMember_User {
+    pub fn build(self) -> AccountMember_User {
+        AccountMember_User {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct AccountMember_UserRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for AccountMember_UserRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AccountMember_UserRef {
+        AccountMember_UserRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl AccountMember_UserRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe contact email address of the user."]
+    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `first_name` after provisioning.\nUser's first name"]
+    pub fn first_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.first_name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `last_name` after provisioning.\nUser's last name"]
+    pub fn last_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.last_name", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `two_factor_authentication_enabled` after provisioning.\nIndicates whether two-factor authentication is enabled for the user account. Does not apply to API authentication."]
+    pub fn two_factor_authentication_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.two_factor_authentication_enabled", self.base))
     }
 }

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct LoadBalancerMonitorData {
+struct LoadBalancerMonitorData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -22,6 +24,10 @@ struct LoadBalancerMonitorData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     allow_insecure: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    consecutive_down: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    consecutive_up: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     expected_body: std::option::Option<terrars::PrimField<std::string::String>>,
@@ -30,7 +36,7 @@ struct LoadBalancerMonitorData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     follow_redirects: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    header: std::option::Option<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     interval: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -47,15 +53,12 @@ struct LoadBalancerMonitorData {
     timeout: std::option::Option<terrars::PrimField<f64>>,
     #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
     type_: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    header: std::option::Option<std::vec::Vec<LoadBalancerMonitorHeaderEl>>,
-    dynamic: LoadBalancerMonitorDynamic,
 }
 
 struct LoadBalancerMonitor_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<LoadBalancerMonitorData>,
+    data: std::cell::RefCell<LoadBalancerMonitorData_>,
 }
 
 #[derive(Clone)]
@@ -156,150 +159,173 @@ impl LoadBalancerMonitor {
     }
 
     #[doc =
-        "Set the field `allow_insecure`.\nDo not validate the certificate when monitor use HTTPS.  Only valid if `type` is \"http\" or \"https\"."]
+        "Set the field `allow_insecure`.\nDo not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors."]
     pub fn set_allow_insecure(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().allow_insecure = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `description`.\nFree text description."]
+    #[doc =
+        "Set the field `consecutive_down`.\nTo be marked unhealthy the monitored origin must fail this healthcheck N consecutive times."]
+    pub fn set_consecutive_down(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().consecutive_down = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `consecutive_up`.\nTo be marked healthy the monitored origin must pass this healthcheck N consecutive times."]
+    pub fn set_consecutive_up(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().consecutive_up = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `description`.\nObject description."]
     pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `expected_body`.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. Only valid if `type` is \"http\" or \"https\"."]
+        "Set the field `expected_body`.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn set_expected_body(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().expected_body = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `expected_codes`.\nThe expected HTTP response code or code range of the health check. Eg `2xx`. Only valid and required if `type` is \"http\" or \"https\"."]
+        "Set the field `expected_codes`.\nThe expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn set_expected_codes(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().expected_codes = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `follow_redirects`.\nFollow redirects if returned by the origin. Only valid if `type` is \"http\" or \"https\"."]
+        "Set the field `follow_redirects`.\nFollow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn set_follow_redirects(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().follow_redirects = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `header`.\nThe HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. This parameter is only valid for HTTP and HTTPS monitors."]
+    pub fn set_header(
+        self,
+        v: impl std::convert::Into<terrars::RecField<terrars::ListField<terrars::PrimField<std::string::String>>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().header = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `interval`.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Defaults to `60`."]
+        "Set the field `interval`.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations."]
     pub fn set_interval(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().interval = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `method`.\nThe method to use for the health check."]
+    #[doc =
+        "Set the field `method`.\nThe method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks."]
     pub fn set_method(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().method = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `path`.\nThe endpoint path to health check against."]
+    #[doc =
+        "Set the field `path`.\nThe endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn set_path(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().path = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `port`.\nThe port number to use for the healthcheck, required when creating a TCP monitor."]
+    #[doc =
+        "Set the field `port`.\nThe port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443)."]
     pub fn set_port(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().port = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `probe_zone`.\nAssign this monitor to emulate the specified zone while probing. Only valid if `type` is \"http\" or \"https\"."]
+        "Set the field `probe_zone`.\nAssign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn set_probe_zone(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().probe_zone = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `retries`.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Defaults to `2`."]
+        "Set the field `retries`.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."]
     pub fn set_retries(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().retries = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc =
-        "Set the field `timeout`.\nThe timeout (in seconds) before marking the health check as failed. Defaults to `5`."]
+    #[doc = "Set the field `timeout`.\nThe timeout (in seconds) before marking the health check as failed."]
     pub fn set_timeout(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().timeout = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Set the field `type_`.\nThe protocol to use for the healthcheck. Available values: `http`, `https`, `tcp`, `udp_icmp`, `icmp_ping`, `smtp`. Defaults to `http`."]
+        "Set the field `type_`.\nThe protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.\nAvailable values: \"http\", \"https\", \"tcp\", \"udp_icmp\", \"icmp_ping\", \"smtp\"."]
     pub fn set_type(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().type_ = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `header`.\n"]
-    pub fn set_header(self, v: impl std::convert::Into<terrars::BlockAssignable<LoadBalancerMonitorHeaderEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().header = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.header = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `allow_insecure` after provisioning.\nDo not validate the certificate when monitor use HTTPS.  Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `allow_insecure` after provisioning.\nDo not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors."]
     pub fn allow_insecure(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.allow_insecure", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer monitor was created."]
+        "Get a reference to the value of field `consecutive_down` after provisioning.\nTo be marked unhealthy the monitored origin must fail this healthcheck N consecutive times."]
+    pub fn consecutive_down(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.consecutive_down", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `consecutive_up` after provisioning.\nTo be marked healthy the monitored origin must pass this healthcheck N consecutive times."]
+    pub fn consecutive_up(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.consecutive_up", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nFree text description."]
+    #[doc = "Get a reference to the value of field `description` after provisioning.\nObject description."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `expected_body` after provisioning.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `expected_body` after provisioning.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn expected_body(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expected_body", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `expected_codes` after provisioning.\nThe expected HTTP response code or code range of the health check. Eg `2xx`. Only valid and required if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `expected_codes` after provisioning.\nThe expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn expected_codes(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expected_codes", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `follow_redirects` after provisioning.\nFollow redirects if returned by the origin. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `follow_redirects` after provisioning.\nFollow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn follow_redirects(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.follow_redirects", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `header` after provisioning.\nThe HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. This parameter is only valid for HTTP and HTTPS monitors."]
+    pub fn header(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.header", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -308,55 +334,54 @@ impl LoadBalancerMonitor {
     }
 
     #[doc =
-        "Get a reference to the value of field `interval` after provisioning.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Defaults to `60`."]
+        "Get a reference to the value of field `interval` after provisioning.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations."]
     pub fn interval(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.interval", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `method` after provisioning.\nThe method to use for the health check."]
+        "Get a reference to the value of field `method` after provisioning.\nThe method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks."]
     pub fn method(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.method", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer monitor was last modified."]
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `path` after provisioning.\nThe endpoint path to health check against."]
+        "Get a reference to the value of field `path` after provisioning.\nThe endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn path(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.path", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `port` after provisioning.\nThe port number to use for the healthcheck, required when creating a TCP monitor."]
+        "Get a reference to the value of field `port` after provisioning.\nThe port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443)."]
     pub fn port(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.port", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `probe_zone` after provisioning.\nAssign this monitor to emulate the specified zone while probing. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `probe_zone` after provisioning.\nAssign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn probe_zone(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.probe_zone", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `retries` after provisioning.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Defaults to `2`."]
+        "Get a reference to the value of field `retries` after provisioning.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."]
     pub fn retries(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.retries", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `timeout` after provisioning.\nThe timeout (in seconds) before marking the health check as failed. Defaults to `5`."]
+        "Get a reference to the value of field `timeout` after provisioning.\nThe timeout (in seconds) before marking the health check as failed."]
     pub fn timeout(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.timeout", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe protocol to use for the healthcheck. Available values: `http`, `https`, `tcp`, `udp_icmp`, `icmp_ping`, `smtp`. Defaults to `http`."]
+        "Get a reference to the value of field `type_` after provisioning.\nThe protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.\nAvailable values: \"http\", \"https\", \"tcp\", \"udp_icmp\", \"icmp_ping\", \"smtp\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
     }
@@ -395,7 +420,7 @@ impl terrars::Resource_ for LoadBalancerMonitor_ {
 
 pub struct BuildLoadBalancerMonitor {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "Identifier."]
     pub account_id: terrars::PrimField<std::string::String>,
 }
 
@@ -404,7 +429,7 @@ impl BuildLoadBalancerMonitor {
         let out = LoadBalancerMonitor(std::rc::Rc::new(LoadBalancerMonitor_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(LoadBalancerMonitorData {
+            data: std::cell::RefCell::new(LoadBalancerMonitorData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -412,11 +437,13 @@ impl BuildLoadBalancerMonitor {
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
                 allow_insecure: core::default::Default::default(),
+                consecutive_down: core::default::Default::default(),
+                consecutive_up: core::default::Default::default(),
                 description: core::default::Default::default(),
                 expected_body: core::default::Default::default(),
                 expected_codes: core::default::Default::default(),
                 follow_redirects: core::default::Default::default(),
-                id: core::default::Default::default(),
+                header: core::default::Default::default(),
                 interval: core::default::Default::default(),
                 method: core::default::Default::default(),
                 path: core::default::Default::default(),
@@ -425,8 +452,6 @@ impl BuildLoadBalancerMonitor {
                 retries: core::default::Default::default(),
                 timeout: core::default::Default::default(),
                 type_: core::default::Default::default(),
-                header: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -457,45 +482,61 @@ impl LoadBalancerMonitorRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `allow_insecure` after provisioning.\nDo not validate the certificate when monitor use HTTPS.  Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `allow_insecure` after provisioning.\nDo not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors."]
     pub fn allow_insecure(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.allow_insecure", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer monitor was created."]
+        "Get a reference to the value of field `consecutive_down` after provisioning.\nTo be marked unhealthy the monitored origin must fail this healthcheck N consecutive times."]
+    pub fn consecutive_down(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.consecutive_down", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `consecutive_up` after provisioning.\nTo be marked healthy the monitored origin must pass this healthcheck N consecutive times."]
+    pub fn consecutive_up(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.consecutive_up", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `description` after provisioning.\nFree text description."]
+    #[doc = "Get a reference to the value of field `description` after provisioning.\nObject description."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `expected_body` after provisioning.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `expected_body` after provisioning.\nA case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn expected_body(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expected_body", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `expected_codes` after provisioning.\nThe expected HTTP response code or code range of the health check. Eg `2xx`. Only valid and required if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `expected_codes` after provisioning.\nThe expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn expected_codes(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expected_codes", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `follow_redirects` after provisioning.\nFollow redirects if returned by the origin. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `follow_redirects` after provisioning.\nFollow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn follow_redirects(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.follow_redirects", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `header` after provisioning.\nThe HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. This parameter is only valid for HTTP and HTTPS monitors."]
+    pub fn header(&self) -> terrars::RecRef<terrars::ListRef<terrars::PrimExpr<std::string::String>>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.header", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -504,127 +545,55 @@ impl LoadBalancerMonitorRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `interval` after provisioning.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Defaults to `60`."]
+        "Get a reference to the value of field `interval` after provisioning.\nThe interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations."]
     pub fn interval(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.interval", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `method` after provisioning.\nThe method to use for the health check."]
+        "Get a reference to the value of field `method` after provisioning.\nThe method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks."]
     pub fn method(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.method", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer monitor was last modified."]
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `path` after provisioning.\nThe endpoint path to health check against."]
+        "Get a reference to the value of field `path` after provisioning.\nThe endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn path(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.path", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `port` after provisioning.\nThe port number to use for the healthcheck, required when creating a TCP monitor."]
+        "Get a reference to the value of field `port` after provisioning.\nThe port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443)."]
     pub fn port(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.port", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `probe_zone` after provisioning.\nAssign this monitor to emulate the specified zone while probing. Only valid if `type` is \"http\" or \"https\"."]
+        "Get a reference to the value of field `probe_zone` after provisioning.\nAssign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors."]
     pub fn probe_zone(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.probe_zone", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `retries` after provisioning.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Defaults to `2`."]
+        "Get a reference to the value of field `retries` after provisioning.\nThe number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."]
     pub fn retries(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.retries", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `timeout` after provisioning.\nThe timeout (in seconds) before marking the health check as failed. Defaults to `5`."]
+        "Get a reference to the value of field `timeout` after provisioning.\nThe timeout (in seconds) before marking the health check as failed."]
     pub fn timeout(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.timeout", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe protocol to use for the healthcheck. Available values: `http`, `https`, `tcp`, `udp_icmp`, `icmp_ping`, `smtp`. Defaults to `http`."]
+        "Get a reference to the value of field `type_` after provisioning.\nThe protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.\nAvailable values: \"http\", \"https\", \"tcp\", \"udp_icmp\", \"icmp_ping\", \"smtp\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.extract_ref()))
     }
-}
-
-#[derive(Serialize)]
-pub struct LoadBalancerMonitorHeaderEl {
-    header: terrars::PrimField<std::string::String>,
-    values: terrars::SetField<terrars::PrimField<std::string::String>>,
-}
-
-impl LoadBalancerMonitorHeaderEl { }
-
-impl terrars::ToListMappable for LoadBalancerMonitorHeaderEl {
-    type O = terrars::BlockAssignable<LoadBalancerMonitorHeaderEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildLoadBalancerMonitorHeaderEl {
-    #[doc = "The header name."]
-    pub header: terrars::PrimField<std::string::String>,
-    #[doc = "A list of values for the header."]
-    pub values: terrars::SetField<terrars::PrimField<std::string::String>>,
-}
-
-impl BuildLoadBalancerMonitorHeaderEl {
-    pub fn build(self) -> LoadBalancerMonitorHeaderEl {
-        LoadBalancerMonitorHeaderEl {
-            header: self.header,
-            values: self.values,
-        }
-    }
-}
-
-pub struct LoadBalancerMonitorHeaderElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for LoadBalancerMonitorHeaderElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> LoadBalancerMonitorHeaderElRef {
-        LoadBalancerMonitorHeaderElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl LoadBalancerMonitorHeaderElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `header` after provisioning.\nThe header name."]
-    pub fn header(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.header", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `values` after provisioning.\nA list of values for the header."]
-    pub fn values(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.values", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct LoadBalancerMonitorDynamic {
-    header: std::option::Option<terrars::DynamicBlock<LoadBalancerMonitorHeaderEl>>,
 }

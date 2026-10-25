@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct DataLoadBalancerPoolsData {
+struct DataLoadBalancerPoolsData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -16,20 +18,18 @@ struct DataLoadBalancerPoolsData {
     lifecycle: terrars::DatasourceLifecycle,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     for_each: std::option::Option<std::string::String>,
-    account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    filter: std::option::Option<std::vec::Vec<DataLoadBalancerPoolsFilterEl>>,
+    max_items: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    pools: std::option::Option<std::vec::Vec<DataLoadBalancerPoolsPoolsEl>>,
-    dynamic: DataLoadBalancerPoolsDynamic,
+    monitor: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 struct DataLoadBalancerPools_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataLoadBalancerPoolsData>,
+    data: std::cell::RefCell<DataLoadBalancerPoolsData_>,
 }
 
 #[derive(Clone)]
@@ -74,60 +74,44 @@ impl DataLoadBalancerPools {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `account_id`.\nIdentifier."]
+    pub fn set_account_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().account_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `filter`.\n"]
-    pub fn set_filter(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<DataLoadBalancerPoolsFilterEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().filter = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.filter = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-
-    #[doc = "Set the field `pools`.\n"]
-    pub fn set_pools(self, v: impl std::convert::Into<terrars::BlockAssignable<DataLoadBalancerPoolsPoolsEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().pools = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.pools = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `max_items`.\nMax items to fetch, default: 1000"]
+    pub fn set_max_items(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().max_items = std::option::Option::Some(v.into());
         self
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the datasource lookups."]
+        "Set the field `monitor`.\nThe ID of the Monitor to use for checking the health of origins within this pool."]
+    pub fn set_monitor(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().monitor = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `max_items` after provisioning.\nMax items to fetch, default: 1000"]
+    pub fn max_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.max_items", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `filter` after provisioning.\n"]
-    pub fn filter(&self) -> terrars::ListRef<DataLoadBalancerPoolsFilterElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.filter", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `monitor` after provisioning.\nThe ID of the Monitor to use for checking the health of origins within this pool."]
+    pub fn monitor(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.monitor", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `pools` after provisioning.\n"]
-    pub fn pools(&self) -> terrars::ListRef<DataLoadBalancerPoolsPoolsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pools", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `result` after provisioning.\nThe items returned by the data source"]
+    pub fn result(&self) -> terrars::ListRef<DataLoadBalancerPools_ResultRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.result", self.extract_ref()))
     }
 }
 
@@ -164,8 +148,6 @@ impl terrars::Datasource_ for DataLoadBalancerPools_ {
 
 pub struct BuildDataLoadBalancerPools {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the datasource lookups."]
-    pub account_id: terrars::PrimField<std::string::String>,
 }
 
 impl BuildDataLoadBalancerPools {
@@ -173,16 +155,14 @@ impl BuildDataLoadBalancerPools {
         let out = DataLoadBalancerPools(std::rc::Rc::new(DataLoadBalancerPools_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataLoadBalancerPoolsData {
+            data: std::cell::RefCell::new(DataLoadBalancerPoolsData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
-                account_id: self.account_id,
-                id: core::default::Default::default(),
-                filter: core::default::Default::default(),
-                pools: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
+                account_id: core::default::Default::default(),
+                max_items: core::default::Default::default(),
+                monitor: core::default::Default::default(),
             }),
         }));
         stack.add_datasource(out.0.clone());
@@ -213,44 +193,35 @@ impl DataLoadBalancerPoolsRef {
         self.base.clone()
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the datasource lookups."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `max_items` after provisioning.\nMax items to fetch, default: 1000"]
+    pub fn max_items(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.max_items", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `filter` after provisioning.\n"]
-    pub fn filter(&self) -> terrars::ListRef<DataLoadBalancerPoolsFilterElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.filter", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `monitor` after provisioning.\nThe ID of the Monitor to use for checking the health of origins within this pool."]
+    pub fn monitor(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.monitor", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `pools` after provisioning.\n"]
-    pub fn pools(&self) -> terrars::ListRef<DataLoadBalancerPoolsPoolsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.pools", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `result` after provisioning.\nThe items returned by the data source"]
+    pub fn result(&self) -> terrars::ListRef<DataLoadBalancerPools_ResultRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.result", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct DataLoadBalancerPoolsFilterEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name: std::option::Option<terrars::PrimField<std::string::String>>,
-}
+pub struct DataLoadBalancerPools_Result_LoadShedding {}
 
-impl DataLoadBalancerPoolsFilterEl {
-    #[doc = "Set the field `name`.\nA regular expression matching the name of the Load Balancer pool to lookup."]
-    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.name = std::option::Option::Some(v.into());
-        self
-    }
-}
+impl DataLoadBalancerPools_Result_LoadShedding { }
 
-impl terrars::ToListMappable for DataLoadBalancerPoolsFilterEl {
-    type O = terrars::BlockAssignable<DataLoadBalancerPoolsFilterEl>;
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_LoadShedding {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_LoadShedding>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -261,170 +232,67 @@ impl terrars::ToListMappable for DataLoadBalancerPoolsFilterEl {
     }
 }
 
-pub struct BuildDataLoadBalancerPoolsFilterEl {}
+pub struct BuildDataLoadBalancerPools_Result_LoadShedding {}
 
-impl BuildDataLoadBalancerPoolsFilterEl {
-    pub fn build(self) -> DataLoadBalancerPoolsFilterEl {
-        DataLoadBalancerPoolsFilterEl { name: core::default::Default::default() }
+impl BuildDataLoadBalancerPools_Result_LoadShedding {
+    pub fn build(self) -> DataLoadBalancerPools_Result_LoadShedding {
+        DataLoadBalancerPools_Result_LoadShedding {}
     }
 }
 
-pub struct DataLoadBalancerPoolsFilterElRef {
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_LoadSheddingRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataLoadBalancerPoolsFilterElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPoolsFilterElRef {
-        DataLoadBalancerPoolsFilterElRef {
+impl terrars::Ref for DataLoadBalancerPools_Result_LoadSheddingRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPools_Result_LoadSheddingRef {
+        DataLoadBalancerPools_Result_LoadSheddingRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataLoadBalancerPoolsFilterElRef {
+impl DataLoadBalancerPools_Result_LoadSheddingRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nA regular expression matching the name of the Load Balancer pool to lookup."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataLoadBalancerPoolsPoolsElLoadSheddingEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    default_percent: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    default_policy: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    session_percent: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    session_policy: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl DataLoadBalancerPoolsPoolsElLoadSheddingEl {
-    #[doc = "Set the field `default_percent`.\n"]
-    pub fn set_default_percent(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.default_percent = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `default_policy`.\n"]
-    pub fn set_default_policy(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.default_policy = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `session_percent`.\n"]
-    pub fn set_session_percent(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.session_percent = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `session_policy`.\n"]
-    pub fn set_session_policy(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.session_policy = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsElLoadSheddingEl {
-    type O = terrars::BlockAssignable<DataLoadBalancerPoolsPoolsElLoadSheddingEl>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataLoadBalancerPoolsPoolsElLoadSheddingEl {}
-
-impl BuildDataLoadBalancerPoolsPoolsElLoadSheddingEl {
-    pub fn build(self) -> DataLoadBalancerPoolsPoolsElLoadSheddingEl {
-        DataLoadBalancerPoolsPoolsElLoadSheddingEl {
-            default_percent: core::default::Default::default(),
-            default_policy: core::default::Default::default(),
-            session_percent: core::default::Default::default(),
-            session_policy: core::default::Default::default(),
-        }
-    }
-}
-
-pub struct DataLoadBalancerPoolsPoolsElLoadSheddingElRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataLoadBalancerPoolsPoolsElLoadSheddingElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPoolsPoolsElLoadSheddingElRef {
-        DataLoadBalancerPoolsPoolsElLoadSheddingElRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataLoadBalancerPoolsPoolsElLoadSheddingElRef {
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `default_percent` after provisioning.\n"]
+        "Get a reference to the value of field `default_percent` after provisioning.\nThe percent of traffic to shed from the pool, according to the default policy. Applies to new sessions and traffic without session affinity."]
     pub fn default_percent(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_percent", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `default_policy` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `default_policy` after provisioning.\nThe default policy to use when load shedding. A random policy randomly sheds a given percent of requests. A hash policy computes a hash over the CF-Connecting-IP address and sheds all requests originating from a percent of IPs.\nAvailable values: \"random\", \"hash\"."]
     pub fn default_policy(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.default_policy", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `session_percent` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `session_percent` after provisioning.\nThe percent of existing sessions to shed from the pool, according to the session policy."]
     pub fn session_percent(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_percent", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `session_policy` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `session_policy` after provisioning.\nOnly the hash policy is supported for existing sessions (to avoid exponential decay).\nAvailable values: \"hash\"."]
     pub fn session_policy(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.session_policy", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    header: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    values: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
-}
+pub struct DataLoadBalancerPools_Result_NotificationFilter_Origin {}
 
-impl DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-    #[doc = "Set the field `header`.\n"]
-    pub fn set_header(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.header = std::option::Option::Some(v.into());
-        self
-    }
+impl DataLoadBalancerPools_Result_NotificationFilter_Origin { }
 
-    #[doc = "Set the field `values`.\n"]
-    pub fn set_values(
-        mut self,
-        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.values = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-    type O = terrars::BlockAssignable<DataLoadBalancerPoolsPoolsElOriginsElHeaderEl>;
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_NotificationFilter_Origin {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_NotificationFilter_Origin>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -435,101 +303,58 @@ impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
     }
 }
 
-pub struct BuildDataLoadBalancerPoolsPoolsElOriginsElHeaderEl {}
+pub struct BuildDataLoadBalancerPools_Result_NotificationFilter_Origin {}
 
-impl BuildDataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-    pub fn build(self) -> DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-        DataLoadBalancerPoolsPoolsElOriginsElHeaderEl {
-            header: core::default::Default::default(),
-            values: core::default::Default::default(),
-        }
+impl BuildDataLoadBalancerPools_Result_NotificationFilter_Origin {
+    pub fn build(self) -> DataLoadBalancerPools_Result_NotificationFilter_Origin {
+        DataLoadBalancerPools_Result_NotificationFilter_Origin {}
     }
 }
 
-pub struct DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef {
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef {
+impl terrars::Ref for DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef {
-        DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef {
+    ) -> DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
+        DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef {
+impl DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `header` after provisioning.\n"]
-    pub fn header(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.header", self.base))
+    #[doc =
+        "Get a reference to the value of field `disable` after provisioning.\nIf set true, disable notifications for this type of resource (pool or origin)."]
+    pub fn disable(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `values` after provisioning.\n"]
-    pub fn values(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.values", self.base))
+    #[doc =
+        "Get a reference to the value of field `healthy` after provisioning.\nIf present, send notifications only for this health status (e.g. false for only DOWN events). Use null to reset (all events)."]
+    pub fn healthy(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.healthy", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct DataLoadBalancerPoolsPoolsElOriginsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    address: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    enabled: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    header: std::option::Option<terrars::SetField<DataLoadBalancerPoolsPoolsElOriginsElHeaderEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    weight: std::option::Option<terrars::PrimField<f64>>,
-}
+pub struct DataLoadBalancerPools_Result_NotificationFilter_Pool {}
 
-impl DataLoadBalancerPoolsPoolsElOriginsEl {
-    #[doc = "Set the field `address`.\n"]
-    pub fn set_address(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.address = std::option::Option::Some(v.into());
-        self
-    }
+impl DataLoadBalancerPools_Result_NotificationFilter_Pool { }
 
-    #[doc = "Set the field `enabled`.\n"]
-    pub fn set_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.enabled = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `header`.\n"]
-    pub fn set_header(
-        mut self,
-        v: impl std::convert::Into<terrars::SetField<DataLoadBalancerPoolsPoolsElOriginsElHeaderEl>>,
-    ) -> Self {
-        self.header = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `name`.\n"]
-    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.name = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `weight`.\n"]
-    pub fn set_weight(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.weight = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsElOriginsEl {
-    type O = terrars::BlockAssignable<DataLoadBalancerPoolsPoolsElOriginsEl>;
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_NotificationFilter_Pool {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_NotificationFilter_Pool>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -540,72 +365,339 @@ impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsElOriginsEl {
     }
 }
 
-pub struct BuildDataLoadBalancerPoolsPoolsElOriginsEl {}
+pub struct BuildDataLoadBalancerPools_Result_NotificationFilter_Pool {}
 
-impl BuildDataLoadBalancerPoolsPoolsElOriginsEl {
-    pub fn build(self) -> DataLoadBalancerPoolsPoolsElOriginsEl {
-        DataLoadBalancerPoolsPoolsElOriginsEl {
-            address: core::default::Default::default(),
-            enabled: core::default::Default::default(),
-            header: core::default::Default::default(),
-            name: core::default::Default::default(),
-            weight: core::default::Default::default(),
-        }
+impl BuildDataLoadBalancerPools_Result_NotificationFilter_Pool {
+    pub fn build(self) -> DataLoadBalancerPools_Result_NotificationFilter_Pool {
+        DataLoadBalancerPools_Result_NotificationFilter_Pool {}
     }
 }
 
-pub struct DataLoadBalancerPoolsPoolsElOriginsElRef {
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataLoadBalancerPoolsPoolsElOriginsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPoolsPoolsElOriginsElRef {
-        DataLoadBalancerPoolsPoolsElOriginsElRef {
+impl terrars::Ref for DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
+        DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataLoadBalancerPoolsPoolsElOriginsElRef {
+impl DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `address` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `disable` after provisioning.\nIf set true, disable notifications for this type of resource (pool or origin)."]
+    pub fn disable(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disable", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `healthy` after provisioning.\nIf present, send notifications only for this health status (e.g. false for only DOWN events). Use null to reset (all events)."]
+    pub fn healthy(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.healthy", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct DataLoadBalancerPools_Result_NotificationFilter {}
+
+impl DataLoadBalancerPools_Result_NotificationFilter { }
+
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_NotificationFilter {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_NotificationFilter>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildDataLoadBalancerPools_Result_NotificationFilter {}
+
+impl BuildDataLoadBalancerPools_Result_NotificationFilter {
+    pub fn build(self) -> DataLoadBalancerPools_Result_NotificationFilter {
+        DataLoadBalancerPools_Result_NotificationFilter {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_NotificationFilterRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for DataLoadBalancerPools_Result_NotificationFilterRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> DataLoadBalancerPools_Result_NotificationFilterRef {
+        DataLoadBalancerPools_Result_NotificationFilterRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl DataLoadBalancerPools_Result_NotificationFilterRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin` after provisioning.\nFilter options for a particular resource type (pool or origin). Use null to reset."]
+    pub fn origin(&self) -> DataLoadBalancerPools_Result_NotificationFilter_OriginRef {
+        DataLoadBalancerPools_Result_NotificationFilter_OriginRef::new(
+            self.shared().clone(),
+            format!("{}.origin", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pool` after provisioning.\nFilter options for a particular resource type (pool or origin). Use null to reset."]
+    pub fn pool(&self) -> DataLoadBalancerPools_Result_NotificationFilter_PoolRef {
+        DataLoadBalancerPools_Result_NotificationFilter_PoolRef::new(
+            self.shared().clone(),
+            format!("{}.pool", self.base),
+        )
+    }
+}
+
+#[derive(Serialize)]
+pub struct DataLoadBalancerPools_Result_OriginSteering {}
+
+impl DataLoadBalancerPools_Result_OriginSteering { }
+
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_OriginSteering {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_OriginSteering>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildDataLoadBalancerPools_Result_OriginSteering {}
+
+impl BuildDataLoadBalancerPools_Result_OriginSteering {
+    pub fn build(self) -> DataLoadBalancerPools_Result_OriginSteering {
+        DataLoadBalancerPools_Result_OriginSteering {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_OriginSteeringRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for DataLoadBalancerPools_Result_OriginSteeringRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> DataLoadBalancerPools_Result_OriginSteeringRef {
+        DataLoadBalancerPools_Result_OriginSteeringRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl DataLoadBalancerPools_Result_OriginSteeringRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `policy` after provisioning.\nThe type of origin steering policy to use.\n- `\"random\"`: Select an origin randomly.\n- `\"hash\"`: Select an origin by computing a hash over the CF-Connecting-IP address.\n- `\"least_outstanding_requests\"`: Select an origin by taking into consideration origin weights, as well as each origin's number of outstanding requests. Origins with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select an origin by taking into consideration origin weights, as well as each origin's number of open connections. Origins with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\nAvailable values: \"random\", \"hash\", \"least_outstanding_requests\", \"least_connections\"."]
+    pub fn policy(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.policy", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct DataLoadBalancerPools_Result_Origins_Header {}
+
+impl DataLoadBalancerPools_Result_Origins_Header { }
+
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_Origins_Header {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_Origins_Header>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildDataLoadBalancerPools_Result_Origins_Header {}
+
+impl BuildDataLoadBalancerPools_Result_Origins_Header {
+    pub fn build(self) -> DataLoadBalancerPools_Result_Origins_Header {
+        DataLoadBalancerPools_Result_Origins_Header {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_Origins_HeaderRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for DataLoadBalancerPools_Result_Origins_HeaderRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> DataLoadBalancerPools_Result_Origins_HeaderRef {
+        DataLoadBalancerPools_Result_Origins_HeaderRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl DataLoadBalancerPools_Result_Origins_HeaderRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `host` after provisioning.\nThe 'Host' header allows to override the hostname set in the HTTP request. Current support is 1 'Host' header override per origin."]
+    pub fn host(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.host", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct DataLoadBalancerPools_Result_Origins {}
+
+impl DataLoadBalancerPools_Result_Origins { }
+
+impl terrars::ToListMappable for DataLoadBalancerPools_Result_Origins {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result_Origins>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildDataLoadBalancerPools_Result_Origins {}
+
+impl BuildDataLoadBalancerPools_Result_Origins {
+    pub fn build(self) -> DataLoadBalancerPools_Result_Origins {
+        DataLoadBalancerPools_Result_Origins {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_Result_OriginsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for DataLoadBalancerPools_Result_OriginsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPools_Result_OriginsRef {
+        DataLoadBalancerPools_Result_OriginsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl DataLoadBalancerPools_Result_OriginsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `address` after provisioning.\nThe IP address (IPv4 or IPv6) of the origin, or its publicly addressable hostname. Hostnames entered here should resolve directly to the origin, and not be a hostname proxied by Cloudflare. To set an internal/reserved address, virtual_network_id must also be set."]
     pub fn address(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.address", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `enabled` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `disabled_at` after provisioning.\nThis field shows up only if the origin is disabled. This field is set with the time the origin was disabled."]
+    pub fn disabled_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disabled_at", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether to enable (the default) this origin within the pool. Disabled origins will not receive traffic and are excluded from health checks. The origin will only be disabled for the current pool."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `header` after provisioning.\n"]
-    pub fn header(&self) -> terrars::SetRef<DataLoadBalancerPoolsPoolsElOriginsElHeaderElRef> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.header", self.base))
+    #[doc =
+        "Get a reference to the value of field `flatten_cname` after provisioning.\nWhether to flatten CNAME records for this origin, resolving them to A/AAAA records before returning to the client. When true (the default), the director resolves CNAME addresses to their underlying A/AAAA records. When false, the origin address is returned as a raw CNAME record without resolution. This setting mirrors the DNS API record flatten_cname setting."]
+    pub fn flatten_cname(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.flatten_cname", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `header` after provisioning.\nThe request header is used to pass additional information with an HTTP request. Currently supported header is 'Host'."]
+    pub fn header(&self) -> DataLoadBalancerPools_Result_Origins_HeaderRef {
+        DataLoadBalancerPools_Result_Origins_HeaderRef::new(self.shared().clone(), format!("{}.header", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nA human-identifiable name for the origin."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `weight` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `port` after provisioning.\nThe port for upstream connections. A value of 0 means the default port for the protocol will be used."]
+    pub fn port(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.port", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `virtual_network_id` after provisioning.\nThe virtual network subnet ID the origin belongs in. Virtual network must also belong to the account."]
+    pub fn virtual_network_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.virtual_network_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `weight` after provisioning.\nThe weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.\n- `origin_steering.policy=\"least_outstanding_requests\"`: Use weight to scale the origin's outstanding requests.\n- `origin_steering.policy=\"least_connections\"`: Use weight to scale the origin's open connections."]
     pub fn weight(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.weight", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct DataLoadBalancerPoolsPoolsEl {}
+pub struct DataLoadBalancerPools_Result {}
 
-impl DataLoadBalancerPoolsPoolsEl { }
+impl DataLoadBalancerPools_Result { }
 
-impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsEl {
-    type O = terrars::BlockAssignable<DataLoadBalancerPoolsPoolsEl>;
+impl terrars::ToListMappable for DataLoadBalancerPools_Result {
+    type O = terrars::BlockAssignable<DataLoadBalancerPools_Result>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -616,118 +708,158 @@ impl terrars::ToListMappable for DataLoadBalancerPoolsPoolsEl {
     }
 }
 
-pub struct BuildDataLoadBalancerPoolsPoolsEl {}
+pub struct BuildDataLoadBalancerPools_Result {}
 
-impl BuildDataLoadBalancerPoolsPoolsEl {
-    pub fn build(self) -> DataLoadBalancerPoolsPoolsEl {
-        DataLoadBalancerPoolsPoolsEl {}
+impl BuildDataLoadBalancerPools_Result {
+    pub fn build(self) -> DataLoadBalancerPools_Result {
+        DataLoadBalancerPools_Result {}
     }
 }
 
-pub struct DataLoadBalancerPoolsPoolsElRef {
+#[allow(dead_code)]
+pub struct DataLoadBalancerPools_ResultRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataLoadBalancerPoolsPoolsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPoolsPoolsElRef {
-        DataLoadBalancerPoolsPoolsElRef {
+impl terrars::Ref for DataLoadBalancerPools_ResultRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataLoadBalancerPools_ResultRef {
+        DataLoadBalancerPools_ResultRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataLoadBalancerPoolsPoolsElRef {
+impl DataLoadBalancerPools_ResultRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `check_regions` after provisioning.\nList of regions (specified by region code) from which to run health checks. Empty means every Cloudflare data center (the default), but requires an Enterprise plan. Region codes can be found [here](https://support.cloudflare.com/hc/en-us/articles/115000540888-Load-Balancing-Geographic-Regions)."]
-    pub fn check_regions(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.check_regions", self.base))
+        "Get a reference to the value of field `check_regions` after provisioning.\nA list of regions from which to run health checks. Null means every Cloudflare data center."]
+    pub fn check_regions(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.check_regions", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `created_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was created."]
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
     pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nBrief description of the Load Balancer Pool intention."]
+        "Get a reference to the value of field `description` after provisioning.\nA human-readable description of the pool."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether this pool is enabled. Disabled pools will not receive traffic and are excluded from health checks."]
+        "Get a reference to the value of field `disabled_at` after provisioning.\nThis field shows up only if the pool is disabled. This field is set with the time the pool was disabled at."]
+    pub fn disabled_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.disabled_at", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `enabled` after provisioning.\nWhether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any)."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nID for this load balancer pool."]
+    #[doc =
+        "Get a reference to the value of field `health_sources` after provisioning.\nA list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array [\"regional\", \"global\"]; any other combination is rejected. Null (the default) behaves like [\"local\", \"global\"]. [\"regional\", \"global\"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions."]
+    pub fn health_sources(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.health_sources", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `latitude` after provisioning.\nLatitude this pool is physically located at; used for proximity steering."]
+        "Get a reference to the value of field `latitude` after provisioning.\nThe latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set."]
     pub fn latitude(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.latitude", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `load_shedding` after provisioning.\nSetting for controlling load shedding for this pool."]
-    pub fn load_shedding(&self) -> terrars::SetRef<DataLoadBalancerPoolsPoolsElLoadSheddingElRef> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.load_shedding", self.base))
+        "Get a reference to the value of field `load_shedding` after provisioning.\nConfigures load shedding policies and percentages for the pool."]
+    pub fn load_shedding(&self) -> DataLoadBalancerPools_Result_LoadSheddingRef {
+        DataLoadBalancerPools_Result_LoadSheddingRef::new(
+            self.shared().clone(),
+            format!("{}.load_shedding", self.base),
+        )
     }
 
     #[doc =
-        "Get a reference to the value of field `longitude` after provisioning.\nLongitude this pool is physically located at; used for proximity steering."]
+        "Get a reference to the value of field `longitude` after provisioning.\nThe longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set."]
     pub fn longitude(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.longitude", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `minimum_origins` after provisioning.\nMinimum number of origins that must be healthy for this pool to serve traffic."]
+        "Get a reference to the value of field `minimum_origins` after provisioning.\nThe minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool."]
     pub fn minimum_origins(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.minimum_origins", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `modified_on` after provisioning.\nThe RFC3339 timestamp of when the load balancer was last modified."]
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
     pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `monitor` after provisioning.\nID of the Monitor to use for health checking origins within this pool."]
+        "Get a reference to the value of field `monitor` after provisioning.\nThe ID of the Monitor to use for checking the health of origins within this pool."]
     pub fn monitor(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.monitor", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nShort name (tag) for the pool."]
+    #[doc =
+        "Get a reference to the value of field `monitor_group` after provisioning.\nThe ID of the Monitor Group to use for checking the health of origins within this pool."]
+    pub fn monitor_group(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.monitor_group", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nA short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `notification_email` after provisioning.\nEmail address to send health status notifications to. Multiple emails are set as a comma delimited list."]
+        "Get a reference to the value of field `networks` after provisioning.\nList of networks where Load Balancer or Pool is enabled."]
+    pub fn networks(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.networks", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `notification_email` after provisioning.\nThis field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list."]
     pub fn notification_email(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.notification_email", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `origins` after provisioning.\nThe list of origins within this pool."]
-    pub fn origins(&self) -> terrars::SetRef<DataLoadBalancerPoolsPoolsElOriginsElRef> {
+        "Get a reference to the value of field `notification_filter` after provisioning.\nFilter pool and origin health notifications by resource type or health status. Use null to reset."]
+    pub fn notification_filter(&self) -> DataLoadBalancerPools_Result_NotificationFilterRef {
+        DataLoadBalancerPools_Result_NotificationFilterRef::new(
+            self.shared().clone(),
+            format!("{}.notification_filter", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origin_steering` after provisioning.\nConfigures origin steering for the pool. Controls how origins are selected for new sessions and traffic without session affinity."]
+    pub fn origin_steering(&self) -> DataLoadBalancerPools_Result_OriginSteeringRef {
+        DataLoadBalancerPools_Result_OriginSteeringRef::new(
+            self.shared().clone(),
+            format!("{}.origin_steering", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `origins` after provisioning.\nThe list of origins within this pool. Traffic directed at this pool is balanced across all currently healthy origins, provided the pool itself is healthy."]
+    pub fn origins(&self) -> terrars::SetRef<DataLoadBalancerPools_Result_OriginsRef> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.origins", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct DataLoadBalancerPoolsDynamic {
-    filter: std::option::Option<terrars::DynamicBlock<DataLoadBalancerPoolsFilterEl>>,
-    pools: std::option::Option<terrars::DynamicBlock<DataLoadBalancerPoolsPoolsEl>>,
 }

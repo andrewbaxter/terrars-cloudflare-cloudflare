@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct ApiShieldData {
+struct ApiShieldData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,18 +20,16 @@ struct ApiShieldData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
+    auth_id_characteristics: std::vec::Vec<ApiShield_AuthIdCharacteristics>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    normalize: std::option::Option<terrars::PrimField<bool>>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    auth_id_characteristics: std::option::Option<std::vec::Vec<ApiShieldAuthIdCharacteristicsEl>>,
-    dynamic: ApiShieldDynamic,
 }
 
 struct ApiShield_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<ApiShieldData>,
+    data: std::cell::RefCell<ApiShieldData_>,
 }
 
 #[derive(Clone)]
@@ -129,42 +129,31 @@ impl ApiShield {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `normalize`.\nEnsures that the configuration is written or retrieved in normalized fashion"]
+    pub fn set_normalize(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().normalize = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `auth_id_characteristics`.\n"]
-    pub fn set_auth_id_characteristics(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<ApiShieldAuthIdCharacteristicsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().auth_id_characteristics = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.auth_id_characteristics = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc = "Get a reference to the value of field `auth_id_characteristics` after provisioning.\n"]
+    pub fn auth_id_characteristics(&self) -> terrars::ListRef<ApiShield_AuthIdCharacteristicsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.auth_id_characteristics", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+        "Get a reference to the value of field `normalize` after provisioning.\nEnsures that the configuration is written or retrieved in normalized fashion"]
+    pub fn normalize(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.normalize", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `auth_id_characteristics` after provisioning.\n"]
-    pub fn auth_id_characteristics(&self) -> terrars::ListRef<ApiShieldAuthIdCharacteristicsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.auth_id_characteristics", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
@@ -201,8 +190,9 @@ impl terrars::Resource_ for ApiShield_ {
 
 pub struct BuildApiShield {
     pub tf_id: std::string::String,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = ""]
+    pub auth_id_characteristics: std::vec::Vec<ApiShield_AuthIdCharacteristics>,
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -211,16 +201,15 @@ impl BuildApiShield {
         let out = ApiShield(std::rc::Rc::new(ApiShield_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(ApiShieldData {
+            data: std::cell::RefCell::new(ApiShieldData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                id: core::default::Default::default(),
+                auth_id_characteristics: self.auth_id_characteristics,
+                normalize: core::default::Default::default(),
                 zone_id: self.zone_id,
-                auth_id_characteristics: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -251,47 +240,39 @@ impl ApiShieldRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `auth_id_characteristics` after provisioning.\n"]
+    pub fn auth_id_characteristics(&self) -> terrars::ListRef<ApiShield_AuthIdCharacteristicsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.auth_id_characteristics", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
+        "Get a reference to the value of field `normalize` after provisioning.\nEnsures that the configuration is written or retrieved in normalized fashion"]
+    pub fn normalize(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.normalize", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `auth_id_characteristics` after provisioning.\n"]
-    pub fn auth_id_characteristics(&self) -> terrars::ListRef<ApiShieldAuthIdCharacteristicsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.auth_id_characteristics", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
+    pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct ApiShieldAuthIdCharacteristicsEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
-    type_: std::option::Option<terrars::PrimField<std::string::String>>,
+pub struct ApiShield_AuthIdCharacteristics {
+    name: terrars::PrimField<std::string::String>,
+    #[serde(rename = "type")]
+    type_: terrars::PrimField<std::string::String>,
 }
 
-impl ApiShieldAuthIdCharacteristicsEl {
-    #[doc = "Set the field `name`.\nThe name of the characteristic."]
-    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.name = std::option::Option::Some(v.into());
-        self
-    }
+impl ApiShield_AuthIdCharacteristics { }
 
-    #[doc = "Set the field `type_`.\nThe type of characteristic. Available values: `header`, `cookie`."]
-    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.type_ = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ApiShieldAuthIdCharacteristicsEl {
-    type O = terrars::BlockAssignable<ApiShieldAuthIdCharacteristicsEl>;
+impl terrars::ToListMappable for ApiShield_AuthIdCharacteristics {
+    type O = terrars::BlockAssignable<ApiShield_AuthIdCharacteristics>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -302,49 +283,52 @@ impl terrars::ToListMappable for ApiShieldAuthIdCharacteristicsEl {
     }
 }
 
-pub struct BuildApiShieldAuthIdCharacteristicsEl {}
+pub struct BuildApiShield_AuthIdCharacteristics {
+    #[doc = "The name of the characteristic field, i.e., the header or cookie name."]
+    pub name: terrars::PrimField<std::string::String>,
+    #[doc = "The type of characteristic.\nAvailable values: \"header\", \"cookie\", \"jwt\"."]
+    pub type_: terrars::PrimField<std::string::String>,
+}
 
-impl BuildApiShieldAuthIdCharacteristicsEl {
-    pub fn build(self) -> ApiShieldAuthIdCharacteristicsEl {
-        ApiShieldAuthIdCharacteristicsEl {
-            name: core::default::Default::default(),
-            type_: core::default::Default::default(),
+impl BuildApiShield_AuthIdCharacteristics {
+    pub fn build(self) -> ApiShield_AuthIdCharacteristics {
+        ApiShield_AuthIdCharacteristics {
+            name: self.name,
+            type_: self.type_,
         }
     }
 }
 
-pub struct ApiShieldAuthIdCharacteristicsElRef {
+#[allow(dead_code)]
+pub struct ApiShield_AuthIdCharacteristicsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ApiShieldAuthIdCharacteristicsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiShieldAuthIdCharacteristicsElRef {
-        ApiShieldAuthIdCharacteristicsElRef {
+impl terrars::Ref for ApiShield_AuthIdCharacteristicsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ApiShield_AuthIdCharacteristicsRef {
+        ApiShield_AuthIdCharacteristicsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ApiShieldAuthIdCharacteristicsElRef {
+impl ApiShield_AuthIdCharacteristicsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the characteristic."]
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe name of the characteristic field, i.e., the header or cookie name."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe type of characteristic. Available values: `header`, `cookie`."]
+        "Get a reference to the value of field `type_` after provisioning.\nThe type of characteristic.\nAvailable values: \"header\", \"cookie\", \"jwt\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct ApiShieldDynamic {
-    auth_id_characteristics: std::option::Option<terrars::DynamicBlock<ApiShieldAuthIdCharacteristicsEl>>,
 }

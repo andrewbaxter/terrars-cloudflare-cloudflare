@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct OriginCaCertificateData {
+struct OriginCaCertificateData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,13 +20,8 @@ struct OriginCaCertificateData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    csr: std::option::Option<terrars::PrimField<std::string::String>>,
-    hostnames: terrars::SetField<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    min_days_for_renewal: std::option::Option<terrars::PrimField<f64>>,
+    csr: terrars::PrimField<std::string::String>,
+    hostnames: terrars::ListField<terrars::PrimField<std::string::String>>,
     request_type: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     requested_validity: std::option::Option<terrars::PrimField<f64>>,
@@ -33,7 +30,7 @@ struct OriginCaCertificateData {
 struct OriginCaCertificate_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<OriginCaCertificateData>,
+    data: std::cell::RefCell<OriginCaCertificateData_>,
 }
 
 #[derive(Clone)]
@@ -134,74 +131,49 @@ impl OriginCaCertificate {
     }
 
     #[doc =
-        "Set the field `csr`.\nThe Certificate Signing Request. Must be newline-encoded. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn set_csr(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().csr = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `min_days_for_renewal`.\nNumber of days prior to the expiry to trigger a renewal of the certificate if a Terraform operation is run."]
-    pub fn set_min_days_for_renewal(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.0.data.borrow_mut().min_days_for_renewal = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `requested_validity`.\nThe number of days for which the certificate should be valid. Available values: `7`, `30`, `90`, `365`, `730`, `1095`, `5475`. **Modifying this attribute will force creation of a new resource.**"]
+        "Set the field `requested_validity`.\nThe number of days for which the certificate should be valid.\nAvailable values: 7, 30, 90, 365, 730, 1095, 5475."]
     pub fn set_requested_validity(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().requested_validity = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Get a reference to the value of field `certificate` after provisioning.\nThe Origin CA certificate."]
+    #[doc =
+        "Get a reference to the value of field `certificate` after provisioning.\nThe Origin CA certificate. Will be newline-encoded."]
     pub fn certificate(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `csr` after provisioning.\nThe Certificate Signing Request. Must be newline-encoded. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `csr` after provisioning.\nThe Certificate Signing Request (CSR). Must be newline-encoded."]
     pub fn csr(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.csr", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\nThe datetime when the certificate will expire."]
+    #[doc = "Get a reference to the value of field `expires_on` after provisioning.\nWhen the certificate will expire."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `hostnames` after provisioning.\nA list of hostnames or wildcard names bound to the certificate. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn hostnames(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.hostnames", self.extract_ref()))
+        "Get a reference to the value of field `hostnames` after provisioning.\nArray of hostnames or wildcard names bound to the certificate.\nHostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode."]
+    pub fn hostnames(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.hostnames", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe x509 serial number of the Origin CA certificate."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `min_days_for_renewal` after provisioning.\nNumber of days prior to the expiry to trigger a renewal of the certificate if a Terraform operation is run."]
-    pub fn min_days_for_renewal(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.min_days_for_renewal", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `request_type` after provisioning.\nThe signature type desired on the certificate. Available values: `origin-rsa`, `origin-ecc`, `keyless-certificate`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `request_type` after provisioning.\nSignature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).\nAvailable values: \"origin-rsa\", \"origin-ecc\", \"keyless-certificate\"."]
     pub fn request_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.request_type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `requested_validity` after provisioning.\nThe number of days for which the certificate should be valid. Available values: `7`, `30`, `90`, `365`, `730`, `1095`, `5475`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `requested_validity` after provisioning.\nThe number of days for which the certificate should be valid.\nAvailable values: 7, 30, 90, 365, 730, 1095, 5475."]
     pub fn requested_validity(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.requested_validity", self.extract_ref()))
     }
@@ -240,11 +212,13 @@ impl terrars::Resource_ for OriginCaCertificate_ {
 
 pub struct BuildOriginCaCertificate {
     pub tf_id: std::string::String,
+    #[doc = "The Certificate Signing Request (CSR). Must be newline-encoded."]
+    pub csr: terrars::PrimField<std::string::String>,
     #[doc =
-        "A list of hostnames or wildcard names bound to the certificate. **Modifying this attribute will force creation of a new resource.**"]
-    pub hostnames: terrars::SetField<terrars::PrimField<std::string::String>>,
+        "Array of hostnames or wildcard names bound to the certificate.\nHostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode."]
+    pub hostnames: terrars::ListField<terrars::PrimField<std::string::String>>,
     #[doc =
-        "The signature type desired on the certificate. Available values: `origin-rsa`, `origin-ecc`, `keyless-certificate`. **Modifying this attribute will force creation of a new resource.**"]
+        "Signature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).\nAvailable values: \"origin-rsa\", \"origin-ecc\", \"keyless-certificate\"."]
     pub request_type: terrars::PrimField<std::string::String>,
 }
 
@@ -253,16 +227,14 @@ impl BuildOriginCaCertificate {
         let out = OriginCaCertificate(std::rc::Rc::new(OriginCaCertificate_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(OriginCaCertificateData {
+            data: std::cell::RefCell::new(OriginCaCertificateData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                csr: core::default::Default::default(),
+                csr: self.csr,
                 hostnames: self.hostnames,
-                id: core::default::Default::default(),
-                min_days_for_renewal: core::default::Default::default(),
                 request_type: self.request_type,
                 requested_validity: core::default::Default::default(),
             }),
@@ -295,48 +267,43 @@ impl OriginCaCertificateRef {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `certificate` after provisioning.\nThe Origin CA certificate."]
+    #[doc =
+        "Get a reference to the value of field `certificate` after provisioning.\nThe Origin CA certificate. Will be newline-encoded."]
     pub fn certificate(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `csr` after provisioning.\nThe Certificate Signing Request. Must be newline-encoded. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `csr` after provisioning.\nThe Certificate Signing Request (CSR). Must be newline-encoded."]
     pub fn csr(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.csr", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `expires_on` after provisioning.\nThe datetime when the certificate will expire."]
+    #[doc = "Get a reference to the value of field `expires_on` after provisioning.\nWhen the certificate will expire."]
     pub fn expires_on(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_on", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `hostnames` after provisioning.\nA list of hostnames or wildcard names bound to the certificate. **Modifying this attribute will force creation of a new resource.**"]
-    pub fn hostnames(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
-        terrars::SetRef::new(self.shared().clone(), format!("{}.hostnames", self.extract_ref()))
+        "Get a reference to the value of field `hostnames` after provisioning.\nArray of hostnames or wildcard names bound to the certificate.\nHostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode."]
+    pub fn hostnames(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.hostnames", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe x509 serial number of the Origin CA certificate."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `min_days_for_renewal` after provisioning.\nNumber of days prior to the expiry to trigger a renewal of the certificate if a Terraform operation is run."]
-    pub fn min_days_for_renewal(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.min_days_for_renewal", self.extract_ref()))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `request_type` after provisioning.\nThe signature type desired on the certificate. Available values: `origin-rsa`, `origin-ecc`, `keyless-certificate`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `request_type` after provisioning.\nSignature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).\nAvailable values: \"origin-rsa\", \"origin-ecc\", \"keyless-certificate\"."]
     pub fn request_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.request_type", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `requested_validity` after provisioning.\nThe number of days for which the certificate should be valid. Available values: `7`, `30`, `90`, `365`, `730`, `1095`, `5475`. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `requested_validity` after provisioning.\nThe number of days for which the certificate should be valid.\nAvailable values: 7, 30, 90, 365, 730, 1095, 5475."]
     pub fn requested_validity(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.requested_validity", self.extract_ref()))
     }

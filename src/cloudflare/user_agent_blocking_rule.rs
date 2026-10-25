@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct UserAgentBlockingRuleData {
+struct UserAgentBlockingRuleData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,21 +20,19 @@ struct UserAgentBlockingRuleData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
-    description: terrars::PrimField<std::string::String>,
+    configuration: UserAgentBlockingRule_Configuration,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    description: std::option::Option<terrars::PrimField<std::string::String>>,
     mode: terrars::PrimField<std::string::String>,
-    paused: terrars::PrimField<bool>,
-    zone_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    configuration: std::option::Option<std::vec::Vec<UserAgentBlockingRuleConfigurationEl>>,
-    dynamic: UserAgentBlockingRuleDynamic,
+    paused: std::option::Option<terrars::PrimField<bool>>,
+    zone_id: terrars::PrimField<std::string::String>,
 }
 
 struct UserAgentBlockingRule_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<UserAgentBlockingRuleData>,
+    data: std::cell::RefCell<UserAgentBlockingRuleData_>,
 }
 
 #[derive(Clone)]
@@ -132,41 +132,41 @@ impl UserAgentBlockingRule {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc =
+        "Set the field `description`.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
+    pub fn set_description(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().description = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `configuration`.\n"]
-    pub fn set_configuration(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<UserAgentBlockingRuleConfigurationEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().configuration = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.configuration = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `paused`.\nWhen true, indicates that the rule is currently paused."]
+    pub fn set_paused(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().paused = std::option::Option::Some(v.into());
         self
+    }
+
+    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
+    pub fn configuration(&self) -> UserAgentBlockingRule_ConfigurationRef {
+        UserAgentBlockingRule_ConfigurationRef::new(
+            self.shared().clone(),
+            format!("{}.configuration", self.extract_ref()),
+        )
     }
 
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule."]
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the User Agent Blocking rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`."]
+        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
     }
@@ -177,15 +177,9 @@ impl UserAgentBlockingRule {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
-    pub fn configuration(&self) -> terrars::ListRef<UserAgentBlockingRuleConfigurationElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
     }
 }
 
@@ -222,15 +216,12 @@ impl terrars::Resource_ for UserAgentBlockingRule_ {
 
 pub struct BuildUserAgentBlockingRule {
     pub tf_id: std::string::String,
-    #[doc = "An informative summary of the rule."]
-    pub description: terrars::PrimField<std::string::String>,
+    #[doc = ""]
+    pub configuration: UserAgentBlockingRule_Configuration,
     #[doc =
-        "The action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`."]
+        "The action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub mode: terrars::PrimField<std::string::String>,
-    #[doc = "When true, indicates that the rule is currently paused."]
-    pub paused: terrars::PrimField<bool>,
-    #[doc =
-        "The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Defines an identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -239,19 +230,17 @@ impl BuildUserAgentBlockingRule {
         let out = UserAgentBlockingRule(std::rc::Rc::new(UserAgentBlockingRule_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(UserAgentBlockingRuleData {
+            data: std::cell::RefCell::new(UserAgentBlockingRuleData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
-                description: self.description,
-                id: core::default::Default::default(),
+                configuration: self.configuration,
+                description: core::default::Default::default(),
                 mode: self.mode,
-                paused: self.paused,
+                paused: core::default::Default::default(),
                 zone_id: self.zone_id,
-                configuration: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -282,19 +271,28 @@ impl UserAgentBlockingRuleRef {
         &self.shared
     }
 
+    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
+    pub fn configuration(&self) -> UserAgentBlockingRule_ConfigurationRef {
+        UserAgentBlockingRule_ConfigurationRef::new(
+            self.shared().clone(),
+            format!("{}.configuration", self.extract_ref()),
+        )
+    }
+
     #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule."]
+        "Get a reference to the value of field `description` after provisioning.\nAn informative summary of the rule. This value is sanitized and any tags will be removed."]
     pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nThe unique identifier of the User Agent Blocking rule."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`."]
+        "Get a reference to the value of field `mode` after provisioning.\nThe action to apply to a matched request.\nAvailable values: \"block\", \"challenge\", \"whitelist\", \"js_challenge\", \"managed_challenge\"."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.extract_ref()))
     }
@@ -305,28 +303,37 @@ impl UserAgentBlockingRuleRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.paused", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nDefines an identifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `configuration` after provisioning.\n"]
-    pub fn configuration(&self) -> terrars::ListRef<UserAgentBlockingRuleConfigurationElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.configuration", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct UserAgentBlockingRuleConfigurationEl {
-    target: terrars::PrimField<std::string::String>,
-    value: terrars::PrimField<std::string::String>,
+pub struct UserAgentBlockingRule_Configuration {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    target: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    value: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl UserAgentBlockingRuleConfigurationEl { }
+impl UserAgentBlockingRule_Configuration {
+    #[doc =
+        "Set the field `target`.\nThe configuration target. You must set the target to `ua` when specifying a user agent in the rule.\nAvailable values: \"ua\"."]
+    pub fn set_target(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
 
-impl terrars::ToListMappable for UserAgentBlockingRuleConfigurationEl {
-    type O = terrars::BlockAssignable<UserAgentBlockingRuleConfigurationEl>;
+    #[doc = "Set the field `value`.\nthe user agent to exactly match"]
+    pub fn set_value(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for UserAgentBlockingRule_Configuration {
+    type O = terrars::BlockAssignable<UserAgentBlockingRule_Configuration>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -337,56 +344,46 @@ impl terrars::ToListMappable for UserAgentBlockingRuleConfigurationEl {
     }
 }
 
-pub struct BuildUserAgentBlockingRuleConfigurationEl {
-    #[doc = "The configuration target for this rule. You must set the target to ua for User Agent Blocking rules."]
-    pub target: terrars::PrimField<std::string::String>,
-    #[doc =
-        "The exact user agent string to match. This value will be compared to the received User-Agent HTTP header value."]
-    pub value: terrars::PrimField<std::string::String>,
-}
+pub struct BuildUserAgentBlockingRule_Configuration {}
 
-impl BuildUserAgentBlockingRuleConfigurationEl {
-    pub fn build(self) -> UserAgentBlockingRuleConfigurationEl {
-        UserAgentBlockingRuleConfigurationEl {
-            target: self.target,
-            value: self.value,
+impl BuildUserAgentBlockingRule_Configuration {
+    pub fn build(self) -> UserAgentBlockingRule_Configuration {
+        UserAgentBlockingRule_Configuration {
+            target: core::default::Default::default(),
+            value: core::default::Default::default(),
         }
     }
 }
 
-pub struct UserAgentBlockingRuleConfigurationElRef {
+#[allow(dead_code)]
+pub struct UserAgentBlockingRule_ConfigurationRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for UserAgentBlockingRuleConfigurationElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> UserAgentBlockingRuleConfigurationElRef {
-        UserAgentBlockingRuleConfigurationElRef {
+impl terrars::Ref for UserAgentBlockingRule_ConfigurationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> UserAgentBlockingRule_ConfigurationRef {
+        UserAgentBlockingRule_ConfigurationRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl UserAgentBlockingRuleConfigurationElRef {
+impl UserAgentBlockingRule_ConfigurationRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `target` after provisioning.\nThe configuration target for this rule. You must set the target to ua for User Agent Blocking rules."]
+        "Get a reference to the value of field `target` after provisioning.\nThe configuration target. You must set the target to `ua` when specifying a user agent in the rule.\nAvailable values: \"ua\"."]
     pub fn target(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.target", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `value` after provisioning.\nThe exact user agent string to match. This value will be compared to the received User-Agent HTTP header value."]
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nthe user agent to exactly match"]
     pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct UserAgentBlockingRuleDynamic {
-    configuration: std::option::Option<terrars::DynamicBlock<UserAgentBlockingRuleConfigurationEl>>,
 }

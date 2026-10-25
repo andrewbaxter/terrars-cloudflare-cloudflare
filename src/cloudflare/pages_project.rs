@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct PagesProjectData {
+struct PagesProjectData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,22 +22,19 @@ struct PagesProjectData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     account_id: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    build_config: std::option::Option<PagesProject_BuildConfig>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    deployment_configs: std::option::Option<PagesProject_DeploymentConfigs>,
     name: terrars::PrimField<std::string::String>,
     production_branch: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    build_config: std::option::Option<std::vec::Vec<PagesProjectBuildConfigEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    deployment_configs: std::option::Option<std::vec::Vec<PagesProjectDeploymentConfigsEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    source: std::option::Option<std::vec::Vec<PagesProjectSourceEl>>,
-    dynamic: PagesProjectDynamic,
+    source: std::option::Option<PagesProject_Source>,
 }
 
 struct PagesProject_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<PagesProjectData>,
+    data: std::cell::RefCell<PagesProjectData_>,
 }
 
 #[derive(Clone)]
@@ -135,61 +134,51 @@ impl PagesProject {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `build_config`.\nConfigs for the project build process."]
+    pub fn set_build_config(self, v: impl std::convert::Into<PagesProject_BuildConfig>) -> Self {
+        self.0.data.borrow_mut().build_config = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `build_config`.\n"]
-    pub fn set_build_config(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectBuildConfigEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().build_config = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.build_config = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `deployment_configs`.\nConfigs for deployments in a project."]
+    pub fn set_deployment_configs(self, v: impl std::convert::Into<PagesProject_DeploymentConfigs>) -> Self {
+        self.0.data.borrow_mut().deployment_configs = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `deployment_configs`.\n"]
-    pub fn set_deployment_configs(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectDeploymentConfigsEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().deployment_configs = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.deployment_configs = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `source`.\nConfigs for the project source control."]
+    pub fn set_source(self, v: impl std::convert::Into<PagesProject_Source>) -> Self {
+        self.0.data.borrow_mut().source = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `source`.\n"]
-    pub fn set_source(self, v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectSourceEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().source = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.source = std::option::Option::Some(d);
-            },
-        }
-        self
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
+    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
-    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
+        "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
+    pub fn build_config(&self) -> PagesProject_BuildConfigRef {
+        PagesProject_BuildConfigRef::new(self.shared().clone(), format!("{}.build_config", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_image_auto_upgrade` after provisioning.\nPresent when the project is set to a retired build image major version and its builds have been moved to a newer one. `build_image_major_version` in `deployment_configs` then reports the version the builds run on."]
+    pub fn build_image_auto_upgrade(&self) -> PagesProject_BuildImageAutoUpgradeRef {
+        PagesProject_BuildImageAutoUpgradeRef::new(
+            self.shared().clone(),
+            format!("{}.build_image_auto_upgrade", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `canonical_deployment` after provisioning.\nMost recent production deployment of the project."]
+    pub fn canonical_deployment(&self) -> PagesProject_CanonicalDeploymentRef {
+        PagesProject_CanonicalDeploymentRef::new(
+            self.shared().clone(),
+            format!("{}.canonical_deployment", self.extract_ref()),
+        )
     }
 
     #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the project was created."]
@@ -198,26 +187,74 @@ impl PagesProject {
     }
 
     #[doc =
+        "Get a reference to the value of field `deployment_configs` after provisioning.\nConfigs for deployments in a project."]
+    pub fn deployment_configs(&self) -> PagesProject_DeploymentConfigsRef {
+        PagesProject_DeploymentConfigsRef::new(
+            self.shared().clone(),
+            format!("{}.deployment_configs", self.extract_ref()),
+        )
+    }
+
+    #[doc =
         "Get a reference to the value of field `domains` after provisioning.\nA list of associated custom domains for the project."]
     pub fn domains(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.domains", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `framework` after provisioning.\nFramework the project is using."]
+    pub fn framework(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.framework", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `framework_version` after provisioning.\nVersion of the framework the project is using."]
+    pub fn framework_version(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.framework_version", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nName for the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nName of the project. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `latest_deployment` after provisioning.\nMost recent deployment of the project."]
+    pub fn latest_deployment(&self) -> PagesProject_LatestDeploymentRef {
+        PagesProject_LatestDeploymentRef::new(
+            self.shared().clone(),
+            format!("{}.latest_deployment", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nName for the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `production_branch` after provisioning.\nThe name of the branch that is used for the production environment."]
+        "Get a reference to the value of field `preview_script_name` after provisioning.\nName of the preview script."]
+    pub fn preview_script_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_script_name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_branch` after provisioning.\nProduction branch of the project. Used to identify production deployments."]
     pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_script_name` after provisioning.\nName of the production script."]
+    pub fn production_script_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_script_name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
+    pub fn source(&self) -> PagesProject_SourceRef {
+        PagesProject_SourceRef::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
     }
 
     #[doc =
@@ -226,19 +263,10 @@ impl PagesProject {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.subdomain", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `build_config` after provisioning.\n"]
-    pub fn build_config(&self) -> terrars::ListRef<PagesProjectBuildConfigElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.build_config", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `deployment_configs` after provisioning.\n"]
-    pub fn deployment_configs(&self) -> terrars::ListRef<PagesProjectDeploymentConfigsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.deployment_configs", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `source` after provisioning.\n"]
-    pub fn source(&self) -> terrars::ListRef<PagesProjectSourceElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `uses_functions` after provisioning.\nWhether the project uses functions."]
+    pub fn uses_functions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uses_functions", self.extract_ref()))
     }
 }
 
@@ -275,11 +303,12 @@ impl terrars::Resource_ for PagesProject_ {
 
 pub struct BuildPagesProject {
     pub tf_id: std::string::String,
-    #[doc = "The account identifier to target for the resource."]
+    #[doc = "Identifier."]
     pub account_id: terrars::PrimField<std::string::String>,
-    #[doc = "Name of the project. **Modifying this attribute will force creation of a new resource.**"]
+    #[doc =
+        "Name for the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub name: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the branch that is used for the production environment."]
+    #[doc = "Production branch of the project. Used to identify production deployments."]
     pub production_branch: terrars::PrimField<std::string::String>,
 }
 
@@ -288,20 +317,18 @@ impl BuildPagesProject {
         let out = PagesProject(std::rc::Rc::new(PagesProject_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(PagesProjectData {
+            data: std::cell::RefCell::new(PagesProjectData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 account_id: self.account_id,
-                id: core::default::Default::default(),
-                name: self.name,
-                production_branch: self.production_branch,
                 build_config: core::default::Default::default(),
                 deployment_configs: core::default::Default::default(),
+                name: self.name,
+                production_branch: self.production_branch,
                 source: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -332,10 +359,33 @@ impl PagesProjectRef {
         &self.shared
     }
 
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe account identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
     pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
+    pub fn build_config(&self) -> PagesProject_BuildConfigRef {
+        PagesProject_BuildConfigRef::new(self.shared().clone(), format!("{}.build_config", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_image_auto_upgrade` after provisioning.\nPresent when the project is set to a retired build image major version and its builds have been moved to a newer one. `build_image_major_version` in `deployment_configs` then reports the version the builds run on."]
+    pub fn build_image_auto_upgrade(&self) -> PagesProject_BuildImageAutoUpgradeRef {
+        PagesProject_BuildImageAutoUpgradeRef::new(
+            self.shared().clone(),
+            format!("{}.build_image_auto_upgrade", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `canonical_deployment` after provisioning.\nMost recent production deployment of the project."]
+    pub fn canonical_deployment(&self) -> PagesProject_CanonicalDeploymentRef {
+        PagesProject_CanonicalDeploymentRef::new(
+            self.shared().clone(),
+            format!("{}.canonical_deployment", self.extract_ref()),
+        )
     }
 
     #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the project was created."]
@@ -344,26 +394,74 @@ impl PagesProjectRef {
     }
 
     #[doc =
+        "Get a reference to the value of field `deployment_configs` after provisioning.\nConfigs for deployments in a project."]
+    pub fn deployment_configs(&self) -> PagesProject_DeploymentConfigsRef {
+        PagesProject_DeploymentConfigsRef::new(
+            self.shared().clone(),
+            format!("{}.deployment_configs", self.extract_ref()),
+        )
+    }
+
+    #[doc =
         "Get a reference to the value of field `domains` after provisioning.\nA list of associated custom domains for the project."]
     pub fn domains(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.domains", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `framework` after provisioning.\nFramework the project is using."]
+    pub fn framework(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.framework", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `framework_version` after provisioning.\nVersion of the framework the project is using."]
+    pub fn framework_version(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.framework_version", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `id` after provisioning.\nName for the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nName of the project. **Modifying this attribute will force creation of a new resource.**"]
+        "Get a reference to the value of field `latest_deployment` after provisioning.\nMost recent deployment of the project."]
+    pub fn latest_deployment(&self) -> PagesProject_LatestDeploymentRef {
+        PagesProject_LatestDeploymentRef::new(
+            self.shared().clone(),
+            format!("{}.latest_deployment", self.extract_ref()),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nName for the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `production_branch` after provisioning.\nThe name of the branch that is used for the production environment."]
+        "Get a reference to the value of field `preview_script_name` after provisioning.\nName of the preview script."]
+    pub fn preview_script_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_script_name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_branch` after provisioning.\nProduction branch of the project. Used to identify production deployments."]
     pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_script_name` after provisioning.\nName of the production script."]
+    pub fn production_script_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_script_name", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
+    pub fn source(&self) -> PagesProject_SourceRef {
+        PagesProject_SourceRef::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
     }
 
     #[doc =
@@ -372,24 +470,17 @@ impl PagesProjectRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.subdomain", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `build_config` after provisioning.\n"]
-    pub fn build_config(&self) -> terrars::ListRef<PagesProjectBuildConfigElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.build_config", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `deployment_configs` after provisioning.\n"]
-    pub fn deployment_configs(&self) -> terrars::ListRef<PagesProjectDeploymentConfigsElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.deployment_configs", self.extract_ref()))
-    }
-
-    #[doc = "Get a reference to the value of field `source` after provisioning.\n"]
-    pub fn source(&self) -> terrars::ListRef<PagesProjectSourceElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
+    #[doc =
+        "Get a reference to the value of field `uses_functions` after provisioning.\nWhether the project uses functions."]
+    pub fn uses_functions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uses_functions", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectBuildConfigEl {
+pub struct PagesProject_BuildConfig {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    build_caching: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     build_command: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -402,7 +493,13 @@ pub struct PagesProjectBuildConfigEl {
     web_analytics_token: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl PagesProjectBuildConfigEl {
+impl PagesProject_BuildConfig {
+    #[doc = "Set the field `build_caching`.\nEnable build caching for the project."]
+    pub fn set_build_caching(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.build_caching = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc = "Set the field `build_command`.\nCommand used to build project."]
     pub fn set_build_command(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.build_command = std::option::Option::Some(v.into());
@@ -415,8 +512,7 @@ impl PagesProjectBuildConfigEl {
         self
     }
 
-    #[doc =
-        "Set the field `root_dir`.\nYour project's root directory, where Cloudflare runs the build command. If your site is not in a subdirectory, leave this path value empty."]
+    #[doc = "Set the field `root_dir`.\nDirectory to run the command."]
     pub fn set_root_dir(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.root_dir = std::option::Option::Some(v.into());
         self
@@ -438,8 +534,8 @@ impl PagesProjectBuildConfigEl {
     }
 }
 
-impl terrars::ToListMappable for PagesProjectBuildConfigEl {
-    type O = terrars::BlockAssignable<PagesProjectBuildConfigEl>;
+impl terrars::ToListMappable for PagesProject_BuildConfig {
+    type O = terrars::BlockAssignable<PagesProject_BuildConfig>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -450,11 +546,12 @@ impl terrars::ToListMappable for PagesProjectBuildConfigEl {
     }
 }
 
-pub struct BuildPagesProjectBuildConfigEl {}
+pub struct BuildPagesProject_BuildConfig {}
 
-impl BuildPagesProjectBuildConfigEl {
-    pub fn build(self) -> PagesProjectBuildConfigEl {
-        PagesProjectBuildConfigEl {
+impl BuildPagesProject_BuildConfig {
+    pub fn build(self) -> PagesProject_BuildConfig {
+        PagesProject_BuildConfig {
+            build_caching: core::default::Default::default(),
             build_command: core::default::Default::default(),
             destination_dir: core::default::Default::default(),
             root_dir: core::default::Default::default(),
@@ -464,23 +561,31 @@ impl BuildPagesProjectBuildConfigEl {
     }
 }
 
-pub struct PagesProjectBuildConfigElRef {
+#[allow(dead_code)]
+pub struct PagesProject_BuildConfigRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectBuildConfigElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProjectBuildConfigElRef {
-        PagesProjectBuildConfigElRef {
+impl terrars::Ref for PagesProject_BuildConfigRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_BuildConfigRef {
+        PagesProject_BuildConfigRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectBuildConfigElRef {
+impl PagesProject_BuildConfigRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_caching` after provisioning.\nEnable build caching for the project."]
+    pub fn build_caching(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_caching", self.base))
     }
 
     #[doc = "Get a reference to the value of field `build_command` after provisioning.\nCommand used to build project."]
@@ -494,8 +599,7 @@ impl PagesProjectBuildConfigElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.destination_dir", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `root_dir` after provisioning.\nYour project's root directory, where Cloudflare runs the build command. If your site is not in a subdirectory, leave this path value empty."]
+    #[doc = "Get a reference to the value of field `root_dir` after provisioning.\nDirectory to run the command."]
     pub fn root_dir(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.root_dir", self.base))
     }
@@ -514,23 +618,12 @@ impl PagesProjectBuildConfigElRef {
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    environment: std::option::Option<terrars::PrimField<std::string::String>>,
-    name: terrars::PrimField<std::string::String>,
-    service: terrars::PrimField<std::string::String>,
-}
+pub struct PagesProject_BuildImageAutoUpgrade {}
 
-impl PagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-    #[doc = "Set the field `environment`.\nThe name of the Worker environment to bind to."]
-    pub fn set_environment(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.environment = std::option::Option::Some(v.into());
-        self
-    }
-}
+impl PagesProject_BuildImageAutoUpgrade { }
 
-impl terrars::ToListMappable for PagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-    type O = terrars::BlockAssignable<PagesProjectDeploymentConfigsElPreviewElServiceBindingEl>;
+impl terrars::ToListMappable for PagesProject_BuildImageAutoUpgrade {
+    type O = terrars::BlockAssignable<PagesProject_BuildImageAutoUpgrade>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -541,107 +634,1910 @@ impl terrars::ToListMappable for PagesProjectDeploymentConfigsElPreviewElService
     }
 }
 
-pub struct BuildPagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-    #[doc = "The global variable for the binding in your Worker code."]
-    pub name: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the Worker to bind to."]
-    pub service: terrars::PrimField<std::string::String>,
-}
+pub struct BuildPagesProject_BuildImageAutoUpgrade {}
 
-impl BuildPagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-    pub fn build(self) -> PagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-        PagesProjectDeploymentConfigsElPreviewElServiceBindingEl {
-            environment: core::default::Default::default(),
-            name: self.name,
-            service: self.service,
-        }
+impl BuildPagesProject_BuildImageAutoUpgrade {
+    pub fn build(self) -> PagesProject_BuildImageAutoUpgrade {
+        PagesProject_BuildImageAutoUpgrade {}
     }
 }
 
-pub struct PagesProjectDeploymentConfigsElPreviewElServiceBindingElRef {
+#[allow(dead_code)]
+pub struct PagesProject_BuildImageAutoUpgradeRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectDeploymentConfigsElPreviewElServiceBindingElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> PagesProjectDeploymentConfigsElPreviewElServiceBindingElRef {
-        PagesProjectDeploymentConfigsElPreviewElServiceBindingElRef {
+impl terrars::Ref for PagesProject_BuildImageAutoUpgradeRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_BuildImageAutoUpgradeRef {
+        PagesProject_BuildImageAutoUpgradeRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectDeploymentConfigsElPreviewElServiceBindingElRef {
+impl PagesProject_BuildImageAutoUpgradeRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `environment` after provisioning.\nThe name of the Worker environment to bind to."]
-    pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
+        "Get a reference to the value of field `from_version` after provisioning.\nThe retired build image major version the project is set to."]
+    pub fn from_version(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from_version", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe global variable for the binding in your Worker code."]
+        "Get a reference to the value of field `to_version` after provisioning.\nThe build image major version the project's builds run on."]
+    pub fn to_version(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.to_version", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_BuildConfig {}
+
+impl PagesProject_CanonicalDeployment_BuildConfig { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_BuildConfig {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_BuildConfig>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_BuildConfig {}
+
+impl BuildPagesProject_CanonicalDeployment_BuildConfig {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_BuildConfig {
+        PagesProject_CanonicalDeployment_BuildConfig {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_BuildConfigRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_BuildConfigRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_CanonicalDeployment_BuildConfigRef {
+        PagesProject_CanonicalDeployment_BuildConfigRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_BuildConfigRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_caching` after provisioning.\nEnable build caching for the project."]
+    pub fn build_caching(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_caching", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `build_command` after provisioning.\nCommand used to build project."]
+    pub fn build_command(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_command", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `destination_dir` after provisioning.\nAssets output directory of the build."]
+    pub fn destination_dir(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.destination_dir", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `root_dir` after provisioning.\nDirectory to run the command."]
+    pub fn root_dir(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.root_dir", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `web_analytics_tag` after provisioning.\nThe classifying tag for analytics."]
+    pub fn web_analytics_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_tag", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `web_analytics_token` after provisioning.\nThe auth token for analytics."]
+    pub fn web_analytics_token(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_token", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {}
+
+impl PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {}
+
+impl BuildPagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {
+        PagesProject_CanonicalDeployment_DeploymentTrigger_Metadata {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+        PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `branch` after provisioning.\nWhere the trigger happened."]
+    pub fn branch(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.branch", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_dirty` after provisioning.\nWhether the deployment trigger commit was dirty."]
+    pub fn commit_dirty(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_dirty", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_hash` after provisioning.\nHash of the deployment trigger commit."]
+    pub fn commit_hash(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_hash", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_message` after provisioning.\nMessage of the deployment trigger commit."]
+    pub fn commit_message(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_message", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_DeploymentTrigger {}
+
+impl PagesProject_CanonicalDeployment_DeploymentTrigger { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_DeploymentTrigger {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_DeploymentTrigger>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_DeploymentTrigger {}
+
+impl BuildPagesProject_CanonicalDeployment_DeploymentTrigger {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_DeploymentTrigger {
+        PagesProject_CanonicalDeployment_DeploymentTrigger {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+        PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `metadata` after provisioning.\nAdditional info about the trigger."]
+    pub fn metadata(&self) -> PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+        PagesProject_CanonicalDeployment_DeploymentTrigger_MetadataRef::new(
+            self.shared().clone(),
+            format!("{}.metadata", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nWhat caused the deployment.\nAvailable values: \"github:push\", \"ad_hoc\", \"deploy_hook\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_EnvVars {}
+
+impl PagesProject_CanonicalDeployment_EnvVars { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_EnvVars {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_EnvVars>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_EnvVars {}
+
+impl BuildPagesProject_CanonicalDeployment_EnvVars {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_EnvVars {
+        PagesProject_CanonicalDeployment_EnvVars {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_EnvVarsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_EnvVarsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_CanonicalDeployment_EnvVarsRef {
+        PagesProject_CanonicalDeployment_EnvVarsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_EnvVarsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_LatestStage {}
+
+impl PagesProject_CanonicalDeployment_LatestStage { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_LatestStage {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_LatestStage>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_LatestStage {}
+
+impl BuildPagesProject_CanonicalDeployment_LatestStage {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_LatestStage {
+        PagesProject_CanonicalDeployment_LatestStage {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_LatestStageRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_LatestStageRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_CanonicalDeployment_LatestStageRef {
+        PagesProject_CanonicalDeployment_LatestStageRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_LatestStageRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
+    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `service` after provisioning.\nThe name of the Worker to bind to."]
+    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
+    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_Source_Config {}
+
+impl PagesProject_CanonicalDeployment_Source_Config { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_Source_Config {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_Source_Config>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_Source_Config {}
+
+impl BuildPagesProject_CanonicalDeployment_Source_Config {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_Source_Config {
+        PagesProject_CanonicalDeployment_Source_Config {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_Source_ConfigRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_Source_ConfigRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_CanonicalDeployment_Source_ConfigRef {
+        PagesProject_CanonicalDeployment_Source_ConfigRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_Source_ConfigRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `deployments_enabled` after provisioning.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
+    pub fn deployments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployments_enabled", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `owner` after provisioning.\nThe owner of the repository."]
+    pub fn owner(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `owner_id` after provisioning.\nThe owner ID of the repository."]
+    pub fn owner_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `path_excludes` after provisioning.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_excludes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `path_includes` after provisioning.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_includes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nWhether to enable PR comments."]
+    pub fn pr_comments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pr_comments_enabled", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
+    pub fn preview_branch_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_excludes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
+    pub fn preview_branch_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_includes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
+    pub fn preview_deployment_setting(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_deployment_setting", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_branch` after provisioning.\nThe production branch of the repository."]
+    pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_deployments_enabled` after provisioning.\nWhether to trigger a production deployment on commits to the production branch."]
+    pub fn production_deployments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployments_enabled", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `repo_id` after provisioning.\nThe ID of the repository."]
+    pub fn repo_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nThe name of the repository."]
+    pub fn repo_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_Source {}
+
+impl PagesProject_CanonicalDeployment_Source { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_Source {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_Source>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_Source {}
+
+impl BuildPagesProject_CanonicalDeployment_Source {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_Source {
+        PagesProject_CanonicalDeployment_Source {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_SourceRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_SourceRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_CanonicalDeployment_SourceRef {
+        PagesProject_CanonicalDeployment_SourceRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_SourceRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
+    pub fn config(&self) -> PagesProject_CanonicalDeployment_Source_ConfigRef {
+        PagesProject_CanonicalDeployment_Source_ConfigRef::new(
+            self.shared().clone(),
+            format!("{}.config", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nThe source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment_Stages {}
+
+impl PagesProject_CanonicalDeployment_Stages { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment_Stages {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment_Stages>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment_Stages {}
+
+impl BuildPagesProject_CanonicalDeployment_Stages {
+    pub fn build(self) -> PagesProject_CanonicalDeployment_Stages {
+        PagesProject_CanonicalDeployment_Stages {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeployment_StagesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeployment_StagesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_CanonicalDeployment_StagesRef {
+        PagesProject_CanonicalDeployment_StagesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeployment_StagesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
+    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
+    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_CanonicalDeployment {}
+
+impl PagesProject_CanonicalDeployment { }
+
+impl terrars::ToListMappable for PagesProject_CanonicalDeployment {
+    type O = terrars::BlockAssignable<PagesProject_CanonicalDeployment>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_CanonicalDeployment {}
+
+impl BuildPagesProject_CanonicalDeployment {
+    pub fn build(self) -> PagesProject_CanonicalDeployment {
+        PagesProject_CanonicalDeployment {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_CanonicalDeploymentRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_CanonicalDeploymentRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_CanonicalDeploymentRef {
+        PagesProject_CanonicalDeploymentRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_CanonicalDeploymentRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `aliases` after provisioning.\nA list of alias URLs pointing to this deployment."]
+    pub fn aliases(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.aliases", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
+    pub fn build_config(&self) -> PagesProject_CanonicalDeployment_BuildConfigRef {
+        PagesProject_CanonicalDeployment_BuildConfigRef::new(
+            self.shared().clone(),
+            format!("{}.build_config", self.base),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the deployment was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `deployment_trigger` after provisioning.\nInfo about what caused the deployment."]
+    pub fn deployment_trigger(&self) -> PagesProject_CanonicalDeployment_DeploymentTriggerRef {
+        PagesProject_CanonicalDeployment_DeploymentTriggerRef::new(
+            self.shared().clone(),
+            format!("{}.deployment_trigger", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn env_vars(&self) -> terrars::RecRef<PagesProject_CanonicalDeployment_EnvVarsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `environment` after provisioning.\nType of deploy.\nAvailable values: \"preview\", \"production\"."]
+    pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nId of the deployment."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `is_skipped` after provisioning.\nWhether the deployment was skipped."]
+    pub fn is_skipped(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.is_skipped", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `latest_stage` after provisioning.\nThe status of the deployment."]
+    pub fn latest_stage(&self) -> PagesProject_CanonicalDeployment_LatestStageRef {
+        PagesProject_CanonicalDeployment_LatestStageRef::new(
+            self.shared().clone(),
+            format!("{}.latest_stage", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `modified_on` after provisioning.\nWhen the deployment was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `project_id` after provisioning.\nId of the project."]
+    pub fn project_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
+    pub fn project_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_name", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `short_id` after provisioning.\nShort Id (8 character) of the deployment."]
+    pub fn short_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.short_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
+    pub fn source(&self) -> PagesProject_CanonicalDeployment_SourceRef {
+        PagesProject_CanonicalDeployment_SourceRef::new(self.shared().clone(), format!("{}.source", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `stages` after provisioning.\nList of past stages."]
+    pub fn stages(&self) -> terrars::ListRef<PagesProject_CanonicalDeployment_StagesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.stages", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `url` after provisioning.\nThe live URL to view this deployment."]
+    pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `uses_functions` after provisioning.\nWhether the deployment uses functions."]
+    pub fn uses_functions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uses_functions", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_AiBindings {
+    project_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_AiBindings { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_AiBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_AiBindings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_AiBindings {
+    #[doc = ""]
+    pub project_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_AiBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_AiBindings {
+        PagesProject_DeploymentConfigs_Preview_AiBindings { project_id: self.project_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_AiBindingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_AiBindingsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_AiBindingsRef {
+        PagesProject_DeploymentConfigs_Preview_AiBindingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_AiBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `project_id` after provisioning.\n"]
+    pub fn project_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets {
+    dataset: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets {
+    #[doc = "Name of the dataset."]
+    pub dataset: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets {
+        PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets { dataset: self.dataset }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef {
+        PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `dataset` after provisioning.\nName of the dataset."]
+    pub fn dataset(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.dataset", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_Browsers {}
+
+impl PagesProject_DeploymentConfigs_Preview_Browsers { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_Browsers {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_Browsers>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_Browsers {}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_Browsers {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_Browsers {
+        PagesProject_DeploymentConfigs_Preview_Browsers {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_BrowsersRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_BrowsersRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_BrowsersRef {
+        PagesProject_DeploymentConfigs_Preview_BrowsersRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_BrowsersRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_D1Databases {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_D1Databases { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_D1Databases {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_D1Databases>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_D1Databases {
+    #[doc = "UUID of the D1 database."]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_D1Databases {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_D1Databases {
+        PagesProject_DeploymentConfigs_Preview_D1Databases { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_D1DatabasesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_D1DatabasesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_D1DatabasesRef {
+        PagesProject_DeploymentConfigs_Preview_D1DatabasesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_D1DatabasesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nUUID of the D1 database."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces {
+    namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces {
+    #[doc = "ID of the Durable Object namespace."]
+    pub namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces {
+        PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces { namespace_id: self.namespace_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef {
+        PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Durable Object namespace."]
+    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_EnvVars {
+    #[serde(rename = "type")]
+    type_: terrars::PrimField<std::string::String>,
+    value: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_EnvVars { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_EnvVars {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_EnvVars>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_EnvVars {
+    #[doc = "Available values: \"plain_text\", \"secret_text\"."]
+    pub type_: terrars::PrimField<std::string::String>,
+    #[doc = "Environment variable value."]
+    pub value: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_EnvVars {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_EnvVars {
+        PagesProject_DeploymentConfigs_Preview_EnvVars {
+            type_: self.type_,
+            value: self.value,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_EnvVarsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_EnvVarsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_EnvVarsRef {
+        PagesProject_DeploymentConfigs_Preview_EnvVarsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_EnvVarsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_HyperdriveBindings {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_HyperdriveBindings { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_HyperdriveBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_HyperdriveBindings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_HyperdriveBindings {
+    #[doc = ""]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_HyperdriveBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_HyperdriveBindings {
+        PagesProject_DeploymentConfigs_Preview_HyperdriveBindings { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef {
+        PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_KvNamespaces {
+    namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_KvNamespaces { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_KvNamespaces {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_KvNamespaces>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_KvNamespaces {
+    #[doc = "ID of the KV namespace."]
+    pub namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_KvNamespaces {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_KvNamespaces {
+        PagesProject_DeploymentConfigs_Preview_KvNamespaces { namespace_id: self.namespace_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_KvNamespacesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_KvNamespacesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_KvNamespacesRef {
+        PagesProject_DeploymentConfigs_Preview_KvNamespacesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_KvNamespacesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `namespace_id` after provisioning.\nID of the KV namespace."]
+    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_Limits {
+    cpu_ms: terrars::PrimField<f64>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_Limits { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_Limits {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_Limits>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_Limits {
+    #[doc = "CPU time limit in milliseconds."]
+    pub cpu_ms: terrars::PrimField<f64>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_Limits {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_Limits {
+        PagesProject_DeploymentConfigs_Preview_Limits { cpu_ms: self.cpu_ms }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_LimitsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_LimitsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_LimitsRef {
+        PagesProject_DeploymentConfigs_Preview_LimitsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_LimitsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `cpu_ms` after provisioning.\nCPU time limit in milliseconds."]
+    pub fn cpu_ms(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cpu_ms", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_MtlsCertificates {
+    certificate_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_MtlsCertificates { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_MtlsCertificates {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_MtlsCertificates>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_MtlsCertificates {
+    #[doc = ""]
+    pub certificate_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_MtlsCertificates {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_MtlsCertificates {
+        PagesProject_DeploymentConfigs_Preview_MtlsCertificates { certificate_id: self.certificate_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef {
+        PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `certificate_id` after provisioning.\n"]
+    pub fn certificate_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_Placement {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mode: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_Placement {
+    #[doc = "Set the field `mode`.\nPlacement mode."]
+    pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_Placement {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_Placement>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_Placement {}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_Placement {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_Placement {
+        PagesProject_DeploymentConfigs_Preview_Placement { mode: core::default::Default::default() }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_PlacementRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_PlacementRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_PlacementRef {
+        PagesProject_DeploymentConfigs_Preview_PlacementRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_PlacementRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `mode` after provisioning.\nPlacement mode."]
+    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_QueueProducers {
+    name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_QueueProducers { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_QueueProducers {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_QueueProducers>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_QueueProducers {
+    #[doc = "Name of the Queue."]
+    pub name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_QueueProducers {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_QueueProducers {
+        PagesProject_DeploymentConfigs_Preview_QueueProducers { name: self.name }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_QueueProducersRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_QueueProducersRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_QueueProducersRef {
+        PagesProject_DeploymentConfigs_Preview_QueueProducersRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_QueueProducersRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the Queue."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_R2Buckets {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    jurisdiction: std::option::Option<terrars::PrimField<std::string::String>>,
+    name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_R2Buckets {
+    #[doc = "Set the field `jurisdiction`.\nJurisdiction of the R2 bucket."]
+    pub fn set_jurisdiction(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.jurisdiction = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_R2Buckets {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_R2Buckets>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_R2Buckets {
+    #[doc = "Name of the R2 bucket."]
+    pub name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_R2Buckets {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_R2Buckets {
+        PagesProject_DeploymentConfigs_Preview_R2Buckets {
+            jurisdiction: core::default::Default::default(),
+            name: self.name,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_R2BucketsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_R2BucketsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_R2BucketsRef {
+        PagesProject_DeploymentConfigs_Preview_R2BucketsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_R2BucketsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `jurisdiction` after provisioning.\nJurisdiction of the R2 bucket."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the R2 bucket."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_Services {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    entrypoint: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    environment: std::option::Option<terrars::PrimField<std::string::String>>,
+    service: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_Services {
+    #[doc = "Set the field `entrypoint`.\nThe entrypoint to bind to."]
+    pub fn set_entrypoint(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.entrypoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `environment`.\nThe Service environment."]
+    pub fn set_environment(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.environment = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_Services {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_Services>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_Services {
+    #[doc = "The Service name."]
+    pub service: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_Services {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_Services {
+        PagesProject_DeploymentConfigs_Preview_Services {
+            entrypoint: core::default::Default::default(),
+            environment: core::default::Default::default(),
+            service: self.service,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_ServicesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_ServicesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_ServicesRef {
+        PagesProject_DeploymentConfigs_Preview_ServicesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_ServicesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `entrypoint` after provisioning.\nThe entrypoint to bind to."]
+    pub fn entrypoint(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.entrypoint", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `environment` after provisioning.\nThe Service environment."]
+    pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `service` after provisioning.\nThe Service name."]
     pub fn service(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.service", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct PagesProjectDeploymentConfigsElPreviewElDynamic {
-    service_binding: std
-    ::option
-    ::Option<terrars::DynamicBlock<PagesProjectDeploymentConfigsElPreviewElServiceBindingEl>>,
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Preview_VectorizeBindings {
+    index_name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Preview_VectorizeBindings { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview_VectorizeBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview_VectorizeBindings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Preview_VectorizeBindings {
+    #[doc = ""]
+    pub index_name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Preview_VectorizeBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview_VectorizeBindings {
+        PagesProject_DeploymentConfigs_Preview_VectorizeBindings { index_name: self.index_name }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef {
+        PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `index_name` after provisioning.\n"]
+    pub fn index_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.index_name", self.base))
+    }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectDeploymentConfigsElPreviewEl {
+pub struct PagesProject_DeploymentConfigs_Preview {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    ai_bindings: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_AiBindings>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     always_use_latest_compatibility_date: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    analytics_engine_datasets: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    browsers: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_Browsers>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    build_image_major_version: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     compatibility_date: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     compatibility_flags: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    d1_databases: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    d1_databases: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_D1Databases>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    durable_object_namespaces: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    durable_object_namespaces: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces>,
+    >,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    environment_variables: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    env_vars: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_EnvVars>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     fail_open: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    kv_namespaces: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    hyperdrive_bindings: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_HyperdriveBindings>,
+    >,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    r2_buckets: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    kv_namespaces: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_KvNamespaces>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    secrets: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    limits: std::option::Option<PagesProject_DeploymentConfigs_Preview_Limits>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mtls_certificates: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_MtlsCertificates>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    placement: std::option::Option<PagesProject_DeploymentConfigs_Preview_Placement>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    queue_producers: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_QueueProducers>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    r2_buckets: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_R2Buckets>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    services: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_Services>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     usage_model: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    service_binding: std::option::Option<std::vec::Vec<PagesProjectDeploymentConfigsElPreviewElServiceBindingEl>>,
-    dynamic: PagesProjectDeploymentConfigsElPreviewElDynamic,
+    vectorize_bindings: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_VectorizeBindings>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    wrangler_config_hash: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl PagesProjectDeploymentConfigsElPreviewEl {
+impl PagesProject_DeploymentConfigs_Preview {
+    #[doc = "Set the field `ai_bindings`.\nConstellation bindings used for Pages Functions."]
+    pub fn set_ai_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_AiBindings>,
+                    >,
+    ) -> Self {
+        self.ai_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc =
-        "Set the field `always_use_latest_compatibility_date`.\nUse latest compatibility date for Pages Functions. Defaults to `false`."]
+        "Set the field `always_use_latest_compatibility_date`.\nWhether to always use the latest compatibility date for Pages Functions."]
     pub fn set_always_use_latest_compatibility_date(
         mut self,
         v: impl std::convert::Into<terrars::PrimField<bool>>,
     ) -> Self {
         self.always_use_latest_compatibility_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `analytics_engine_datasets`.\nAnalytics Engine bindings used for Pages Functions."]
+    pub fn set_analytics_engine_datasets(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasets>,
+                    >,
+    ) -> Self {
+        self.analytics_engine_datasets = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `browsers`.\nBrowser bindings used for Pages Functions."]
+    pub fn set_browsers(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_Browsers>,
+                    >,
+    ) -> Self {
+        self.browsers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `build_image_major_version`.\nThe major version of the build image to use for Pages Functions. Version 1 is retired and its projects are moved to version 3. Once a project's builds have been moved, a request that sets version 1 is rejected."]
+    pub fn set_build_image_major_version(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.build_image_major_version = std::option::Option::Some(v.into());
         self
     }
 
@@ -663,10 +2559,19 @@ impl PagesProjectDeploymentConfigsElPreviewEl {
         self
     }
 
-    #[doc = "Set the field `d1_databases`.\nD1 Databases used for Pages Functions."]
+    #[doc = "Set the field `d1_databases`.\nD1 databases used for Pages Functions."]
     pub fn set_d1_databases(
         mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_D1Databases>,
+                    >,
     ) -> Self {
         self.d1_databases = std::option::Option::Some(v.into());
         self
@@ -675,84 +2580,200 @@ impl PagesProjectDeploymentConfigsElPreviewEl {
     #[doc = "Set the field `durable_object_namespaces`.\nDurable Object namespaces used for Pages Functions."]
     pub fn set_durable_object_namespaces(
         mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_DurableObjectNamespaces>,
+                    >,
     ) -> Self {
         self.durable_object_namespaces = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `environment_variables`.\nEnvironment variables for Pages Functions."]
-    pub fn set_environment_variables(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.environment_variables = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `fail_open`.\nFail open used for Pages Functions. Defaults to `false`."]
-    pub fn set_fail_open(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.fail_open = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `kv_namespaces`.\nKV namespaces used for Pages Functions."]
-    pub fn set_kv_namespaces(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.kv_namespaces = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `r2_buckets`.\nR2 Buckets used for Pages Functions."]
-    pub fn set_r2_buckets(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.r2_buckets = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `secrets`.\nEncrypted environment variables for Pages Functions."]
-    pub fn set_secrets(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.secrets = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `usage_model`.\nUsage model used for Pages Functions. Defaults to `bundled`."]
-    pub fn set_usage_model(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.usage_model = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `service_binding`.\n"]
-    pub fn set_service_binding(
+    #[doc = "Set the field `env_vars`.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn set_env_vars(
         mut self,
         v:
             impl
 
                     std
                     ::convert
-                    ::Into<terrars::BlockAssignable<PagesProjectDeploymentConfigsElPreviewElServiceBindingEl>>,
+                    ::Into<
+                        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_EnvVars>,
+                    >,
     ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.service_binding = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.service_binding = std::option::Option::Some(d);
-            },
-        }
+        self.env_vars = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `fail_open`.\nWhether to fail open when the deployment config cannot be applied."]
+    pub fn set_fail_open(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.fail_open = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `hyperdrive_bindings`.\nHyperdrive bindings used for Pages Functions."]
+    pub fn set_hyperdrive_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_HyperdriveBindings>,
+                    >,
+    ) -> Self {
+        self.hyperdrive_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `kv_namespaces`.\nKV namespaces used for Pages Functions."]
+    pub fn set_kv_namespaces(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_KvNamespaces>,
+                    >,
+    ) -> Self {
+        self.kv_namespaces = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `limits`.\nLimits for Pages Functions."]
+    pub fn set_limits(mut self, v: impl std::convert::Into<PagesProject_DeploymentConfigs_Preview_Limits>) -> Self {
+        self.limits = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `mtls_certificates`.\nmTLS bindings used for Pages Functions."]
+    pub fn set_mtls_certificates(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_MtlsCertificates>,
+                    >,
+    ) -> Self {
+        self.mtls_certificates = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `placement`.\nPlacement setting used for Pages Functions."]
+    pub fn set_placement(mut self, v: impl std::convert::Into<PagesProject_DeploymentConfigs_Preview_Placement>) -> Self {
+        self.placement = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `queue_producers`.\nQueue Producer bindings used for Pages Functions."]
+    pub fn set_queue_producers(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_QueueProducers>,
+                    >,
+    ) -> Self {
+        self.queue_producers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `r2_buckets`.\nR2 buckets used for Pages Functions."]
+    pub fn set_r2_buckets(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_R2Buckets>,
+                    >,
+    ) -> Self {
+        self.r2_buckets = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `services`.\nServices used for Pages Functions."]
+    pub fn set_services(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_Services>,
+                    >,
+    ) -> Self {
+        self.services = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `usage_model`.\nThe usage model for Pages Functions.\nAvailable values: \"standard\", \"bundled\", \"unbound\"."]
+    pub fn set_usage_model(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.usage_model = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `vectorize_bindings`.\nVectorize bindings used for Pages Functions."]
+    pub fn set_vectorize_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Preview_VectorizeBindings>,
+                    >,
+    ) -> Self {
+        self.vectorize_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `wrangler_config_hash`.\nHash of the Wrangler configuration used for the deployment."]
+    pub fn set_wrangler_config_hash(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.wrangler_config_hash = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PagesProjectDeploymentConfigsElPreviewEl {
-    type O = terrars::BlockAssignable<PagesProjectDeploymentConfigsElPreviewEl>;
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Preview {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Preview>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -763,51 +2784,88 @@ impl terrars::ToListMappable for PagesProjectDeploymentConfigsElPreviewEl {
     }
 }
 
-pub struct BuildPagesProjectDeploymentConfigsElPreviewEl {}
+pub struct BuildPagesProject_DeploymentConfigs_Preview {}
 
-impl BuildPagesProjectDeploymentConfigsElPreviewEl {
-    pub fn build(self) -> PagesProjectDeploymentConfigsElPreviewEl {
-        PagesProjectDeploymentConfigsElPreviewEl {
+impl BuildPagesProject_DeploymentConfigs_Preview {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Preview {
+        PagesProject_DeploymentConfigs_Preview {
+            ai_bindings: core::default::Default::default(),
             always_use_latest_compatibility_date: core::default::Default::default(),
+            analytics_engine_datasets: core::default::Default::default(),
+            browsers: core::default::Default::default(),
+            build_image_major_version: core::default::Default::default(),
             compatibility_date: core::default::Default::default(),
             compatibility_flags: core::default::Default::default(),
             d1_databases: core::default::Default::default(),
             durable_object_namespaces: core::default::Default::default(),
-            environment_variables: core::default::Default::default(),
+            env_vars: core::default::Default::default(),
             fail_open: core::default::Default::default(),
+            hyperdrive_bindings: core::default::Default::default(),
             kv_namespaces: core::default::Default::default(),
+            limits: core::default::Default::default(),
+            mtls_certificates: core::default::Default::default(),
+            placement: core::default::Default::default(),
+            queue_producers: core::default::Default::default(),
             r2_buckets: core::default::Default::default(),
-            secrets: core::default::Default::default(),
+            services: core::default::Default::default(),
             usage_model: core::default::Default::default(),
-            service_binding: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+            vectorize_bindings: core::default::Default::default(),
+            wrangler_config_hash: core::default::Default::default(),
         }
     }
 }
 
-pub struct PagesProjectDeploymentConfigsElPreviewElRef {
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_PreviewRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectDeploymentConfigsElPreviewElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProjectDeploymentConfigsElPreviewElRef {
-        PagesProjectDeploymentConfigsElPreviewElRef {
+impl terrars::Ref for PagesProject_DeploymentConfigs_PreviewRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_DeploymentConfigs_PreviewRef {
+        PagesProject_DeploymentConfigs_PreviewRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectDeploymentConfigsElPreviewElRef {
+impl PagesProject_DeploymentConfigs_PreviewRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `always_use_latest_compatibility_date` after provisioning.\nUse latest compatibility date for Pages Functions. Defaults to `false`."]
+        "Get a reference to the value of field `ai_bindings` after provisioning.\nConstellation bindings used for Pages Functions."]
+    pub fn ai_bindings(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_AiBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.ai_bindings", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `always_use_latest_compatibility_date` after provisioning.\nWhether to always use the latest compatibility date for Pages Functions."]
     pub fn always_use_latest_compatibility_date(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.always_use_latest_compatibility_date", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `analytics_engine_datasets` after provisioning.\nAnalytics Engine bindings used for Pages Functions."]
+    pub fn analytics_engine_datasets(
+        &self,
+    ) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.analytics_engine_datasets", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `browsers` after provisioning.\nBrowser bindings used for Pages Functions."]
+    pub fn browsers(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_BrowsersRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.browsers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_image_major_version` after provisioning.\nThe major version of the build image to use for Pages Functions. Version 1 is retired and its projects are moved to version 3. Once a project's builds have been moved, a request that sets version 1 is rejected."]
+    pub fn build_image_major_version(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_image_major_version", self.base))
     }
 
     #[doc =
@@ -823,72 +2881,108 @@ impl PagesProjectDeploymentConfigsElPreviewElRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `d1_databases` after provisioning.\nD1 Databases used for Pages Functions."]
-    pub fn d1_databases(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        "Get a reference to the value of field `d1_databases` after provisioning.\nD1 databases used for Pages Functions."]
+    pub fn d1_databases(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_D1DatabasesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.d1_databases", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `durable_object_namespaces` after provisioning.\nDurable Object namespaces used for Pages Functions."]
-    pub fn durable_object_namespaces(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+    pub fn durable_object_namespaces(
+        &self,
+    ) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_DurableObjectNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.durable_object_namespaces", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `environment_variables` after provisioning.\nEnvironment variables for Pages Functions."]
-    pub fn environment_variables(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.environment_variables", self.base))
+        "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn env_vars(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_EnvVarsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `fail_open` after provisioning.\nFail open used for Pages Functions. Defaults to `false`."]
+        "Get a reference to the value of field `fail_open` after provisioning.\nWhether to fail open when the deployment config cannot be applied."]
     pub fn fail_open(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.fail_open", self.base))
     }
 
     #[doc =
+        "Get a reference to the value of field `hyperdrive_bindings` after provisioning.\nHyperdrive bindings used for Pages Functions."]
+    pub fn hyperdrive_bindings(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_HyperdriveBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.hyperdrive_bindings", self.base))
+    }
+
+    #[doc =
         "Get a reference to the value of field `kv_namespaces` after provisioning.\nKV namespaces used for Pages Functions."]
-    pub fn kv_namespaces(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+    pub fn kv_namespaces(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_KvNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.kv_namespaces", self.base))
     }
 
+    #[doc = "Get a reference to the value of field `limits` after provisioning.\nLimits for Pages Functions."]
+    pub fn limits(&self) -> PagesProject_DeploymentConfigs_Preview_LimitsRef {
+        PagesProject_DeploymentConfigs_Preview_LimitsRef::new(self.shared().clone(), format!("{}.limits", self.base))
+    }
+
     #[doc =
-        "Get a reference to the value of field `r2_buckets` after provisioning.\nR2 Buckets used for Pages Functions."]
-    pub fn r2_buckets(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        "Get a reference to the value of field `mtls_certificates` after provisioning.\nmTLS bindings used for Pages Functions."]
+    pub fn mtls_certificates(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_MtlsCertificatesRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.mtls_certificates", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `placement` after provisioning.\nPlacement setting used for Pages Functions."]
+    pub fn placement(&self) -> PagesProject_DeploymentConfigs_Preview_PlacementRef {
+        PagesProject_DeploymentConfigs_Preview_PlacementRef::new(
+            self.shared().clone(),
+            format!("{}.placement", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `queue_producers` after provisioning.\nQueue Producer bindings used for Pages Functions."]
+    pub fn queue_producers(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_QueueProducersRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.queue_producers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `r2_buckets` after provisioning.\nR2 buckets used for Pages Functions."]
+    pub fn r2_buckets(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_R2BucketsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.r2_buckets", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `secrets` after provisioning.\nEncrypted environment variables for Pages Functions."]
-    pub fn secrets(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.secrets", self.base))
+    #[doc = "Get a reference to the value of field `services` after provisioning.\nServices used for Pages Functions."]
+    pub fn services(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_ServicesRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.services", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `usage_model` after provisioning.\nUsage model used for Pages Functions. Defaults to `bundled`."]
+        "Get a reference to the value of field `usage_model` after provisioning.\nThe usage model for Pages Functions.\nAvailable values: \"standard\", \"bundled\", \"unbound\"."]
     pub fn usage_model(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.usage_model", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `vectorize_bindings` after provisioning.\nVectorize bindings used for Pages Functions."]
+    pub fn vectorize_bindings(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Preview_VectorizeBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.vectorize_bindings", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `wrangler_config_hash` after provisioning.\nHash of the Wrangler configuration used for the deployment."]
+    pub fn wrangler_config_hash(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.wrangler_config_hash", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    environment: std::option::Option<terrars::PrimField<std::string::String>>,
-    name: terrars::PrimField<std::string::String>,
-    service: terrars::PrimField<std::string::String>,
+pub struct PagesProject_DeploymentConfigs_Production_AiBindings {
+    project_id: terrars::PrimField<std::string::String>,
 }
 
-impl PagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-    #[doc = "Set the field `environment`.\nThe name of the Worker environment to bind to."]
-    pub fn set_environment(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.environment = std::option::Option::Some(v.into());
-        self
-    }
-}
+impl PagesProject_DeploymentConfigs_Production_AiBindings { }
 
-impl terrars::ToListMappable for PagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-    type O = terrars::BlockAssignable<PagesProjectDeploymentConfigsElProductionElServiceBindingEl>;
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_AiBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_AiBindings>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -899,107 +2993,1103 @@ impl terrars::ToListMappable for PagesProjectDeploymentConfigsElProductionElServ
     }
 }
 
-pub struct BuildPagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-    #[doc = "The global variable for the binding in your Worker code."]
-    pub name: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the Worker to bind to."]
-    pub service: terrars::PrimField<std::string::String>,
+pub struct BuildPagesProject_DeploymentConfigs_Production_AiBindings {
+    #[doc = ""]
+    pub project_id: terrars::PrimField<std::string::String>,
 }
 
-impl BuildPagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-    pub fn build(self) -> PagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-        PagesProjectDeploymentConfigsElProductionElServiceBindingEl {
-            environment: core::default::Default::default(),
-            name: self.name,
-            service: self.service,
-        }
+impl BuildPagesProject_DeploymentConfigs_Production_AiBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_AiBindings {
+        PagesProject_DeploymentConfigs_Production_AiBindings { project_id: self.project_id }
     }
 }
 
-pub struct PagesProjectDeploymentConfigsElProductionElServiceBindingElRef {
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_AiBindingsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectDeploymentConfigsElProductionElServiceBindingElRef {
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_AiBindingsRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> PagesProjectDeploymentConfigsElProductionElServiceBindingElRef {
-        PagesProjectDeploymentConfigsElProductionElServiceBindingElRef {
+    ) -> PagesProject_DeploymentConfigs_Production_AiBindingsRef {
+        PagesProject_DeploymentConfigs_Production_AiBindingsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectDeploymentConfigsElProductionElServiceBindingElRef {
+impl PagesProject_DeploymentConfigs_Production_AiBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `project_id` after provisioning.\n"]
+    pub fn project_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets {
+    dataset: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets {
+    #[doc = "Name of the dataset."]
+    pub dataset: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets {
+        PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets { dataset: self.dataset }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
+        PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `dataset` after provisioning.\nName of the dataset."]
+    pub fn dataset(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.dataset", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_Browsers {}
+
+impl PagesProject_DeploymentConfigs_Production_Browsers { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_Browsers {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_Browsers>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_Browsers {}
+
+impl BuildPagesProject_DeploymentConfigs_Production_Browsers {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_Browsers {
+        PagesProject_DeploymentConfigs_Production_Browsers {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_BrowsersRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_BrowsersRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_BrowsersRef {
+        PagesProject_DeploymentConfigs_Production_BrowsersRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_BrowsersRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_D1Databases {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_D1Databases { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_D1Databases {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_D1Databases>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_D1Databases {
+    #[doc = "UUID of the D1 database."]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_D1Databases {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_D1Databases {
+        PagesProject_DeploymentConfigs_Production_D1Databases { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_D1DatabasesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_D1DatabasesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_D1DatabasesRef {
+        PagesProject_DeploymentConfigs_Production_D1DatabasesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_D1DatabasesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nUUID of the D1 database."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces {
+    namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_DurableObjectNamespaces {
+    #[doc = "ID of the Durable Object namespace."]
+    pub namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_DurableObjectNamespaces {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces {
+        PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces { namespace_id: self.namespace_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef {
+        PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `environment` after provisioning.\nThe name of the Worker environment to bind to."]
+        "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Durable Object namespace."]
+    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_EnvVars {
+    #[serde(rename = "type")]
+    type_: terrars::PrimField<std::string::String>,
+    value: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_EnvVars { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_EnvVars {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_EnvVars>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_EnvVars {
+    #[doc = "Available values: \"plain_text\", \"secret_text\"."]
+    pub type_: terrars::PrimField<std::string::String>,
+    #[doc = "Environment variable value."]
+    pub value: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_EnvVars {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_EnvVars {
+        PagesProject_DeploymentConfigs_Production_EnvVars {
+            type_: self.type_,
+            value: self.value,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_EnvVarsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_EnvVarsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_EnvVarsRef {
+        PagesProject_DeploymentConfigs_Production_EnvVarsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_EnvVarsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_HyperdriveBindings {
+    id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_HyperdriveBindings { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_HyperdriveBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_HyperdriveBindings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_HyperdriveBindings {
+    #[doc = ""]
+    pub id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_HyperdriveBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_HyperdriveBindings {
+        PagesProject_DeploymentConfigs_Production_HyperdriveBindings { id: self.id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef {
+        PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_KvNamespaces {
+    namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_KvNamespaces { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_KvNamespaces {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_KvNamespaces>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_KvNamespaces {
+    #[doc = "ID of the KV namespace."]
+    pub namespace_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_KvNamespaces {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_KvNamespaces {
+        PagesProject_DeploymentConfigs_Production_KvNamespaces { namespace_id: self.namespace_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_KvNamespacesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_KvNamespacesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_KvNamespacesRef {
+        PagesProject_DeploymentConfigs_Production_KvNamespacesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_KvNamespacesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `namespace_id` after provisioning.\nID of the KV namespace."]
+    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_Limits {
+    cpu_ms: terrars::PrimField<f64>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_Limits { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_Limits {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_Limits>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_Limits {
+    #[doc = "CPU time limit in milliseconds."]
+    pub cpu_ms: terrars::PrimField<f64>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_Limits {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_Limits {
+        PagesProject_DeploymentConfigs_Production_Limits { cpu_ms: self.cpu_ms }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_LimitsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_LimitsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_LimitsRef {
+        PagesProject_DeploymentConfigs_Production_LimitsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_LimitsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `cpu_ms` after provisioning.\nCPU time limit in milliseconds."]
+    pub fn cpu_ms(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cpu_ms", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_MtlsCertificates {
+    certificate_id: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_MtlsCertificates { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_MtlsCertificates {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_MtlsCertificates>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_MtlsCertificates {
+    #[doc = ""]
+    pub certificate_id: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_MtlsCertificates {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_MtlsCertificates {
+        PagesProject_DeploymentConfigs_Production_MtlsCertificates { certificate_id: self.certificate_id }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef {
+        PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `certificate_id` after provisioning.\n"]
+    pub fn certificate_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_id", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_Placement {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mode: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_Placement {
+    #[doc = "Set the field `mode`.\nPlacement mode."]
+    pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_Placement {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_Placement>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_Placement {}
+
+impl BuildPagesProject_DeploymentConfigs_Production_Placement {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_Placement {
+        PagesProject_DeploymentConfigs_Production_Placement { mode: core::default::Default::default() }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_PlacementRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_PlacementRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_PlacementRef {
+        PagesProject_DeploymentConfigs_Production_PlacementRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_PlacementRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `mode` after provisioning.\nPlacement mode."]
+    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_QueueProducers {
+    name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_QueueProducers { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_QueueProducers {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_QueueProducers>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_QueueProducers {
+    #[doc = "Name of the Queue."]
+    pub name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_QueueProducers {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_QueueProducers {
+        PagesProject_DeploymentConfigs_Production_QueueProducers { name: self.name }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_QueueProducersRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_QueueProducersRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_QueueProducersRef {
+        PagesProject_DeploymentConfigs_Production_QueueProducersRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_QueueProducersRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the Queue."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_R2Buckets {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    jurisdiction: std::option::Option<terrars::PrimField<std::string::String>>,
+    name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_R2Buckets {
+    #[doc = "Set the field `jurisdiction`.\nJurisdiction of the R2 bucket."]
+    pub fn set_jurisdiction(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.jurisdiction = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_R2Buckets {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_R2Buckets>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_R2Buckets {
+    #[doc = "Name of the R2 bucket."]
+    pub name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_R2Buckets {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_R2Buckets {
+        PagesProject_DeploymentConfigs_Production_R2Buckets {
+            jurisdiction: core::default::Default::default(),
+            name: self.name,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_R2BucketsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_R2BucketsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_R2BucketsRef {
+        PagesProject_DeploymentConfigs_Production_R2BucketsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_R2BucketsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `jurisdiction` after provisioning.\nJurisdiction of the R2 bucket."]
+    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the R2 bucket."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_Services {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    entrypoint: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    environment: std::option::Option<terrars::PrimField<std::string::String>>,
+    service: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_Services {
+    #[doc = "Set the field `entrypoint`.\nThe entrypoint to bind to."]
+    pub fn set_entrypoint(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.entrypoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `environment`.\nThe Service environment."]
+    pub fn set_environment(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.environment = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_Services {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_Services>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_Services {
+    #[doc = "The Service name."]
+    pub service: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_Services {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_Services {
+        PagesProject_DeploymentConfigs_Production_Services {
+            entrypoint: core::default::Default::default(),
+            environment: core::default::Default::default(),
+            service: self.service,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_ServicesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_ServicesRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_ServicesRef {
+        PagesProject_DeploymentConfigs_Production_ServicesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_ServicesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `entrypoint` after provisioning.\nThe entrypoint to bind to."]
+    pub fn entrypoint(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.entrypoint", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `environment` after provisioning.\nThe Service environment."]
     pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe global variable for the binding in your Worker code."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `service` after provisioning.\nThe name of the Worker to bind to."]
+    #[doc = "Get a reference to the value of field `service` after provisioning.\nThe Service name."]
     pub fn service(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.service", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct PagesProjectDeploymentConfigsElProductionElDynamic {
-    service_binding: std
-    ::option
-    ::Option<terrars::DynamicBlock<PagesProjectDeploymentConfigsElProductionElServiceBindingEl>>,
+#[derive(Serialize)]
+pub struct PagesProject_DeploymentConfigs_Production_VectorizeBindings {
+    index_name: terrars::PrimField<std::string::String>,
+}
+
+impl PagesProject_DeploymentConfigs_Production_VectorizeBindings { }
+
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production_VectorizeBindings {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production_VectorizeBindings>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_DeploymentConfigs_Production_VectorizeBindings {
+    #[doc = ""]
+    pub index_name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildPagesProject_DeploymentConfigs_Production_VectorizeBindings {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production_VectorizeBindings {
+        PagesProject_DeploymentConfigs_Production_VectorizeBindings { index_name: self.index_name }
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef {
+        PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `index_name` after provisioning.\n"]
+    pub fn index_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.index_name", self.base))
+    }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectDeploymentConfigsElProductionEl {
+pub struct PagesProject_DeploymentConfigs_Production {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    ai_bindings: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_AiBindings>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     always_use_latest_compatibility_date: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    analytics_engine_datasets: std
+    ::option
+    ::Option<
+        std
+        ::collections
+        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    browsers: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_Browsers>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    build_image_major_version: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     compatibility_date: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     compatibility_flags: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    d1_databases: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    d1_databases: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_D1Databases>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    durable_object_namespaces: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    durable_object_namespaces: std
+    ::option
+    ::Option<
+        std
+        ::collections
+        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces>,
+    >,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    environment_variables: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    env_vars: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_EnvVars>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     fail_open: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    kv_namespaces: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    hyperdrive_bindings: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_HyperdriveBindings>,
+    >,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    r2_buckets: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    kv_namespaces: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_KvNamespaces>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    secrets: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    limits: std::option::Option<PagesProject_DeploymentConfigs_Production_Limits>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mtls_certificates: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_MtlsCertificates>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    placement: std::option::Option<PagesProject_DeploymentConfigs_Production_Placement>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    queue_producers: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_QueueProducers>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    r2_buckets: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_R2Buckets>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    services: std
+    ::option
+    ::Option<std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_Services>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     usage_model: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    service_binding: std::option::Option<std::vec::Vec<PagesProjectDeploymentConfigsElProductionElServiceBindingEl>>,
-    dynamic: PagesProjectDeploymentConfigsElProductionElDynamic,
+    vectorize_bindings: std
+    ::option
+    ::Option<
+        std::collections::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_VectorizeBindings>,
+    >,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    wrangler_config_hash: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl PagesProjectDeploymentConfigsElProductionEl {
+impl PagesProject_DeploymentConfigs_Production {
+    #[doc = "Set the field `ai_bindings`.\nConstellation bindings used for Pages Functions."]
+    pub fn set_ai_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_AiBindings>,
+                    >,
+    ) -> Self {
+        self.ai_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc =
-        "Set the field `always_use_latest_compatibility_date`.\nUse latest compatibility date for Pages Functions. Defaults to `false`."]
+        "Set the field `always_use_latest_compatibility_date`.\nWhether to always use the latest compatibility date for Pages Functions."]
     pub fn set_always_use_latest_compatibility_date(
         mut self,
         v: impl std::convert::Into<terrars::PrimField<bool>>,
     ) -> Self {
         self.always_use_latest_compatibility_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `analytics_engine_datasets`.\nAnalytics Engine bindings used for Pages Functions."]
+    pub fn set_analytics_engine_datasets(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<
+                            std::string::String,
+                            PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasets,
+                        >,
+                    >,
+    ) -> Self {
+        self.analytics_engine_datasets = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `browsers`.\nBrowser bindings used for Pages Functions."]
+    pub fn set_browsers(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_Browsers>,
+                    >,
+    ) -> Self {
+        self.browsers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `build_image_major_version`.\nThe major version of the build image to use for Pages Functions. Version 1 is retired and its projects are moved to version 3. Once a project's builds have been moved, a request that sets version 1 is rejected."]
+    pub fn set_build_image_major_version(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.build_image_major_version = std::option::Option::Some(v.into());
         self
     }
 
@@ -1021,10 +4111,19 @@ impl PagesProjectDeploymentConfigsElProductionEl {
         self
     }
 
-    #[doc = "Set the field `d1_databases`.\nD1 Databases used for Pages Functions."]
+    #[doc = "Set the field `d1_databases`.\nD1 databases used for Pages Functions."]
     pub fn set_d1_databases(
         mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_D1Databases>,
+                    >,
     ) -> Self {
         self.d1_databases = std::option::Option::Some(v.into());
         self
@@ -1033,84 +4132,208 @@ impl PagesProjectDeploymentConfigsElProductionEl {
     #[doc = "Set the field `durable_object_namespaces`.\nDurable Object namespaces used for Pages Functions."]
     pub fn set_durable_object_namespaces(
         mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<
+                            std::string::String,
+                            PagesProject_DeploymentConfigs_Production_DurableObjectNamespaces,
+                        >,
+                    >,
     ) -> Self {
         self.durable_object_namespaces = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `environment_variables`.\nEnvironment variables for Pages Functions."]
-    pub fn set_environment_variables(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.environment_variables = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `fail_open`.\nFail open used for Pages Functions. Defaults to `false`."]
-    pub fn set_fail_open(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.fail_open = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `kv_namespaces`.\nKV namespaces used for Pages Functions."]
-    pub fn set_kv_namespaces(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.kv_namespaces = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `r2_buckets`.\nR2 Buckets used for Pages Functions."]
-    pub fn set_r2_buckets(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.r2_buckets = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `secrets`.\nEncrypted environment variables for Pages Functions."]
-    pub fn set_secrets(
-        mut self,
-        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.secrets = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `usage_model`.\nUsage model used for Pages Functions. Defaults to `bundled`."]
-    pub fn set_usage_model(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.usage_model = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `service_binding`.\n"]
-    pub fn set_service_binding(
+    #[doc = "Set the field `env_vars`.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn set_env_vars(
         mut self,
         v:
             impl
 
                     std
                     ::convert
-                    ::Into<terrars::BlockAssignable<PagesProjectDeploymentConfigsElProductionElServiceBindingEl>>,
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_EnvVars>,
+                    >,
     ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.service_binding = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.service_binding = std::option::Option::Some(d);
-            },
-        }
+        self.env_vars = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `fail_open`.\nWhether to fail open when the deployment config cannot be applied."]
+    pub fn set_fail_open(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.fail_open = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `hyperdrive_bindings`.\nHyperdrive bindings used for Pages Functions."]
+    pub fn set_hyperdrive_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_HyperdriveBindings>,
+                    >,
+    ) -> Self {
+        self.hyperdrive_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `kv_namespaces`.\nKV namespaces used for Pages Functions."]
+    pub fn set_kv_namespaces(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_KvNamespaces>,
+                    >,
+    ) -> Self {
+        self.kv_namespaces = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `limits`.\nLimits for Pages Functions."]
+    pub fn set_limits(mut self, v: impl std::convert::Into<PagesProject_DeploymentConfigs_Production_Limits>) -> Self {
+        self.limits = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `mtls_certificates`.\nmTLS bindings used for Pages Functions."]
+    pub fn set_mtls_certificates(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_MtlsCertificates>,
+                    >,
+    ) -> Self {
+        self.mtls_certificates = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `placement`.\nPlacement setting used for Pages Functions."]
+    pub fn set_placement(
+        mut self,
+        v: impl std::convert::Into<PagesProject_DeploymentConfigs_Production_Placement>,
+    ) -> Self {
+        self.placement = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `queue_producers`.\nQueue Producer bindings used for Pages Functions."]
+    pub fn set_queue_producers(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_QueueProducers>,
+                    >,
+    ) -> Self {
+        self.queue_producers = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `r2_buckets`.\nR2 buckets used for Pages Functions."]
+    pub fn set_r2_buckets(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_R2Buckets>,
+                    >,
+    ) -> Self {
+        self.r2_buckets = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `services`.\nServices used for Pages Functions."]
+    pub fn set_services(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_Services>,
+                    >,
+    ) -> Self {
+        self.services = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `usage_model`.\nThe usage model for Pages Functions.\nAvailable values: \"standard\", \"bundled\", \"unbound\"."]
+    pub fn set_usage_model(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.usage_model = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `vectorize_bindings`.\nVectorize bindings used for Pages Functions."]
+    pub fn set_vectorize_bindings(
+        mut self,
+        v:
+            impl
+
+                    std
+                    ::convert
+                    ::Into<
+                        std
+                        ::collections
+                        ::HashMap<std::string::String, PagesProject_DeploymentConfigs_Production_VectorizeBindings>,
+                    >,
+    ) -> Self {
+        self.vectorize_bindings = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `wrangler_config_hash`.\nHash of the Wrangler configuration used for the deployment."]
+    pub fn set_wrangler_config_hash(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.wrangler_config_hash = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PagesProjectDeploymentConfigsElProductionEl {
-    type O = terrars::BlockAssignable<PagesProjectDeploymentConfigsElProductionEl>;
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs_Production {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs_Production>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1121,54 +4344,88 @@ impl terrars::ToListMappable for PagesProjectDeploymentConfigsElProductionEl {
     }
 }
 
-pub struct BuildPagesProjectDeploymentConfigsElProductionEl {}
+pub struct BuildPagesProject_DeploymentConfigs_Production {}
 
-impl BuildPagesProjectDeploymentConfigsElProductionEl {
-    pub fn build(self) -> PagesProjectDeploymentConfigsElProductionEl {
-        PagesProjectDeploymentConfigsElProductionEl {
+impl BuildPagesProject_DeploymentConfigs_Production {
+    pub fn build(self) -> PagesProject_DeploymentConfigs_Production {
+        PagesProject_DeploymentConfigs_Production {
+            ai_bindings: core::default::Default::default(),
             always_use_latest_compatibility_date: core::default::Default::default(),
+            analytics_engine_datasets: core::default::Default::default(),
+            browsers: core::default::Default::default(),
+            build_image_major_version: core::default::Default::default(),
             compatibility_date: core::default::Default::default(),
             compatibility_flags: core::default::Default::default(),
             d1_databases: core::default::Default::default(),
             durable_object_namespaces: core::default::Default::default(),
-            environment_variables: core::default::Default::default(),
+            env_vars: core::default::Default::default(),
             fail_open: core::default::Default::default(),
+            hyperdrive_bindings: core::default::Default::default(),
             kv_namespaces: core::default::Default::default(),
+            limits: core::default::Default::default(),
+            mtls_certificates: core::default::Default::default(),
+            placement: core::default::Default::default(),
+            queue_producers: core::default::Default::default(),
             r2_buckets: core::default::Default::default(),
-            secrets: core::default::Default::default(),
+            services: core::default::Default::default(),
             usage_model: core::default::Default::default(),
-            service_binding: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+            vectorize_bindings: core::default::Default::default(),
+            wrangler_config_hash: core::default::Default::default(),
         }
     }
 }
 
-pub struct PagesProjectDeploymentConfigsElProductionElRef {
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigs_ProductionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectDeploymentConfigsElProductionElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> PagesProjectDeploymentConfigsElProductionElRef {
-        PagesProjectDeploymentConfigsElProductionElRef {
+impl terrars::Ref for PagesProject_DeploymentConfigs_ProductionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_DeploymentConfigs_ProductionRef {
+        PagesProject_DeploymentConfigs_ProductionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectDeploymentConfigsElProductionElRef {
+impl PagesProject_DeploymentConfigs_ProductionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `always_use_latest_compatibility_date` after provisioning.\nUse latest compatibility date for Pages Functions. Defaults to `false`."]
+        "Get a reference to the value of field `ai_bindings` after provisioning.\nConstellation bindings used for Pages Functions."]
+    pub fn ai_bindings(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_AiBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.ai_bindings", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `always_use_latest_compatibility_date` after provisioning.\nWhether to always use the latest compatibility date for Pages Functions."]
     pub fn always_use_latest_compatibility_date(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.always_use_latest_compatibility_date", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `analytics_engine_datasets` after provisioning.\nAnalytics Engine bindings used for Pages Functions."]
+    pub fn analytics_engine_datasets(
+        &self,
+    ) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.analytics_engine_datasets", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `browsers` after provisioning.\nBrowser bindings used for Pages Functions."]
+    pub fn browsers(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_BrowsersRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.browsers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_image_major_version` after provisioning.\nThe major version of the build image to use for Pages Functions. Version 1 is retired and its projects are moved to version 3. Once a project's builds have been moved, a request that sets version 1 is rejected."]
+    pub fn build_image_major_version(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_image_major_version", self.base))
     }
 
     #[doc =
@@ -1184,105 +4441,128 @@ impl PagesProjectDeploymentConfigsElProductionElRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `d1_databases` after provisioning.\nD1 Databases used for Pages Functions."]
-    pub fn d1_databases(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        "Get a reference to the value of field `d1_databases` after provisioning.\nD1 databases used for Pages Functions."]
+    pub fn d1_databases(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_D1DatabasesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.d1_databases", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `durable_object_namespaces` after provisioning.\nDurable Object namespaces used for Pages Functions."]
-    pub fn durable_object_namespaces(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+    pub fn durable_object_namespaces(
+        &self,
+    ) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_DurableObjectNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.durable_object_namespaces", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `environment_variables` after provisioning.\nEnvironment variables for Pages Functions."]
-    pub fn environment_variables(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.environment_variables", self.base))
+        "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn env_vars(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_EnvVarsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `fail_open` after provisioning.\nFail open used for Pages Functions. Defaults to `false`."]
+        "Get a reference to the value of field `fail_open` after provisioning.\nWhether to fail open when the deployment config cannot be applied."]
     pub fn fail_open(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.fail_open", self.base))
     }
 
     #[doc =
+        "Get a reference to the value of field `hyperdrive_bindings` after provisioning.\nHyperdrive bindings used for Pages Functions."]
+    pub fn hyperdrive_bindings(
+        &self,
+    ) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_HyperdriveBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.hyperdrive_bindings", self.base))
+    }
+
+    #[doc =
         "Get a reference to the value of field `kv_namespaces` after provisioning.\nKV namespaces used for Pages Functions."]
-    pub fn kv_namespaces(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+    pub fn kv_namespaces(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_KvNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.kv_namespaces", self.base))
     }
 
+    #[doc = "Get a reference to the value of field `limits` after provisioning.\nLimits for Pages Functions."]
+    pub fn limits(&self) -> PagesProject_DeploymentConfigs_Production_LimitsRef {
+        PagesProject_DeploymentConfigs_Production_LimitsRef::new(
+            self.shared().clone(),
+            format!("{}.limits", self.base),
+        )
+    }
+
     #[doc =
-        "Get a reference to the value of field `r2_buckets` after provisioning.\nR2 Buckets used for Pages Functions."]
-    pub fn r2_buckets(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        "Get a reference to the value of field `mtls_certificates` after provisioning.\nmTLS bindings used for Pages Functions."]
+    pub fn mtls_certificates(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_MtlsCertificatesRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.mtls_certificates", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `placement` after provisioning.\nPlacement setting used for Pages Functions."]
+    pub fn placement(&self) -> PagesProject_DeploymentConfigs_Production_PlacementRef {
+        PagesProject_DeploymentConfigs_Production_PlacementRef::new(
+            self.shared().clone(),
+            format!("{}.placement", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `queue_producers` after provisioning.\nQueue Producer bindings used for Pages Functions."]
+    pub fn queue_producers(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_QueueProducersRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.queue_producers", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `r2_buckets` after provisioning.\nR2 buckets used for Pages Functions."]
+    pub fn r2_buckets(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_R2BucketsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.r2_buckets", self.base))
     }
 
-    #[doc =
-        "Get a reference to the value of field `secrets` after provisioning.\nEncrypted environment variables for Pages Functions."]
-    pub fn secrets(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
-        terrars::RecRef::new(self.shared().clone(), format!("{}.secrets", self.base))
+    #[doc = "Get a reference to the value of field `services` after provisioning.\nServices used for Pages Functions."]
+    pub fn services(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_ServicesRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.services", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `usage_model` after provisioning.\nUsage model used for Pages Functions. Defaults to `bundled`."]
+        "Get a reference to the value of field `usage_model` after provisioning.\nThe usage model for Pages Functions.\nAvailable values: \"standard\", \"bundled\", \"unbound\"."]
     pub fn usage_model(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.usage_model", self.base))
     }
-}
 
-#[derive(Serialize, Default)]
-struct PagesProjectDeploymentConfigsElDynamic {
-    preview: std::option::Option<terrars::DynamicBlock<PagesProjectDeploymentConfigsElPreviewEl>>,
-    production: std::option::Option<terrars::DynamicBlock<PagesProjectDeploymentConfigsElProductionEl>>,
+    #[doc =
+        "Get a reference to the value of field `vectorize_bindings` after provisioning.\nVectorize bindings used for Pages Functions."]
+    pub fn vectorize_bindings(&self) -> terrars::RecRef<PagesProject_DeploymentConfigs_Production_VectorizeBindingsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.vectorize_bindings", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `wrangler_config_hash` after provisioning.\nHash of the Wrangler configuration used for the deployment."]
+    pub fn wrangler_config_hash(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.wrangler_config_hash", self.base))
+    }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectDeploymentConfigsEl {
+pub struct PagesProject_DeploymentConfigs {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    preview: std::option::Option<std::vec::Vec<PagesProjectDeploymentConfigsElPreviewEl>>,
+    preview: std::option::Option<PagesProject_DeploymentConfigs_Preview>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    production: std::option::Option<std::vec::Vec<PagesProjectDeploymentConfigsElProductionEl>>,
-    dynamic: PagesProjectDeploymentConfigsElDynamic,
+    production: std::option::Option<PagesProject_DeploymentConfigs_Production>,
 }
 
-impl PagesProjectDeploymentConfigsEl {
-    #[doc = "Set the field `preview`.\n"]
-    pub fn set_preview(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectDeploymentConfigsElPreviewEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.preview = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.preview = std::option::Option::Some(d);
-            },
-        }
+impl PagesProject_DeploymentConfigs {
+    #[doc = "Set the field `preview`.\nConfigs for preview deploys."]
+    pub fn set_preview(mut self, v: impl std::convert::Into<PagesProject_DeploymentConfigs_Preview>) -> Self {
+        self.preview = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `production`.\n"]
-    pub fn set_production(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectDeploymentConfigsElProductionEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.production = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.production = std::option::Option::Some(d);
-            },
-        }
+    #[doc = "Set the field `production`.\nConfigs for production deploys."]
+    pub fn set_production(mut self, v: impl std::convert::Into<PagesProject_DeploymentConfigs_Production>) -> Self {
+        self.production = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PagesProjectDeploymentConfigsEl {
-    type O = terrars::BlockAssignable<PagesProjectDeploymentConfigsEl>;
+impl terrars::ToListMappable for PagesProject_DeploymentConfigs {
+    type O = terrars::BlockAssignable<PagesProject_DeploymentConfigs>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1293,54 +4573,809 @@ impl terrars::ToListMappable for PagesProjectDeploymentConfigsEl {
     }
 }
 
-pub struct BuildPagesProjectDeploymentConfigsEl {}
+pub struct BuildPagesProject_DeploymentConfigs {}
 
-impl BuildPagesProjectDeploymentConfigsEl {
-    pub fn build(self) -> PagesProjectDeploymentConfigsEl {
-        PagesProjectDeploymentConfigsEl {
+impl BuildPagesProject_DeploymentConfigs {
+    pub fn build(self) -> PagesProject_DeploymentConfigs {
+        PagesProject_DeploymentConfigs {
             preview: core::default::Default::default(),
             production: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
         }
     }
 }
 
-pub struct PagesProjectDeploymentConfigsElRef {
+#[allow(dead_code)]
+pub struct PagesProject_DeploymentConfigsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectDeploymentConfigsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProjectDeploymentConfigsElRef {
-        PagesProjectDeploymentConfigsElRef {
+impl terrars::Ref for PagesProject_DeploymentConfigsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_DeploymentConfigsRef {
+        PagesProject_DeploymentConfigsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectDeploymentConfigsElRef {
+impl PagesProject_DeploymentConfigsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `preview` after provisioning.\n"]
-    pub fn preview(&self) -> terrars::ListRef<PagesProjectDeploymentConfigsElPreviewElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.preview", self.base))
+    #[doc = "Get a reference to the value of field `preview` after provisioning.\nConfigs for preview deploys."]
+    pub fn preview(&self) -> PagesProject_DeploymentConfigs_PreviewRef {
+        PagesProject_DeploymentConfigs_PreviewRef::new(self.shared().clone(), format!("{}.preview", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `production` after provisioning.\n"]
-    pub fn production(&self) -> terrars::ListRef<PagesProjectDeploymentConfigsElProductionElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.production", self.base))
+    #[doc = "Get a reference to the value of field `production` after provisioning.\nConfigs for production deploys."]
+    pub fn production(&self) -> PagesProject_DeploymentConfigs_ProductionRef {
+        PagesProject_DeploymentConfigs_ProductionRef::new(self.shared().clone(), format!("{}.production", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct PagesProjectSourceElConfigEl {
+pub struct PagesProject_LatestDeployment_BuildConfig {}
+
+impl PagesProject_LatestDeployment_BuildConfig { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_BuildConfig {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_BuildConfig>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_BuildConfig {}
+
+impl BuildPagesProject_LatestDeployment_BuildConfig {
+    pub fn build(self) -> PagesProject_LatestDeployment_BuildConfig {
+        PagesProject_LatestDeployment_BuildConfig {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_BuildConfigRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_BuildConfigRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeployment_BuildConfigRef {
+        PagesProject_LatestDeployment_BuildConfigRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_BuildConfigRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_caching` after provisioning.\nEnable build caching for the project."]
+    pub fn build_caching(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_caching", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `build_command` after provisioning.\nCommand used to build project."]
+    pub fn build_command(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_command", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `destination_dir` after provisioning.\nAssets output directory of the build."]
+    pub fn destination_dir(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.destination_dir", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `root_dir` after provisioning.\nDirectory to run the command."]
+    pub fn root_dir(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.root_dir", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `web_analytics_tag` after provisioning.\nThe classifying tag for analytics."]
+    pub fn web_analytics_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_tag", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `web_analytics_token` after provisioning.\nThe auth token for analytics."]
+    pub fn web_analytics_token(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_token", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_DeploymentTrigger_Metadata {}
+
+impl PagesProject_LatestDeployment_DeploymentTrigger_Metadata { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_DeploymentTrigger_Metadata {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_DeploymentTrigger_Metadata>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_DeploymentTrigger_Metadata {}
+
+impl BuildPagesProject_LatestDeployment_DeploymentTrigger_Metadata {
+    pub fn build(self) -> PagesProject_LatestDeployment_DeploymentTrigger_Metadata {
+        PagesProject_LatestDeployment_DeploymentTrigger_Metadata {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+        PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `branch` after provisioning.\nWhere the trigger happened."]
+    pub fn branch(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.branch", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_dirty` after provisioning.\nWhether the deployment trigger commit was dirty."]
+    pub fn commit_dirty(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_dirty", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_hash` after provisioning.\nHash of the deployment trigger commit."]
+    pub fn commit_hash(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_hash", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `commit_message` after provisioning.\nMessage of the deployment trigger commit."]
+    pub fn commit_message(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_message", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_DeploymentTrigger {}
+
+impl PagesProject_LatestDeployment_DeploymentTrigger { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_DeploymentTrigger {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_DeploymentTrigger>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_DeploymentTrigger {}
+
+impl BuildPagesProject_LatestDeployment_DeploymentTrigger {
+    pub fn build(self) -> PagesProject_LatestDeployment_DeploymentTrigger {
+        PagesProject_LatestDeployment_DeploymentTrigger {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_DeploymentTriggerRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_DeploymentTriggerRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_LatestDeployment_DeploymentTriggerRef {
+        PagesProject_LatestDeployment_DeploymentTriggerRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_DeploymentTriggerRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `metadata` after provisioning.\nAdditional info about the trigger."]
+    pub fn metadata(&self) -> PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef {
+        PagesProject_LatestDeployment_DeploymentTrigger_MetadataRef::new(
+            self.shared().clone(),
+            format!("{}.metadata", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nWhat caused the deployment.\nAvailable values: \"github:push\", \"ad_hoc\", \"deploy_hook\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_EnvVars {}
+
+impl PagesProject_LatestDeployment_EnvVars { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_EnvVars {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_EnvVars>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_EnvVars {}
+
+impl BuildPagesProject_LatestDeployment_EnvVars {
+    pub fn build(self) -> PagesProject_LatestDeployment_EnvVars {
+        PagesProject_LatestDeployment_EnvVars {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_EnvVarsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_EnvVarsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeployment_EnvVarsRef {
+        PagesProject_LatestDeployment_EnvVarsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_EnvVarsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
+    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_LatestStage {}
+
+impl PagesProject_LatestDeployment_LatestStage { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_LatestStage {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_LatestStage>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_LatestStage {}
+
+impl BuildPagesProject_LatestDeployment_LatestStage {
+    pub fn build(self) -> PagesProject_LatestDeployment_LatestStage {
+        PagesProject_LatestDeployment_LatestStage {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_LatestStageRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_LatestStageRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeployment_LatestStageRef {
+        PagesProject_LatestDeployment_LatestStageRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_LatestStageRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
+    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
+    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_Source_Config {}
+
+impl PagesProject_LatestDeployment_Source_Config { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_Source_Config {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_Source_Config>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_Source_Config {}
+
+impl BuildPagesProject_LatestDeployment_Source_Config {
+    pub fn build(self) -> PagesProject_LatestDeployment_Source_Config {
+        PagesProject_LatestDeployment_Source_Config {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_Source_ConfigRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_Source_ConfigRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> PagesProject_LatestDeployment_Source_ConfigRef {
+        PagesProject_LatestDeployment_Source_ConfigRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_Source_ConfigRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `deployments_enabled` after provisioning.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
+    pub fn deployments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployments_enabled", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `owner` after provisioning.\nThe owner of the repository."]
+    pub fn owner(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `owner_id` after provisioning.\nThe owner ID of the repository."]
+    pub fn owner_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `path_excludes` after provisioning.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_excludes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `path_includes` after provisioning.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_includes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nWhether to enable PR comments."]
+    pub fn pr_comments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pr_comments_enabled", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
+    pub fn preview_branch_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_excludes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
+    pub fn preview_branch_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_includes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
+    pub fn preview_deployment_setting(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_deployment_setting", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_branch` after provisioning.\nThe production branch of the repository."]
+    pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `production_deployments_enabled` after provisioning.\nWhether to trigger a production deployment on commits to the production branch."]
+    pub fn production_deployments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployments_enabled", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `repo_id` after provisioning.\nThe ID of the repository."]
+    pub fn repo_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nThe name of the repository."]
+    pub fn repo_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_Source {}
+
+impl PagesProject_LatestDeployment_Source { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_Source {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_Source>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_Source {}
+
+impl BuildPagesProject_LatestDeployment_Source {
+    pub fn build(self) -> PagesProject_LatestDeployment_Source {
+        PagesProject_LatestDeployment_Source {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_SourceRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_SourceRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeployment_SourceRef {
+        PagesProject_LatestDeployment_SourceRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_SourceRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
+    pub fn config(&self) -> PagesProject_LatestDeployment_Source_ConfigRef {
+        PagesProject_LatestDeployment_Source_ConfigRef::new(self.shared().clone(), format!("{}.config", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nThe source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
+    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment_Stages {}
+
+impl PagesProject_LatestDeployment_Stages { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment_Stages {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment_Stages>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment_Stages {}
+
+impl BuildPagesProject_LatestDeployment_Stages {
+    pub fn build(self) -> PagesProject_LatestDeployment_Stages {
+        PagesProject_LatestDeployment_Stages {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeployment_StagesRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeployment_StagesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeployment_StagesRef {
+        PagesProject_LatestDeployment_StagesRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeployment_StagesRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
+    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
+    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
+    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_LatestDeployment {}
+
+impl PagesProject_LatestDeployment { }
+
+impl terrars::ToListMappable for PagesProject_LatestDeployment {
+    type O = terrars::BlockAssignable<PagesProject_LatestDeployment>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildPagesProject_LatestDeployment {}
+
+impl BuildPagesProject_LatestDeployment {
+    pub fn build(self) -> PagesProject_LatestDeployment {
+        PagesProject_LatestDeployment {}
+    }
+}
+
+#[allow(dead_code)]
+pub struct PagesProject_LatestDeploymentRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for PagesProject_LatestDeploymentRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_LatestDeploymentRef {
+        PagesProject_LatestDeploymentRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl PagesProject_LatestDeploymentRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `aliases` after provisioning.\nA list of alias URLs pointing to this deployment."]
+    pub fn aliases(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.aliases", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
+    pub fn build_config(&self) -> PagesProject_LatestDeployment_BuildConfigRef {
+        PagesProject_LatestDeployment_BuildConfigRef::new(
+            self.shared().clone(),
+            format!("{}.build_config", self.base),
+        )
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the deployment was created."]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `deployment_trigger` after provisioning.\nInfo about what caused the deployment."]
+    pub fn deployment_trigger(&self) -> PagesProject_LatestDeployment_DeploymentTriggerRef {
+        PagesProject_LatestDeployment_DeploymentTriggerRef::new(
+            self.shared().clone(),
+            format!("{}.deployment_trigger", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
+    pub fn env_vars(&self) -> terrars::RecRef<PagesProject_LatestDeployment_EnvVarsRef> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `environment` after provisioning.\nType of deploy.\nAvailable values: \"preview\", \"production\"."]
+    pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nId of the deployment."]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `is_skipped` after provisioning.\nWhether the deployment was skipped."]
+    pub fn is_skipped(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.is_skipped", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `latest_stage` after provisioning.\nThe status of the deployment."]
+    pub fn latest_stage(&self) -> PagesProject_LatestDeployment_LatestStageRef {
+        PagesProject_LatestDeployment_LatestStageRef::new(
+            self.shared().clone(),
+            format!("{}.latest_stage", self.base),
+        )
+    }
+
+    #[doc =
+        "Get a reference to the value of field `modified_on` after provisioning.\nWhen the deployment was last modified."]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `project_id` after provisioning.\nId of the project."]
+    pub fn project_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `project_name` after provisioning.\nName of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."]
+    pub fn project_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_name", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `short_id` after provisioning.\nShort Id (8 character) of the deployment."]
+    pub fn short_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.short_id", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
+    pub fn source(&self) -> PagesProject_LatestDeployment_SourceRef {
+        PagesProject_LatestDeployment_SourceRef::new(self.shared().clone(), format!("{}.source", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `stages` after provisioning.\nList of past stages."]
+    pub fn stages(&self) -> terrars::ListRef<PagesProject_LatestDeployment_StagesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.stages", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `url` after provisioning.\nThe live URL to view this deployment."]
+    pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `uses_functions` after provisioning.\nWhether the deployment uses functions."]
+    pub fn uses_functions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.uses_functions", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct PagesProject_Source_Config {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     deployments_enabled: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     owner: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    owner_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    path_excludes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    path_includes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pr_comments_enabled: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1349,33 +5384,64 @@ pub struct PagesProjectSourceElConfigEl {
     preview_branch_includes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     preview_deployment_setting: std::option::Option<terrars::PrimField<std::string::String>>,
-    production_branch: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    production_deployment_enabled: std::option::Option<terrars::PrimField<bool>>,
+    production_branch: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    production_deployments_enabled: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    repo_id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     repo_name: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl PagesProjectSourceElConfigEl {
-    #[doc = "Set the field `deployments_enabled`.\nToggle deployments on this repo. Defaults to `true`."]
+impl PagesProject_Source_Config {
+    #[doc =
+        "Set the field `deployments_enabled`.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
     pub fn set_deployments_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.deployments_enabled = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `owner`.\nProject owner username."]
+    #[doc = "Set the field `owner`.\nThe owner of the repository."]
     pub fn set_owner(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.owner = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `pr_comments_enabled`.\nEnable Pages to comment on Pull Requests. Defaults to `true`."]
+    #[doc = "Set the field `owner_id`.\nThe owner ID of the repository."]
+    pub fn set_owner_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.owner_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `path_excludes`.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn set_path_excludes(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.path_excludes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `path_includes`.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn set_path_includes(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.path_includes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `pr_comments_enabled`.\nWhether to enable PR comments."]
     pub fn set_pr_comments_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.pr_comments_enabled = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `preview_branch_excludes`.\nBranches will be excluded from automatic deployment."]
+    #[doc =
+        "Set the field `preview_branch_excludes`.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
     pub fn set_preview_branch_excludes(
         mut self,
         v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
@@ -1384,7 +5450,8 @@ impl PagesProjectSourceElConfigEl {
         self
     }
 
-    #[doc = "Set the field `preview_branch_includes`.\nBranches will be included for automatic deployment."]
+    #[doc =
+        "Set the field `preview_branch_includes`.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
     pub fn set_preview_branch_includes(
         mut self,
         v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
@@ -1393,7 +5460,8 @@ impl PagesProjectSourceElConfigEl {
         self
     }
 
-    #[doc = "Set the field `preview_deployment_setting`.\nPreview Deployment Setting. Defaults to `all`."]
+    #[doc =
+        "Set the field `preview_deployment_setting`.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
     pub fn set_preview_deployment_setting(
         mut self,
         v: impl std::convert::Into<terrars::PrimField<std::string::String>>,
@@ -1402,21 +5470,34 @@ impl PagesProjectSourceElConfigEl {
         self
     }
 
-    #[doc = "Set the field `production_deployment_enabled`.\nEnable production deployments. Defaults to `true`."]
-    pub fn set_production_deployment_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.production_deployment_enabled = std::option::Option::Some(v.into());
+    #[doc = "Set the field `production_branch`.\nThe production branch of the repository."]
+    pub fn set_production_branch(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.production_branch = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `repo_name`.\nProject repository name."]
+    #[doc =
+        "Set the field `production_deployments_enabled`.\nWhether to trigger a production deployment on commits to the production branch."]
+    pub fn set_production_deployments_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.production_deployments_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `repo_id`.\nThe ID of the repository."]
+    pub fn set_repo_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.repo_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `repo_name`.\nThe name of the repository."]
     pub fn set_repo_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.repo_name = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for PagesProjectSourceElConfigEl {
-    type O = terrars::BlockAssignable<PagesProjectSourceElConfigEl>;
+impl terrars::ToListMappable for PagesProject_Source_Config {
+    type O = terrars::BlockAssignable<PagesProject_Source_Config>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1427,139 +5508,135 @@ impl terrars::ToListMappable for PagesProjectSourceElConfigEl {
     }
 }
 
-pub struct BuildPagesProjectSourceElConfigEl {
-    #[doc = "Project production branch name."]
-    pub production_branch: terrars::PrimField<std::string::String>,
-}
+pub struct BuildPagesProject_Source_Config {}
 
-impl BuildPagesProjectSourceElConfigEl {
-    pub fn build(self) -> PagesProjectSourceElConfigEl {
-        PagesProjectSourceElConfigEl {
+impl BuildPagesProject_Source_Config {
+    pub fn build(self) -> PagesProject_Source_Config {
+        PagesProject_Source_Config {
             deployments_enabled: core::default::Default::default(),
             owner: core::default::Default::default(),
+            owner_id: core::default::Default::default(),
+            path_excludes: core::default::Default::default(),
+            path_includes: core::default::Default::default(),
             pr_comments_enabled: core::default::Default::default(),
             preview_branch_excludes: core::default::Default::default(),
             preview_branch_includes: core::default::Default::default(),
             preview_deployment_setting: core::default::Default::default(),
-            production_branch: self.production_branch,
-            production_deployment_enabled: core::default::Default::default(),
+            production_branch: core::default::Default::default(),
+            production_deployments_enabled: core::default::Default::default(),
+            repo_id: core::default::Default::default(),
             repo_name: core::default::Default::default(),
         }
     }
 }
 
-pub struct PagesProjectSourceElConfigElRef {
+#[allow(dead_code)]
+pub struct PagesProject_Source_ConfigRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectSourceElConfigElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProjectSourceElConfigElRef {
-        PagesProjectSourceElConfigElRef {
+impl terrars::Ref for PagesProject_Source_ConfigRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_Source_ConfigRef {
+        PagesProject_Source_ConfigRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectSourceElConfigElRef {
+impl PagesProject_Source_ConfigRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `deployments_enabled` after provisioning.\nToggle deployments on this repo. Defaults to `true`."]
+        "Get a reference to the value of field `deployments_enabled` after provisioning.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
     pub fn deployments_enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployments_enabled", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `owner` after provisioning.\nProject owner username."]
+    #[doc = "Get a reference to the value of field `owner` after provisioning.\nThe owner of the repository."]
     pub fn owner(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner", self.base))
     }
 
+    #[doc = "Get a reference to the value of field `owner_id` after provisioning.\nThe owner ID of the repository."]
+    pub fn owner_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_id", self.base))
+    }
+
     #[doc =
-        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nEnable Pages to comment on Pull Requests. Defaults to `true`."]
+        "Get a reference to the value of field `path_excludes` after provisioning.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_excludes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `path_includes` after provisioning.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
+    pub fn path_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.path_includes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nWhether to enable PR comments."]
     pub fn pr_comments_enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.pr_comments_enabled", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nBranches will be excluded from automatic deployment."]
+        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
     pub fn preview_branch_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_excludes", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nBranches will be included for automatic deployment."]
+        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
     pub fn preview_branch_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_includes", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nPreview Deployment Setting. Defaults to `all`."]
+        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
     pub fn preview_deployment_setting(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_deployment_setting", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `production_branch` after provisioning.\nProject production branch name."]
+        "Get a reference to the value of field `production_branch` after provisioning.\nThe production branch of the repository."]
     pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `production_deployment_enabled` after provisioning.\nEnable production deployments. Defaults to `true`."]
-    pub fn production_deployment_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployment_enabled", self.base))
+        "Get a reference to the value of field `production_deployments_enabled` after provisioning.\nWhether to trigger a production deployment on commits to the production branch."]
+    pub fn production_deployments_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployments_enabled", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nProject repository name."]
+    #[doc = "Get a reference to the value of field `repo_id` after provisioning.\nThe ID of the repository."]
+    pub fn repo_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nThe name of the repository."]
     pub fn repo_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_name", self.base))
     }
 }
 
-#[derive(Serialize, Default)]
-struct PagesProjectSourceElDynamic {
-    config: std::option::Option<terrars::DynamicBlock<PagesProjectSourceElConfigEl>>,
-}
-
 #[derive(Serialize)]
-pub struct PagesProjectSourceEl {
-    #[serde(rename = "type", skip_serializing_if = "std::option::Option::is_none")]
-    type_: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    config: std::option::Option<std::vec::Vec<PagesProjectSourceElConfigEl>>,
-    dynamic: PagesProjectSourceElDynamic,
+pub struct PagesProject_Source {
+    config: PagesProject_Source_Config,
+    #[serde(rename = "type")]
+    type_: terrars::PrimField<std::string::String>,
 }
 
-impl PagesProjectSourceEl {
-    #[doc = "Set the field `type_`.\nProject host type."]
-    pub fn set_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.type_ = std::option::Option::Some(v.into());
-        self
-    }
+impl PagesProject_Source { }
 
-    #[doc = "Set the field `config`.\n"]
-    pub fn set_config(
-        mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<PagesProjectSourceElConfigEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.config = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.dynamic.config = std::option::Option::Some(d);
-            },
-        }
-        self
-    }
-}
-
-impl terrars::ToListMappable for PagesProjectSourceEl {
-    type O = terrars::BlockAssignable<PagesProjectSourceEl>;
+impl terrars::ToListMappable for PagesProject_Source {
+    type O = terrars::BlockAssignable<PagesProject_Source>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1570,51 +5647,51 @@ impl terrars::ToListMappable for PagesProjectSourceEl {
     }
 }
 
-pub struct BuildPagesProjectSourceEl {}
+pub struct BuildPagesProject_Source {
+    #[doc = ""]
+    pub config: PagesProject_Source_Config,
+    #[doc = "The source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
+    pub type_: terrars::PrimField<std::string::String>,
+}
 
-impl BuildPagesProjectSourceEl {
-    pub fn build(self) -> PagesProjectSourceEl {
-        PagesProjectSourceEl {
-            type_: core::default::Default::default(),
-            config: core::default::Default::default(),
-            dynamic: core::default::Default::default(),
+impl BuildPagesProject_Source {
+    pub fn build(self) -> PagesProject_Source {
+        PagesProject_Source {
+            config: self.config,
+            type_: self.type_,
         }
     }
 }
 
-pub struct PagesProjectSourceElRef {
+#[allow(dead_code)]
+pub struct PagesProject_SourceRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for PagesProjectSourceElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProjectSourceElRef {
-        PagesProjectSourceElRef {
+impl terrars::Ref for PagesProject_SourceRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> PagesProject_SourceRef {
+        PagesProject_SourceRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl PagesProjectSourceElRef {
+impl PagesProject_SourceRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `type_` after provisioning.\nProject host type."]
+    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
+    pub fn config(&self) -> PagesProject_Source_ConfigRef {
+        PagesProject_Source_ConfigRef::new(self.shared().clone(), format!("{}.config", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `type_` after provisioning.\nThe source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
-
-    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
-    pub fn config(&self) -> terrars::ListRef<PagesProjectSourceElConfigElRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.config", self.base))
-    }
-}
-
-#[derive(Serialize, Default)]
-struct PagesProjectDynamic {
-    build_config: std::option::Option<terrars::DynamicBlock<PagesProjectBuildConfigEl>>,
-    deployment_configs: std::option::Option<terrars::DynamicBlock<PagesProjectDeploymentConfigsEl>>,
-    source: std::option::Option<terrars::DynamicBlock<PagesProjectSourceEl>>,
 }

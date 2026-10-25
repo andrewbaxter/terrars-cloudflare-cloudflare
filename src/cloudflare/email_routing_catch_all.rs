@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderCloudflare;
 
 #[derive(Serialize)]
-struct EmailRoutingCatchAllData {
+struct EmailRoutingCatchAllData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18,23 +20,23 @@ struct EmailRoutingCatchAllData {
     for_each: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
+    actions: std::vec::Vec<EmailRoutingCatchAll_Actions>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     enabled: std::option::Option<terrars::PrimField<bool>>,
+    matchers: std::vec::Vec<EmailRoutingCatchAll_Matchers>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    id: std::option::Option<terrars::PrimField<std::string::String>>,
-    name: terrars::PrimField<std::string::String>,
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    owner_worker_tag: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    source: std::option::Option<terrars::PrimField<std::string::String>>,
     zone_id: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    action: std::option::Option<std::vec::Vec<EmailRoutingCatchAllActionEl>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    matcher: std::option::Option<std::vec::Vec<EmailRoutingCatchAllMatcherEl>>,
-    dynamic: EmailRoutingCatchAllDynamic,
 }
 
 struct EmailRoutingCatchAll_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<EmailRoutingCatchAllData>,
+    data: std::cell::RefCell<EmailRoutingCatchAllData_>,
 }
 
 #[derive(Clone)]
@@ -140,39 +142,30 @@ impl EmailRoutingCatchAll {
         self
     }
 
-    #[doc = "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+    #[doc = "Set the field `name`.\nRouting rule name."]
+    pub fn set_name(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().name = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `action`.\n"]
-    pub fn set_action(self, v: impl std::convert::Into<terrars::BlockAssignable<EmailRoutingCatchAllActionEl>>) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().action = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.action = std::option::Option::Some(d);
-            },
-        }
+    #[doc =
+        "Set the field `owner_worker_tag`.\nPublic tag (script_tag) of the Worker that owns this rule. Required when\n`source` is `wrangler`."]
+    pub fn set_owner_worker_tag(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().owner_worker_tag = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `matcher`.\n"]
-    pub fn set_matcher(
-        self,
-        v: impl std::convert::Into<terrars::BlockAssignable<EmailRoutingCatchAllMatcherEl>>,
-    ) -> Self {
-        match v.into() {
-            terrars::BlockAssignable::Literal(v) => {
-                self.0.data.borrow_mut().matcher = std::option::Option::Some(v);
-            },
-            terrars::BlockAssignable::Dynamic(d) => {
-                self.0.data.borrow_mut().dynamic.matcher = std::option::Option::Some(d);
-            },
-        }
+    #[doc =
+        "Set the field `source`.\nWho manages the rule. `api` covers dashboard, generic API, and Terraform;\n`wrangler` means the rule is managed by a Worker's wrangler.jsonc. Defaults\nto `api` when omitted on write.\nAvailable values: \"api\", \"wrangler\"."]
+    pub fn set_source(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().source = std::option::Option::Some(v.into());
         self
+    }
+
+    #[doc =
+        "Get a reference to the value of field `actions` after provisioning.\nList actions for the catch-all routing rule."]
+    pub fn actions(&self) -> terrars::ListRef<EmailRoutingCatchAll_ActionsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `enabled` after provisioning.\nRouting rule status."]
@@ -180,9 +173,15 @@ impl EmailRoutingCatchAll {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `matchers` after provisioning.\nList of matchers for the catch-all routing rule."]
+    pub fn matchers(&self) -> terrars::ListRef<EmailRoutingCatchAll_MatchersRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.matchers", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `name` after provisioning.\nRouting rule name."]
@@ -190,13 +189,25 @@ impl EmailRoutingCatchAll {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nRouting rule identifier."]
+    #[doc =
+        "Get a reference to the value of field `owner_worker_tag` after provisioning.\nPublic tag (script_tag) of the Worker that owns this rule. Required when\n`source` is `wrangler`."]
+    pub fn owner_worker_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_worker_tag", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nWho manages the rule. `api` covers dashboard, generic API, and Terraform;\n`wrangler` means the rule is managed by a Worker's wrangler.jsonc. Defaults\nto `api` when omitted on write.\nAvailable values: \"api\", \"wrangler\"."]
+    pub fn source(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nRouting rule tag. (Deprecated, replaced by routing rule identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
@@ -235,9 +246,11 @@ impl terrars::Resource_ for EmailRoutingCatchAll_ {
 
 pub struct BuildEmailRoutingCatchAll {
     pub tf_id: std::string::String,
-    #[doc = "Routing rule name."]
-    pub name: terrars::PrimField<std::string::String>,
-    #[doc = "The zone identifier to target for the resource."]
+    #[doc = "List actions for the catch-all routing rule."]
+    pub actions: std::vec::Vec<EmailRoutingCatchAll_Actions>,
+    #[doc = "List of matchers for the catch-all routing rule."]
+    pub matchers: std::vec::Vec<EmailRoutingCatchAll_Matchers>,
+    #[doc = "Identifier."]
     pub zone_id: terrars::PrimField<std::string::String>,
 }
 
@@ -246,19 +259,19 @@ impl BuildEmailRoutingCatchAll {
         let out = EmailRoutingCatchAll(std::rc::Rc::new(EmailRoutingCatchAll_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(EmailRoutingCatchAllData {
+            data: std::cell::RefCell::new(EmailRoutingCatchAllData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
+                actions: self.actions,
                 enabled: core::default::Default::default(),
-                id: core::default::Default::default(),
-                name: self.name,
+                matchers: self.matchers,
+                name: core::default::Default::default(),
+                owner_worker_tag: core::default::Default::default(),
+                source: core::default::Default::default(),
                 zone_id: self.zone_id,
-                action: core::default::Default::default(),
-                matcher: core::default::Default::default(),
-                dynamic: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -289,14 +302,26 @@ impl EmailRoutingCatchAllRef {
         &self.shared
     }
 
+    #[doc =
+        "Get a reference to the value of field `actions` after provisioning.\nList actions for the catch-all routing rule."]
+    pub fn actions(&self) -> terrars::ListRef<EmailRoutingCatchAll_ActionsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.actions", self.extract_ref()))
+    }
+
     #[doc = "Get a reference to the value of field `enabled` after provisioning.\nRouting rule status."]
     pub fn enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier."]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `matchers` after provisioning.\nList of matchers for the catch-all routing rule."]
+    pub fn matchers(&self) -> terrars::ListRef<EmailRoutingCatchAll_MatchersRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.matchers", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `name` after provisioning.\nRouting rule name."]
@@ -304,29 +329,51 @@ impl EmailRoutingCatchAllRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `tag` after provisioning.\nRouting rule identifier."]
+    #[doc =
+        "Get a reference to the value of field `owner_worker_tag` after provisioning.\nPublic tag (script_tag) of the Worker that owns this rule. Required when\n`source` is `wrangler`."]
+    pub fn owner_worker_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_worker_tag", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nWho manages the rule. `api` covers dashboard, generic API, and Terraform;\n`wrangler` means the rule is managed by a Worker's wrangler.jsonc. Defaults\nto `api` when omitted on write.\nAvailable values: \"api\", \"wrangler\"."]
+    pub fn source(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `tag` after provisioning.\nRouting rule tag. (Deprecated, replaced by routing rule identifier)"]
     pub fn tag(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tag", self.extract_ref()))
     }
 
-    #[doc =
-        "Get a reference to the value of field `zone_id` after provisioning.\nThe zone identifier to target for the resource."]
+    #[doc = "Get a reference to the value of field `zone_id` after provisioning.\nIdentifier."]
     pub fn zone_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.zone_id", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct EmailRoutingCatchAllActionEl {
+pub struct EmailRoutingCatchAll_Actions {
     #[serde(rename = "type")]
     type_: terrars::PrimField<std::string::String>,
-    value: terrars::ListField<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    value: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
 }
 
-impl EmailRoutingCatchAllActionEl { }
+impl EmailRoutingCatchAll_Actions {
+    #[doc = "Set the field `value`.\nList of values for the action. Currently limited to a single value."]
+    pub fn set_value(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+}
 
-impl terrars::ToListMappable for EmailRoutingCatchAllActionEl {
-    type O = terrars::BlockAssignable<EmailRoutingCatchAllActionEl>;
+impl terrars::ToListMappable for EmailRoutingCatchAll_Actions {
+    type O = terrars::BlockAssignable<EmailRoutingCatchAll_Actions>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -337,64 +384,64 @@ impl terrars::ToListMappable for EmailRoutingCatchAllActionEl {
     }
 }
 
-pub struct BuildEmailRoutingCatchAllActionEl {
-    #[doc = "Type of supported action. Available values: `drop`, `forward`, `worker`."]
+pub struct BuildEmailRoutingCatchAll_Actions {
+    #[doc = "Type of action for catch-all rule.\nAvailable values: \"drop\", \"forward\", \"worker\"."]
     pub type_: terrars::PrimField<std::string::String>,
-    #[doc = "A list with items in the following form."]
-    pub value: terrars::ListField<terrars::PrimField<std::string::String>>,
 }
 
-impl BuildEmailRoutingCatchAllActionEl {
-    pub fn build(self) -> EmailRoutingCatchAllActionEl {
-        EmailRoutingCatchAllActionEl {
+impl BuildEmailRoutingCatchAll_Actions {
+    pub fn build(self) -> EmailRoutingCatchAll_Actions {
+        EmailRoutingCatchAll_Actions {
             type_: self.type_,
-            value: self.value,
+            value: core::default::Default::default(),
         }
     }
 }
 
-pub struct EmailRoutingCatchAllActionElRef {
+#[allow(dead_code)]
+pub struct EmailRoutingCatchAll_ActionsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for EmailRoutingCatchAllActionElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> EmailRoutingCatchAllActionElRef {
-        EmailRoutingCatchAllActionElRef {
+impl terrars::Ref for EmailRoutingCatchAll_ActionsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> EmailRoutingCatchAll_ActionsRef {
+        EmailRoutingCatchAll_ActionsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl EmailRoutingCatchAllActionElRef {
+impl EmailRoutingCatchAll_ActionsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nType of supported action. Available values: `drop`, `forward`, `worker`."]
+        "Get a reference to the value of field `type_` after provisioning.\nType of action for catch-all rule.\nAvailable values: \"drop\", \"forward\", \"worker\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `value` after provisioning.\nA list with items in the following form."]
+        "Get a reference to the value of field `value` after provisioning.\nList of values for the action. Currently limited to a single value."]
     pub fn value(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.value", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct EmailRoutingCatchAllMatcherEl {
+pub struct EmailRoutingCatchAll_Matchers {
     #[serde(rename = "type")]
     type_: terrars::PrimField<std::string::String>,
 }
 
-impl EmailRoutingCatchAllMatcherEl { }
+impl EmailRoutingCatchAll_Matchers { }
 
-impl terrars::ToListMappable for EmailRoutingCatchAllMatcherEl {
-    type O = terrars::BlockAssignable<EmailRoutingCatchAllMatcherEl>;
+impl terrars::ToListMappable for EmailRoutingCatchAll_Matchers {
+    type O = terrars::BlockAssignable<EmailRoutingCatchAll_Matchers>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -405,45 +452,41 @@ impl terrars::ToListMappable for EmailRoutingCatchAllMatcherEl {
     }
 }
 
-pub struct BuildEmailRoutingCatchAllMatcherEl {
-    #[doc = "Type of matcher. Available values: `all`."]
+pub struct BuildEmailRoutingCatchAll_Matchers {
+    #[doc = "Type of matcher. Default is 'all'.\nAvailable values: \"all\"."]
     pub type_: terrars::PrimField<std::string::String>,
 }
 
-impl BuildEmailRoutingCatchAllMatcherEl {
-    pub fn build(self) -> EmailRoutingCatchAllMatcherEl {
-        EmailRoutingCatchAllMatcherEl { type_: self.type_ }
+impl BuildEmailRoutingCatchAll_Matchers {
+    pub fn build(self) -> EmailRoutingCatchAll_Matchers {
+        EmailRoutingCatchAll_Matchers { type_: self.type_ }
     }
 }
 
-pub struct EmailRoutingCatchAllMatcherElRef {
+#[allow(dead_code)]
+pub struct EmailRoutingCatchAll_MatchersRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for EmailRoutingCatchAllMatcherElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> EmailRoutingCatchAllMatcherElRef {
-        EmailRoutingCatchAllMatcherElRef {
+impl terrars::Ref for EmailRoutingCatchAll_MatchersRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> EmailRoutingCatchAll_MatchersRef {
+        EmailRoutingCatchAll_MatchersRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl EmailRoutingCatchAllMatcherElRef {
+impl EmailRoutingCatchAll_MatchersRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nType of matcher. Available values: `all`."]
+        "Get a reference to the value of field `type_` after provisioning.\nType of matcher. Default is 'all'.\nAvailable values: \"all\"."]
     pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct EmailRoutingCatchAllDynamic {
-    action: std::option::Option<terrars::DynamicBlock<EmailRoutingCatchAllActionEl>>,
-    matcher: std::option::Option<terrars::DynamicBlock<EmailRoutingCatchAllMatcherEl>>,
 }
