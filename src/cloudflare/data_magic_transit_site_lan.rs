@@ -365,59 +365,6 @@ impl DataMagicTransitSiteLan_NatRef {
 }
 
 #[derive(Serialize)]
-pub struct DataMagicTransitSiteLan_RoutedSubnets_Nat {}
-
-impl DataMagicTransitSiteLan_RoutedSubnets_Nat { }
-
-impl terrars::ToListMappable for DataMagicTransitSiteLan_RoutedSubnets_Nat {
-    type O = terrars::BlockAssignable<DataMagicTransitSiteLan_RoutedSubnets_Nat>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataMagicTransitSiteLan_RoutedSubnets_Nat {}
-
-impl BuildDataMagicTransitSiteLan_RoutedSubnets_Nat {
-    pub fn build(self) -> DataMagicTransitSiteLan_RoutedSubnets_Nat {
-        DataMagicTransitSiteLan_RoutedSubnets_Nat {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-        DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `static_prefix` after provisioning.\nA valid CIDR notation representing an IP range."]
-    pub fn static_prefix(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.static_prefix", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct DataMagicTransitSiteLan_RoutedSubnets {}
 
 impl DataMagicTransitSiteLan_RoutedSubnets { }
@@ -464,8 +411,8 @@ impl DataMagicTransitSiteLan_RoutedSubnetsRef {
     }
 
     #[doc = "Get a reference to the value of field `nat` after provisioning.\n"]
-    pub fn nat(&self) -> DataMagicTransitSiteLan_RoutedSubnets_NatRef {
-        DataMagicTransitSiteLan_RoutedSubnets_NatRef::new(self.shared().clone(), format!("{}.nat", self.base))
+    pub fn nat(&self) -> DataMagicTransitSiteLan_NatRef {
+        DataMagicTransitSiteLan_NatRef::new(self.shared().clone(), format!("{}.nat", self.base))
     }
 
     #[doc = "Get a reference to the value of field `next_hop` after provisioning.\nA valid IPv4 address."]

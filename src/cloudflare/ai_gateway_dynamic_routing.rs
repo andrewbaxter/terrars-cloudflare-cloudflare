@@ -1115,68 +1115,6 @@ impl AiGatewayDynamicRouting_ElementsRef {
 }
 
 #[derive(Serialize)]
-pub struct AiGatewayDynamicRouting_Route_Deployment {}
-
-impl AiGatewayDynamicRouting_Route_Deployment { }
-
-impl terrars::ToListMappable for AiGatewayDynamicRouting_Route_Deployment {
-    type O = terrars::BlockAssignable<AiGatewayDynamicRouting_Route_Deployment>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildAiGatewayDynamicRouting_Route_Deployment {}
-
-impl BuildAiGatewayDynamicRouting_Route_Deployment {
-    pub fn build(self) -> AiGatewayDynamicRouting_Route_Deployment {
-        AiGatewayDynamicRouting_Route_Deployment {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct AiGatewayDynamicRouting_Route_DeploymentRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for AiGatewayDynamicRouting_Route_DeploymentRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AiGatewayDynamicRouting_Route_DeploymentRef {
-        AiGatewayDynamicRouting_Route_DeploymentRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl AiGatewayDynamicRouting_Route_DeploymentRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `created_at` after provisioning.\n"]
-    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `deployment_id` after provisioning.\n"]
-    pub fn deployment_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployment_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `version_id` after provisioning.\n"]
-    pub fn version_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.version_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct AiGatewayDynamicRouting_Route_Elements_Outputs_Fallback {}
 
 impl AiGatewayDynamicRouting_Route_Elements_Outputs_Fallback { }
@@ -1717,12 +1655,12 @@ impl AiGatewayDynamicRouting_Route_ElementsRef {
 }
 
 #[derive(Serialize)]
-pub struct AiGatewayDynamicRouting_Route_Version {}
+pub struct AiGatewayDynamicRouting_Version {}
 
-impl AiGatewayDynamicRouting_Route_Version { }
+impl AiGatewayDynamicRouting_Version { }
 
-impl terrars::ToListMappable for AiGatewayDynamicRouting_Route_Version {
-    type O = terrars::BlockAssignable<AiGatewayDynamicRouting_Route_Version>;
+impl terrars::ToListMappable for AiGatewayDynamicRouting_Version {
+    type O = terrars::BlockAssignable<AiGatewayDynamicRouting_Version>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1733,30 +1671,30 @@ impl terrars::ToListMappable for AiGatewayDynamicRouting_Route_Version {
     }
 }
 
-pub struct BuildAiGatewayDynamicRouting_Route_Version {}
+pub struct BuildAiGatewayDynamicRouting_Version {}
 
-impl BuildAiGatewayDynamicRouting_Route_Version {
-    pub fn build(self) -> AiGatewayDynamicRouting_Route_Version {
-        AiGatewayDynamicRouting_Route_Version {}
+impl BuildAiGatewayDynamicRouting_Version {
+    pub fn build(self) -> AiGatewayDynamicRouting_Version {
+        AiGatewayDynamicRouting_Version {}
     }
 }
 
 #[allow(dead_code)]
-pub struct AiGatewayDynamicRouting_Route_VersionRef {
+pub struct AiGatewayDynamicRouting_VersionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for AiGatewayDynamicRouting_Route_VersionRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AiGatewayDynamicRouting_Route_VersionRef {
-        AiGatewayDynamicRouting_Route_VersionRef {
+impl terrars::Ref for AiGatewayDynamicRouting_VersionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> AiGatewayDynamicRouting_VersionRef {
+        AiGatewayDynamicRouting_VersionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl AiGatewayDynamicRouting_Route_VersionRef {
+impl AiGatewayDynamicRouting_VersionRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -1846,8 +1784,8 @@ impl AiGatewayDynamicRouting_RouteRef {
     }
 
     #[doc = "Get a reference to the value of field `deployment` after provisioning.\n"]
-    pub fn deployment(&self) -> AiGatewayDynamicRouting_Route_DeploymentRef {
-        AiGatewayDynamicRouting_Route_DeploymentRef::new(self.shared().clone(), format!("{}.deployment", self.base))
+    pub fn deployment(&self) -> AiGatewayDynamicRouting_DeploymentRef {
+        AiGatewayDynamicRouting_DeploymentRef::new(self.shared().clone(), format!("{}.deployment", self.base))
     }
 
     #[doc = "Get a reference to the value of field `elements` after provisioning.\n"]
@@ -1876,80 +1814,7 @@ impl AiGatewayDynamicRouting_RouteRef {
     }
 
     #[doc = "Get a reference to the value of field `version` after provisioning.\n"]
-    pub fn version(&self) -> AiGatewayDynamicRouting_Route_VersionRef {
-        AiGatewayDynamicRouting_Route_VersionRef::new(self.shared().clone(), format!("{}.version", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct AiGatewayDynamicRouting_Version {}
-
-impl AiGatewayDynamicRouting_Version { }
-
-impl terrars::ToListMappable for AiGatewayDynamicRouting_Version {
-    type O = terrars::BlockAssignable<AiGatewayDynamicRouting_Version>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildAiGatewayDynamicRouting_Version {}
-
-impl BuildAiGatewayDynamicRouting_Version {
-    pub fn build(self) -> AiGatewayDynamicRouting_Version {
-        AiGatewayDynamicRouting_Version {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct AiGatewayDynamicRouting_VersionRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for AiGatewayDynamicRouting_VersionRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> AiGatewayDynamicRouting_VersionRef {
-        AiGatewayDynamicRouting_VersionRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl AiGatewayDynamicRouting_VersionRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `active` after provisioning.\nAvailable values: \"true\", \"false\"."]
-    pub fn active(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.active", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `created_at` after provisioning.\n"]
-    pub fn created_at(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_at", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `data` after provisioning.\n"]
-    pub fn data(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.data", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `is_valid` after provisioning.\n"]
-    pub fn is_valid(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.is_valid", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `version_id` after provisioning.\n"]
-    pub fn version_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.version_id", self.base))
+    pub fn version(&self) -> AiGatewayDynamicRouting_VersionRef {
+        AiGatewayDynamicRouting_VersionRef::new(self.shared().clone(), format!("{}.version", self.base))
     }
 }

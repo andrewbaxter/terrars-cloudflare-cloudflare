@@ -1104,202 +1104,6 @@ impl Worker_PreviewsBaseConfig_LimitsRef {
 }
 
 #[derive(Serialize)]
-pub struct Worker_PreviewsBaseConfig_Observability_Issues {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    enabled: std::option::Option<terrars::PrimField<bool>>,
-}
-
-impl Worker_PreviewsBaseConfig_Observability_Issues {
-    #[doc = "Set the field `enabled`.\nWhether real-time Issues are enabled for the Worker."]
-    pub fn set_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.enabled = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for Worker_PreviewsBaseConfig_Observability_Issues {
-    type O = terrars::BlockAssignable<Worker_PreviewsBaseConfig_Observability_Issues>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorker_PreviewsBaseConfig_Observability_Issues {}
-
-impl BuildWorker_PreviewsBaseConfig_Observability_Issues {
-    pub fn build(self) -> Worker_PreviewsBaseConfig_Observability_Issues {
-        Worker_PreviewsBaseConfig_Observability_Issues { enabled: core::default::Default::default() }
-    }
-}
-
-#[allow(dead_code)]
-pub struct Worker_PreviewsBaseConfig_Observability_IssuesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for Worker_PreviewsBaseConfig_Observability_IssuesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> Worker_PreviewsBaseConfig_Observability_IssuesRef {
-        Worker_PreviewsBaseConfig_Observability_IssuesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl Worker_PreviewsBaseConfig_Observability_IssuesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether real-time Issues are enabled for the Worker."]
-    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct Worker_PreviewsBaseConfig_Observability_Logs {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    destinations: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    enabled: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    head_sampling_rate: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    invocation_logs: std::option::Option<terrars::PrimField<bool>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    persist: std::option::Option<terrars::PrimField<bool>>,
-}
-
-impl Worker_PreviewsBaseConfig_Observability_Logs {
-    #[doc = "Set the field `destinations`.\nA list of destinations where logs will be exported to."]
-    pub fn set_destinations(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.destinations = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `enabled`.\nWhether logs are enabled for the Worker."]
-    pub fn set_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.enabled = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `head_sampling_rate`.\nThe sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%)."]
-    pub fn set_head_sampling_rate(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.head_sampling_rate = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `invocation_logs`.\nWhether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker."]
-    pub fn set_invocation_logs(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.invocation_logs = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `persist`.\nWhether log persistence is enabled for the Worker."]
-    pub fn set_persist(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
-        self.persist = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for Worker_PreviewsBaseConfig_Observability_Logs {
-    type O = terrars::BlockAssignable<Worker_PreviewsBaseConfig_Observability_Logs>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorker_PreviewsBaseConfig_Observability_Logs {}
-
-impl BuildWorker_PreviewsBaseConfig_Observability_Logs {
-    pub fn build(self) -> Worker_PreviewsBaseConfig_Observability_Logs {
-        Worker_PreviewsBaseConfig_Observability_Logs {
-            destinations: core::default::Default::default(),
-            enabled: core::default::Default::default(),
-            head_sampling_rate: core::default::Default::default(),
-            invocation_logs: core::default::Default::default(),
-            persist: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct Worker_PreviewsBaseConfig_Observability_LogsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for Worker_PreviewsBaseConfig_Observability_LogsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> Worker_PreviewsBaseConfig_Observability_LogsRef {
-        Worker_PreviewsBaseConfig_Observability_LogsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl Worker_PreviewsBaseConfig_Observability_LogsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `destinations` after provisioning.\nA list of destinations where logs will be exported to."]
-    pub fn destinations(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.destinations", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `enabled` after provisioning.\nWhether logs are enabled for the Worker."]
-    pub fn enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.enabled", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `head_sampling_rate` after provisioning.\nThe sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%)."]
-    pub fn head_sampling_rate(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.head_sampling_rate", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `invocation_logs` after provisioning.\nWhether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker."]
-    pub fn invocation_logs(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.invocation_logs", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `persist` after provisioning.\nWhether log persistence is enabled for the Worker."]
-    pub fn persist(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.persist", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct Worker_PreviewsBaseConfig_Observability_Traces {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     destinations: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
@@ -1440,9 +1244,9 @@ pub struct Worker_PreviewsBaseConfig_Observability {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     head_sampling_rate: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    issues: std::option::Option<Worker_PreviewsBaseConfig_Observability_Issues>,
+    issues: std::option::Option<Worker_Observability_Issues>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    logs: std::option::Option<Worker_PreviewsBaseConfig_Observability_Logs>,
+    logs: std::option::Option<Worker_Observability_Logs>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     redact_query_string: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1464,13 +1268,13 @@ impl Worker_PreviewsBaseConfig_Observability {
     }
 
     #[doc = "Set the field `issues`.\nReal-time Issues settings for the Worker."]
-    pub fn set_issues(mut self, v: impl std::convert::Into<Worker_PreviewsBaseConfig_Observability_Issues>) -> Self {
+    pub fn set_issues(mut self, v: impl std::convert::Into<Worker_Observability_Issues>) -> Self {
         self.issues = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `logs`.\nLog settings for the Worker."]
-    pub fn set_logs(mut self, v: impl std::convert::Into<Worker_PreviewsBaseConfig_Observability_Logs>) -> Self {
+    pub fn set_logs(mut self, v: impl std::convert::Into<Worker_Observability_Logs>) -> Self {
         self.logs = std::option::Option::Some(v.into());
         self
     }
@@ -1551,16 +1355,13 @@ impl Worker_PreviewsBaseConfig_ObservabilityRef {
 
     #[doc =
         "Get a reference to the value of field `issues` after provisioning.\nReal-time Issues settings for the Worker."]
-    pub fn issues(&self) -> Worker_PreviewsBaseConfig_Observability_IssuesRef {
-        Worker_PreviewsBaseConfig_Observability_IssuesRef::new(
-            self.shared().clone(),
-            format!("{}.issues", self.base),
-        )
+    pub fn issues(&self) -> Worker_Observability_IssuesRef {
+        Worker_Observability_IssuesRef::new(self.shared().clone(), format!("{}.issues", self.base))
     }
 
     #[doc = "Get a reference to the value of field `logs` after provisioning.\nLog settings for the Worker."]
-    pub fn logs(&self) -> Worker_PreviewsBaseConfig_Observability_LogsRef {
-        Worker_PreviewsBaseConfig_Observability_LogsRef::new(self.shared().clone(), format!("{}.logs", self.base))
+    pub fn logs(&self) -> Worker_Observability_LogsRef {
+        Worker_Observability_LogsRef::new(self.shared().clone(), format!("{}.logs", self.base))
     }
 
     #[doc =
@@ -1800,14 +1601,14 @@ impl Worker_PreviewsBaseConfig_PlacementRef {
 }
 
 #[derive(Serialize)]
-pub struct Worker_PreviewsBaseConfig_TailConsumers {
+pub struct Worker_TailConsumers {
     name: terrars::PrimField<std::string::String>,
 }
 
-impl Worker_PreviewsBaseConfig_TailConsumers { }
+impl Worker_TailConsumers { }
 
-impl terrars::ToListMappable for Worker_PreviewsBaseConfig_TailConsumers {
-    type O = terrars::BlockAssignable<Worker_PreviewsBaseConfig_TailConsumers>;
+impl terrars::ToListMappable for Worker_TailConsumers {
+    type O = terrars::BlockAssignable<Worker_TailConsumers>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1818,33 +1619,33 @@ impl terrars::ToListMappable for Worker_PreviewsBaseConfig_TailConsumers {
     }
 }
 
-pub struct BuildWorker_PreviewsBaseConfig_TailConsumers {
+pub struct BuildWorker_TailConsumers {
     #[doc = "Name of the consumer Worker."]
     pub name: terrars::PrimField<std::string::String>,
 }
 
-impl BuildWorker_PreviewsBaseConfig_TailConsumers {
-    pub fn build(self) -> Worker_PreviewsBaseConfig_TailConsumers {
-        Worker_PreviewsBaseConfig_TailConsumers { name: self.name }
+impl BuildWorker_TailConsumers {
+    pub fn build(self) -> Worker_TailConsumers {
+        Worker_TailConsumers { name: self.name }
     }
 }
 
 #[allow(dead_code)]
-pub struct Worker_PreviewsBaseConfig_TailConsumersRef {
+pub struct Worker_TailConsumersRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for Worker_PreviewsBaseConfig_TailConsumersRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> Worker_PreviewsBaseConfig_TailConsumersRef {
-        Worker_PreviewsBaseConfig_TailConsumersRef {
+impl terrars::Ref for Worker_TailConsumersRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Worker_TailConsumersRef {
+        Worker_TailConsumersRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl Worker_PreviewsBaseConfig_TailConsumersRef {
+impl Worker_TailConsumersRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -1871,7 +1672,7 @@ pub struct Worker_PreviewsBaseConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     placement: std::option::Option<Worker_PreviewsBaseConfig_Placement>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    tail_consumers: std::option::Option<std::vec::Vec<Worker_PreviewsBaseConfig_TailConsumers>>,
+    tail_consumers: std::option::Option<std::vec::Vec<Worker_TailConsumers>>,
 }
 
 impl Worker_PreviewsBaseConfig {
@@ -1915,10 +1716,7 @@ impl Worker_PreviewsBaseConfig {
     }
 
     #[doc = "Set the field `tail_consumers`.\nOther Workers that should consume logs from newly created Previews."]
-    pub fn set_tail_consumers(
-        mut self,
-        v: impl std::convert::Into<std::vec::Vec<Worker_PreviewsBaseConfig_TailConsumers>>,
-    ) -> Self {
+    pub fn set_tail_consumers(mut self, v: impl std::convert::Into<std::vec::Vec<Worker_TailConsumers>>) -> Self {
         self.tail_consumers = std::option::Option::Some(v.into());
         self
     }
@@ -2014,7 +1812,7 @@ impl Worker_PreviewsBaseConfigRef {
 
     #[doc =
         "Get a reference to the value of field `tail_consumers` after provisioning.\nOther Workers that should consume logs from newly created Previews."]
-    pub fn tail_consumers(&self) -> terrars::SetRef<Worker_PreviewsBaseConfig_TailConsumersRef> {
+    pub fn tail_consumers(&self) -> terrars::SetRef<Worker_TailConsumersRef> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.tail_consumers", self.base))
     }
 }
@@ -2523,62 +2321,5 @@ impl Worker_SubdomainRef {
         "Get a reference to the value of field `url` after provisioning.\nThe address the Worker would serve on once its *.workers.dev subdomain is enabled. Present whenever the account owns a workers.dev subdomain, regardless of whether `enabled` is true, so presence does not imply the Worker is currently live at this URL. Absent only when the account owns no workers.dev subdomain."]
     pub fn url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.url", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct Worker_TailConsumers {
-    name: terrars::PrimField<std::string::String>,
-}
-
-impl Worker_TailConsumers { }
-
-impl terrars::ToListMappable for Worker_TailConsumers {
-    type O = terrars::BlockAssignable<Worker_TailConsumers>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorker_TailConsumers {
-    #[doc = "Name of the consumer Worker."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildWorker_TailConsumers {
-    pub fn build(self) -> Worker_TailConsumers {
-        Worker_TailConsumers { name: self.name }
-    }
-}
-
-#[allow(dead_code)]
-pub struct Worker_TailConsumersRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for Worker_TailConsumersRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> Worker_TailConsumersRef {
-        Worker_TailConsumersRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl Worker_TailConsumersRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the consumer Worker."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }
 }

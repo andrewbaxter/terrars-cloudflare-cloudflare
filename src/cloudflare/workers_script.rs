@@ -2820,321 +2820,6 @@ impl WorkersScript_Migrations_RenamedClassesRef {
 }
 
 #[derive(Serialize)]
-pub struct WorkersScript_Migrations_Steps_RenamedClasses {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    from: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    to: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl WorkersScript_Migrations_Steps_RenamedClasses {
-    #[doc = "Set the field `from`.\n"]
-    pub fn set_from(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.from = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `to`.\n"]
-    pub fn set_to(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.to = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for WorkersScript_Migrations_Steps_RenamedClasses {
-    type O = terrars::BlockAssignable<WorkersScript_Migrations_Steps_RenamedClasses>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorkersScript_Migrations_Steps_RenamedClasses {}
-
-impl BuildWorkersScript_Migrations_Steps_RenamedClasses {
-    pub fn build(self) -> WorkersScript_Migrations_Steps_RenamedClasses {
-        WorkersScript_Migrations_Steps_RenamedClasses {
-            from: core::default::Default::default(),
-            to: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct WorkersScript_Migrations_Steps_RenamedClassesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for WorkersScript_Migrations_Steps_RenamedClassesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> WorkersScript_Migrations_Steps_RenamedClassesRef {
-        WorkersScript_Migrations_Steps_RenamedClassesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl WorkersScript_Migrations_Steps_RenamedClassesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `from` after provisioning.\n"]
-    pub fn from(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `to` after provisioning.\n"]
-    pub fn to(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.to", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct WorkersScript_Migrations_Steps_TransferredClasses {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    from: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    from_script: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    to: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl WorkersScript_Migrations_Steps_TransferredClasses {
-    #[doc = "Set the field `from`.\n"]
-    pub fn set_from(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.from = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `from_script`.\n"]
-    pub fn set_from_script(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.from_script = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `to`.\n"]
-    pub fn set_to(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.to = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for WorkersScript_Migrations_Steps_TransferredClasses {
-    type O = terrars::BlockAssignable<WorkersScript_Migrations_Steps_TransferredClasses>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorkersScript_Migrations_Steps_TransferredClasses {}
-
-impl BuildWorkersScript_Migrations_Steps_TransferredClasses {
-    pub fn build(self) -> WorkersScript_Migrations_Steps_TransferredClasses {
-        WorkersScript_Migrations_Steps_TransferredClasses {
-            from: core::default::Default::default(),
-            from_script: core::default::Default::default(),
-            to: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct WorkersScript_Migrations_Steps_TransferredClassesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for WorkersScript_Migrations_Steps_TransferredClassesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> WorkersScript_Migrations_Steps_TransferredClassesRef {
-        WorkersScript_Migrations_Steps_TransferredClassesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl WorkersScript_Migrations_Steps_TransferredClassesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `from` after provisioning.\n"]
-    pub fn from(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `from_script` after provisioning.\n"]
-    pub fn from_script(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from_script", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `to` after provisioning.\n"]
-    pub fn to(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.to", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct WorkersScript_Migrations_Steps {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    deleted_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    new_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    new_sqlite_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    renamed_classes: std::option::Option<std::vec::Vec<WorkersScript_Migrations_Steps_RenamedClasses>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    transferred_classes: std::option::Option<std::vec::Vec<WorkersScript_Migrations_Steps_TransferredClasses>>,
-}
-
-impl WorkersScript_Migrations_Steps {
-    #[doc = "Set the field `deleted_classes`.\nA list of classes to delete Durable Object namespaces from."]
-    pub fn set_deleted_classes(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.deleted_classes = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `new_classes`.\nA list of classes to create Durable Object namespaces from."]
-    pub fn set_new_classes(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.new_classes = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `new_sqlite_classes`.\nA list of classes to create Durable Object namespaces with SQLite from."]
-    pub fn set_new_sqlite_classes(
-        mut self,
-        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
-    ) -> Self {
-        self.new_sqlite_classes = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `renamed_classes`.\nA list of classes with Durable Object namespaces that were renamed."]
-    pub fn set_renamed_classes(
-        mut self,
-        v: impl std::convert::Into<std::vec::Vec<WorkersScript_Migrations_Steps_RenamedClasses>>,
-    ) -> Self {
-        self.renamed_classes = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc =
-        "Set the field `transferred_classes`.\nA list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker."]
-    pub fn set_transferred_classes(
-        mut self,
-        v: impl std::convert::Into<std::vec::Vec<WorkersScript_Migrations_Steps_TransferredClasses>>,
-    ) -> Self {
-        self.transferred_classes = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for WorkersScript_Migrations_Steps {
-    type O = terrars::BlockAssignable<WorkersScript_Migrations_Steps>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildWorkersScript_Migrations_Steps {}
-
-impl BuildWorkersScript_Migrations_Steps {
-    pub fn build(self) -> WorkersScript_Migrations_Steps {
-        WorkersScript_Migrations_Steps {
-            deleted_classes: core::default::Default::default(),
-            new_classes: core::default::Default::default(),
-            new_sqlite_classes: core::default::Default::default(),
-            renamed_classes: core::default::Default::default(),
-            transferred_classes: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct WorkersScript_Migrations_StepsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for WorkersScript_Migrations_StepsRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> WorkersScript_Migrations_StepsRef {
-        WorkersScript_Migrations_StepsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl WorkersScript_Migrations_StepsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `deleted_classes` after provisioning.\nA list of classes to delete Durable Object namespaces from."]
-    pub fn deleted_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.deleted_classes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `new_classes` after provisioning.\nA list of classes to create Durable Object namespaces from."]
-    pub fn new_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.new_classes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `new_sqlite_classes` after provisioning.\nA list of classes to create Durable Object namespaces with SQLite from."]
-    pub fn new_sqlite_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.new_sqlite_classes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `renamed_classes` after provisioning.\nA list of classes with Durable Object namespaces that were renamed."]
-    pub fn renamed_classes(&self) -> terrars::ListRef<WorkersScript_Migrations_Steps_RenamedClassesRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.renamed_classes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `transferred_classes` after provisioning.\nA list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker."]
-    pub fn transferred_classes(&self) -> terrars::ListRef<WorkersScript_Migrations_Steps_TransferredClassesRef> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.transferred_classes", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct WorkersScript_Migrations_TransferredClasses {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     from: std::option::Option<terrars::PrimField<std::string::String>>,
@@ -3225,6 +2910,147 @@ impl WorkersScript_Migrations_TransferredClassesRef {
     #[doc = "Get a reference to the value of field `to` after provisioning.\n"]
     pub fn to(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.to", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct WorkersScript_Migrations_Steps {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    deleted_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    new_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    new_sqlite_classes: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    renamed_classes: std::option::Option<std::vec::Vec<WorkersScript_Migrations_RenamedClasses>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    transferred_classes: std::option::Option<std::vec::Vec<WorkersScript_Migrations_TransferredClasses>>,
+}
+
+impl WorkersScript_Migrations_Steps {
+    #[doc = "Set the field `deleted_classes`.\nA list of classes to delete Durable Object namespaces from."]
+    pub fn set_deleted_classes(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.deleted_classes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `new_classes`.\nA list of classes to create Durable Object namespaces from."]
+    pub fn set_new_classes(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.new_classes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `new_sqlite_classes`.\nA list of classes to create Durable Object namespaces with SQLite from."]
+    pub fn set_new_sqlite_classes(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.new_sqlite_classes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `renamed_classes`.\nA list of classes with Durable Object namespaces that were renamed."]
+    pub fn set_renamed_classes(
+        mut self,
+        v: impl std::convert::Into<std::vec::Vec<WorkersScript_Migrations_RenamedClasses>>,
+    ) -> Self {
+        self.renamed_classes = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `transferred_classes`.\nA list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker."]
+    pub fn set_transferred_classes(
+        mut self,
+        v: impl std::convert::Into<std::vec::Vec<WorkersScript_Migrations_TransferredClasses>>,
+    ) -> Self {
+        self.transferred_classes = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for WorkersScript_Migrations_Steps {
+    type O = terrars::BlockAssignable<WorkersScript_Migrations_Steps>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildWorkersScript_Migrations_Steps {}
+
+impl BuildWorkersScript_Migrations_Steps {
+    pub fn build(self) -> WorkersScript_Migrations_Steps {
+        WorkersScript_Migrations_Steps {
+            deleted_classes: core::default::Default::default(),
+            new_classes: core::default::Default::default(),
+            new_sqlite_classes: core::default::Default::default(),
+            renamed_classes: core::default::Default::default(),
+            transferred_classes: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct WorkersScript_Migrations_StepsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for WorkersScript_Migrations_StepsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> WorkersScript_Migrations_StepsRef {
+        WorkersScript_Migrations_StepsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl WorkersScript_Migrations_StepsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc =
+        "Get a reference to the value of field `deleted_classes` after provisioning.\nA list of classes to delete Durable Object namespaces from."]
+    pub fn deleted_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.deleted_classes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `new_classes` after provisioning.\nA list of classes to create Durable Object namespaces from."]
+    pub fn new_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.new_classes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `new_sqlite_classes` after provisioning.\nA list of classes to create Durable Object namespaces with SQLite from."]
+    pub fn new_sqlite_classes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.new_sqlite_classes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `renamed_classes` after provisioning.\nA list of classes with Durable Object namespaces that were renamed."]
+    pub fn renamed_classes(&self) -> terrars::ListRef<WorkersScript_Migrations_RenamedClassesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.renamed_classes", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `transferred_classes` after provisioning.\nA list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker."]
+    pub fn transferred_classes(&self) -> terrars::ListRef<WorkersScript_Migrations_TransferredClassesRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.transferred_classes", self.base))
     }
 }
 

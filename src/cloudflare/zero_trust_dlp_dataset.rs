@@ -510,80 +510,12 @@ impl ZeroTrustDlpDataset_ColumnsRef {
 }
 
 #[derive(Serialize)]
-pub struct ZeroTrustDlpDataset_Dataset_Columns {}
+pub struct ZeroTrustDlpDataset_Uploads {}
 
-impl ZeroTrustDlpDataset_Dataset_Columns { }
+impl ZeroTrustDlpDataset_Uploads { }
 
-impl terrars::ToListMappable for ZeroTrustDlpDataset_Dataset_Columns {
-    type O = terrars::BlockAssignable<ZeroTrustDlpDataset_Dataset_Columns>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustDlpDataset_Dataset_Columns {}
-
-impl BuildZeroTrustDlpDataset_Dataset_Columns {
-    pub fn build(self) -> ZeroTrustDlpDataset_Dataset_Columns {
-        ZeroTrustDlpDataset_Dataset_Columns {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustDlpDataset_Dataset_ColumnsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustDlpDataset_Dataset_ColumnsRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustDlpDataset_Dataset_ColumnsRef {
-        ZeroTrustDlpDataset_Dataset_ColumnsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustDlpDataset_Dataset_ColumnsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `entry_id` after provisioning.\n"]
-    pub fn entry_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.entry_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `header_name` after provisioning.\n"]
-    pub fn header_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.header_name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `num_cells` after provisioning.\n"]
-    pub fn num_cells(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_cells", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `upload_status` after provisioning.\nAvailable values: \"empty\", \"uploading\", \"pending\", \"processing\", \"failed\", \"complete\"."]
-    pub fn upload_status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.upload_status", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustDlpDataset_Dataset_Uploads {}
-
-impl ZeroTrustDlpDataset_Dataset_Uploads { }
-
-impl terrars::ToListMappable for ZeroTrustDlpDataset_Dataset_Uploads {
-    type O = terrars::BlockAssignable<ZeroTrustDlpDataset_Dataset_Uploads>;
+impl terrars::ToListMappable for ZeroTrustDlpDataset_Uploads {
+    type O = terrars::BlockAssignable<ZeroTrustDlpDataset_Uploads>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -594,30 +526,30 @@ impl terrars::ToListMappable for ZeroTrustDlpDataset_Dataset_Uploads {
     }
 }
 
-pub struct BuildZeroTrustDlpDataset_Dataset_Uploads {}
+pub struct BuildZeroTrustDlpDataset_Uploads {}
 
-impl BuildZeroTrustDlpDataset_Dataset_Uploads {
-    pub fn build(self) -> ZeroTrustDlpDataset_Dataset_Uploads {
-        ZeroTrustDlpDataset_Dataset_Uploads {}
+impl BuildZeroTrustDlpDataset_Uploads {
+    pub fn build(self) -> ZeroTrustDlpDataset_Uploads {
+        ZeroTrustDlpDataset_Uploads {}
     }
 }
 
 #[allow(dead_code)]
-pub struct ZeroTrustDlpDataset_Dataset_UploadsRef {
+pub struct ZeroTrustDlpDataset_UploadsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ZeroTrustDlpDataset_Dataset_UploadsRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustDlpDataset_Dataset_UploadsRef {
-        ZeroTrustDlpDataset_Dataset_UploadsRef {
+impl terrars::Ref for ZeroTrustDlpDataset_UploadsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustDlpDataset_UploadsRef {
+        ZeroTrustDlpDataset_UploadsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ZeroTrustDlpDataset_Dataset_UploadsRef {
+impl ZeroTrustDlpDataset_UploadsRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -692,7 +624,7 @@ impl ZeroTrustDlpDataset_DatasetRef {
     }
 
     #[doc = "Get a reference to the value of field `columns` after provisioning.\n"]
-    pub fn columns(&self) -> terrars::ListRef<ZeroTrustDlpDataset_Dataset_ColumnsRef> {
+    pub fn columns(&self) -> terrars::ListRef<ZeroTrustDlpDataset_ColumnsRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.columns", self.base))
     }
 
@@ -744,70 +676,7 @@ impl ZeroTrustDlpDataset_DatasetRef {
     }
 
     #[doc = "Get a reference to the value of field `uploads` after provisioning.\n"]
-    pub fn uploads(&self) -> terrars::ListRef<ZeroTrustDlpDataset_Dataset_UploadsRef> {
+    pub fn uploads(&self) -> terrars::ListRef<ZeroTrustDlpDataset_UploadsRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.uploads", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustDlpDataset_Uploads {}
-
-impl ZeroTrustDlpDataset_Uploads { }
-
-impl terrars::ToListMappable for ZeroTrustDlpDataset_Uploads {
-    type O = terrars::BlockAssignable<ZeroTrustDlpDataset_Uploads>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustDlpDataset_Uploads {}
-
-impl BuildZeroTrustDlpDataset_Uploads {
-    pub fn build(self) -> ZeroTrustDlpDataset_Uploads {
-        ZeroTrustDlpDataset_Uploads {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustDlpDataset_UploadsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustDlpDataset_UploadsRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustDlpDataset_UploadsRef {
-        ZeroTrustDlpDataset_UploadsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustDlpDataset_UploadsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `num_cells` after provisioning.\n"]
-    pub fn num_cells(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.num_cells", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nAvailable values: \"empty\", \"uploading\", \"pending\", \"processing\", \"failed\", \"complete\"."]
-    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `version` after provisioning.\n"]
-    pub fn version(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.version", self.base))
     }
 }

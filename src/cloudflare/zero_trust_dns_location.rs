@@ -620,71 +620,11 @@ impl ZeroTrustDnsLocation_Endpoints_DohRef {
 }
 
 #[derive(Serialize)]
-pub struct ZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    network: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustDnsLocation_Endpoints_Dot_Networks { }
-
-impl terrars::ToListMappable for ZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    type O = terrars::BlockAssignable<ZeroTrustDnsLocation_Endpoints_Dot_Networks>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    #[doc = "Specify the IP address or IP CIDR."]
-    pub network: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    pub fn build(self) -> ZeroTrustDnsLocation_Endpoints_Dot_Networks {
-        ZeroTrustDnsLocation_Endpoints_Dot_Networks { network: self.network }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-        ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `network` after provisioning.\nSpecify the IP address or IP CIDR."]
-    pub fn network(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.network", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct ZeroTrustDnsLocation_Endpoints_Dot {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     enabled: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    networks: std::option::Option<std::vec::Vec<ZeroTrustDnsLocation_Endpoints_Dot_Networks>>,
+    networks: std::option::Option<std::vec::Vec<ZeroTrustDnsLocation_Endpoints_Doh_Networks>>,
 }
 
 impl ZeroTrustDnsLocation_Endpoints_Dot {
@@ -698,7 +638,7 @@ impl ZeroTrustDnsLocation_Endpoints_Dot {
         "Set the field `networks`.\nSpecify the list of allowed source IP network ranges for this endpoint. When the list is empty, the endpoint allows all source IPs. The list takes effect only if the endpoint is enabled for this location."]
     pub fn set_networks(
         mut self,
-        v: impl std::convert::Into<std::vec::Vec<ZeroTrustDnsLocation_Endpoints_Dot_Networks>>,
+        v: impl std::convert::Into<std::vec::Vec<ZeroTrustDnsLocation_Endpoints_Doh_Networks>>,
     ) -> Self {
         self.networks = std::option::Option::Some(v.into());
         self
@@ -757,7 +697,7 @@ impl ZeroTrustDnsLocation_Endpoints_DotRef {
 
     #[doc =
         "Get a reference to the value of field `networks` after provisioning.\nSpecify the list of allowed source IP network ranges for this endpoint. When the list is empty, the endpoint allows all source IPs. The list takes effect only if the endpoint is enabled for this location."]
-    pub fn networks(&self) -> terrars::ListRef<ZeroTrustDnsLocation_Endpoints_Dot_NetworksRef> {
+    pub fn networks(&self) -> terrars::ListRef<ZeroTrustDnsLocation_Endpoints_Doh_NetworksRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.networks", self.base))
     }
 }

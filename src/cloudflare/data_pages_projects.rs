@@ -337,96 +337,12 @@ impl DataPagesProjects_Result_BuildImageAutoUpgradeRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_BuildConfig {}
+pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_BuildConfig { }
+impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_BuildConfig {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_BuildConfig>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_BuildConfig {}
-
-impl BuildDataPagesProjects_Result_CanonicalDeployment_BuildConfig {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_BuildConfig {
-        DataPagesProjects_Result_CanonicalDeployment_BuildConfig {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-        DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `build_caching` after provisioning.\nEnable build caching for the project."]
-    pub fn build_caching(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_caching", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `build_command` after provisioning.\nCommand used to build project."]
-    pub fn build_command(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_command", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `destination_dir` after provisioning.\nAssets output directory of the build."]
-    pub fn destination_dir(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.destination_dir", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `root_dir` after provisioning.\nDirectory to run the command."]
-    pub fn root_dir(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.root_dir", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `web_analytics_tag` after provisioning.\nThe classifying tag for analytics."]
-    pub fn web_analytics_tag(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_tag", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `web_analytics_token` after provisioning.\nThe auth token for analytics."]
-    pub fn web_analytics_token(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_token", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {}
-
-impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata>;
+impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -437,33 +353,33 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_De
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {}
+pub struct BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_Metadata {}
+impl BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
+    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+    ) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
+impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -494,12 +410,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef 
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {}
+pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger { }
+impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger>;
+impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_DeploymentTrigger>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -510,41 +426,41 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_De
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {}
+pub struct BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger {}
+impl BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
+    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
+pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
+impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
+    ) -> DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
+impl DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `metadata` after provisioning.\nAdditional info about the trigger."]
-    pub fn metadata(&self) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTrigger_MetadataRef::new(
+    pub fn metadata(&self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef::new(
             self.shared().clone(),
             format!("{}.metadata", self.base),
         )
@@ -558,12 +474,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_EnvVars {}
+pub struct DataPagesProjects_Result_LatestDeployment_EnvVars {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_EnvVars { }
+impl DataPagesProjects_Result_LatestDeployment_EnvVars { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_EnvVars {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_EnvVars>;
+impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_EnvVars {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_EnvVars>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -574,33 +490,33 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_En
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_EnvVars {}
+pub struct BuildDataPagesProjects_Result_LatestDeployment_EnvVars {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_EnvVars {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_EnvVars {
-        DataPagesProjects_Result_CanonicalDeployment_EnvVars {}
+impl BuildDataPagesProjects_Result_LatestDeployment_EnvVars {
+    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_EnvVars {
+        DataPagesProjects_Result_LatestDeployment_EnvVars {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
+pub struct DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
+impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
-        DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
+    ) -> DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
+        DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
+impl DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -619,12 +535,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_LatestStage {}
+pub struct DataPagesProjects_Result_LatestDeployment_LatestStage {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_LatestStage { }
+impl DataPagesProjects_Result_LatestDeployment_LatestStage { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_LatestStage {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_LatestStage>;
+impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_LatestStage {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_LatestStage>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -635,33 +551,33 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_La
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_LatestStage {}
+pub struct BuildDataPagesProjects_Result_LatestDeployment_LatestStage {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_LatestStage {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_LatestStage {
-        DataPagesProjects_Result_CanonicalDeployment_LatestStage {}
+impl BuildDataPagesProjects_Result_LatestDeployment_LatestStage {
+    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_LatestStage {
+        DataPagesProjects_Result_LatestDeployment_LatestStage {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
+pub struct DataPagesProjects_Result_LatestDeployment_LatestStageRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
+impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_LatestStageRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
-        DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
+    ) -> DataPagesProjects_Result_LatestDeployment_LatestStageRef {
+        DataPagesProjects_Result_LatestDeployment_LatestStageRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
+impl DataPagesProjects_Result_LatestDeployment_LatestStageRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -691,12 +607,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_Source_Config {}
+pub struct DataPagesProjects_Result_Source_Config {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_Source_Config { }
+impl DataPagesProjects_Result_Source_Config { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_Source_Config {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_Source_Config>;
+impl terrars::ToListMappable for DataPagesProjects_Result_Source_Config {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_Source_Config>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -707,33 +623,30 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_So
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_Source_Config {}
+pub struct BuildDataPagesProjects_Result_Source_Config {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_Source_Config {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_Source_Config {
-        DataPagesProjects_Result_CanonicalDeployment_Source_Config {}
+impl BuildDataPagesProjects_Result_Source_Config {
+    pub fn build(self) -> DataPagesProjects_Result_Source_Config {
+        DataPagesProjects_Result_Source_Config {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
+pub struct DataPagesProjects_Result_Source_ConfigRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
-        DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
+impl terrars::Ref for DataPagesProjects_Result_Source_ConfigRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataPagesProjects_Result_Source_ConfigRef {
+        DataPagesProjects_Result_Source_ConfigRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
+impl DataPagesProjects_Result_Source_ConfigRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -815,12 +728,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_Source {}
+pub struct DataPagesProjects_Result_Source {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_Source { }
+impl DataPagesProjects_Result_Source { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_Source {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_Source>;
+impl terrars::ToListMappable for DataPagesProjects_Result_Source {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_Source>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -831,44 +744,38 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_So
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_Source {}
+pub struct BuildDataPagesProjects_Result_Source {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_Source {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_Source {
-        DataPagesProjects_Result_CanonicalDeployment_Source {}
+impl BuildDataPagesProjects_Result_Source {
+    pub fn build(self) -> DataPagesProjects_Result_Source {
+        DataPagesProjects_Result_Source {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_SourceRef {
+pub struct DataPagesProjects_Result_SourceRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_SourceRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_SourceRef {
-        DataPagesProjects_Result_CanonicalDeployment_SourceRef {
+impl terrars::Ref for DataPagesProjects_Result_SourceRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataPagesProjects_Result_SourceRef {
+        DataPagesProjects_Result_SourceRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_SourceRef {
+impl DataPagesProjects_Result_SourceRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
-    pub fn config(&self) -> DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef {
-        DataPagesProjects_Result_CanonicalDeployment_Source_ConfigRef::new(
-            self.shared().clone(),
-            format!("{}.config", self.base),
-        )
+    pub fn config(&self) -> DataPagesProjects_Result_Source_ConfigRef {
+        DataPagesProjects_Result_Source_ConfigRef::new(self.shared().clone(), format!("{}.config", self.base))
     }
 
     #[doc =
@@ -879,12 +786,12 @@ impl DataPagesProjects_Result_CanonicalDeployment_SourceRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_Stages {}
+pub struct DataPagesProjects_Result_LatestDeployment_Stages {}
 
-impl DataPagesProjects_Result_CanonicalDeployment_Stages { }
+impl DataPagesProjects_Result_LatestDeployment_Stages { }
 
-impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_Stages {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_CanonicalDeployment_Stages>;
+impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_Stages {
+    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_Stages>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -895,33 +802,33 @@ impl terrars::ToListMappable for DataPagesProjects_Result_CanonicalDeployment_St
     }
 }
 
-pub struct BuildDataPagesProjects_Result_CanonicalDeployment_Stages {}
+pub struct BuildDataPagesProjects_Result_LatestDeployment_Stages {}
 
-impl BuildDataPagesProjects_Result_CanonicalDeployment_Stages {
-    pub fn build(self) -> DataPagesProjects_Result_CanonicalDeployment_Stages {
-        DataPagesProjects_Result_CanonicalDeployment_Stages {}
+impl BuildDataPagesProjects_Result_LatestDeployment_Stages {
+    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_Stages {
+        DataPagesProjects_Result_LatestDeployment_Stages {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataPagesProjects_Result_CanonicalDeployment_StagesRef {
+pub struct DataPagesProjects_Result_LatestDeployment_StagesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataPagesProjects_Result_CanonicalDeployment_StagesRef {
+impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_StagesRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataPagesProjects_Result_CanonicalDeployment_StagesRef {
-        DataPagesProjects_Result_CanonicalDeployment_StagesRef {
+    ) -> DataPagesProjects_Result_LatestDeployment_StagesRef {
+        DataPagesProjects_Result_LatestDeployment_StagesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataPagesProjects_Result_CanonicalDeployment_StagesRef {
+impl DataPagesProjects_Result_LatestDeployment_StagesRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -1007,11 +914,8 @@ impl DataPagesProjects_Result_CanonicalDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
-    pub fn build_config(&self) -> DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef {
-        DataPagesProjects_Result_CanonicalDeployment_BuildConfigRef::new(
-            self.shared().clone(),
-            format!("{}.build_config", self.base),
-        )
+    pub fn build_config(&self) -> DataPagesProjects_Result_BuildConfigRef {
+        DataPagesProjects_Result_BuildConfigRef::new(self.shared().clone(), format!("{}.build_config", self.base))
     }
 
     #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the deployment was created."]
@@ -1021,8 +925,8 @@ impl DataPagesProjects_Result_CanonicalDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `deployment_trigger` after provisioning.\nInfo about what caused the deployment."]
-    pub fn deployment_trigger(&self) -> DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef {
-        DataPagesProjects_Result_CanonicalDeployment_DeploymentTriggerRef::new(
+    pub fn deployment_trigger(&self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
+        DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef::new(
             self.shared().clone(),
             format!("{}.deployment_trigger", self.base),
         )
@@ -1030,7 +934,7 @@ impl DataPagesProjects_Result_CanonicalDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
-    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_CanonicalDeployment_EnvVarsRef> {
+    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_LatestDeployment_EnvVarsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
     }
 
@@ -1052,8 +956,8 @@ impl DataPagesProjects_Result_CanonicalDeploymentRef {
     }
 
     #[doc = "Get a reference to the value of field `latest_stage` after provisioning.\nThe status of the deployment."]
-    pub fn latest_stage(&self) -> DataPagesProjects_Result_CanonicalDeployment_LatestStageRef {
-        DataPagesProjects_Result_CanonicalDeployment_LatestStageRef::new(
+    pub fn latest_stage(&self) -> DataPagesProjects_Result_LatestDeployment_LatestStageRef {
+        DataPagesProjects_Result_LatestDeployment_LatestStageRef::new(
             self.shared().clone(),
             format!("{}.latest_stage", self.base),
         )
@@ -1090,15 +994,12 @@ impl DataPagesProjects_Result_CanonicalDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
-    pub fn source(&self) -> DataPagesProjects_Result_CanonicalDeployment_SourceRef {
-        DataPagesProjects_Result_CanonicalDeployment_SourceRef::new(
-            self.shared().clone(),
-            format!("{}.source", self.base),
-        )
+    pub fn source(&self) -> DataPagesProjects_Result_SourceRef {
+        DataPagesProjects_Result_SourceRef::new(self.shared().clone(), format!("{}.source", self.base))
     }
 
     #[doc = "Get a reference to the value of field `stages` after provisioning.\nList of past stages."]
-    pub fn stages(&self) -> terrars::ListRef<DataPagesProjects_Result_CanonicalDeployment_StagesRef> {
+    pub fn stages(&self) -> terrars::ListRef<DataPagesProjects_Result_LatestDeployment_StagesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.stages", self.base))
     }
 
@@ -1382,67 +1283,6 @@ impl DataPagesProjects_Result_DeploymentConfigs_Preview_DurableObjectNamespacesR
         "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Durable Object namespace."]
     pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {
-        DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVars {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
-    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
     }
 }
 
@@ -2065,7 +1905,7 @@ impl DataPagesProjects_Result_DeploymentConfigs_PreviewRef {
 
     #[doc =
         "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
-    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_EnvVarsRef> {
+    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_LatestDeployment_EnvVarsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
     }
 
@@ -2155,848 +1995,6 @@ impl DataPagesProjects_Result_DeploymentConfigs_PreviewRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {
-        DataPagesProjects_Result_DeploymentConfigs_Production_AiBindings {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `project_id` after provisioning.\n"]
-    pub fn project_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.project_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {
-        DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasets {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `dataset` after provisioning.\nName of the dataset."]
-    pub fn dataset(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.dataset", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_Browsers {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_Browsers { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_Browsers {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_Browsers>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_Browsers {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_Browsers {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_Browsers {
-        DataPagesProjects_Result_DeploymentConfigs_Production_Browsers {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {
-        DataPagesProjects_Result_DeploymentConfigs_Production_D1Databases {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nUUID of the D1 database."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {
-        DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespaces {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `namespace_id` after provisioning.\nID of the Durable Object namespace."]
-    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {
-        DataPagesProjects_Result_DeploymentConfigs_Production_EnvVars {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
-    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {
-        DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindings {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {
-        DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespaces {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `namespace_id` after provisioning.\nID of the KV namespace."]
-    pub fn namespace_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.namespace_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_Limits {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_Limits { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_Limits {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_Limits>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_Limits {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_Limits {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_Limits {
-        DataPagesProjects_Result_DeploymentConfigs_Production_Limits {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `cpu_ms` after provisioning.\nCPU time limit in milliseconds."]
-    pub fn cpu_ms(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.cpu_ms", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {
-        DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificates {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `certificate_id` after provisioning.\n"]
-    pub fn certificate_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.certificate_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_Placement {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_Placement { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_Placement {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_Placement>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_Placement {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_Placement {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_Placement {
-        DataPagesProjects_Result_DeploymentConfigs_Production_Placement {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `mode` after provisioning.\nPlacement mode."]
-    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {
-        DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducers {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the Queue."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {
-        DataPagesProjects_Result_DeploymentConfigs_Production_R2Buckets {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `jurisdiction` after provisioning.\nJurisdiction of the R2 bucket."]
-    pub fn jurisdiction(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.jurisdiction", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of the R2 bucket."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_Services {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_Services { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_Services {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_Services>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_Services {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_Services {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_Services {
-        DataPagesProjects_Result_DeploymentConfigs_Production_Services {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `entrypoint` after provisioning.\nThe entrypoint to bind to."]
-    pub fn entrypoint(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.entrypoint", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `environment` after provisioning.\nThe Service environment."]
-    pub fn environment(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.environment", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `service` after provisioning.\nThe Service name."]
-    pub fn service(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.service", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {}
-
-impl BuildDataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {
-    pub fn build(self) -> DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {
-        DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindings {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `index_name` after provisioning.\n"]
-    pub fn index_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.index_name", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct DataPagesProjects_Result_DeploymentConfigs_Production {}
 
 impl DataPagesProjects_Result_DeploymentConfigs_Production { }
@@ -3047,7 +2045,7 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
 
     #[doc =
         "Get a reference to the value of field `ai_bindings` after provisioning.\nConstellation bindings used for Pages Functions."]
-    pub fn ai_bindings(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_AiBindingsRef> {
+    pub fn ai_bindings(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_AiBindingsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.ai_bindings", self.base))
     }
 
@@ -3061,13 +2059,13 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `analytics_engine_datasets` after provisioning.\nAnalytics Engine bindings used for Pages Functions."]
     pub fn analytics_engine_datasets(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_AnalyticsEngineDatasetsRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_AnalyticsEngineDatasetsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.analytics_engine_datasets", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `browsers` after provisioning.\nBrowser bindings used for Pages Functions."]
-    pub fn browsers(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_BrowsersRef> {
+    pub fn browsers(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_BrowsersRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.browsers", self.base))
     }
 
@@ -3091,7 +2089,7 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
 
     #[doc =
         "Get a reference to the value of field `d1_databases` after provisioning.\nD1 databases used for Pages Functions."]
-    pub fn d1_databases(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_D1DatabasesRef> {
+    pub fn d1_databases(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_D1DatabasesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.d1_databases", self.base))
     }
 
@@ -3099,13 +2097,13 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `durable_object_namespaces` after provisioning.\nDurable Object namespaces used for Pages Functions."]
     pub fn durable_object_namespaces(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_DurableObjectNamespacesRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_DurableObjectNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.durable_object_namespaces", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `env_vars` after provisioning.\nEnvironment variables used for builds and Pages Functions."]
-    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_EnvVarsRef> {
+    pub fn env_vars(&self) -> terrars::RecRef<DataPagesProjects_Result_LatestDeployment_EnvVarsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.env_vars", self.base))
     }
 
@@ -3119,21 +2117,19 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `hyperdrive_bindings` after provisioning.\nHyperdrive bindings used for Pages Functions."]
     pub fn hyperdrive_bindings(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_HyperdriveBindingsRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_HyperdriveBindingsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.hyperdrive_bindings", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `kv_namespaces` after provisioning.\nKV namespaces used for Pages Functions."]
-    pub fn kv_namespaces(
-        &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_KvNamespacesRef> {
+    pub fn kv_namespaces(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_KvNamespacesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.kv_namespaces", self.base))
     }
 
     #[doc = "Get a reference to the value of field `limits` after provisioning.\nLimits for Pages Functions."]
-    pub fn limits(&self) -> DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_LimitsRef::new(
+    pub fn limits(&self) -> DataPagesProjects_Result_DeploymentConfigs_Preview_LimitsRef {
+        DataPagesProjects_Result_DeploymentConfigs_Preview_LimitsRef::new(
             self.shared().clone(),
             format!("{}.limits", self.base),
         )
@@ -3143,14 +2139,14 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `mtls_certificates` after provisioning.\nmTLS bindings used for Pages Functions."]
     pub fn mtls_certificates(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_MtlsCertificatesRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_MtlsCertificatesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.mtls_certificates", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `placement` after provisioning.\nPlacement setting used for Pages Functions."]
-    pub fn placement(&self) -> DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef {
-        DataPagesProjects_Result_DeploymentConfigs_Production_PlacementRef::new(
+    pub fn placement(&self) -> DataPagesProjects_Result_DeploymentConfigs_Preview_PlacementRef {
+        DataPagesProjects_Result_DeploymentConfigs_Preview_PlacementRef::new(
             self.shared().clone(),
             format!("{}.placement", self.base),
         )
@@ -3160,18 +2156,18 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `queue_producers` after provisioning.\nQueue Producer bindings used for Pages Functions."]
     pub fn queue_producers(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_QueueProducersRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_QueueProducersRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.queue_producers", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `r2_buckets` after provisioning.\nR2 buckets used for Pages Functions."]
-    pub fn r2_buckets(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_R2BucketsRef> {
+    pub fn r2_buckets(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_R2BucketsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.r2_buckets", self.base))
     }
 
     #[doc = "Get a reference to the value of field `services` after provisioning.\nServices used for Pages Functions."]
-    pub fn services(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_ServicesRef> {
+    pub fn services(&self) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_ServicesRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.services", self.base))
     }
 
@@ -3185,7 +2181,7 @@ impl DataPagesProjects_Result_DeploymentConfigs_ProductionRef {
         "Get a reference to the value of field `vectorize_bindings` after provisioning.\nVectorize bindings used for Pages Functions."]
     pub fn vectorize_bindings(
         &self,
-    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Production_VectorizeBindingsRef> {
+    ) -> terrars::RecRef<DataPagesProjects_Result_DeploymentConfigs_Preview_VectorizeBindingsRef> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.vectorize_bindings", self.base))
     }
 
@@ -3260,620 +2256,6 @@ impl DataPagesProjects_Result_DeploymentConfigsRef {
 }
 
 #[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_BuildConfig {}
-
-impl DataPagesProjects_Result_LatestDeployment_BuildConfig { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_BuildConfig {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_BuildConfig>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_BuildConfig {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_BuildConfig {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_BuildConfig {
-        DataPagesProjects_Result_LatestDeployment_BuildConfig {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-        DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `build_caching` after provisioning.\nEnable build caching for the project."]
-    pub fn build_caching(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_caching", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `build_command` after provisioning.\nCommand used to build project."]
-    pub fn build_command(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.build_command", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `destination_dir` after provisioning.\nAssets output directory of the build."]
-    pub fn destination_dir(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.destination_dir", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `root_dir` after provisioning.\nDirectory to run the command."]
-    pub fn root_dir(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.root_dir", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `web_analytics_tag` after provisioning.\nThe classifying tag for analytics."]
-    pub fn web_analytics_tag(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_tag", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `web_analytics_token` after provisioning.\nThe auth token for analytics."]
-    pub fn web_analytics_token(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.web_analytics_token", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
-
-impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {
-        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_Metadata {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `branch` after provisioning.\nWhere the trigger happened."]
-    pub fn branch(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.branch", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `commit_dirty` after provisioning.\nWhether the deployment trigger commit was dirty."]
-    pub fn commit_dirty(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_dirty", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `commit_hash` after provisioning.\nHash of the deployment trigger commit."]
-    pub fn commit_hash(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_hash", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `commit_message` after provisioning.\nMessage of the deployment trigger commit."]
-    pub fn commit_message(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.commit_message", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
-
-impl DataPagesProjects_Result_LatestDeployment_DeploymentTrigger { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_DeploymentTrigger>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {
-        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
-        DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_DeploymentTriggerRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `metadata` after provisioning.\nAdditional info about the trigger."]
-    pub fn metadata(&self) -> DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef {
-        DataPagesProjects_Result_LatestDeployment_DeploymentTrigger_MetadataRef::new(
-            self.shared().clone(),
-            format!("{}.metadata", self.base),
-        )
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nWhat caused the deployment.\nAvailable values: \"github:push\", \"ad_hoc\", \"deploy_hook\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_EnvVars {}
-
-impl DataPagesProjects_Result_LatestDeployment_EnvVars { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_EnvVars {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_EnvVars>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_EnvVars {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_EnvVars {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_EnvVars {
-        DataPagesProjects_Result_LatestDeployment_EnvVars {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
-        DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_EnvVarsRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"plain_text\", \"secret_text\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `value` after provisioning.\nEnvironment variable value."]
-    pub fn value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.value", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_LatestStage {}
-
-impl DataPagesProjects_Result_LatestDeployment_LatestStage { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_LatestStage {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_LatestStage>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_LatestStage {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_LatestStage {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_LatestStage {
-        DataPagesProjects_Result_LatestDeployment_LatestStage {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_LatestStageRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_LatestStageRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_LatestStageRef {
-        DataPagesProjects_Result_LatestDeployment_LatestStageRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_LatestStageRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
-    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
-    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
-    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_Source_Config {}
-
-impl DataPagesProjects_Result_LatestDeployment_Source_Config { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_Source_Config {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_Source_Config>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_Source_Config {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_Source_Config {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_Source_Config {
-        DataPagesProjects_Result_LatestDeployment_Source_Config {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-        DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `deployments_enabled` after provisioning.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
-    pub fn deployments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployments_enabled", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `owner` after provisioning.\nThe owner of the repository."]
-    pub fn owner(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `owner_id` after provisioning.\nThe owner ID of the repository."]
-    pub fn owner_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `path_excludes` after provisioning.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
-    pub fn path_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.path_excludes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `path_includes` after provisioning.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
-    pub fn path_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.path_includes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nWhether to enable PR comments."]
-    pub fn pr_comments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pr_comments_enabled", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
-    pub fn preview_branch_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_excludes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
-    pub fn preview_branch_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_includes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
-    pub fn preview_deployment_setting(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_deployment_setting", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `production_branch` after provisioning.\nThe production branch of the repository."]
-    pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `production_deployments_enabled` after provisioning.\nWhether to trigger a production deployment on commits to the production branch."]
-    pub fn production_deployments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployments_enabled", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `repo_id` after provisioning.\nThe ID of the repository."]
-    pub fn repo_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nThe name of the repository."]
-    pub fn repo_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_Source {}
-
-impl DataPagesProjects_Result_LatestDeployment_Source { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_Source {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_Source>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_Source {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_Source {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_Source {
-        DataPagesProjects_Result_LatestDeployment_Source {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_SourceRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_SourceRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_SourceRef {
-        DataPagesProjects_Result_LatestDeployment_SourceRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_SourceRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
-    pub fn config(&self) -> DataPagesProjects_Result_LatestDeployment_Source_ConfigRef {
-        DataPagesProjects_Result_LatestDeployment_Source_ConfigRef::new(
-            self.shared().clone(),
-            format!("{}.config", self.base),
-        )
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_LatestDeployment_Stages {}
-
-impl DataPagesProjects_Result_LatestDeployment_Stages { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_LatestDeployment_Stages {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_LatestDeployment_Stages>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_LatestDeployment_Stages {}
-
-impl BuildDataPagesProjects_Result_LatestDeployment_Stages {
-    pub fn build(self) -> DataPagesProjects_Result_LatestDeployment_Stages {
-        DataPagesProjects_Result_LatestDeployment_Stages {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_LatestDeployment_StagesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_LatestDeployment_StagesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataPagesProjects_Result_LatestDeployment_StagesRef {
-        DataPagesProjects_Result_LatestDeployment_StagesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_LatestDeployment_StagesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ended_on` after provisioning.\nWhen the stage ended."]
-    pub fn ended_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ended_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nThe current build stage.\nAvailable values: \"queued\", \"initialize\", \"clone_repo\", \"build\", \"deploy\"."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `started_on` after provisioning.\nWhen the stage started."]
-    pub fn started_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.started_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `status` after provisioning.\nState of the current stage.\nAvailable values: \"success\", \"idle\", \"active\", \"failure\", \"canceled\", \"skipped\"."]
-    pub fn status(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.status", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct DataPagesProjects_Result_LatestDeployment {}
 
 impl DataPagesProjects_Result_LatestDeployment { }
@@ -3927,11 +2309,8 @@ impl DataPagesProjects_Result_LatestDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `build_config` after provisioning.\nConfigs for the project build process."]
-    pub fn build_config(&self) -> DataPagesProjects_Result_LatestDeployment_BuildConfigRef {
-        DataPagesProjects_Result_LatestDeployment_BuildConfigRef::new(
-            self.shared().clone(),
-            format!("{}.build_config", self.base),
-        )
+    pub fn build_config(&self) -> DataPagesProjects_Result_BuildConfigRef {
+        DataPagesProjects_Result_BuildConfigRef::new(self.shared().clone(), format!("{}.build_config", self.base))
     }
 
     #[doc = "Get a reference to the value of field `created_on` after provisioning.\nWhen the deployment was created."]
@@ -4010,11 +2389,8 @@ impl DataPagesProjects_Result_LatestDeploymentRef {
 
     #[doc =
         "Get a reference to the value of field `source` after provisioning.\nConfigs for the project source control."]
-    pub fn source(&self) -> DataPagesProjects_Result_LatestDeployment_SourceRef {
-        DataPagesProjects_Result_LatestDeployment_SourceRef::new(
-            self.shared().clone(),
-            format!("{}.source", self.base),
-        )
+    pub fn source(&self) -> DataPagesProjects_Result_SourceRef {
+        DataPagesProjects_Result_SourceRef::new(self.shared().clone(), format!("{}.source", self.base))
     }
 
     #[doc = "Get a reference to the value of field `stages` after provisioning.\nList of past stages."]
@@ -4031,185 +2407,6 @@ impl DataPagesProjects_Result_LatestDeploymentRef {
         "Get a reference to the value of field `uses_functions` after provisioning.\nWhether the deployment uses functions."]
     pub fn uses_functions(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.uses_functions", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_Source_Config {}
-
-impl DataPagesProjects_Result_Source_Config { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_Source_Config {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_Source_Config>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_Source_Config {}
-
-impl BuildDataPagesProjects_Result_Source_Config {
-    pub fn build(self) -> DataPagesProjects_Result_Source_Config {
-        DataPagesProjects_Result_Source_Config {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_Source_ConfigRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_Source_ConfigRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataPagesProjects_Result_Source_ConfigRef {
-        DataPagesProjects_Result_Source_ConfigRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_Source_ConfigRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `deployments_enabled` after provisioning.\nWhether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically."]
-    pub fn deployments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.deployments_enabled", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `owner` after provisioning.\nThe owner of the repository."]
-    pub fn owner(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `owner_id` after provisioning.\nThe owner ID of the repository."]
-    pub fn owner_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.owner_id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `path_excludes` after provisioning.\nA list of paths that should be excluded from triggering a preview deployment. Wildcard syntax (`*`) is supported."]
-    pub fn path_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.path_excludes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `path_includes` after provisioning.\nA list of paths that should be watched to trigger a preview deployment. Wildcard syntax (`*`) is supported."]
-    pub fn path_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.path_includes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `pr_comments_enabled` after provisioning.\nWhether to enable PR comments."]
-    pub fn pr_comments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.pr_comments_enabled", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_branch_excludes` after provisioning.\nA list of branches that should not trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
-    pub fn preview_branch_excludes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_excludes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_branch_includes` after provisioning.\nA list of branches that should trigger a preview deployment. Wildcard syntax (`*`) is supported. Must be used with `preview_deployment_setting` set to `custom`."]
-    pub fn preview_branch_includes(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.preview_branch_includes", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `preview_deployment_setting` after provisioning.\nControls whether commits to preview branches trigger a preview deployment.\nAvailable values: \"all\", \"none\", \"custom\"."]
-    pub fn preview_deployment_setting(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.preview_deployment_setting", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `production_branch` after provisioning.\nThe production branch of the repository."]
-    pub fn production_branch(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_branch", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `production_deployments_enabled` after provisioning.\nWhether to trigger a production deployment on commits to the production branch."]
-    pub fn production_deployments_enabled(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.production_deployments_enabled", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `repo_id` after provisioning.\nThe ID of the repository."]
-    pub fn repo_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `repo_name` after provisioning.\nThe name of the repository."]
-    pub fn repo_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.repo_name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataPagesProjects_Result_Source {}
-
-impl DataPagesProjects_Result_Source { }
-
-impl terrars::ToListMappable for DataPagesProjects_Result_Source {
-    type O = terrars::BlockAssignable<DataPagesProjects_Result_Source>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataPagesProjects_Result_Source {}
-
-impl BuildDataPagesProjects_Result_Source {
-    pub fn build(self) -> DataPagesProjects_Result_Source {
-        DataPagesProjects_Result_Source {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataPagesProjects_Result_SourceRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataPagesProjects_Result_SourceRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataPagesProjects_Result_SourceRef {
-        DataPagesProjects_Result_SourceRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataPagesProjects_Result_SourceRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `config` after provisioning.\n"]
-    pub fn config(&self) -> DataPagesProjects_Result_Source_ConfigRef {
-        DataPagesProjects_Result_Source_ConfigRef::new(self.shared().clone(), format!("{}.config", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nThe source control management provider.\nAvailable values: \"github\", \"gitlab\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
     }
 }
 

@@ -513,78 +513,16 @@ impl MagicTransitSiteLan_NatRef {
 }
 
 #[derive(Serialize)]
-pub struct MagicTransitSiteLan_RoutedSubnets_Nat {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    static_prefix: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl MagicTransitSiteLan_RoutedSubnets_Nat {
-    #[doc = "Set the field `static_prefix`.\nA valid CIDR notation representing an IP range."]
-    pub fn set_static_prefix(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.static_prefix = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for MagicTransitSiteLan_RoutedSubnets_Nat {
-    type O = terrars::BlockAssignable<MagicTransitSiteLan_RoutedSubnets_Nat>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildMagicTransitSiteLan_RoutedSubnets_Nat {}
-
-impl BuildMagicTransitSiteLan_RoutedSubnets_Nat {
-    pub fn build(self) -> MagicTransitSiteLan_RoutedSubnets_Nat {
-        MagicTransitSiteLan_RoutedSubnets_Nat { static_prefix: core::default::Default::default() }
-    }
-}
-
-#[allow(dead_code)]
-pub struct MagicTransitSiteLan_RoutedSubnets_NatRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for MagicTransitSiteLan_RoutedSubnets_NatRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> MagicTransitSiteLan_RoutedSubnets_NatRef {
-        MagicTransitSiteLan_RoutedSubnets_NatRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl MagicTransitSiteLan_RoutedSubnets_NatRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `static_prefix` after provisioning.\nA valid CIDR notation representing an IP range."]
-    pub fn static_prefix(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.static_prefix", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct MagicTransitSiteLan_RoutedSubnets {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    nat: std::option::Option<MagicTransitSiteLan_RoutedSubnets_Nat>,
+    nat: std::option::Option<MagicTransitSiteLan_Nat>,
     next_hop: terrars::PrimField<std::string::String>,
     prefix: terrars::PrimField<std::string::String>,
 }
 
 impl MagicTransitSiteLan_RoutedSubnets {
     #[doc = "Set the field `nat`.\n"]
-    pub fn set_nat(mut self, v: impl std::convert::Into<MagicTransitSiteLan_RoutedSubnets_Nat>) -> Self {
+    pub fn set_nat(mut self, v: impl std::convert::Into<MagicTransitSiteLan_Nat>) -> Self {
         self.nat = std::option::Option::Some(v.into());
         self
     }
@@ -641,8 +579,8 @@ impl MagicTransitSiteLan_RoutedSubnetsRef {
     }
 
     #[doc = "Get a reference to the value of field `nat` after provisioning.\n"]
-    pub fn nat(&self) -> MagicTransitSiteLan_RoutedSubnets_NatRef {
-        MagicTransitSiteLan_RoutedSubnets_NatRef::new(self.shared().clone(), format!("{}.nat", self.base))
+    pub fn nat(&self) -> MagicTransitSiteLan_NatRef {
+        MagicTransitSiteLan_NatRef::new(self.shared().clone(), format!("{}.nat", self.base))
     }
 
     #[doc = "Get a reference to the value of field `next_hop` after provisioning.\nA valid IPv4 address."]

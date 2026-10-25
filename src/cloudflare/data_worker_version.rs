@@ -1682,72 +1682,12 @@ impl DataWorkerVersion_Migrations_RenamedClassesRef {
 }
 
 #[derive(Serialize)]
-pub struct DataWorkerVersion_Migrations_Steps_RenamedClasses {}
+pub struct DataWorkerVersion_Migrations_TransferredClasses {}
 
-impl DataWorkerVersion_Migrations_Steps_RenamedClasses { }
+impl DataWorkerVersion_Migrations_TransferredClasses { }
 
-impl terrars::ToListMappable for DataWorkerVersion_Migrations_Steps_RenamedClasses {
-    type O = terrars::BlockAssignable<DataWorkerVersion_Migrations_Steps_RenamedClasses>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataWorkerVersion_Migrations_Steps_RenamedClasses {}
-
-impl BuildDataWorkerVersion_Migrations_Steps_RenamedClasses {
-    pub fn build(self) -> DataWorkerVersion_Migrations_Steps_RenamedClasses {
-        DataWorkerVersion_Migrations_Steps_RenamedClasses {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataWorkerVersion_Migrations_Steps_RenamedClassesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataWorkerVersion_Migrations_Steps_RenamedClassesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataWorkerVersion_Migrations_Steps_RenamedClassesRef {
-        DataWorkerVersion_Migrations_Steps_RenamedClassesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataWorkerVersion_Migrations_Steps_RenamedClassesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `from` after provisioning.\n"]
-    pub fn from(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `to` after provisioning.\n"]
-    pub fn to(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.to", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataWorkerVersion_Migrations_Steps_TransferredClasses {}
-
-impl DataWorkerVersion_Migrations_Steps_TransferredClasses { }
-
-impl terrars::ToListMappable for DataWorkerVersion_Migrations_Steps_TransferredClasses {
-    type O = terrars::BlockAssignable<DataWorkerVersion_Migrations_Steps_TransferredClasses>;
+impl terrars::ToListMappable for DataWorkerVersion_Migrations_TransferredClasses {
+    type O = terrars::BlockAssignable<DataWorkerVersion_Migrations_TransferredClasses>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -1758,33 +1698,33 @@ impl terrars::ToListMappable for DataWorkerVersion_Migrations_Steps_TransferredC
     }
 }
 
-pub struct BuildDataWorkerVersion_Migrations_Steps_TransferredClasses {}
+pub struct BuildDataWorkerVersion_Migrations_TransferredClasses {}
 
-impl BuildDataWorkerVersion_Migrations_Steps_TransferredClasses {
-    pub fn build(self) -> DataWorkerVersion_Migrations_Steps_TransferredClasses {
-        DataWorkerVersion_Migrations_Steps_TransferredClasses {}
+impl BuildDataWorkerVersion_Migrations_TransferredClasses {
+    pub fn build(self) -> DataWorkerVersion_Migrations_TransferredClasses {
+        DataWorkerVersion_Migrations_TransferredClasses {}
     }
 }
 
 #[allow(dead_code)]
-pub struct DataWorkerVersion_Migrations_Steps_TransferredClassesRef {
+pub struct DataWorkerVersion_Migrations_TransferredClassesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataWorkerVersion_Migrations_Steps_TransferredClassesRef {
+impl terrars::Ref for DataWorkerVersion_Migrations_TransferredClassesRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataWorkerVersion_Migrations_Steps_TransferredClassesRef {
-        DataWorkerVersion_Migrations_Steps_TransferredClassesRef {
+    ) -> DataWorkerVersion_Migrations_TransferredClassesRef {
+        DataWorkerVersion_Migrations_TransferredClassesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataWorkerVersion_Migrations_Steps_TransferredClassesRef {
+impl DataWorkerVersion_Migrations_TransferredClassesRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -1872,79 +1812,14 @@ impl DataWorkerVersion_Migrations_StepsRef {
 
     #[doc =
         "Get a reference to the value of field `renamed_classes` after provisioning.\nA list of classes with Durable Object namespaces that were renamed."]
-    pub fn renamed_classes(&self) -> terrars::ListRef<DataWorkerVersion_Migrations_Steps_RenamedClassesRef> {
+    pub fn renamed_classes(&self) -> terrars::ListRef<DataWorkerVersion_Migrations_RenamedClassesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.renamed_classes", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `transferred_classes` after provisioning.\nA list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker."]
-    pub fn transferred_classes(&self) -> terrars::ListRef<DataWorkerVersion_Migrations_Steps_TransferredClassesRef> {
+    pub fn transferred_classes(&self) -> terrars::ListRef<DataWorkerVersion_Migrations_TransferredClassesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.transferred_classes", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataWorkerVersion_Migrations_TransferredClasses {}
-
-impl DataWorkerVersion_Migrations_TransferredClasses { }
-
-impl terrars::ToListMappable for DataWorkerVersion_Migrations_TransferredClasses {
-    type O = terrars::BlockAssignable<DataWorkerVersion_Migrations_TransferredClasses>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataWorkerVersion_Migrations_TransferredClasses {}
-
-impl BuildDataWorkerVersion_Migrations_TransferredClasses {
-    pub fn build(self) -> DataWorkerVersion_Migrations_TransferredClasses {
-        DataWorkerVersion_Migrations_TransferredClasses {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataWorkerVersion_Migrations_TransferredClassesRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataWorkerVersion_Migrations_TransferredClassesRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataWorkerVersion_Migrations_TransferredClassesRef {
-        DataWorkerVersion_Migrations_TransferredClassesRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataWorkerVersion_Migrations_TransferredClassesRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `from` after provisioning.\n"]
-    pub fn from(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `from_script` after provisioning.\n"]
-    pub fn from_script(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.from_script", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `to` after provisioning.\n"]
-    pub fn to(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.to", self.base))
     }
 }
 

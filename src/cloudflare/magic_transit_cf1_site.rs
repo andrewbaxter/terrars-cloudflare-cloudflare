@@ -324,201 +324,6 @@ impl MagicTransitCf1SiteRef {
 }
 
 #[derive(Serialize)]
-pub struct MagicTransitCf1Site_Body_Location {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    lat: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    long: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl MagicTransitCf1Site_Body_Location {
-    #[doc = "Set the field `lat`.\nLatitude of the CF1 Site."]
-    pub fn set_lat(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.lat = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `long`.\nLongitude of the CF1 Site."]
-    pub fn set_long(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.long = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `name`.\nName of nearest town, city, or village."]
-    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.name = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for MagicTransitCf1Site_Body_Location {
-    type O = terrars::BlockAssignable<MagicTransitCf1Site_Body_Location>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildMagicTransitCf1Site_Body_Location {}
-
-impl BuildMagicTransitCf1Site_Body_Location {
-    pub fn build(self) -> MagicTransitCf1Site_Body_Location {
-        MagicTransitCf1Site_Body_Location {
-            lat: core::default::Default::default(),
-            long: core::default::Default::default(),
-            name: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct MagicTransitCf1Site_Body_LocationRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for MagicTransitCf1Site_Body_LocationRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> MagicTransitCf1Site_Body_LocationRef {
-        MagicTransitCf1Site_Body_LocationRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl MagicTransitCf1Site_Body_LocationRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `lat` after provisioning.\nLatitude of the CF1 Site."]
-    pub fn lat(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.lat", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `long` after provisioning.\nLongitude of the CF1 Site."]
-    pub fn long(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.long", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nName of nearest town, city, or village."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct MagicTransitCf1Site_Body {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    description: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    location: std::option::Option<MagicTransitCf1Site_Body_Location>,
-    name: terrars::PrimField<std::string::String>,
-}
-
-impl MagicTransitCf1Site_Body {
-    #[doc = "Set the field `description`.\nA human-provided description of the CF1 Site."]
-    pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.description = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `location`.\n"]
-    pub fn set_location(mut self, v: impl std::convert::Into<MagicTransitCf1Site_Body_Location>) -> Self {
-        self.location = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for MagicTransitCf1Site_Body {
-    type O = terrars::BlockAssignable<MagicTransitCf1Site_Body>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildMagicTransitCf1Site_Body {
-    #[doc = "A human-provided name describing the CF1 Site that should be unique within the account."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildMagicTransitCf1Site_Body {
-    pub fn build(self) -> MagicTransitCf1Site_Body {
-        MagicTransitCf1Site_Body {
-            description: core::default::Default::default(),
-            location: core::default::Default::default(),
-            name: self.name,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct MagicTransitCf1Site_BodyRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for MagicTransitCf1Site_BodyRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> MagicTransitCf1Site_BodyRef {
-        MagicTransitCf1Site_BodyRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl MagicTransitCf1Site_BodyRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
-    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA human-provided description of the CF1 Site."]
-    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier"]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `location` after provisioning.\n"]
-    pub fn location(&self) -> MagicTransitCf1Site_Body_LocationRef {
-        MagicTransitCf1Site_Body_LocationRef::new(self.shared().clone(), format!("{}.location", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
-    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `name` after provisioning.\nA human-provided name describing the CF1 Site that should be unique within the account."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct MagicTransitCf1Site_Location {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     lat: std::option::Option<terrars::PrimField<f64>>,
@@ -604,6 +409,110 @@ impl MagicTransitCf1Site_LocationRef {
     }
 
     #[doc = "Get a reference to the value of field `name` after provisioning.\nName of nearest town, city, or village."]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct MagicTransitCf1Site_Body {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    description: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    location: std::option::Option<MagicTransitCf1Site_Location>,
+    name: terrars::PrimField<std::string::String>,
+}
+
+impl MagicTransitCf1Site_Body {
+    #[doc = "Set the field `description`.\nA human-provided description of the CF1 Site."]
+    pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `location`.\n"]
+    pub fn set_location(mut self, v: impl std::convert::Into<MagicTransitCf1Site_Location>) -> Self {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for MagicTransitCf1Site_Body {
+    type O = terrars::BlockAssignable<MagicTransitCf1Site_Body>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildMagicTransitCf1Site_Body {
+    #[doc = "A human-provided name describing the CF1 Site that should be unique within the account."]
+    pub name: terrars::PrimField<std::string::String>,
+}
+
+impl BuildMagicTransitCf1Site_Body {
+    pub fn build(self) -> MagicTransitCf1Site_Body {
+        MagicTransitCf1Site_Body {
+            description: core::default::Default::default(),
+            location: core::default::Default::default(),
+            name: self.name,
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct MagicTransitCf1Site_BodyRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for MagicTransitCf1Site_BodyRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> MagicTransitCf1Site_BodyRef {
+        MagicTransitCf1Site_BodyRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl MagicTransitCf1Site_BodyRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `created_on` after provisioning.\n"]
+    pub fn created_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.created_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `description` after provisioning.\nA human-provided description of the CF1 Site."]
+    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\nIdentifier"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `location` after provisioning.\n"]
+    pub fn location(&self) -> MagicTransitCf1Site_LocationRef {
+        MagicTransitCf1Site_LocationRef::new(self.shared().clone(), format!("{}.location", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `modified_on` after provisioning.\n"]
+    pub fn modified_on(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.modified_on", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `name` after provisioning.\nA human-provided name describing the CF1 Site that should be unique within the account."]
     pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
     }

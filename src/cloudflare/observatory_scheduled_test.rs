@@ -370,12 +370,12 @@ impl ObservatoryScheduledTest_ScheduleRef {
 }
 
 #[derive(Serialize)]
-pub struct ObservatoryScheduledTest_Test_DesktopReport_Error {}
+pub struct ObservatoryScheduledTest_Test_MobileReport_Error {}
 
-impl ObservatoryScheduledTest_Test_DesktopReport_Error { }
+impl ObservatoryScheduledTest_Test_MobileReport_Error { }
 
-impl terrars::ToListMappable for ObservatoryScheduledTest_Test_DesktopReport_Error {
-    type O = terrars::BlockAssignable<ObservatoryScheduledTest_Test_DesktopReport_Error>;
+impl terrars::ToListMappable for ObservatoryScheduledTest_Test_MobileReport_Error {
+    type O = terrars::BlockAssignable<ObservatoryScheduledTest_Test_MobileReport_Error>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -386,33 +386,33 @@ impl terrars::ToListMappable for ObservatoryScheduledTest_Test_DesktopReport_Err
     }
 }
 
-pub struct BuildObservatoryScheduledTest_Test_DesktopReport_Error {}
+pub struct BuildObservatoryScheduledTest_Test_MobileReport_Error {}
 
-impl BuildObservatoryScheduledTest_Test_DesktopReport_Error {
-    pub fn build(self) -> ObservatoryScheduledTest_Test_DesktopReport_Error {
-        ObservatoryScheduledTest_Test_DesktopReport_Error {}
+impl BuildObservatoryScheduledTest_Test_MobileReport_Error {
+    pub fn build(self) -> ObservatoryScheduledTest_Test_MobileReport_Error {
+        ObservatoryScheduledTest_Test_MobileReport_Error {}
     }
 }
 
 #[allow(dead_code)]
-pub struct ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
+pub struct ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
+impl terrars::Ref for ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
-        ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
+    ) -> ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
+        ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
+impl ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
     #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
@@ -497,8 +497,8 @@ impl ObservatoryScheduledTest_Test_DesktopReportRef {
     }
 
     #[doc = "Get a reference to the value of field `error` after provisioning.\n"]
-    pub fn error(&self) -> ObservatoryScheduledTest_Test_DesktopReport_ErrorRef {
-        ObservatoryScheduledTest_Test_DesktopReport_ErrorRef::new(
+    pub fn error(&self) -> ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
+        ObservatoryScheduledTest_Test_MobileReport_ErrorRef::new(
             self.shared().clone(),
             format!("{}.error", self.base),
         )
@@ -550,73 +550,6 @@ impl ObservatoryScheduledTest_Test_DesktopReportRef {
     #[doc = "Get a reference to the value of field `tti` after provisioning.\nTime To Interactive."]
     pub fn tti(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.tti", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ObservatoryScheduledTest_Test_MobileReport_Error {}
-
-impl ObservatoryScheduledTest_Test_MobileReport_Error { }
-
-impl terrars::ToListMappable for ObservatoryScheduledTest_Test_MobileReport_Error {
-    type O = terrars::BlockAssignable<ObservatoryScheduledTest_Test_MobileReport_Error>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildObservatoryScheduledTest_Test_MobileReport_Error {}
-
-impl BuildObservatoryScheduledTest_Test_MobileReport_Error {
-    pub fn build(self) -> ObservatoryScheduledTest_Test_MobileReport_Error {
-        ObservatoryScheduledTest_Test_MobileReport_Error {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
-        ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ObservatoryScheduledTest_Test_MobileReport_ErrorRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `code` after provisioning.\nThe error code of the Lighthouse result.\nAvailable values: \"NOT_REACHABLE\", \"DNS_FAILURE\", \"NOT_HTML\", \"LIGHTHOUSE_TIMEOUT\", \"UNKNOWN\"."]
-    pub fn code(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.code", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `detail` after provisioning.\nDetailed error message."]
-    pub fn detail(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.detail", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `final_displayed_url` after provisioning.\nThe final URL displayed to the user."]
-    pub fn final_displayed_url(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.final_displayed_url", self.base))
     }
 }
 

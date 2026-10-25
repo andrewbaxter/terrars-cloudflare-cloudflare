@@ -509,61 +509,6 @@ impl DataZeroTrustDnsLocation_Endpoints_DohRef {
 }
 
 #[derive(Serialize)]
-pub struct DataZeroTrustDnsLocation_Endpoints_Dot_Networks {}
-
-impl DataZeroTrustDnsLocation_Endpoints_Dot_Networks { }
-
-impl terrars::ToListMappable for DataZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    type O = terrars::BlockAssignable<DataZeroTrustDnsLocation_Endpoints_Dot_Networks>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataZeroTrustDnsLocation_Endpoints_Dot_Networks {}
-
-impl BuildDataZeroTrustDnsLocation_Endpoints_Dot_Networks {
-    pub fn build(self) -> DataZeroTrustDnsLocation_Endpoints_Dot_Networks {
-        DataZeroTrustDnsLocation_Endpoints_Dot_Networks {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-        DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `network` after provisioning.\nSpecify the IP address or IP CIDR."]
-    pub fn network(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.network", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct DataZeroTrustDnsLocation_Endpoints_Dot {}
 
 impl DataZeroTrustDnsLocation_Endpoints_Dot { }
@@ -617,7 +562,7 @@ impl DataZeroTrustDnsLocation_Endpoints_DotRef {
 
     #[doc =
         "Get a reference to the value of field `networks` after provisioning.\nSpecify the list of allowed source IP network ranges for this endpoint. When the list is empty, the endpoint allows all source IPs. The list takes effect only if the endpoint is enabled for this location."]
-    pub fn networks(&self) -> terrars::ListRef<DataZeroTrustDnsLocation_Endpoints_Dot_NetworksRef> {
+    pub fn networks(&self) -> terrars::ListRef<DataZeroTrustDnsLocation_Endpoints_Doh_NetworksRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.networks", self.base))
     }
 }

@@ -889,196 +889,6 @@ impl DataZeroTrustDlpCustomProfile_SensitivityLevelsRef {
 }
 
 #[derive(Serialize)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_Confidence {}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_Confidence { }
-
-impl terrars::ToListMappable for DataZeroTrustDlpCustomProfile_SharedEntries_Confidence {
-    type O = terrars::BlockAssignable<DataZeroTrustDlpCustomProfile_SharedEntries_Confidence>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataZeroTrustDlpCustomProfile_SharedEntries_Confidence {}
-
-impl BuildDataZeroTrustDlpCustomProfile_SharedEntries_Confidence {
-    pub fn build(self) -> DataZeroTrustDlpCustomProfile_SharedEntries_Confidence {
-        DataZeroTrustDlpCustomProfile_SharedEntries_Confidence {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `ai_context_available` after provisioning.\nIndicates whether this entry has AI remote service validation."]
-    pub fn ai_context_available(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ai_context_available", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `available` after provisioning.\nIndicates whether this entry has any form of validation that is not an AI remote service."]
-    pub fn available(&self) -> terrars::PrimExpr<bool> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.available", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_Pattern {}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_Pattern { }
-
-impl terrars::ToListMappable for DataZeroTrustDlpCustomProfile_SharedEntries_Pattern {
-    type O = terrars::BlockAssignable<DataZeroTrustDlpCustomProfile_SharedEntries_Pattern>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataZeroTrustDlpCustomProfile_SharedEntries_Pattern {}
-
-impl BuildDataZeroTrustDlpCustomProfile_SharedEntries_Pattern {
-    pub fn build(self) -> DataZeroTrustDlpCustomProfile_SharedEntries_Pattern {
-        DataZeroTrustDlpCustomProfile_SharedEntries_Pattern {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `regex` after provisioning.\n"]
-    pub fn regex(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.regex", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `validation` after provisioning.\nAvailable values: \"luhn\"."]
-    pub fn validation(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.validation", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_Variant {}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_Variant { }
-
-impl terrars::ToListMappable for DataZeroTrustDlpCustomProfile_SharedEntries_Variant {
-    type O = terrars::BlockAssignable<DataZeroTrustDlpCustomProfile_SharedEntries_Variant>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildDataZeroTrustDlpCustomProfile_SharedEntries_Variant {}
-
-impl BuildDataZeroTrustDlpCustomProfile_SharedEntries_Variant {
-    pub fn build(self) -> DataZeroTrustDlpCustomProfile_SharedEntries_Variant {
-        DataZeroTrustDlpCustomProfile_SharedEntries_Variant {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `description` after provisioning.\nA customer-facing explanation of what this predefined AI prompt topic represents."]
-    pub fn description(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.description", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `topic_type` after provisioning.\nAvailable values: \"Intent\", \"Content\"."]
-    pub fn topic_type(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.topic_type", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"PromptTopic\", \"General\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct DataZeroTrustDlpCustomProfile_SharedEntries {}
 
 impl DataZeroTrustDlpCustomProfile_SharedEntries { }
@@ -1134,8 +944,8 @@ impl DataZeroTrustDlpCustomProfile_SharedEntriesRef {
     }
 
     #[doc = "Get a reference to the value of field `confidence` after provisioning.\n"]
-    pub fn confidence(&self) -> DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_ConfidenceRef::new(
+    pub fn confidence(&self) -> DataZeroTrustDlpCustomProfile_Entries_ConfidenceRef {
+        DataZeroTrustDlpCustomProfile_Entries_ConfidenceRef::new(
             self.shared().clone(),
             format!("{}.confidence", self.base),
         )
@@ -1173,8 +983,8 @@ impl DataZeroTrustDlpCustomProfile_SharedEntriesRef {
     }
 
     #[doc = "Get a reference to the value of field `pattern` after provisioning.\n"]
-    pub fn pattern(&self) -> DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_PatternRef::new(
+    pub fn pattern(&self) -> DataZeroTrustDlpCustomProfile_Entries_PatternRef {
+        DataZeroTrustDlpCustomProfile_Entries_PatternRef::new(
             self.shared().clone(),
             format!("{}.pattern", self.base),
         )
@@ -1203,8 +1013,8 @@ impl DataZeroTrustDlpCustomProfile_SharedEntriesRef {
 
     #[doc =
         "Get a reference to the value of field `variant` after provisioning.\nA Predefined AI prompt classification topic entry."]
-    pub fn variant(&self) -> DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef {
-        DataZeroTrustDlpCustomProfile_SharedEntries_VariantRef::new(
+    pub fn variant(&self) -> DataZeroTrustDlpCustomProfile_Entries_VariantRef {
+        DataZeroTrustDlpCustomProfile_Entries_VariantRef::new(
             self.shared().clone(),
             format!("{}.variant", self.base),
         )

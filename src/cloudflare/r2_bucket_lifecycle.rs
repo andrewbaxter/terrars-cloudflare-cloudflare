@@ -638,99 +638,8 @@ impl R2BucketLifecycle_Rules_DeleteObjectsTransitionRef {
 }
 
 #[derive(Serialize)]
-pub struct R2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    date: std::option::Option<terrars::PrimField<std::string::String>>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    max_age: std::option::Option<terrars::PrimField<f64>>,
-    #[serde(rename = "type")]
-    type_: terrars::PrimField<std::string::String>,
-}
-
-impl R2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-    #[doc = "Set the field `date`.\n"]
-    pub fn set_date(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.date = std::option::Option::Some(v.into());
-        self
-    }
-
-    #[doc = "Set the field `max_age`.\n"]
-    pub fn set_max_age(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
-        self.max_age = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for R2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-    type O = terrars::BlockAssignable<R2BucketLifecycle_Rules_StorageClassTransitions_Condition>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildR2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-    #[doc = "Available values: \"Age\", \"Date\"."]
-    pub type_: terrars::PrimField<std::string::String>,
-}
-
-impl BuildR2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-    pub fn build(self) -> R2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-        R2BucketLifecycle_Rules_StorageClassTransitions_Condition {
-            date: core::default::Default::default(),
-            max_age: core::default::Default::default(),
-            type_: self.type_,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-        R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `date` after provisioning.\n"]
-    pub fn date(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.date", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `max_age` after provisioning.\n"]
-    pub fn max_age(&self) -> terrars::PrimExpr<f64> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.max_age", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `type_` after provisioning.\nAvailable values: \"Age\", \"Date\"."]
-    pub fn type_(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.type", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct R2BucketLifecycle_Rules_StorageClassTransitions {
-    condition: R2BucketLifecycle_Rules_StorageClassTransitions_Condition,
+    condition: R2BucketLifecycle_Rules_DeleteObjectsTransition_Condition,
     storage_class: terrars::PrimField<std::string::String>,
 }
 
@@ -750,7 +659,7 @@ impl terrars::ToListMappable for R2BucketLifecycle_Rules_StorageClassTransitions
 
 pub struct BuildR2BucketLifecycle_Rules_StorageClassTransitions {
     #[doc = "Condition for lifecycle transitions to apply after an object reaches an age in seconds."]
-    pub condition: R2BucketLifecycle_Rules_StorageClassTransitions_Condition,
+    pub condition: R2BucketLifecycle_Rules_DeleteObjectsTransition_Condition,
     #[doc = "Available values: \"InfrequentAccess\"."]
     pub storage_class: terrars::PrimField<std::string::String>,
 }
@@ -790,8 +699,8 @@ impl R2BucketLifecycle_Rules_StorageClassTransitionsRef {
 
     #[doc =
         "Get a reference to the value of field `condition` after provisioning.\nCondition for lifecycle transitions to apply after an object reaches an age in seconds."]
-    pub fn condition(&self) -> R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef {
-        R2BucketLifecycle_Rules_StorageClassTransitions_ConditionRef::new(
+    pub fn condition(&self) -> R2BucketLifecycle_Rules_DeleteObjectsTransition_ConditionRef {
+        R2BucketLifecycle_Rules_DeleteObjectsTransition_ConditionRef::new(
             self.shared().clone(),
             format!("{}.condition", self.base),
         )

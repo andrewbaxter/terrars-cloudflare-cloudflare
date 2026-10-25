@@ -2923,1734 +2923,91 @@ impl ZeroTrustAccessPolicy_ExcludeRef {
 }
 
 #[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_AnyValidServiceToken {}
-
-impl ZeroTrustAccessPolicy_Include_AnyValidServiceToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_AnyValidServiceToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_AnyValidServiceToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_AnyValidServiceToken {}
-
-impl BuildZeroTrustAccessPolicy_Include_AnyValidServiceToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_AnyValidServiceToken {
-        ZeroTrustAccessPolicy_Include_AnyValidServiceToken {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-        ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_AuthContext {
-    ac_id: terrars::PrimField<std::string::String>,
-    id: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_AuthContext { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_AuthContext {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_AuthContext>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_AuthContext {
-    #[doc = "The ACID of an Authentication context."]
-    pub ac_id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of an Authentication context."]
-    pub id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Azure identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_AuthContext {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_AuthContext {
-        ZeroTrustAccessPolicy_Include_AuthContext {
-            ac_id: self.ac_id,
-            id: self.id,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_AuthContextRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_AuthContextRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_AuthContextRef {
-        ZeroTrustAccessPolicy_Include_AuthContextRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_AuthContextRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ac_id` after provisioning.\nThe ACID of an Authentication context."]
-    pub fn ac_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ac_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an Authentication context."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Azure identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_AuthMethod {
-    auth_method: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_AuthMethod { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_AuthMethod {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_AuthMethod>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_AuthMethod {
-    #[doc = "The type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2."]
-    pub auth_method: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_AuthMethod {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_AuthMethod {
-        ZeroTrustAccessPolicy_Include_AuthMethod { auth_method: self.auth_method }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_AuthMethodRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_AuthMethodRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_AuthMethodRef {
-        ZeroTrustAccessPolicy_Include_AuthMethodRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_AuthMethodRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `auth_method` after provisioning.\nThe type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2."]
-    pub fn auth_method(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.auth_method", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_AzureAd {
-    id: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_AzureAd { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_AzureAd {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_AzureAd>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_AzureAd {
-    #[doc = "The ID of an Azure group."]
-    pub id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Azure identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_AzureAd {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_AzureAd {
-        ZeroTrustAccessPolicy_Include_AzureAd {
-            id: self.id,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_AzureAdRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_AzureAdRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_AzureAdRef {
-        ZeroTrustAccessPolicy_Include_AzureAdRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_AzureAdRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an Azure group."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Azure identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Certificate {}
-
-impl ZeroTrustAccessPolicy_Include_Certificate { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Certificate {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Certificate>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Certificate {}
-
-impl BuildZeroTrustAccessPolicy_Include_Certificate {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Certificate {
-        ZeroTrustAccessPolicy_Include_Certificate {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_CertificateRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_CertificateRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_CertificateRef {
-        ZeroTrustAccessPolicy_Include_CertificateRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_CertificateRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_CloudflareAccountMember {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Include_CloudflareAccountMember {
-    #[doc = "Set the field `account_id`.\nIdentifier."]
-    pub fn set_account_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.account_id = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_CloudflareAccountMember {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_CloudflareAccountMember>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_CloudflareAccountMember {}
-
-impl BuildZeroTrustAccessPolicy_Include_CloudflareAccountMember {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_CloudflareAccountMember {
-        ZeroTrustAccessPolicy_Include_CloudflareAccountMember { account_id: core::default::Default::default() }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-        ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
-    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_CommonName {
-    common_name: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_CommonName { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_CommonName {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_CommonName>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_CommonName {
-    #[doc = "The common name to match."]
-    pub common_name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_CommonName {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_CommonName {
-        ZeroTrustAccessPolicy_Include_CommonName { common_name: self.common_name }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_CommonNameRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_CommonNameRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_CommonNameRef {
-        ZeroTrustAccessPolicy_Include_CommonNameRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_CommonNameRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `common_name` after provisioning.\nThe common name to match."]
-    pub fn common_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.common_name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_DevicePosture {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
-    integration_uid: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_DevicePosture {
-    #[doc = "Set the field `account_id`.\nThe ID of the account that owns the device posture integration."]
-    pub fn set_account_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.account_id = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_DevicePosture {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_DevicePosture>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_DevicePosture {
-    #[doc = "The ID of a device posture integration."]
-    pub integration_uid: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_DevicePosture {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_DevicePosture {
-        ZeroTrustAccessPolicy_Include_DevicePosture {
-            account_id: core::default::Default::default(),
-            integration_uid: self.integration_uid,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_DevicePostureRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_DevicePostureRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_DevicePostureRef {
-        ZeroTrustAccessPolicy_Include_DevicePostureRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_DevicePostureRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe ID of the account that owns the device posture integration."]
-    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `integration_uid` after provisioning.\nThe ID of a device posture integration."]
-    pub fn integration_uid(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.integration_uid", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Email {
-    email: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Email { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Email {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Email>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Email {
-    #[doc = "The email of the user."]
-    pub email: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Email {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Email {
-        ZeroTrustAccessPolicy_Include_Email { email: self.email }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_EmailRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_EmailRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_EmailRef {
-        ZeroTrustAccessPolicy_Include_EmailRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_EmailRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe email of the user."]
-    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_EmailDomain {
-    domain: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_EmailDomain { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_EmailDomain {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_EmailDomain>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_EmailDomain {
-    #[doc = "The email domain to match."]
-    pub domain: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_EmailDomain {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_EmailDomain {
-        ZeroTrustAccessPolicy_Include_EmailDomain { domain: self.domain }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_EmailDomainRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_EmailDomainRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_EmailDomainRef {
-        ZeroTrustAccessPolicy_Include_EmailDomainRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_EmailDomainRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `domain` after provisioning.\nThe email domain to match."]
-    pub fn domain(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_EmailList {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_EmailList { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_EmailList {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_EmailList>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_EmailList {
-    #[doc = "The ID of a previously created email list."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_EmailList {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_EmailList {
-        ZeroTrustAccessPolicy_Include_EmailList { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_EmailListRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_EmailListRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_EmailListRef {
-        ZeroTrustAccessPolicy_Include_EmailListRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_EmailListRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created email list."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Everyone {}
-
-impl ZeroTrustAccessPolicy_Include_Everyone { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Everyone {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Everyone>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Everyone {}
-
-impl BuildZeroTrustAccessPolicy_Include_Everyone {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Everyone {
-        ZeroTrustAccessPolicy_Include_Everyone {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_EveryoneRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_EveryoneRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_EveryoneRef {
-        ZeroTrustAccessPolicy_Include_EveryoneRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_EveryoneRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_ExternalEvaluation {
-    evaluate_url: terrars::PrimField<std::string::String>,
-    keys_url: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_ExternalEvaluation { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_ExternalEvaluation {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_ExternalEvaluation>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_ExternalEvaluation {
-    #[doc = "The API endpoint containing your business logic."]
-    pub evaluate_url: terrars::PrimField<std::string::String>,
-    #[doc = "The API endpoint containing the key that Access uses to verify that the response came from your API."]
-    pub keys_url: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_ExternalEvaluation {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_ExternalEvaluation {
-        ZeroTrustAccessPolicy_Include_ExternalEvaluation {
-            evaluate_url: self.evaluate_url,
-            keys_url: self.keys_url,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-        ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `evaluate_url` after provisioning.\nThe API endpoint containing your business logic."]
-    pub fn evaluate_url(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.evaluate_url", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `keys_url` after provisioning.\nThe API endpoint containing the key that Access uses to verify that the response came from your API."]
-    pub fn keys_url(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.keys_url", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Geo {
-    country_code: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Geo { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Geo {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Geo>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Geo {
-    #[doc = "The country code that should be matched."]
-    pub country_code: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Geo {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Geo {
-        ZeroTrustAccessPolicy_Include_Geo { country_code: self.country_code }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_GeoRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_GeoRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_GeoRef {
-        ZeroTrustAccessPolicy_Include_GeoRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_GeoRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `country_code` after provisioning.\nThe country code that should be matched."]
-    pub fn country_code(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.country_code", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_GithubOrganization {
-    identity_provider_id: terrars::PrimField<std::string::String>,
-    name: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    team: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Include_GithubOrganization {
-    #[doc = "Set the field `team`.\nThe name of the team"]
-    pub fn set_team(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.team = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_GithubOrganization {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_GithubOrganization>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_GithubOrganization {
-    #[doc = "The ID of your Github identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the organization."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_GithubOrganization {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_GithubOrganization {
-        ZeroTrustAccessPolicy_Include_GithubOrganization {
-            identity_provider_id: self.identity_provider_id,
-            name: self.name,
-            team: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-        ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Github identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the organization."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `team` after provisioning.\nThe name of the team"]
-    pub fn team(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.team", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Group {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Group { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Group {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Group>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Group {
-    #[doc = "The ID of a previously created Access group."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Group {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Group {
-        ZeroTrustAccessPolicy_Include_Group { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_GroupRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_GroupRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_GroupRef {
-        ZeroTrustAccessPolicy_Include_GroupRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_GroupRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created Access group."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Gsuite {
-    email: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Gsuite { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Gsuite {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Gsuite>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Gsuite {
-    #[doc = "The email of the Google Workspace group."]
-    pub email: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Google Workspace identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Gsuite {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Gsuite {
-        ZeroTrustAccessPolicy_Include_Gsuite {
-            email: self.email,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_GsuiteRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_GsuiteRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_GsuiteRef {
-        ZeroTrustAccessPolicy_Include_GsuiteRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_GsuiteRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `email` after provisioning.\nThe email of the Google Workspace group."]
-    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Google Workspace identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Ip {
-    ip: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Ip { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Ip {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Ip>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Ip {
-    #[doc = "An IPv4 or IPv6 CIDR block."]
-    pub ip: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Ip {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Ip {
-        ZeroTrustAccessPolicy_Include_Ip { ip: self.ip }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_IpRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_IpRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_IpRef {
-        ZeroTrustAccessPolicy_Include_IpRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_IpRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ip` after provisioning.\nAn IPv4 or IPv6 CIDR block."]
-    pub fn ip(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_IpList {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_IpList { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_IpList {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_IpList>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_IpList {
-    #[doc = "The ID of a previously created IP list."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_IpList {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_IpList {
-        ZeroTrustAccessPolicy_Include_IpList { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_IpListRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_IpListRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_IpListRef {
-        ZeroTrustAccessPolicy_Include_IpListRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_IpListRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created IP list."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_LinkedAppToken {
-    app_uid: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_LinkedAppToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_LinkedAppToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_LinkedAppToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_LinkedAppToken {
-    #[doc = "The ID of an Access OIDC SaaS application"]
-    pub app_uid: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_LinkedAppToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_LinkedAppToken {
-        ZeroTrustAccessPolicy_Include_LinkedAppToken { app_uid: self.app_uid }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-        ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `app_uid` after provisioning.\nThe ID of an Access OIDC SaaS application"]
-    pub fn app_uid(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.app_uid", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_LoginMethod {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_LoginMethod { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_LoginMethod {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_LoginMethod>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_LoginMethod {
-    #[doc = "The ID of an identity provider."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_LoginMethod {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_LoginMethod {
-        ZeroTrustAccessPolicy_Include_LoginMethod { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_LoginMethodRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_LoginMethodRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_LoginMethodRef {
-        ZeroTrustAccessPolicy_Include_LoginMethodRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_LoginMethodRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an identity provider."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Oidc {
-    claim_name: terrars::PrimField<std::string::String>,
-    claim_value: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Oidc { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Oidc {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Oidc>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Oidc {
-    #[doc = "The name of the OIDC claim."]
-    pub claim_name: terrars::PrimField<std::string::String>,
-    #[doc = "The OIDC claim value to look for."]
-    pub claim_value: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your OIDC identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Oidc {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Oidc {
-        ZeroTrustAccessPolicy_Include_Oidc {
-            claim_name: self.claim_name,
-            claim_value: self.claim_value,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_OidcRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_OidcRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_OidcRef {
-        ZeroTrustAccessPolicy_Include_OidcRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_OidcRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `claim_name` after provisioning.\nThe name of the OIDC claim."]
-    pub fn claim_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.claim_name", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `claim_value` after provisioning.\nThe OIDC claim value to look for."]
-    pub fn claim_value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.claim_value", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your OIDC identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Okta {
-    identity_provider_id: terrars::PrimField<std::string::String>,
-    name: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Okta { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Okta {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Okta>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Okta {
-    #[doc = "The ID of your Okta identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the Okta group."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Okta {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Okta {
-        ZeroTrustAccessPolicy_Include_Okta {
-            identity_provider_id: self.identity_provider_id,
-            name: self.name,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_OktaRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_OktaRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_OktaRef {
-        ZeroTrustAccessPolicy_Include_OktaRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_OktaRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Okta identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the Okta group."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_Saml {
-    attribute_name: terrars::PrimField<std::string::String>,
-    attribute_value: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_Saml { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_Saml {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_Saml>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_Saml {
-    #[doc = "The name of the SAML attribute."]
-    pub attribute_name: terrars::PrimField<std::string::String>,
-    #[doc = "The SAML attribute value to look for."]
-    pub attribute_value: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your SAML identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_Saml {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_Saml {
-        ZeroTrustAccessPolicy_Include_Saml {
-            attribute_name: self.attribute_name,
-            attribute_value: self.attribute_value,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_SamlRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_SamlRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_SamlRef {
-        ZeroTrustAccessPolicy_Include_SamlRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_SamlRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `attribute_name` after provisioning.\nThe name of the SAML attribute."]
-    pub fn attribute_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.attribute_name", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `attribute_value` after provisioning.\nThe SAML attribute value to look for."]
-    pub fn attribute_value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.attribute_value", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your SAML identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_ServiceToken {
-    token_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Include_ServiceToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_ServiceToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_ServiceToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_ServiceToken {
-    #[doc = "The ID of a Service Token."]
-    pub token_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_ServiceToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_ServiceToken {
-        ZeroTrustAccessPolicy_Include_ServiceToken { token_id: self.token_id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-        ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `token_id` after provisioning.\nThe ID of a Service Token."]
-    pub fn token_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.token_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Include_UserRiskScore {
-    user_risk_score: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Include_UserRiskScore { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Include_UserRiskScore {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Include_UserRiskScore>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Include_UserRiskScore {
-    #[doc = "A list of risk score levels to match. Values can be low, medium, high, or unscored."]
-    pub user_risk_score: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl BuildZeroTrustAccessPolicy_Include_UserRiskScore {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Include_UserRiskScore {
-        ZeroTrustAccessPolicy_Include_UserRiskScore { user_risk_score: self.user_risk_score }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-        ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `user_risk_score` after provisioning.\nA list of risk score levels to match. Values can be low, medium, high, or unscored."]
-    pub fn user_risk_score(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.user_risk_score", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct ZeroTrustAccessPolicy_Include {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    any_valid_service_token: std::option::Option<ZeroTrustAccessPolicy_Include_AnyValidServiceToken>,
+    any_valid_service_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_AnyValidServiceToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    auth_context: std::option::Option<ZeroTrustAccessPolicy_Include_AuthContext>,
+    auth_context: std::option::Option<ZeroTrustAccessPolicy_Exclude_AuthContext>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    auth_method: std::option::Option<ZeroTrustAccessPolicy_Include_AuthMethod>,
+    auth_method: std::option::Option<ZeroTrustAccessPolicy_Exclude_AuthMethod>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    azure_ad: std::option::Option<ZeroTrustAccessPolicy_Include_AzureAd>,
+    azure_ad: std::option::Option<ZeroTrustAccessPolicy_Exclude_AzureAd>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    certificate: std::option::Option<ZeroTrustAccessPolicy_Include_Certificate>,
+    certificate: std::option::Option<ZeroTrustAccessPolicy_Exclude_Certificate>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cloudflare_account_member: std::option::Option<ZeroTrustAccessPolicy_Include_CloudflareAccountMember>,
+    cloudflare_account_member: std::option::Option<ZeroTrustAccessPolicy_Exclude_CloudflareAccountMember>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    common_name: std::option::Option<ZeroTrustAccessPolicy_Include_CommonName>,
+    common_name: std::option::Option<ZeroTrustAccessPolicy_Exclude_CommonName>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    device_posture: std::option::Option<ZeroTrustAccessPolicy_Include_DevicePosture>,
+    device_posture: std::option::Option<ZeroTrustAccessPolicy_Exclude_DevicePosture>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email: std::option::Option<ZeroTrustAccessPolicy_Include_Email>,
+    email: std::option::Option<ZeroTrustAccessPolicy_Exclude_Email>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email_domain: std::option::Option<ZeroTrustAccessPolicy_Include_EmailDomain>,
+    email_domain: std::option::Option<ZeroTrustAccessPolicy_Exclude_EmailDomain>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email_list: std::option::Option<ZeroTrustAccessPolicy_Include_EmailList>,
+    email_list: std::option::Option<ZeroTrustAccessPolicy_Exclude_EmailList>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    everyone: std::option::Option<ZeroTrustAccessPolicy_Include_Everyone>,
+    everyone: std::option::Option<ZeroTrustAccessPolicy_Exclude_Everyone>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    external_evaluation: std::option::Option<ZeroTrustAccessPolicy_Include_ExternalEvaluation>,
+    external_evaluation: std::option::Option<ZeroTrustAccessPolicy_Exclude_ExternalEvaluation>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    geo: std::option::Option<ZeroTrustAccessPolicy_Include_Geo>,
+    geo: std::option::Option<ZeroTrustAccessPolicy_Exclude_Geo>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    github_organization: std::option::Option<ZeroTrustAccessPolicy_Include_GithubOrganization>,
+    github_organization: std::option::Option<ZeroTrustAccessPolicy_Exclude_GithubOrganization>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    group: std::option::Option<ZeroTrustAccessPolicy_Include_Group>,
+    group: std::option::Option<ZeroTrustAccessPolicy_Exclude_Group>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    gsuite: std::option::Option<ZeroTrustAccessPolicy_Include_Gsuite>,
+    gsuite: std::option::Option<ZeroTrustAccessPolicy_Exclude_Gsuite>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ip: std::option::Option<ZeroTrustAccessPolicy_Include_Ip>,
+    ip: std::option::Option<ZeroTrustAccessPolicy_Exclude_Ip>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ip_list: std::option::Option<ZeroTrustAccessPolicy_Include_IpList>,
+    ip_list: std::option::Option<ZeroTrustAccessPolicy_Exclude_IpList>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    linked_app_token: std::option::Option<ZeroTrustAccessPolicy_Include_LinkedAppToken>,
+    linked_app_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_LinkedAppToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    login_method: std::option::Option<ZeroTrustAccessPolicy_Include_LoginMethod>,
+    login_method: std::option::Option<ZeroTrustAccessPolicy_Exclude_LoginMethod>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    oidc: std::option::Option<ZeroTrustAccessPolicy_Include_Oidc>,
+    oidc: std::option::Option<ZeroTrustAccessPolicy_Exclude_Oidc>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    okta: std::option::Option<ZeroTrustAccessPolicy_Include_Okta>,
+    okta: std::option::Option<ZeroTrustAccessPolicy_Exclude_Okta>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    saml: std::option::Option<ZeroTrustAccessPolicy_Include_Saml>,
+    saml: std::option::Option<ZeroTrustAccessPolicy_Exclude_Saml>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    service_token: std::option::Option<ZeroTrustAccessPolicy_Include_ServiceToken>,
+    service_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_ServiceToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    user_risk_score: std::option::Option<ZeroTrustAccessPolicy_Include_UserRiskScore>,
+    user_risk_score: std::option::Option<ZeroTrustAccessPolicy_Exclude_UserRiskScore>,
 }
 
 impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `any_valid_service_token`.\nAn empty object which matches on all service tokens."]
     pub fn set_any_valid_service_token(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_AnyValidServiceToken>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AnyValidServiceToken>,
     ) -> Self {
         self.any_valid_service_token = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `auth_context`.\n"]
-    pub fn set_auth_context(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_AuthContext>) -> Self {
+    pub fn set_auth_context(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AuthContext>) -> Self {
         self.auth_context = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `auth_method`.\n"]
-    pub fn set_auth_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_AuthMethod>) -> Self {
+    pub fn set_auth_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AuthMethod>) -> Self {
         self.auth_method = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `azure_ad`.\n"]
-    pub fn set_azure_ad(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_AzureAd>) -> Self {
+    pub fn set_azure_ad(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AzureAd>) -> Self {
         self.azure_ad = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `certificate`.\n"]
-    pub fn set_certificate(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Certificate>) -> Self {
+    pub fn set_certificate(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Certificate>) -> Self {
         self.certificate = std::option::Option::Some(v.into());
         self
     }
@@ -4658,44 +3015,44 @@ impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `cloudflare_account_member`.\n"]
     pub fn set_cloudflare_account_member(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_CloudflareAccountMember>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_CloudflareAccountMember>,
     ) -> Self {
         self.cloudflare_account_member = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `common_name`.\n"]
-    pub fn set_common_name(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_CommonName>) -> Self {
+    pub fn set_common_name(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_CommonName>) -> Self {
         self.common_name = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `device_posture`.\n"]
-    pub fn set_device_posture(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_DevicePosture>) -> Self {
+    pub fn set_device_posture(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_DevicePosture>) -> Self {
         self.device_posture = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email`.\n"]
-    pub fn set_email(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Email>) -> Self {
+    pub fn set_email(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Email>) -> Self {
         self.email = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email_domain`.\n"]
-    pub fn set_email_domain(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_EmailDomain>) -> Self {
+    pub fn set_email_domain(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_EmailDomain>) -> Self {
         self.email_domain = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email_list`.\n"]
-    pub fn set_email_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_EmailList>) -> Self {
+    pub fn set_email_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_EmailList>) -> Self {
         self.email_list = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `everyone`.\nAn empty object which matches on all users."]
-    pub fn set_everyone(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Everyone>) -> Self {
+    pub fn set_everyone(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Everyone>) -> Self {
         self.everyone = std::option::Option::Some(v.into());
         self
     }
@@ -4703,14 +3060,14 @@ impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `external_evaluation`.\n"]
     pub fn set_external_evaluation(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_ExternalEvaluation>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_ExternalEvaluation>,
     ) -> Self {
         self.external_evaluation = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `geo`.\n"]
-    pub fn set_geo(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Geo>) -> Self {
+    pub fn set_geo(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Geo>) -> Self {
         self.geo = std::option::Option::Some(v.into());
         self
     }
@@ -4718,32 +3075,32 @@ impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `github_organization`.\n"]
     pub fn set_github_organization(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_GithubOrganization>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_GithubOrganization>,
     ) -> Self {
         self.github_organization = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `group`.\n"]
-    pub fn set_group(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Group>) -> Self {
+    pub fn set_group(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Group>) -> Self {
         self.group = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `gsuite`.\n"]
-    pub fn set_gsuite(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Gsuite>) -> Self {
+    pub fn set_gsuite(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Gsuite>) -> Self {
         self.gsuite = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `ip`.\n"]
-    pub fn set_ip(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Ip>) -> Self {
+    pub fn set_ip(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Ip>) -> Self {
         self.ip = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `ip_list`.\n"]
-    pub fn set_ip_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_IpList>) -> Self {
+    pub fn set_ip_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_IpList>) -> Self {
         self.ip_list = std::option::Option::Some(v.into());
         self
     }
@@ -4751,38 +3108,38 @@ impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `linked_app_token`.\n"]
     pub fn set_linked_app_token(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_LinkedAppToken>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_LinkedAppToken>,
     ) -> Self {
         self.linked_app_token = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `login_method`.\n"]
-    pub fn set_login_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_LoginMethod>) -> Self {
+    pub fn set_login_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_LoginMethod>) -> Self {
         self.login_method = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `oidc`.\n"]
-    pub fn set_oidc(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Oidc>) -> Self {
+    pub fn set_oidc(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Oidc>) -> Self {
         self.oidc = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `okta`.\n"]
-    pub fn set_okta(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Okta>) -> Self {
+    pub fn set_okta(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Okta>) -> Self {
         self.okta = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `saml`.\n"]
-    pub fn set_saml(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_Saml>) -> Self {
+    pub fn set_saml(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Saml>) -> Self {
         self.saml = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `service_token`.\n"]
-    pub fn set_service_token(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_ServiceToken>) -> Self {
+    pub fn set_service_token(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_ServiceToken>) -> Self {
         self.service_token = std::option::Option::Some(v.into());
         self
     }
@@ -4790,7 +3147,7 @@ impl ZeroTrustAccessPolicy_Include {
     #[doc = "Set the field `user_risk_score`.\n"]
     pub fn set_user_risk_score(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Include_UserRiskScore>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_UserRiskScore>,
     ) -> Self {
         self.user_risk_score = std::option::Option::Some(v.into());
         self
@@ -4867,167 +3224,167 @@ impl ZeroTrustAccessPolicy_IncludeRef {
 
     #[doc =
         "Get a reference to the value of field `any_valid_service_token` after provisioning.\nAn empty object which matches on all service tokens."]
-    pub fn any_valid_service_token(&self) -> ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef {
-        ZeroTrustAccessPolicy_Include_AnyValidServiceTokenRef::new(
+    pub fn any_valid_service_token(&self) -> ZeroTrustAccessPolicy_Exclude_AnyValidServiceTokenRef {
+        ZeroTrustAccessPolicy_Exclude_AnyValidServiceTokenRef::new(
             self.shared().clone(),
             format!("{}.any_valid_service_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `auth_context` after provisioning.\n"]
-    pub fn auth_context(&self) -> ZeroTrustAccessPolicy_Include_AuthContextRef {
-        ZeroTrustAccessPolicy_Include_AuthContextRef::new(
+    pub fn auth_context(&self) -> ZeroTrustAccessPolicy_Exclude_AuthContextRef {
+        ZeroTrustAccessPolicy_Exclude_AuthContextRef::new(
             self.shared().clone(),
             format!("{}.auth_context", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `auth_method` after provisioning.\n"]
-    pub fn auth_method(&self) -> ZeroTrustAccessPolicy_Include_AuthMethodRef {
-        ZeroTrustAccessPolicy_Include_AuthMethodRef::new(self.shared().clone(), format!("{}.auth_method", self.base))
+    pub fn auth_method(&self) -> ZeroTrustAccessPolicy_Exclude_AuthMethodRef {
+        ZeroTrustAccessPolicy_Exclude_AuthMethodRef::new(self.shared().clone(), format!("{}.auth_method", self.base))
     }
 
     #[doc = "Get a reference to the value of field `azure_ad` after provisioning.\n"]
-    pub fn azure_ad(&self) -> ZeroTrustAccessPolicy_Include_AzureAdRef {
-        ZeroTrustAccessPolicy_Include_AzureAdRef::new(self.shared().clone(), format!("{}.azure_ad", self.base))
+    pub fn azure_ad(&self) -> ZeroTrustAccessPolicy_Exclude_AzureAdRef {
+        ZeroTrustAccessPolicy_Exclude_AzureAdRef::new(self.shared().clone(), format!("{}.azure_ad", self.base))
     }
 
     #[doc = "Get a reference to the value of field `certificate` after provisioning.\n"]
-    pub fn certificate(&self) -> ZeroTrustAccessPolicy_Include_CertificateRef {
-        ZeroTrustAccessPolicy_Include_CertificateRef::new(
+    pub fn certificate(&self) -> ZeroTrustAccessPolicy_Exclude_CertificateRef {
+        ZeroTrustAccessPolicy_Exclude_CertificateRef::new(
             self.shared().clone(),
             format!("{}.certificate", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `cloudflare_account_member` after provisioning.\n"]
-    pub fn cloudflare_account_member(&self) -> ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef {
-        ZeroTrustAccessPolicy_Include_CloudflareAccountMemberRef::new(
+    pub fn cloudflare_account_member(&self) -> ZeroTrustAccessPolicy_Exclude_CloudflareAccountMemberRef {
+        ZeroTrustAccessPolicy_Exclude_CloudflareAccountMemberRef::new(
             self.shared().clone(),
             format!("{}.cloudflare_account_member", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `common_name` after provisioning.\n"]
-    pub fn common_name(&self) -> ZeroTrustAccessPolicy_Include_CommonNameRef {
-        ZeroTrustAccessPolicy_Include_CommonNameRef::new(self.shared().clone(), format!("{}.common_name", self.base))
+    pub fn common_name(&self) -> ZeroTrustAccessPolicy_Exclude_CommonNameRef {
+        ZeroTrustAccessPolicy_Exclude_CommonNameRef::new(self.shared().clone(), format!("{}.common_name", self.base))
     }
 
     #[doc = "Get a reference to the value of field `device_posture` after provisioning.\n"]
-    pub fn device_posture(&self) -> ZeroTrustAccessPolicy_Include_DevicePostureRef {
-        ZeroTrustAccessPolicy_Include_DevicePostureRef::new(
+    pub fn device_posture(&self) -> ZeroTrustAccessPolicy_Exclude_DevicePostureRef {
+        ZeroTrustAccessPolicy_Exclude_DevicePostureRef::new(
             self.shared().clone(),
             format!("{}.device_posture", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `email` after provisioning.\n"]
-    pub fn email(&self) -> ZeroTrustAccessPolicy_Include_EmailRef {
-        ZeroTrustAccessPolicy_Include_EmailRef::new(self.shared().clone(), format!("{}.email", self.base))
+    pub fn email(&self) -> ZeroTrustAccessPolicy_Exclude_EmailRef {
+        ZeroTrustAccessPolicy_Exclude_EmailRef::new(self.shared().clone(), format!("{}.email", self.base))
     }
 
     #[doc = "Get a reference to the value of field `email_domain` after provisioning.\n"]
-    pub fn email_domain(&self) -> ZeroTrustAccessPolicy_Include_EmailDomainRef {
-        ZeroTrustAccessPolicy_Include_EmailDomainRef::new(
+    pub fn email_domain(&self) -> ZeroTrustAccessPolicy_Exclude_EmailDomainRef {
+        ZeroTrustAccessPolicy_Exclude_EmailDomainRef::new(
             self.shared().clone(),
             format!("{}.email_domain", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `email_list` after provisioning.\n"]
-    pub fn email_list(&self) -> ZeroTrustAccessPolicy_Include_EmailListRef {
-        ZeroTrustAccessPolicy_Include_EmailListRef::new(self.shared().clone(), format!("{}.email_list", self.base))
+    pub fn email_list(&self) -> ZeroTrustAccessPolicy_Exclude_EmailListRef {
+        ZeroTrustAccessPolicy_Exclude_EmailListRef::new(self.shared().clone(), format!("{}.email_list", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `everyone` after provisioning.\nAn empty object which matches on all users."]
-    pub fn everyone(&self) -> ZeroTrustAccessPolicy_Include_EveryoneRef {
-        ZeroTrustAccessPolicy_Include_EveryoneRef::new(self.shared().clone(), format!("{}.everyone", self.base))
+    pub fn everyone(&self) -> ZeroTrustAccessPolicy_Exclude_EveryoneRef {
+        ZeroTrustAccessPolicy_Exclude_EveryoneRef::new(self.shared().clone(), format!("{}.everyone", self.base))
     }
 
     #[doc = "Get a reference to the value of field `external_evaluation` after provisioning.\n"]
-    pub fn external_evaluation(&self) -> ZeroTrustAccessPolicy_Include_ExternalEvaluationRef {
-        ZeroTrustAccessPolicy_Include_ExternalEvaluationRef::new(
+    pub fn external_evaluation(&self) -> ZeroTrustAccessPolicy_Exclude_ExternalEvaluationRef {
+        ZeroTrustAccessPolicy_Exclude_ExternalEvaluationRef::new(
             self.shared().clone(),
             format!("{}.external_evaluation", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `geo` after provisioning.\n"]
-    pub fn geo(&self) -> ZeroTrustAccessPolicy_Include_GeoRef {
-        ZeroTrustAccessPolicy_Include_GeoRef::new(self.shared().clone(), format!("{}.geo", self.base))
+    pub fn geo(&self) -> ZeroTrustAccessPolicy_Exclude_GeoRef {
+        ZeroTrustAccessPolicy_Exclude_GeoRef::new(self.shared().clone(), format!("{}.geo", self.base))
     }
 
     #[doc = "Get a reference to the value of field `github_organization` after provisioning.\n"]
-    pub fn github_organization(&self) -> ZeroTrustAccessPolicy_Include_GithubOrganizationRef {
-        ZeroTrustAccessPolicy_Include_GithubOrganizationRef::new(
+    pub fn github_organization(&self) -> ZeroTrustAccessPolicy_Exclude_GithubOrganizationRef {
+        ZeroTrustAccessPolicy_Exclude_GithubOrganizationRef::new(
             self.shared().clone(),
             format!("{}.github_organization", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `group` after provisioning.\n"]
-    pub fn group(&self) -> ZeroTrustAccessPolicy_Include_GroupRef {
-        ZeroTrustAccessPolicy_Include_GroupRef::new(self.shared().clone(), format!("{}.group", self.base))
+    pub fn group(&self) -> ZeroTrustAccessPolicy_Exclude_GroupRef {
+        ZeroTrustAccessPolicy_Exclude_GroupRef::new(self.shared().clone(), format!("{}.group", self.base))
     }
 
     #[doc = "Get a reference to the value of field `gsuite` after provisioning.\n"]
-    pub fn gsuite(&self) -> ZeroTrustAccessPolicy_Include_GsuiteRef {
-        ZeroTrustAccessPolicy_Include_GsuiteRef::new(self.shared().clone(), format!("{}.gsuite", self.base))
+    pub fn gsuite(&self) -> ZeroTrustAccessPolicy_Exclude_GsuiteRef {
+        ZeroTrustAccessPolicy_Exclude_GsuiteRef::new(self.shared().clone(), format!("{}.gsuite", self.base))
     }
 
     #[doc = "Get a reference to the value of field `ip` after provisioning.\n"]
-    pub fn ip(&self) -> ZeroTrustAccessPolicy_Include_IpRef {
-        ZeroTrustAccessPolicy_Include_IpRef::new(self.shared().clone(), format!("{}.ip", self.base))
+    pub fn ip(&self) -> ZeroTrustAccessPolicy_Exclude_IpRef {
+        ZeroTrustAccessPolicy_Exclude_IpRef::new(self.shared().clone(), format!("{}.ip", self.base))
     }
 
     #[doc = "Get a reference to the value of field `ip_list` after provisioning.\n"]
-    pub fn ip_list(&self) -> ZeroTrustAccessPolicy_Include_IpListRef {
-        ZeroTrustAccessPolicy_Include_IpListRef::new(self.shared().clone(), format!("{}.ip_list", self.base))
+    pub fn ip_list(&self) -> ZeroTrustAccessPolicy_Exclude_IpListRef {
+        ZeroTrustAccessPolicy_Exclude_IpListRef::new(self.shared().clone(), format!("{}.ip_list", self.base))
     }
 
     #[doc = "Get a reference to the value of field `linked_app_token` after provisioning.\n"]
-    pub fn linked_app_token(&self) -> ZeroTrustAccessPolicy_Include_LinkedAppTokenRef {
-        ZeroTrustAccessPolicy_Include_LinkedAppTokenRef::new(
+    pub fn linked_app_token(&self) -> ZeroTrustAccessPolicy_Exclude_LinkedAppTokenRef {
+        ZeroTrustAccessPolicy_Exclude_LinkedAppTokenRef::new(
             self.shared().clone(),
             format!("{}.linked_app_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `login_method` after provisioning.\n"]
-    pub fn login_method(&self) -> ZeroTrustAccessPolicy_Include_LoginMethodRef {
-        ZeroTrustAccessPolicy_Include_LoginMethodRef::new(
+    pub fn login_method(&self) -> ZeroTrustAccessPolicy_Exclude_LoginMethodRef {
+        ZeroTrustAccessPolicy_Exclude_LoginMethodRef::new(
             self.shared().clone(),
             format!("{}.login_method", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `oidc` after provisioning.\n"]
-    pub fn oidc(&self) -> ZeroTrustAccessPolicy_Include_OidcRef {
-        ZeroTrustAccessPolicy_Include_OidcRef::new(self.shared().clone(), format!("{}.oidc", self.base))
+    pub fn oidc(&self) -> ZeroTrustAccessPolicy_Exclude_OidcRef {
+        ZeroTrustAccessPolicy_Exclude_OidcRef::new(self.shared().clone(), format!("{}.oidc", self.base))
     }
 
     #[doc = "Get a reference to the value of field `okta` after provisioning.\n"]
-    pub fn okta(&self) -> ZeroTrustAccessPolicy_Include_OktaRef {
-        ZeroTrustAccessPolicy_Include_OktaRef::new(self.shared().clone(), format!("{}.okta", self.base))
+    pub fn okta(&self) -> ZeroTrustAccessPolicy_Exclude_OktaRef {
+        ZeroTrustAccessPolicy_Exclude_OktaRef::new(self.shared().clone(), format!("{}.okta", self.base))
     }
 
     #[doc = "Get a reference to the value of field `saml` after provisioning.\n"]
-    pub fn saml(&self) -> ZeroTrustAccessPolicy_Include_SamlRef {
-        ZeroTrustAccessPolicy_Include_SamlRef::new(self.shared().clone(), format!("{}.saml", self.base))
+    pub fn saml(&self) -> ZeroTrustAccessPolicy_Exclude_SamlRef {
+        ZeroTrustAccessPolicy_Exclude_SamlRef::new(self.shared().clone(), format!("{}.saml", self.base))
     }
 
     #[doc = "Get a reference to the value of field `service_token` after provisioning.\n"]
-    pub fn service_token(&self) -> ZeroTrustAccessPolicy_Include_ServiceTokenRef {
-        ZeroTrustAccessPolicy_Include_ServiceTokenRef::new(
+    pub fn service_token(&self) -> ZeroTrustAccessPolicy_Exclude_ServiceTokenRef {
+        ZeroTrustAccessPolicy_Exclude_ServiceTokenRef::new(
             self.shared().clone(),
             format!("{}.service_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `user_risk_score` after provisioning.\n"]
-    pub fn user_risk_score(&self) -> ZeroTrustAccessPolicy_Include_UserRiskScoreRef {
-        ZeroTrustAccessPolicy_Include_UserRiskScoreRef::new(
+    pub fn user_risk_score(&self) -> ZeroTrustAccessPolicy_Exclude_UserRiskScoreRef {
+        ZeroTrustAccessPolicy_Exclude_UserRiskScoreRef::new(
             self.shared().clone(),
             format!("{}.user_risk_score", self.base),
         )
@@ -5134,1734 +3491,91 @@ impl ZeroTrustAccessPolicy_MfaConfigRef {
 }
 
 #[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_AnyValidServiceToken {}
-
-impl ZeroTrustAccessPolicy_Require_AnyValidServiceToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_AnyValidServiceToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_AnyValidServiceToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_AnyValidServiceToken {}
-
-impl BuildZeroTrustAccessPolicy_Require_AnyValidServiceToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_AnyValidServiceToken {
-        ZeroTrustAccessPolicy_Require_AnyValidServiceToken {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-        ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_AuthContext {
-    ac_id: terrars::PrimField<std::string::String>,
-    id: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_AuthContext { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_AuthContext {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_AuthContext>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_AuthContext {
-    #[doc = "The ACID of an Authentication context."]
-    pub ac_id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of an Authentication context."]
-    pub id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Azure identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_AuthContext {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_AuthContext {
-        ZeroTrustAccessPolicy_Require_AuthContext {
-            ac_id: self.ac_id,
-            id: self.id,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_AuthContextRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_AuthContextRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_AuthContextRef {
-        ZeroTrustAccessPolicy_Require_AuthContextRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_AuthContextRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ac_id` after provisioning.\nThe ACID of an Authentication context."]
-    pub fn ac_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ac_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an Authentication context."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Azure identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_AuthMethod {
-    auth_method: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_AuthMethod { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_AuthMethod {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_AuthMethod>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_AuthMethod {
-    #[doc = "The type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2."]
-    pub auth_method: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_AuthMethod {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_AuthMethod {
-        ZeroTrustAccessPolicy_Require_AuthMethod { auth_method: self.auth_method }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_AuthMethodRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_AuthMethodRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_AuthMethodRef {
-        ZeroTrustAccessPolicy_Require_AuthMethodRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_AuthMethodRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `auth_method` after provisioning.\nThe type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2."]
-    pub fn auth_method(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.auth_method", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_AzureAd {
-    id: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_AzureAd { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_AzureAd {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_AzureAd>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_AzureAd {
-    #[doc = "The ID of an Azure group."]
-    pub id: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Azure identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_AzureAd {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_AzureAd {
-        ZeroTrustAccessPolicy_Require_AzureAd {
-            id: self.id,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_AzureAdRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_AzureAdRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_AzureAdRef {
-        ZeroTrustAccessPolicy_Require_AzureAdRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_AzureAdRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an Azure group."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Azure identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Certificate {}
-
-impl ZeroTrustAccessPolicy_Require_Certificate { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Certificate {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Certificate>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Certificate {}
-
-impl BuildZeroTrustAccessPolicy_Require_Certificate {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Certificate {
-        ZeroTrustAccessPolicy_Require_Certificate {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_CertificateRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_CertificateRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_CertificateRef {
-        ZeroTrustAccessPolicy_Require_CertificateRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_CertificateRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_CloudflareAccountMember {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Require_CloudflareAccountMember {
-    #[doc = "Set the field `account_id`.\nIdentifier."]
-    pub fn set_account_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.account_id = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_CloudflareAccountMember {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_CloudflareAccountMember>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_CloudflareAccountMember {}
-
-impl BuildZeroTrustAccessPolicy_Require_CloudflareAccountMember {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_CloudflareAccountMember {
-        ZeroTrustAccessPolicy_Require_CloudflareAccountMember { account_id: core::default::Default::default() }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-        ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `account_id` after provisioning.\nIdentifier."]
-    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_CommonName {
-    common_name: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_CommonName { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_CommonName {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_CommonName>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_CommonName {
-    #[doc = "The common name to match."]
-    pub common_name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_CommonName {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_CommonName {
-        ZeroTrustAccessPolicy_Require_CommonName { common_name: self.common_name }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_CommonNameRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_CommonNameRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_CommonNameRef {
-        ZeroTrustAccessPolicy_Require_CommonNameRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_CommonNameRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `common_name` after provisioning.\nThe common name to match."]
-    pub fn common_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.common_name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_DevicePosture {
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    account_id: std::option::Option<terrars::PrimField<std::string::String>>,
-    integration_uid: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_DevicePosture {
-    #[doc = "Set the field `account_id`.\nThe ID of the account that owns the device posture integration."]
-    pub fn set_account_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.account_id = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_DevicePosture {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_DevicePosture>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_DevicePosture {
-    #[doc = "The ID of a device posture integration."]
-    pub integration_uid: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_DevicePosture {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_DevicePosture {
-        ZeroTrustAccessPolicy_Require_DevicePosture {
-            account_id: core::default::Default::default(),
-            integration_uid: self.integration_uid,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_DevicePostureRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_DevicePostureRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_DevicePostureRef {
-        ZeroTrustAccessPolicy_Require_DevicePostureRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_DevicePostureRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `account_id` after provisioning.\nThe ID of the account that owns the device posture integration."]
-    pub fn account_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `integration_uid` after provisioning.\nThe ID of a device posture integration."]
-    pub fn integration_uid(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.integration_uid", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Email {
-    email: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Email { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Email {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Email>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Email {
-    #[doc = "The email of the user."]
-    pub email: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Email {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Email {
-        ZeroTrustAccessPolicy_Require_Email { email: self.email }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_EmailRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_EmailRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_EmailRef {
-        ZeroTrustAccessPolicy_Require_EmailRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_EmailRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `email` after provisioning.\nThe email of the user."]
-    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_EmailDomain {
-    domain: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_EmailDomain { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_EmailDomain {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_EmailDomain>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_EmailDomain {
-    #[doc = "The email domain to match."]
-    pub domain: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_EmailDomain {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_EmailDomain {
-        ZeroTrustAccessPolicy_Require_EmailDomain { domain: self.domain }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_EmailDomainRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_EmailDomainRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_EmailDomainRef {
-        ZeroTrustAccessPolicy_Require_EmailDomainRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_EmailDomainRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `domain` after provisioning.\nThe email domain to match."]
-    pub fn domain(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_EmailList {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_EmailList { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_EmailList {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_EmailList>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_EmailList {
-    #[doc = "The ID of a previously created email list."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_EmailList {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_EmailList {
-        ZeroTrustAccessPolicy_Require_EmailList { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_EmailListRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_EmailListRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_EmailListRef {
-        ZeroTrustAccessPolicy_Require_EmailListRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_EmailListRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created email list."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Everyone {}
-
-impl ZeroTrustAccessPolicy_Require_Everyone { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Everyone {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Everyone>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Everyone {}
-
-impl BuildZeroTrustAccessPolicy_Require_Everyone {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Everyone {
-        ZeroTrustAccessPolicy_Require_Everyone {}
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_EveryoneRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_EveryoneRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_EveryoneRef {
-        ZeroTrustAccessPolicy_Require_EveryoneRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_EveryoneRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_ExternalEvaluation {
-    evaluate_url: terrars::PrimField<std::string::String>,
-    keys_url: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_ExternalEvaluation { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_ExternalEvaluation {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_ExternalEvaluation>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_ExternalEvaluation {
-    #[doc = "The API endpoint containing your business logic."]
-    pub evaluate_url: terrars::PrimField<std::string::String>,
-    #[doc = "The API endpoint containing the key that Access uses to verify that the response came from your API."]
-    pub keys_url: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_ExternalEvaluation {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_ExternalEvaluation {
-        ZeroTrustAccessPolicy_Require_ExternalEvaluation {
-            evaluate_url: self.evaluate_url,
-            keys_url: self.keys_url,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-        ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `evaluate_url` after provisioning.\nThe API endpoint containing your business logic."]
-    pub fn evaluate_url(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.evaluate_url", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `keys_url` after provisioning.\nThe API endpoint containing the key that Access uses to verify that the response came from your API."]
-    pub fn keys_url(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.keys_url", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Geo {
-    country_code: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Geo { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Geo {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Geo>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Geo {
-    #[doc = "The country code that should be matched."]
-    pub country_code: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Geo {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Geo {
-        ZeroTrustAccessPolicy_Require_Geo { country_code: self.country_code }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_GeoRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_GeoRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_GeoRef {
-        ZeroTrustAccessPolicy_Require_GeoRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_GeoRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `country_code` after provisioning.\nThe country code that should be matched."]
-    pub fn country_code(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.country_code", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_GithubOrganization {
-    identity_provider_id: terrars::PrimField<std::string::String>,
-    name: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    team: std::option::Option<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Require_GithubOrganization {
-    #[doc = "Set the field `team`.\nThe name of the team"]
-    pub fn set_team(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.team = std::option::Option::Some(v.into());
-        self
-    }
-}
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_GithubOrganization {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_GithubOrganization>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_GithubOrganization {
-    #[doc = "The ID of your Github identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the organization."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_GithubOrganization {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_GithubOrganization {
-        ZeroTrustAccessPolicy_Require_GithubOrganization {
-            identity_provider_id: self.identity_provider_id,
-            name: self.name,
-            team: core::default::Default::default(),
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-        ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Github identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the organization."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `team` after provisioning.\nThe name of the team"]
-    pub fn team(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.team", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Group {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Group { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Group {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Group>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Group {
-    #[doc = "The ID of a previously created Access group."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Group {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Group {
-        ZeroTrustAccessPolicy_Require_Group { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_GroupRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_GroupRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_GroupRef {
-        ZeroTrustAccessPolicy_Require_GroupRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_GroupRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created Access group."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Gsuite {
-    email: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Gsuite { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Gsuite {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Gsuite>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Gsuite {
-    #[doc = "The email of the Google Workspace group."]
-    pub email: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your Google Workspace identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Gsuite {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Gsuite {
-        ZeroTrustAccessPolicy_Require_Gsuite {
-            email: self.email,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_GsuiteRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_GsuiteRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_GsuiteRef {
-        ZeroTrustAccessPolicy_Require_GsuiteRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_GsuiteRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `email` after provisioning.\nThe email of the Google Workspace group."]
-    pub fn email(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.email", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Google Workspace identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Ip {
-    ip: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Ip { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Ip {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Ip>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Ip {
-    #[doc = "An IPv4 or IPv6 CIDR block."]
-    pub ip: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Ip {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Ip {
-        ZeroTrustAccessPolicy_Require_Ip { ip: self.ip }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_IpRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_IpRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_IpRef {
-        ZeroTrustAccessPolicy_Require_IpRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_IpRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `ip` after provisioning.\nAn IPv4 or IPv6 CIDR block."]
-    pub fn ip(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.ip", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_IpList {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_IpList { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_IpList {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_IpList>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_IpList {
-    #[doc = "The ID of a previously created IP list."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_IpList {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_IpList {
-        ZeroTrustAccessPolicy_Require_IpList { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_IpListRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_IpListRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_IpListRef {
-        ZeroTrustAccessPolicy_Require_IpListRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_IpListRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of a previously created IP list."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_LinkedAppToken {
-    app_uid: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_LinkedAppToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_LinkedAppToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_LinkedAppToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_LinkedAppToken {
-    #[doc = "The ID of an Access OIDC SaaS application"]
-    pub app_uid: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_LinkedAppToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_LinkedAppToken {
-        ZeroTrustAccessPolicy_Require_LinkedAppToken { app_uid: self.app_uid }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-        ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `app_uid` after provisioning.\nThe ID of an Access OIDC SaaS application"]
-    pub fn app_uid(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.app_uid", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_LoginMethod {
-    id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_LoginMethod { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_LoginMethod {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_LoginMethod>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_LoginMethod {
-    #[doc = "The ID of an identity provider."]
-    pub id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_LoginMethod {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_LoginMethod {
-        ZeroTrustAccessPolicy_Require_LoginMethod { id: self.id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_LoginMethodRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_LoginMethodRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_LoginMethodRef {
-        ZeroTrustAccessPolicy_Require_LoginMethodRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_LoginMethodRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `id` after provisioning.\nThe ID of an identity provider."]
-    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Oidc {
-    claim_name: terrars::PrimField<std::string::String>,
-    claim_value: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Oidc { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Oidc {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Oidc>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Oidc {
-    #[doc = "The name of the OIDC claim."]
-    pub claim_name: terrars::PrimField<std::string::String>,
-    #[doc = "The OIDC claim value to look for."]
-    pub claim_value: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your OIDC identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Oidc {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Oidc {
-        ZeroTrustAccessPolicy_Require_Oidc {
-            claim_name: self.claim_name,
-            claim_value: self.claim_value,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_OidcRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_OidcRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_OidcRef {
-        ZeroTrustAccessPolicy_Require_OidcRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_OidcRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `claim_name` after provisioning.\nThe name of the OIDC claim."]
-    pub fn claim_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.claim_name", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `claim_value` after provisioning.\nThe OIDC claim value to look for."]
-    pub fn claim_value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.claim_value", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your OIDC identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Okta {
-    identity_provider_id: terrars::PrimField<std::string::String>,
-    name: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Okta { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Okta {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Okta>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Okta {
-    #[doc = "The ID of your Okta identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the Okta group."]
-    pub name: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Okta {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Okta {
-        ZeroTrustAccessPolicy_Require_Okta {
-            identity_provider_id: self.identity_provider_id,
-            name: self.name,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_OktaRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_OktaRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_OktaRef {
-        ZeroTrustAccessPolicy_Require_OktaRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_OktaRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your Okta identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-
-    #[doc = "Get a reference to the value of field `name` after provisioning.\nThe name of the Okta group."]
-    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_Saml {
-    attribute_name: terrars::PrimField<std::string::String>,
-    attribute_value: terrars::PrimField<std::string::String>,
-    identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_Saml { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_Saml {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_Saml>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_Saml {
-    #[doc = "The name of the SAML attribute."]
-    pub attribute_name: terrars::PrimField<std::string::String>,
-    #[doc = "The SAML attribute value to look for."]
-    pub attribute_value: terrars::PrimField<std::string::String>,
-    #[doc = "The ID of your SAML identity provider."]
-    pub identity_provider_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_Saml {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_Saml {
-        ZeroTrustAccessPolicy_Require_Saml {
-            attribute_name: self.attribute_name,
-            attribute_value: self.attribute_value,
-            identity_provider_id: self.identity_provider_id,
-        }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_SamlRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_SamlRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_SamlRef {
-        ZeroTrustAccessPolicy_Require_SamlRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_SamlRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `attribute_name` after provisioning.\nThe name of the SAML attribute."]
-    pub fn attribute_name(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.attribute_name", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `attribute_value` after provisioning.\nThe SAML attribute value to look for."]
-    pub fn attribute_value(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.attribute_value", self.base))
-    }
-
-    #[doc =
-        "Get a reference to the value of field `identity_provider_id` after provisioning.\nThe ID of your SAML identity provider."]
-    pub fn identity_provider_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.identity_provider_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_ServiceToken {
-    token_id: terrars::PrimField<std::string::String>,
-}
-
-impl ZeroTrustAccessPolicy_Require_ServiceToken { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_ServiceToken {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_ServiceToken>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_ServiceToken {
-    #[doc = "The ID of a Service Token."]
-    pub token_id: terrars::PrimField<std::string::String>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_ServiceToken {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_ServiceToken {
-        ZeroTrustAccessPolicy_Require_ServiceToken { token_id: self.token_id }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-        ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc = "Get a reference to the value of field `token_id` after provisioning.\nThe ID of a Service Token."]
-    pub fn token_id(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.token_id", self.base))
-    }
-}
-
-#[derive(Serialize)]
-pub struct ZeroTrustAccessPolicy_Require_UserRiskScore {
-    user_risk_score: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl ZeroTrustAccessPolicy_Require_UserRiskScore { }
-
-impl terrars::ToListMappable for ZeroTrustAccessPolicy_Require_UserRiskScore {
-    type O = terrars::BlockAssignable<ZeroTrustAccessPolicy_Require_UserRiskScore>;
-
-    fn do_map(self, base: std::string::String) -> Self::O {
-        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
-            for_each: format!("${{{}}}", base),
-            iterator: "each".into(),
-            content: self,
-        })
-    }
-}
-
-pub struct BuildZeroTrustAccessPolicy_Require_UserRiskScore {
-    #[doc = "A list of risk score levels to match. Values can be low, medium, high, or unscored."]
-    pub user_risk_score: terrars::ListField<terrars::PrimField<std::string::String>>,
-}
-
-impl BuildZeroTrustAccessPolicy_Require_UserRiskScore {
-    pub fn build(self) -> ZeroTrustAccessPolicy_Require_UserRiskScore {
-        ZeroTrustAccessPolicy_Require_UserRiskScore { user_risk_score: self.user_risk_score }
-    }
-}
-
-#[allow(dead_code)]
-pub struct ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-    shared: terrars::StackShared,
-    base: std::string::String,
-}
-
-impl terrars::Ref for ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-        ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-            shared: shared,
-            base: base.to_string(),
-        }
-    }
-}
-
-impl ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-    #[allow(dead_code)]
-    fn shared(&self) -> &terrars::StackShared {
-        &self.shared
-    }
-
-    #[doc =
-        "Get a reference to the value of field `user_risk_score` after provisioning.\nA list of risk score levels to match. Values can be low, medium, high, or unscored."]
-    pub fn user_risk_score(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.user_risk_score", self.base))
-    }
-}
-
-#[derive(Serialize)]
 pub struct ZeroTrustAccessPolicy_Require {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    any_valid_service_token: std::option::Option<ZeroTrustAccessPolicy_Require_AnyValidServiceToken>,
+    any_valid_service_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_AnyValidServiceToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    auth_context: std::option::Option<ZeroTrustAccessPolicy_Require_AuthContext>,
+    auth_context: std::option::Option<ZeroTrustAccessPolicy_Exclude_AuthContext>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    auth_method: std::option::Option<ZeroTrustAccessPolicy_Require_AuthMethod>,
+    auth_method: std::option::Option<ZeroTrustAccessPolicy_Exclude_AuthMethod>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    azure_ad: std::option::Option<ZeroTrustAccessPolicy_Require_AzureAd>,
+    azure_ad: std::option::Option<ZeroTrustAccessPolicy_Exclude_AzureAd>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    certificate: std::option::Option<ZeroTrustAccessPolicy_Require_Certificate>,
+    certificate: std::option::Option<ZeroTrustAccessPolicy_Exclude_Certificate>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cloudflare_account_member: std::option::Option<ZeroTrustAccessPolicy_Require_CloudflareAccountMember>,
+    cloudflare_account_member: std::option::Option<ZeroTrustAccessPolicy_Exclude_CloudflareAccountMember>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    common_name: std::option::Option<ZeroTrustAccessPolicy_Require_CommonName>,
+    common_name: std::option::Option<ZeroTrustAccessPolicy_Exclude_CommonName>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    device_posture: std::option::Option<ZeroTrustAccessPolicy_Require_DevicePosture>,
+    device_posture: std::option::Option<ZeroTrustAccessPolicy_Exclude_DevicePosture>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email: std::option::Option<ZeroTrustAccessPolicy_Require_Email>,
+    email: std::option::Option<ZeroTrustAccessPolicy_Exclude_Email>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email_domain: std::option::Option<ZeroTrustAccessPolicy_Require_EmailDomain>,
+    email_domain: std::option::Option<ZeroTrustAccessPolicy_Exclude_EmailDomain>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    email_list: std::option::Option<ZeroTrustAccessPolicy_Require_EmailList>,
+    email_list: std::option::Option<ZeroTrustAccessPolicy_Exclude_EmailList>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    everyone: std::option::Option<ZeroTrustAccessPolicy_Require_Everyone>,
+    everyone: std::option::Option<ZeroTrustAccessPolicy_Exclude_Everyone>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    external_evaluation: std::option::Option<ZeroTrustAccessPolicy_Require_ExternalEvaluation>,
+    external_evaluation: std::option::Option<ZeroTrustAccessPolicy_Exclude_ExternalEvaluation>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    geo: std::option::Option<ZeroTrustAccessPolicy_Require_Geo>,
+    geo: std::option::Option<ZeroTrustAccessPolicy_Exclude_Geo>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    github_organization: std::option::Option<ZeroTrustAccessPolicy_Require_GithubOrganization>,
+    github_organization: std::option::Option<ZeroTrustAccessPolicy_Exclude_GithubOrganization>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    group: std::option::Option<ZeroTrustAccessPolicy_Require_Group>,
+    group: std::option::Option<ZeroTrustAccessPolicy_Exclude_Group>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    gsuite: std::option::Option<ZeroTrustAccessPolicy_Require_Gsuite>,
+    gsuite: std::option::Option<ZeroTrustAccessPolicy_Exclude_Gsuite>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ip: std::option::Option<ZeroTrustAccessPolicy_Require_Ip>,
+    ip: std::option::Option<ZeroTrustAccessPolicy_Exclude_Ip>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    ip_list: std::option::Option<ZeroTrustAccessPolicy_Require_IpList>,
+    ip_list: std::option::Option<ZeroTrustAccessPolicy_Exclude_IpList>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    linked_app_token: std::option::Option<ZeroTrustAccessPolicy_Require_LinkedAppToken>,
+    linked_app_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_LinkedAppToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    login_method: std::option::Option<ZeroTrustAccessPolicy_Require_LoginMethod>,
+    login_method: std::option::Option<ZeroTrustAccessPolicy_Exclude_LoginMethod>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    oidc: std::option::Option<ZeroTrustAccessPolicy_Require_Oidc>,
+    oidc: std::option::Option<ZeroTrustAccessPolicy_Exclude_Oidc>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    okta: std::option::Option<ZeroTrustAccessPolicy_Require_Okta>,
+    okta: std::option::Option<ZeroTrustAccessPolicy_Exclude_Okta>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    saml: std::option::Option<ZeroTrustAccessPolicy_Require_Saml>,
+    saml: std::option::Option<ZeroTrustAccessPolicy_Exclude_Saml>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    service_token: std::option::Option<ZeroTrustAccessPolicy_Require_ServiceToken>,
+    service_token: std::option::Option<ZeroTrustAccessPolicy_Exclude_ServiceToken>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    user_risk_score: std::option::Option<ZeroTrustAccessPolicy_Require_UserRiskScore>,
+    user_risk_score: std::option::Option<ZeroTrustAccessPolicy_Exclude_UserRiskScore>,
 }
 
 impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `any_valid_service_token`.\nAn empty object which matches on all service tokens."]
     pub fn set_any_valid_service_token(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_AnyValidServiceToken>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AnyValidServiceToken>,
     ) -> Self {
         self.any_valid_service_token = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `auth_context`.\n"]
-    pub fn set_auth_context(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_AuthContext>) -> Self {
+    pub fn set_auth_context(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AuthContext>) -> Self {
         self.auth_context = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `auth_method`.\n"]
-    pub fn set_auth_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_AuthMethod>) -> Self {
+    pub fn set_auth_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AuthMethod>) -> Self {
         self.auth_method = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `azure_ad`.\n"]
-    pub fn set_azure_ad(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_AzureAd>) -> Self {
+    pub fn set_azure_ad(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_AzureAd>) -> Self {
         self.azure_ad = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `certificate`.\n"]
-    pub fn set_certificate(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Certificate>) -> Self {
+    pub fn set_certificate(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Certificate>) -> Self {
         self.certificate = std::option::Option::Some(v.into());
         self
     }
@@ -6869,44 +3583,44 @@ impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `cloudflare_account_member`.\n"]
     pub fn set_cloudflare_account_member(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_CloudflareAccountMember>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_CloudflareAccountMember>,
     ) -> Self {
         self.cloudflare_account_member = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `common_name`.\n"]
-    pub fn set_common_name(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_CommonName>) -> Self {
+    pub fn set_common_name(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_CommonName>) -> Self {
         self.common_name = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `device_posture`.\n"]
-    pub fn set_device_posture(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_DevicePosture>) -> Self {
+    pub fn set_device_posture(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_DevicePosture>) -> Self {
         self.device_posture = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email`.\n"]
-    pub fn set_email(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Email>) -> Self {
+    pub fn set_email(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Email>) -> Self {
         self.email = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email_domain`.\n"]
-    pub fn set_email_domain(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_EmailDomain>) -> Self {
+    pub fn set_email_domain(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_EmailDomain>) -> Self {
         self.email_domain = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `email_list`.\n"]
-    pub fn set_email_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_EmailList>) -> Self {
+    pub fn set_email_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_EmailList>) -> Self {
         self.email_list = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `everyone`.\nAn empty object which matches on all users."]
-    pub fn set_everyone(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Everyone>) -> Self {
+    pub fn set_everyone(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Everyone>) -> Self {
         self.everyone = std::option::Option::Some(v.into());
         self
     }
@@ -6914,14 +3628,14 @@ impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `external_evaluation`.\n"]
     pub fn set_external_evaluation(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_ExternalEvaluation>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_ExternalEvaluation>,
     ) -> Self {
         self.external_evaluation = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `geo`.\n"]
-    pub fn set_geo(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Geo>) -> Self {
+    pub fn set_geo(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Geo>) -> Self {
         self.geo = std::option::Option::Some(v.into());
         self
     }
@@ -6929,32 +3643,32 @@ impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `github_organization`.\n"]
     pub fn set_github_organization(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_GithubOrganization>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_GithubOrganization>,
     ) -> Self {
         self.github_organization = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `group`.\n"]
-    pub fn set_group(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Group>) -> Self {
+    pub fn set_group(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Group>) -> Self {
         self.group = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `gsuite`.\n"]
-    pub fn set_gsuite(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Gsuite>) -> Self {
+    pub fn set_gsuite(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Gsuite>) -> Self {
         self.gsuite = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `ip`.\n"]
-    pub fn set_ip(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Ip>) -> Self {
+    pub fn set_ip(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Ip>) -> Self {
         self.ip = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `ip_list`.\n"]
-    pub fn set_ip_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_IpList>) -> Self {
+    pub fn set_ip_list(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_IpList>) -> Self {
         self.ip_list = std::option::Option::Some(v.into());
         self
     }
@@ -6962,38 +3676,38 @@ impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `linked_app_token`.\n"]
     pub fn set_linked_app_token(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_LinkedAppToken>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_LinkedAppToken>,
     ) -> Self {
         self.linked_app_token = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `login_method`.\n"]
-    pub fn set_login_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_LoginMethod>) -> Self {
+    pub fn set_login_method(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_LoginMethod>) -> Self {
         self.login_method = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `oidc`.\n"]
-    pub fn set_oidc(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Oidc>) -> Self {
+    pub fn set_oidc(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Oidc>) -> Self {
         self.oidc = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `okta`.\n"]
-    pub fn set_okta(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Okta>) -> Self {
+    pub fn set_okta(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Okta>) -> Self {
         self.okta = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `saml`.\n"]
-    pub fn set_saml(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_Saml>) -> Self {
+    pub fn set_saml(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_Saml>) -> Self {
         self.saml = std::option::Option::Some(v.into());
         self
     }
 
     #[doc = "Set the field `service_token`.\n"]
-    pub fn set_service_token(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_ServiceToken>) -> Self {
+    pub fn set_service_token(mut self, v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_ServiceToken>) -> Self {
         self.service_token = std::option::Option::Some(v.into());
         self
     }
@@ -7001,7 +3715,7 @@ impl ZeroTrustAccessPolicy_Require {
     #[doc = "Set the field `user_risk_score`.\n"]
     pub fn set_user_risk_score(
         mut self,
-        v: impl std::convert::Into<ZeroTrustAccessPolicy_Require_UserRiskScore>,
+        v: impl std::convert::Into<ZeroTrustAccessPolicy_Exclude_UserRiskScore>,
     ) -> Self {
         self.user_risk_score = std::option::Option::Some(v.into());
         self
@@ -7078,167 +3792,167 @@ impl ZeroTrustAccessPolicy_RequireRef {
 
     #[doc =
         "Get a reference to the value of field `any_valid_service_token` after provisioning.\nAn empty object which matches on all service tokens."]
-    pub fn any_valid_service_token(&self) -> ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef {
-        ZeroTrustAccessPolicy_Require_AnyValidServiceTokenRef::new(
+    pub fn any_valid_service_token(&self) -> ZeroTrustAccessPolicy_Exclude_AnyValidServiceTokenRef {
+        ZeroTrustAccessPolicy_Exclude_AnyValidServiceTokenRef::new(
             self.shared().clone(),
             format!("{}.any_valid_service_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `auth_context` after provisioning.\n"]
-    pub fn auth_context(&self) -> ZeroTrustAccessPolicy_Require_AuthContextRef {
-        ZeroTrustAccessPolicy_Require_AuthContextRef::new(
+    pub fn auth_context(&self) -> ZeroTrustAccessPolicy_Exclude_AuthContextRef {
+        ZeroTrustAccessPolicy_Exclude_AuthContextRef::new(
             self.shared().clone(),
             format!("{}.auth_context", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `auth_method` after provisioning.\n"]
-    pub fn auth_method(&self) -> ZeroTrustAccessPolicy_Require_AuthMethodRef {
-        ZeroTrustAccessPolicy_Require_AuthMethodRef::new(self.shared().clone(), format!("{}.auth_method", self.base))
+    pub fn auth_method(&self) -> ZeroTrustAccessPolicy_Exclude_AuthMethodRef {
+        ZeroTrustAccessPolicy_Exclude_AuthMethodRef::new(self.shared().clone(), format!("{}.auth_method", self.base))
     }
 
     #[doc = "Get a reference to the value of field `azure_ad` after provisioning.\n"]
-    pub fn azure_ad(&self) -> ZeroTrustAccessPolicy_Require_AzureAdRef {
-        ZeroTrustAccessPolicy_Require_AzureAdRef::new(self.shared().clone(), format!("{}.azure_ad", self.base))
+    pub fn azure_ad(&self) -> ZeroTrustAccessPolicy_Exclude_AzureAdRef {
+        ZeroTrustAccessPolicy_Exclude_AzureAdRef::new(self.shared().clone(), format!("{}.azure_ad", self.base))
     }
 
     #[doc = "Get a reference to the value of field `certificate` after provisioning.\n"]
-    pub fn certificate(&self) -> ZeroTrustAccessPolicy_Require_CertificateRef {
-        ZeroTrustAccessPolicy_Require_CertificateRef::new(
+    pub fn certificate(&self) -> ZeroTrustAccessPolicy_Exclude_CertificateRef {
+        ZeroTrustAccessPolicy_Exclude_CertificateRef::new(
             self.shared().clone(),
             format!("{}.certificate", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `cloudflare_account_member` after provisioning.\n"]
-    pub fn cloudflare_account_member(&self) -> ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef {
-        ZeroTrustAccessPolicy_Require_CloudflareAccountMemberRef::new(
+    pub fn cloudflare_account_member(&self) -> ZeroTrustAccessPolicy_Exclude_CloudflareAccountMemberRef {
+        ZeroTrustAccessPolicy_Exclude_CloudflareAccountMemberRef::new(
             self.shared().clone(),
             format!("{}.cloudflare_account_member", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `common_name` after provisioning.\n"]
-    pub fn common_name(&self) -> ZeroTrustAccessPolicy_Require_CommonNameRef {
-        ZeroTrustAccessPolicy_Require_CommonNameRef::new(self.shared().clone(), format!("{}.common_name", self.base))
+    pub fn common_name(&self) -> ZeroTrustAccessPolicy_Exclude_CommonNameRef {
+        ZeroTrustAccessPolicy_Exclude_CommonNameRef::new(self.shared().clone(), format!("{}.common_name", self.base))
     }
 
     #[doc = "Get a reference to the value of field `device_posture` after provisioning.\n"]
-    pub fn device_posture(&self) -> ZeroTrustAccessPolicy_Require_DevicePostureRef {
-        ZeroTrustAccessPolicy_Require_DevicePostureRef::new(
+    pub fn device_posture(&self) -> ZeroTrustAccessPolicy_Exclude_DevicePostureRef {
+        ZeroTrustAccessPolicy_Exclude_DevicePostureRef::new(
             self.shared().clone(),
             format!("{}.device_posture", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `email` after provisioning.\n"]
-    pub fn email(&self) -> ZeroTrustAccessPolicy_Require_EmailRef {
-        ZeroTrustAccessPolicy_Require_EmailRef::new(self.shared().clone(), format!("{}.email", self.base))
+    pub fn email(&self) -> ZeroTrustAccessPolicy_Exclude_EmailRef {
+        ZeroTrustAccessPolicy_Exclude_EmailRef::new(self.shared().clone(), format!("{}.email", self.base))
     }
 
     #[doc = "Get a reference to the value of field `email_domain` after provisioning.\n"]
-    pub fn email_domain(&self) -> ZeroTrustAccessPolicy_Require_EmailDomainRef {
-        ZeroTrustAccessPolicy_Require_EmailDomainRef::new(
+    pub fn email_domain(&self) -> ZeroTrustAccessPolicy_Exclude_EmailDomainRef {
+        ZeroTrustAccessPolicy_Exclude_EmailDomainRef::new(
             self.shared().clone(),
             format!("{}.email_domain", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `email_list` after provisioning.\n"]
-    pub fn email_list(&self) -> ZeroTrustAccessPolicy_Require_EmailListRef {
-        ZeroTrustAccessPolicy_Require_EmailListRef::new(self.shared().clone(), format!("{}.email_list", self.base))
+    pub fn email_list(&self) -> ZeroTrustAccessPolicy_Exclude_EmailListRef {
+        ZeroTrustAccessPolicy_Exclude_EmailListRef::new(self.shared().clone(), format!("{}.email_list", self.base))
     }
 
     #[doc =
         "Get a reference to the value of field `everyone` after provisioning.\nAn empty object which matches on all users."]
-    pub fn everyone(&self) -> ZeroTrustAccessPolicy_Require_EveryoneRef {
-        ZeroTrustAccessPolicy_Require_EveryoneRef::new(self.shared().clone(), format!("{}.everyone", self.base))
+    pub fn everyone(&self) -> ZeroTrustAccessPolicy_Exclude_EveryoneRef {
+        ZeroTrustAccessPolicy_Exclude_EveryoneRef::new(self.shared().clone(), format!("{}.everyone", self.base))
     }
 
     #[doc = "Get a reference to the value of field `external_evaluation` after provisioning.\n"]
-    pub fn external_evaluation(&self) -> ZeroTrustAccessPolicy_Require_ExternalEvaluationRef {
-        ZeroTrustAccessPolicy_Require_ExternalEvaluationRef::new(
+    pub fn external_evaluation(&self) -> ZeroTrustAccessPolicy_Exclude_ExternalEvaluationRef {
+        ZeroTrustAccessPolicy_Exclude_ExternalEvaluationRef::new(
             self.shared().clone(),
             format!("{}.external_evaluation", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `geo` after provisioning.\n"]
-    pub fn geo(&self) -> ZeroTrustAccessPolicy_Require_GeoRef {
-        ZeroTrustAccessPolicy_Require_GeoRef::new(self.shared().clone(), format!("{}.geo", self.base))
+    pub fn geo(&self) -> ZeroTrustAccessPolicy_Exclude_GeoRef {
+        ZeroTrustAccessPolicy_Exclude_GeoRef::new(self.shared().clone(), format!("{}.geo", self.base))
     }
 
     #[doc = "Get a reference to the value of field `github_organization` after provisioning.\n"]
-    pub fn github_organization(&self) -> ZeroTrustAccessPolicy_Require_GithubOrganizationRef {
-        ZeroTrustAccessPolicy_Require_GithubOrganizationRef::new(
+    pub fn github_organization(&self) -> ZeroTrustAccessPolicy_Exclude_GithubOrganizationRef {
+        ZeroTrustAccessPolicy_Exclude_GithubOrganizationRef::new(
             self.shared().clone(),
             format!("{}.github_organization", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `group` after provisioning.\n"]
-    pub fn group(&self) -> ZeroTrustAccessPolicy_Require_GroupRef {
-        ZeroTrustAccessPolicy_Require_GroupRef::new(self.shared().clone(), format!("{}.group", self.base))
+    pub fn group(&self) -> ZeroTrustAccessPolicy_Exclude_GroupRef {
+        ZeroTrustAccessPolicy_Exclude_GroupRef::new(self.shared().clone(), format!("{}.group", self.base))
     }
 
     #[doc = "Get a reference to the value of field `gsuite` after provisioning.\n"]
-    pub fn gsuite(&self) -> ZeroTrustAccessPolicy_Require_GsuiteRef {
-        ZeroTrustAccessPolicy_Require_GsuiteRef::new(self.shared().clone(), format!("{}.gsuite", self.base))
+    pub fn gsuite(&self) -> ZeroTrustAccessPolicy_Exclude_GsuiteRef {
+        ZeroTrustAccessPolicy_Exclude_GsuiteRef::new(self.shared().clone(), format!("{}.gsuite", self.base))
     }
 
     #[doc = "Get a reference to the value of field `ip` after provisioning.\n"]
-    pub fn ip(&self) -> ZeroTrustAccessPolicy_Require_IpRef {
-        ZeroTrustAccessPolicy_Require_IpRef::new(self.shared().clone(), format!("{}.ip", self.base))
+    pub fn ip(&self) -> ZeroTrustAccessPolicy_Exclude_IpRef {
+        ZeroTrustAccessPolicy_Exclude_IpRef::new(self.shared().clone(), format!("{}.ip", self.base))
     }
 
     #[doc = "Get a reference to the value of field `ip_list` after provisioning.\n"]
-    pub fn ip_list(&self) -> ZeroTrustAccessPolicy_Require_IpListRef {
-        ZeroTrustAccessPolicy_Require_IpListRef::new(self.shared().clone(), format!("{}.ip_list", self.base))
+    pub fn ip_list(&self) -> ZeroTrustAccessPolicy_Exclude_IpListRef {
+        ZeroTrustAccessPolicy_Exclude_IpListRef::new(self.shared().clone(), format!("{}.ip_list", self.base))
     }
 
     #[doc = "Get a reference to the value of field `linked_app_token` after provisioning.\n"]
-    pub fn linked_app_token(&self) -> ZeroTrustAccessPolicy_Require_LinkedAppTokenRef {
-        ZeroTrustAccessPolicy_Require_LinkedAppTokenRef::new(
+    pub fn linked_app_token(&self) -> ZeroTrustAccessPolicy_Exclude_LinkedAppTokenRef {
+        ZeroTrustAccessPolicy_Exclude_LinkedAppTokenRef::new(
             self.shared().clone(),
             format!("{}.linked_app_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `login_method` after provisioning.\n"]
-    pub fn login_method(&self) -> ZeroTrustAccessPolicy_Require_LoginMethodRef {
-        ZeroTrustAccessPolicy_Require_LoginMethodRef::new(
+    pub fn login_method(&self) -> ZeroTrustAccessPolicy_Exclude_LoginMethodRef {
+        ZeroTrustAccessPolicy_Exclude_LoginMethodRef::new(
             self.shared().clone(),
             format!("{}.login_method", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `oidc` after provisioning.\n"]
-    pub fn oidc(&self) -> ZeroTrustAccessPolicy_Require_OidcRef {
-        ZeroTrustAccessPolicy_Require_OidcRef::new(self.shared().clone(), format!("{}.oidc", self.base))
+    pub fn oidc(&self) -> ZeroTrustAccessPolicy_Exclude_OidcRef {
+        ZeroTrustAccessPolicy_Exclude_OidcRef::new(self.shared().clone(), format!("{}.oidc", self.base))
     }
 
     #[doc = "Get a reference to the value of field `okta` after provisioning.\n"]
-    pub fn okta(&self) -> ZeroTrustAccessPolicy_Require_OktaRef {
-        ZeroTrustAccessPolicy_Require_OktaRef::new(self.shared().clone(), format!("{}.okta", self.base))
+    pub fn okta(&self) -> ZeroTrustAccessPolicy_Exclude_OktaRef {
+        ZeroTrustAccessPolicy_Exclude_OktaRef::new(self.shared().clone(), format!("{}.okta", self.base))
     }
 
     #[doc = "Get a reference to the value of field `saml` after provisioning.\n"]
-    pub fn saml(&self) -> ZeroTrustAccessPolicy_Require_SamlRef {
-        ZeroTrustAccessPolicy_Require_SamlRef::new(self.shared().clone(), format!("{}.saml", self.base))
+    pub fn saml(&self) -> ZeroTrustAccessPolicy_Exclude_SamlRef {
+        ZeroTrustAccessPolicy_Exclude_SamlRef::new(self.shared().clone(), format!("{}.saml", self.base))
     }
 
     #[doc = "Get a reference to the value of field `service_token` after provisioning.\n"]
-    pub fn service_token(&self) -> ZeroTrustAccessPolicy_Require_ServiceTokenRef {
-        ZeroTrustAccessPolicy_Require_ServiceTokenRef::new(
+    pub fn service_token(&self) -> ZeroTrustAccessPolicy_Exclude_ServiceTokenRef {
+        ZeroTrustAccessPolicy_Exclude_ServiceTokenRef::new(
             self.shared().clone(),
             format!("{}.service_token", self.base),
         )
     }
 
     #[doc = "Get a reference to the value of field `user_risk_score` after provisioning.\n"]
-    pub fn user_risk_score(&self) -> ZeroTrustAccessPolicy_Require_UserRiskScoreRef {
-        ZeroTrustAccessPolicy_Require_UserRiskScoreRef::new(
+    pub fn user_risk_score(&self) -> ZeroTrustAccessPolicy_Exclude_UserRiskScoreRef {
+        ZeroTrustAccessPolicy_Exclude_UserRiskScoreRef::new(
             self.shared().clone(),
             format!("{}.user_risk_score", self.base),
         )
